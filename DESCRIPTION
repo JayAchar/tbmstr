@@ -1,0 +1,14 @@
+Package: tbmstr
+Title: Analyse DR-TB mSTR Study Data
+Version: 0.0.0.9000
+Authors@R: 
+    person("Jay", "Achar", , "jay.achar@doctors.org.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2521-4422"))
+Description: This package includes code, examples, dummy data and report
+    templates to support a study analysis and to facilitate an advanced data 
+    analysis course for study data managers.
+License: MIT + file LICENSE
+Encoding: UTF-8
+github.username: JayAchar
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
