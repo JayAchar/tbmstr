@@ -27,3 +27,11 @@ them, run the following code with the tutorial name:
 ```r
 learnr::run_tutorial("tutorial_name", "tbmstr")
 ```
+
+## Development
+
+### Unit testing
+
+```r
+testthat::auto_test_package()
+```

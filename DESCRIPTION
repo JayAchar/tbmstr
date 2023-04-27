@@ -13,4 +13,6 @@ github.username: JayAchar
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Suggests: 
-    learnr
+    learnr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
