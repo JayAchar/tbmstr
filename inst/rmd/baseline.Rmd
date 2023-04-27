@@ -1,0 +1,72 @@
+---
+title: "Baseline data quality"
+author: "Jay Achar"
+date: "`r Sys.time()`"
+output: html_document
+params:
+  data: NULL
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, include = FALSE)
+library(pointblank)
+```
+
+```{r}
+al <- action_levels(
+  stop_at = 1
+)
+
+agent_1 <- 
+  create_agent(
+    tbl = params$data,
+    tbl_name = "baseline",
+    label = "Baseline quality review",
+    actions = al
+  )
+```
+
+
+## Data quality
+
+```{r include=TRUE, echo=FALSE}
+agent_1 |> 
+  col_vals_between(
+    columns = c("dateofbirth"),
+    left = as.Date("1900-01-01"),
+    right = as.Date("2022-01-01"),
+    preconditions = function(x) {
+      x$dateofbirth <- as.Date(x$dob, format = "%a %b %d %Y")
+      x
+    }
+  ) |> 
+  col_vals_in_set(
+    columns = "sex",
+    set = c(1, 2)
+  ) |> 
+  col_vals_between(
+    columns = c("outcome"),
+    left = 1,
+    right = 7,
+    na_pass = FALSE
+  ) |> 
+  col_vals_between(
+    columns = c("weight"),
+    left = 0,
+    right = 150,
+    na_pass = FALSE
+  ) |> 
+  col_vals_between(
+    columns = c("height"),
+    left = 1,
+    right = 200,
+    na_pass = FALSE
+  ) |> 
+  col_vals_in_set(
+    columns = c("prison", "unempl", "smok",
+                "alcohol", "homeless", "idu"),
+    set = c(1, 2, 9)
+  ) |> 
+  interrogate()
+```
+

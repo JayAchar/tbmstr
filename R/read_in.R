@@ -28,8 +28,12 @@ read_in <- function(dir_path, file_names = c("baseline", "myco")) {
     stop("Requested file does not exist")
   }
   
-  lapply(all_file_paths, function(fp) {
+  dfs <- lapply(all_file_paths, function(fp) {
     read.csv(fp)
   })
+  
+  names(dfs) <- file_names
+  
+  return(dfs)
   
 }
