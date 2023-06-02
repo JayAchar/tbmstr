@@ -1,2 +1,4 @@
 scratch.R
-
+.Rproj.user
+data/**/*.csv
+docs

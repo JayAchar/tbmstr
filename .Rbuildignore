@@ -2,3 +2,9 @@
 ^LICENSE\.md$
 ^\.github$
 ^.here$
+^.*\.Rproj$
+^\.Rproj\.user$
+^data/test-data$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
