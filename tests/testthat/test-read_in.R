@@ -14,8 +14,8 @@ test_that("read_in reads in CSV files with dir_path argument correctly", {
   write.csv(mtcars, file = test_file, row.names = FALSE)
   
   # test the read_csv_file function with dir_path argument
-  observed <- read_in(dir_path = temp_dir,
-                file_names = c("test_data"))
+  observed <- suppressMessages(read_in(dir_path = temp_dir,
+                file_names = c("test_data")))
   
   expect_true(is.list(observed))
   expect_true(length(observed) == 1)
@@ -25,6 +25,9 @@ test_that("read_in reads in CSV files with dir_path argument correctly", {
   
   # check that the column names are correct
   expect_equal(colnames(observed[[1]]), colnames(mtcars))
+  
+  expect_message(read_in(dir_path = temp_dir,
+                         file_names = c("test_data")))
   
   # remove the temporary directory and test file
   unlink(test_file)
