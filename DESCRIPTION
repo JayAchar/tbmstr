@@ -21,3 +21,4 @@ Config/testthat/edition: 3
 Imports: 
     cli (>= 3.4.0),
     rmarkdown
+URL: https://jayachar.github.io/tbmstr/
