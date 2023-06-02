@@ -1,3 +1,3 @@
 scratch.R
 .Rproj.user
-test-data/
+data/**/*.csv
