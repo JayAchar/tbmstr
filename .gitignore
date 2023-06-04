@@ -3,3 +3,5 @@ scratch.R
 data/**/*.csv
 docs
 inst/doc
+inst/resources/*.pdf
+inst/resources/lookup/*.csv

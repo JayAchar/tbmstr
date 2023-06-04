@@ -1,0 +1,55 @@
+---
+title: "Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+# Analyses
+
+There are two planned analyses which will be included in this training session:
+
+1. Determining factors that are associated with end of study outcome
+1. Establishing factors that are associated with Severe Adverse Events
+
+The code will have to allow the use of the EpiInfo data collection template
+and the RedCap data template. 
+
+## Variables
+
+The following variables will be prepared for analysis: 
+
+* Age
+* Sex 
+* X-ray cavities
+* BMI >= 18.5
+* HIV infection
+* HCV status
+* Baseline smear status
+* Incarceration history
+* Alcohol misuse
+* Previous treatment history
+* Diabetes history
+
+* End of study outcome 
+* Number of doses received
+* End of treatment outcome 
+* SAE information
+
+## Workflow
+
+1. Import
+1. Tidy
+1. Transform
+1. Visualise
+1. Model
+1. Communicate

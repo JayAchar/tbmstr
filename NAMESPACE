@@ -3,6 +3,7 @@
 export(read_in)
 export(ready)
 export(render_internal_rmd)
+export(run_quality_check)
 export(run_tutorial)
 importFrom(cli,cli_abort)
 importFrom(cli,cli_alert_success)
