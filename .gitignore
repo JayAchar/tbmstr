@@ -2,3 +2,4 @@ scratch.R
 .Rproj.user
 data/**/*.csv
 docs
+inst/doc

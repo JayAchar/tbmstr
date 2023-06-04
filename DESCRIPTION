@@ -13,13 +13,16 @@ github.username: JayAchar
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Suggests: 
+    gt,
     here,
-    learnr,
+    knitr,
     pointblank,
     rsconnect,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
     cli (>= 3.4.0),
+    learnr (>= 0.11.0),
     rmarkdown
 URL: https://jayachar.github.io/tbmstr/
+VignetteBuilder: knitr

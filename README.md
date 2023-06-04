@@ -29,32 +29,3 @@ them, run the following code with the tutorial name:
 learnr::run_tutorial("tutorial_name", "tbmstr")
 ```
 
-## Development
-
-### Unit testing
-
-```r
-testthat::auto_test_package()
-```
-
-A more robust way of continuously running unit tests is to use the terminal
-with `watchexec`. 
-
-First download `watchexec`:
-
-```sh 
-brew install watchexec
-```
-
-Then run a watch command to re-run unit tests when any R file is updated:
-
-```sh 
-watchexec -e R 'Rscript -e "devtools::test()"'
-```
-
-### Running tutorials in development
-
-```r 
-devtools::install()
-learnr::run_tutorial("example", "tbmstr")
-```

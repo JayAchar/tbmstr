@@ -20,7 +20,7 @@ render_internal_rmd <- function(input_file,
                           package = "tbmstr")
   
   if (!file.exists(rmd_file)) {
-    stop(paste("RMarkdown file", input_file, "not found in inst/rmd/ directory"))
+    cli::cli_abort("RMarkdown file \"{input_file}\" not found in `inst/rmd/` directory")
   }
   
   rmarkdown::render(input = rmd_file, 
