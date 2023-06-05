@@ -7,10 +7,13 @@
 #' @export
 #'
 run_quality_check <- function(data_path, output_file) {
-  
   raw <- read_in(data_path,
-          file_names = c("baseline", "myco"))
-  
+    file_names = list(
+      baseline = "baseline",
+      myco = "myco"
+    )
+  )
+
   render_internal_rmd(
     input_file = "baseline.Rmd",
     output_file = output_file,
@@ -18,7 +21,7 @@ run_quality_check <- function(data_path, output_file) {
       data = raw$baseline
     )
   )
-  
+
   return(NULL)
-  
 }
+

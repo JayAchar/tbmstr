@@ -4,15 +4,21 @@
 \alias{read_in}
 \title{Read in study data}
 \usage{
-read_in(dir_path, file_names = c("baseline", "myco"))
+read_in(dir_path, file_names)
 }
 \arguments{
-\item{dir_path}{directory path to study data files}
+\item{dir_path}{Directory path to study data files}
 
-\item{file_names}{vector of file names to read in}
+\item{file_names}{Named list of file names to read in.
+Allowed file names are:
+\itemize{
+\item baseline
+\item myco
+}}
 }
 \value{
-list of data frames
+A named list of data frames where the names correspond to
+the names of elements provided in the \strong{file_names} parameter
 }
 \description{
 Read in study data which has been saved as CSV files
