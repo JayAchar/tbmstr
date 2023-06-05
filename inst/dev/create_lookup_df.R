@@ -29,7 +29,49 @@ lut <- lookup$vars |>
     by = join_by(source_table == table),
     relationship = "many-to-many"
   ) |>
-  select(-source_table)
+  select(-source_table) |>
+  # consolidate saetype labels to remove duplicates
+  mutate(name = if_else(
+    name == "saetype1", "saetype", name
+  )) |>
+  filter(!stringr::str_detect(
+    name,
+    "^saetype[2-5]{1}$"
+  )) |>
+  # consolidate sae labels to remove duplicates
+  mutate(name = if_else(
+    name == "sae1", "sae", name
+  )) |>
+  filter(!stringr::str_detect(
+    name,
+    "^sae[2-5]{1}$"
+  )) |>
+  # consolidate aeterm labels to remove duplicates
+  mutate(name = if_else(
+    name == "aeterm1", "aeterm", name
+  )) |>
+  filter(!stringr::str_detect(
+    name,
+    "^aeterm[2-5]{1}$"
+  )) |>
+  # consolidate severity labels to remove duplicates
+  mutate(name = if_else(
+    name == "severity1", "severity", name
+  )) |>
+  filter(!stringr::str_detect(
+    name,
+    "^severity[2-5]{1}$"
+  )) |>
+  # consolidate aeoutcome labels to remove duplicates
+  mutate(name = if_else(
+    name == "aeoutcome1", "aeoutcome", name
+  )) |>
+  filter(!stringr::str_detect(
+    name,
+    "^aeoutcome[2-5]{1}$"
+  ))
+
+
 
 usethis::use_data(lut,
   internal = TRUE,

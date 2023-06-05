@@ -10,7 +10,8 @@ run_quality_check <- function(data_path, output_file) {
   raw <- read_in(data_path,
     file_names = list(
       baseline = "baseline",
-      myco = "myco"
+      myco = "myco",
+      adverse = "adverse"
     )
   )
 
@@ -18,7 +19,7 @@ run_quality_check <- function(data_path, output_file) {
     input_file = "baseline.Rmd",
     output_file = output_file,
     param = list(
-      data = raw$baseline
+      data = raw
     )
   )
 

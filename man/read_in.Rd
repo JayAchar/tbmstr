@@ -12,6 +12,7 @@ read_in(dir_path, file_names)
 \item{file_names}{Named list of file names to read in.
 Allowed file names are:
 \itemize{
+\item adverse
 \item baseline
 \item myco
 }}

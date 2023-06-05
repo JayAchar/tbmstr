@@ -2,19 +2,46 @@
 title: "Study data quality"
 author: "`r Sys.info()[['user']]`"
 date: "`r Sys.time()`"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 params:
   data: NULL
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   echo = FALSE, include = TRUE,
   message = FALSE
 )
 library(pointblank)
+stopifnot(
+  is.list(params$data),
+  is.data.frame(params$data$baseline),
+  is.data.frame(params$data$adverse)
+)
+baseline <- params$data$baseline
+adverse <- params$data$adverse
 ```
+```{r prepare-data, include = FALSE}
+country_code <- unique(baseline$cntry)
+stopifnot(length(country_code) == 1)
+country_name <- lut[which(
+  lut$name == "cntry" & lut$value == country_code
+), ]$description
+last_save <- max(baseline$lastsavetime, na.rm = TRUE)
+unique_subjects <- length(unique(baseline$globalrecordid))
+eot_outcomes <- nrow(baseline[which(!is.na(baseline$outcome)), ])
+eos_outcomes <- nrow(baseline[which(!is.na(baseline$stat12)), ])
+```
+## Summary
 
+**Country**: `r country_name`  
+**Last save date**: `r last_save`  
+**Study participants**: `r unique_subjects`  
+**Participants with end of treatment outcome**: `r eot_outcomes`  
+**Participants with end of study outcome**: `r eos_outcomes`  
+ 
 ```{r define-agents}
 al <- action_levels(
   stop_at = 1
@@ -22,7 +49,7 @@ al <- action_levels(
 
 baseline_agent <-
   create_agent(
-    tbl = params$data,
+    tbl = baseline,
     tbl_name = "baseline",
     label = "Baseline characteristics review",
     actions = al
@@ -30,16 +57,35 @@ baseline_agent <-
 
 treatment_agent <-
   create_agent(
-    tbl = params$data,
+    tbl = baseline,
     tbl_name = "treatment",
     label = "Treatment review",
     actions = al
   )
+
+adverse_agent <-
+  create_agent(
+    tbl = adverse,
+    tbl_name = "adverse",
+    label = "Adverse event review",
+    actions = al
+  )
 ```
+## Inclusion criteria
+
+**TODO**
+
 ## Baseline characteristics
 
-```{r baseline-quality}
+```{r baseline-quality, echo = TRUE}
 baseline_agent |>
+  col_is_date(
+    columns = c("icfdat", "lastsavetime")
+  ) |>
+  col_vals_gt(
+    columns = c("icfdat"),
+    value = as.Date("2019-01-01")
+  ) |>
   rows_distinct(
     columns = c("cntry", "stsite", "subjid"),
     label = "Distinct patient identifiers",
@@ -108,15 +154,19 @@ baseline_agent |>
 ```
 ## Treatment
 
-```{r treatment-quality}
+```{r treatment-quality, echo = TRUE}
 treatment_agent |>
+  col_is_date(
+    columns = c(
+      "trtendat", "endat", "trtstdat",
+      "fuendat"
+    )
+  ) |>
   col_vals_between(
     columns = c("totaldose"),
     left = 0,
     right = 400
   ) |>
-  # TODO check that successful outcomes are restricted to people
-  # who receive a limited number of doses
   col_vals_between(
     columns = c("outcome"),
     left = 1,
@@ -138,6 +188,57 @@ treatment_agent |>
     left = 1,
     right = 10
   ) |>
+  col_vals_between(
+    preconditions = function(x) {
+      x[x$outcome %in% c(1, 2), ]
+    },
+    columns = c("totaldose"),
+    left = 273 - 7,
+    right = 273 + 7
+  ) |>
+  col_vals_between(
+    columns = c("stat12"),
+    left = 1,
+    right = 4
+  ) |>
   interrogate()
 ```
+## Adverse events
 
+```{r adverse-quality, echo = TRUE}
+adverse_agent |>
+  col_is_date(
+    columns = c("aeonsetdt", "aenddt")
+  ) |>
+  col_vals_in_set(
+    columns = c("sae"),
+    set = c(1, 2)
+  ) |>
+  col_vals_between(
+    preconditions = function(x) {
+      x[which(x$sae == 1), ]
+    },
+    columns = c("saetype"),
+    left = 1,
+    right = 6
+  ) |>
+  col_vals_between(
+    columns = c("episode"),
+    left = 1,
+    right = 5
+  ) |>
+  col_vals_between(
+    columns = c("aeterm"),
+    left = 1,
+    right = 26
+  ) |>
+  col_vals_in_set(
+    columns = c("severity"),
+    set = c(1, 2, 3, 4, 9)
+  ) |>
+  col_vals_in_set(
+    columns = c("aeoutcome"),
+    set = c(1:5, 9)
+  ) |>
+  interrogate()
+```
