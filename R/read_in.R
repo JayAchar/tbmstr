@@ -24,7 +24,7 @@ read_in <- function(dir_path, file_names) {
     cli::cli_abort("File names must be specified in a named list")
   }
 
-  if (!names(file_names) %in% allowed_files) {
+  if (!all(names(file_names) %in% allowed_files)) {
     cli::cli_abort(
       "File names must be specfied with the following names: {allowed_names}"
     )

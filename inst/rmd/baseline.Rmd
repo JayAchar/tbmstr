@@ -1,5 +1,5 @@
 ---
-title: "Baseline characteristics data quality"
+title: "Study data quality"
 author: "`r Sys.info()[['user']]`"
 date: "`r Sys.time()`"
 output: html_document
@@ -8,27 +8,38 @@ params:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, include = FALSE)
+knitr::opts_chunk$set(
+  echo = FALSE, include = TRUE,
+  message = FALSE
+)
 library(pointblank)
 ```
 
-```{r}
+```{r define-agents}
 al <- action_levels(
   stop_at = 1
 )
 
-agent_1 <-
+baseline_agent <-
   create_agent(
     tbl = params$data,
     tbl_name = "baseline",
-    label = "Baseline quality review",
+    label = "Baseline characteristics review",
+    actions = al
+  )
+
+treatment_agent <-
+  create_agent(
+    tbl = params$data,
+    tbl_name = "treatment",
+    label = "Treatment review",
     actions = al
   )
 ```
-## Data quality
+## Baseline characteristics
 
-```{r include = TRUE, echo = FALSE, message = FALSE}
-agent_1 |>
+```{r baseline-quality}
+baseline_agent |>
   rows_distinct(
     columns = c("cntry", "stsite", "subjid"),
     label = "Distinct patient identifiers",
@@ -47,12 +58,6 @@ agent_1 |>
   col_vals_in_set(
     columns = "sex",
     set = c(1, 2)
-  ) |>
-  col_vals_between(
-    columns = c("outcome"),
-    left = 1,
-    right = 7,
-    na_pass = FALSE
   ) |>
   col_vals_between(
     columns = c("weight"),
@@ -98,6 +103,40 @@ agent_1 |>
     },
     columns = c("livertype"),
     set = c(1, 2, 3, 4)
+  ) |>
+  interrogate()
+```
+## Treatment
+
+```{r treatment-quality}
+treatment_agent |>
+  col_vals_between(
+    columns = c("totaldose"),
+    left = 0,
+    right = 400
+  ) |>
+  # TODO check that successful outcomes are restricted to people
+  # who receive a limited number of doses
+  col_vals_between(
+    columns = c("outcome"),
+    left = 1,
+    right = 7,
+    na_pass = FALSE
+  ) |>
+  col_vals_in_set(
+    preconditions = function(x) {
+      x[which(!is.na(x$outcome)), ]
+    },
+    columns = c("trtprtcl"),
+    set = c(0, 1)
+  ) |>
+  col_vals_between(
+    preconditions = function(x) {
+      x[which(x$trtprtcl == 0), ]
+    },
+    columns = c("prtclviol"),
+    left = 1,
+    right = 10
   ) |>
   interrogate()
 ```

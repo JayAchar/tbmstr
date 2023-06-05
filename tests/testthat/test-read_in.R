@@ -35,6 +35,20 @@ test_that("read_in reads in CSV files with dir_path argument correctly", {
     dir_path = temp_dir,
     file_names = list(baseline = "test_data")
   ))
+
+  expect_true(
+    is.list(
+      suppressMessages(
+        read_in(
+          dir_path = temp_dir,
+          file_names = list(
+            baseline = "test_data",
+            myco = "test_data"
+          )
+        )
+      )
+    )
+  )
 })
 
 test_that("errors when arguments are passed incorrectly", {
@@ -58,4 +72,3 @@ test_that("errors when arguments are passed incorrectly", {
 # remove the temporary directory and test file
 unlink(test_file)
 unlink(temp_dir, recursive = TRUE)
-

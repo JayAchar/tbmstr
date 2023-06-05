@@ -24,4 +24,3 @@ run_quality_check <- function(data_path, output_file) {
 
   return(NULL)
 }
-
