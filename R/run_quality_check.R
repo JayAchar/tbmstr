@@ -11,17 +11,32 @@ run_quality_check <- function(data_path, output_file) {
     file_names = list(
       baseline = "baseline",
       myco = "myco",
-      adverse = "adverse"
+      adverse = "adverse",
+      dst = "dst"
+    )
+  )
+
+  # remove invalid records from baseline table
+  raw$baseline <- remove_invalid_records(
+    raw$baseline
+  )
+  # prepare data for quality check
+  prepared_data <- prepare_quality_data(
+    study_data = list(
+      baseline = raw$baseline,
+      myco = raw$myco,
+      adverse = raw$adverse,
+      dst = raw$dst
     )
   )
 
   render_internal_rmd(
-    input_file = "baseline.Rmd",
+    input_file = "quality.Rmd",
     output_file = output_file,
     param = list(
-      data = raw
+      data = prepared_data
     )
   )
 
-  return(NULL)
+  return(prepared_data)
 }
