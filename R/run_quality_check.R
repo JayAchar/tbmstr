@@ -34,9 +34,8 @@ run_quality_check <- function(data_path, output_file) {
     input_file = "quality.Rmd",
     output_file = output_file,
     param = list(
-      data = prepared_data
+      data = prepared_data,
+      raw = raw
     )
   )
-
-  return(prepared_data)
 }

@@ -7,6 +7,7 @@ output:
     code_folding: hide
 params:
   data: NULL
+  raw: NULL
 ---
 
 ```{r setup, include = FALSE}
@@ -15,24 +16,28 @@ knitr::opts_chunk$set(
   message = FALSE
 )
 library(pointblank)
+
 stopifnot(
   is.list(params$data),
   is.data.frame(params$data$baseline),
-  is.data.frame(params$data$adverse)
+  is.data.frame(params$data$adverse),
+  is.data.frame(params$data$myco),
+  is.data.frame(params$data$dst)
 )
-baseline <- params$data$baseline
-adverse <- params$data$adverse
+
+data <- params$data
+raw <- params$raw
 ```
 ```{r prepare-data, include = FALSE}
-country_code <- unique(baseline$cntry)
+country_code <- unique(raw$baseline$cntry)
 stopifnot(length(country_code) == 1)
 country_name <- lut[which(
   lut$name == "cntry" & lut$value == country_code
 ), ]$description
-last_save <- max(baseline$lastsavetime, na.rm = TRUE)
-unique_subjects <- length(unique(baseline$globalrecordid))
-eot_outcomes <- nrow(baseline[which(!is.na(baseline$outcome)), ])
-eos_outcomes <- nrow(baseline[which(!is.na(baseline$stat12)), ])
+last_save <- max(raw$baseline$lastsavetime, na.rm = TRUE)
+unique_subjects <- length(unique(raw$baseline$globalrecordid))
+eot_outcomes <- nrow(raw$baseline[which(!is.na(raw$baseline$outcome)), ])
+eos_outcomes <- nrow(raw$baseline[which(!is.na(raw$baseline$stat12)), ])
 ```
 ## Summary
 
@@ -49,7 +54,7 @@ al <- action_levels(
 
 inclusion_agent <-
   create_agent(
-    tbl = baseline,
+    tbl = raw$baseline,
     tbl_name = "inclusion",
     label = "Inclusion criteria review",
     actions = al
@@ -57,7 +62,7 @@ inclusion_agent <-
 
 baseline_agent <-
   create_agent(
-    tbl = baseline,
+    tbl = raw$baseline,
     tbl_name = "baseline",
     label = "Baseline characteristics review",
     actions = al
@@ -65,7 +70,7 @@ baseline_agent <-
 
 treatment_agent <-
   create_agent(
-    tbl = baseline,
+    tbl = raw$baseline,
     tbl_name = "treatment",
     label = "Treatment review",
     actions = al
@@ -73,15 +78,32 @@ treatment_agent <-
 
 adverse_agent <-
   create_agent(
-    tbl = adverse,
+    tbl = raw$adverse,
     tbl_name = "adverse",
     label = "Adverse event review",
+    actions = al
+  )
+
+dst_agent <-
+  create_agent(
+    tbl = raw$dst,
+    tbl_name = "dst",
+    label = "DST review",
+    actions = al
+  )
+
+myco_agent <-
+  create_agent(
+    tbl = raw$myco,
+    tbl_name = "myco",
+    label = "Mycobacterial review",
     actions = al
   )
 ```
 ## Inclusion criteria
 
 ```{r inclusion-quality, echo = TRUE}
+# TODO add baseline lab confirmation & DST quality check
 inclusion_agent |>
   col_is_date(
     columns = c("icfdat")
@@ -253,6 +275,50 @@ adverse_agent |>
   col_vals_in_set(
     columns = c("aeoutcome"),
     set = c(1:5, 9)
+  ) |>
+  interrogate()
+```
+
+## DST data
+
+```{r dst-quality, echo = TRUE}
+dst_agent |>
+  col_is_date(
+    columns = c("datedst")
+  ) |>
+  col_vals_not_null(
+    columns = c("datedst")
+  ) |>
+  col_vals_in_set(
+    set = c(1, 2, 3, 9),
+    c(
+      "dsth", "dstr",
+      "dstlfx", "dstmfx", "dstdlm1",
+      "dstcfz", "dstbdq1", "dstlzd1"
+    )
+  ) |>
+  interrogate()
+```
+
+## Mycobacterial data
+
+```{r myco-quality, echo = TRUE}
+myco_agent |>
+  col_is_date(
+    columns = c("datespecimen")
+  ) |>
+  col_vals_in_set(
+    columns = c("test_type"),
+    set = c(
+      "afb1", "culq",
+      "culsld", "lpafq", "xpert1"
+    )
+  ) |>
+  col_vals_not_null(
+    columns = c(
+      "datespecimen", "test_type",
+      "result"
+    )
   ) |>
   interrogate()
 ```
