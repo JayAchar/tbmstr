@@ -6,6 +6,7 @@
 #'       Allowed file names are:
 #' * adverse
 #' * baseline
+#' * dst
 #' * myco
 #'
 #' @importFrom utils read.csv
@@ -19,7 +20,7 @@ read_in <- function(dir_path, file_names) {
   if (dir.exists(dir_path) == FALSE) {
     cli::cli_abort("Directory does not exist - try again")
   }
-  allowed_files <- c("baseline", "myco", "adverse")
+  allowed_files <- c("baseline", "myco", "adverse", "dst")
 
   if (!is.list(file_names)) {
     cli::cli_abort("File names must be specified in a named list")

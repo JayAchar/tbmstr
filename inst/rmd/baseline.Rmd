@@ -47,6 +47,14 @@ al <- action_levels(
   stop_at = 1
 )
 
+inclusion_agent <-
+  create_agent(
+    tbl = baseline,
+    tbl_name = "inclusion",
+    label = "Inclusion criteria review",
+    actions = al
+  )
+
 baseline_agent <-
   create_agent(
     tbl = baseline,
@@ -73,18 +81,24 @@ adverse_agent <-
 ```
 ## Inclusion criteria
 
-**TODO**
+```{r inclusion-quality, echo = TRUE}
+inclusion_agent |>
+  col_is_date(
+    columns = c("icfdat")
+  ) |>
+  col_vals_gt(
+    columns = c("icfdat"),
+    value = as.Date("2019-01-01")
+  ) |>
+  interrogate()
+```
 
 ## Baseline characteristics
 
 ```{r baseline-quality, echo = TRUE}
 baseline_agent |>
   col_is_date(
-    columns = c("icfdat", "lastsavetime")
-  ) |>
-  col_vals_gt(
-    columns = c("icfdat"),
-    value = as.Date("2019-01-01")
+    columns = c("lastsavetime")
   ) |>
   rows_distinct(
     columns = c("cntry", "stsite", "subjid"),

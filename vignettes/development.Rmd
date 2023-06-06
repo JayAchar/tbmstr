@@ -72,3 +72,13 @@ To run tutorials in developent, run the following R command:
 devtools::install()
 tbmstr::run_tutorial("example")
 ```
+## Internal Rmd 
+
+```r 
+watchexec -e Rmd "Rscript -e 'devtools::load_all(); tbmstr::run_quality_check(
+    data_path = \"data/test-data/epiinfo/\",
+    output_file = file.path(
+         system.file(package = \"tbmstr\"),
+                                \"dev\", \"quality.html\"
+))'"
+```

@@ -14,6 +14,7 @@ Allowed file names are:
 \itemize{
 \item adverse
 \item baseline
+\item dst
 \item myco
 }}
 }
