@@ -1,0 +1,324 @@
+---
+title: "Study data quality"
+author: "`r Sys.info()[['user']]`"
+date: "`r Sys.time()`"
+output: 
+  html_document:
+    code_folding: hide
+params:
+  data: NULL
+  raw: NULL
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, include = TRUE,
+  message = FALSE
+)
+library(pointblank)
+
+stopifnot(
+  is.list(params$data),
+  is.data.frame(params$data$baseline),
+  is.data.frame(params$data$adverse),
+  is.data.frame(params$data$myco),
+  is.data.frame(params$data$dst)
+)
+
+data <- params$data
+raw <- params$raw
+```
+```{r prepare-data, include = FALSE}
+country_code <- unique(raw$baseline$cntry)
+stopifnot(length(country_code) == 1)
+country_name <- lut[which(
+  lut$name == "cntry" & lut$value == country_code
+), ]$description
+last_save <- max(raw$baseline$lastsavetime, na.rm = TRUE)
+unique_subjects <- length(unique(raw$baseline$globalrecordid))
+eot_outcomes <- nrow(raw$baseline[which(!is.na(raw$baseline$outcome)), ])
+eos_outcomes <- nrow(raw$baseline[which(!is.na(raw$baseline$stat12)), ])
+```
+## Summary
+
+**Country**: `r country_name`  
+**Last save date**: `r last_save`  
+**Study participants**: `r unique_subjects`  
+**Participants with end of treatment outcome**: `r eot_outcomes`  
+**Participants with end of study outcome**: `r eos_outcomes`  
+ 
+```{r define-agents}
+al <- action_levels(
+  stop_at = 1
+)
+
+inclusion_agent <-
+  create_agent(
+    tbl = raw$baseline,
+    tbl_name = "inclusion",
+    label = "Inclusion criteria review",
+    actions = al
+  )
+
+baseline_agent <-
+  create_agent(
+    tbl = raw$baseline,
+    tbl_name = "baseline",
+    label = "Baseline characteristics review",
+    actions = al
+  )
+
+treatment_agent <-
+  create_agent(
+    tbl = raw$baseline,
+    tbl_name = "treatment",
+    label = "Treatment review",
+    actions = al
+  )
+
+adverse_agent <-
+  create_agent(
+    tbl = raw$adverse,
+    tbl_name = "adverse",
+    label = "Adverse event review",
+    actions = al
+  )
+
+dst_agent <-
+  create_agent(
+    tbl = raw$dst,
+    tbl_name = "dst",
+    label = "DST review",
+    actions = al
+  )
+
+myco_agent <-
+  create_agent(
+    tbl = raw$myco,
+    tbl_name = "myco",
+    label = "Mycobacterial review",
+    actions = al
+  )
+```
+## Inclusion criteria
+
+```{r inclusion-quality, echo = TRUE}
+# TODO add baseline lab confirmation & DST quality check
+inclusion_agent |>
+  col_is_date(
+    columns = c("icfdat")
+  ) |>
+  col_vals_gt(
+    columns = c("icfdat"),
+    value = as.Date("2019-01-01")
+  ) |>
+  interrogate()
+```
+
+## Baseline characteristics
+
+```{r baseline-quality, echo = TRUE}
+baseline_agent |>
+  col_is_date(
+    columns = c("lastsavetime")
+  ) |>
+  rows_distinct(
+    columns = c("cntry", "stsite", "subjid"),
+    label = "Distinct patient identifiers",
+    brief = "Check the combination of country,
+    site ID, and subject ID is unique"
+  ) |>
+  col_vals_between(
+    columns = c("dob"),
+    left = as.Date("1900-01-01"),
+    right = as.Date("2022-01-01"),
+    preconditions = function(x) {
+      x$dob <- as.Date(x$dob, format = "%a %b %d %Y")
+      x
+    }
+  ) |>
+  col_vals_in_set(
+    columns = "sex",
+    set = c(1, 2)
+  ) |>
+  col_vals_between(
+    columns = c("weight"),
+    left = 0,
+    right = 150,
+    na_pass = FALSE
+  ) |>
+  col_vals_between(
+    columns = c("height"),
+    left = 1,
+    right = 200,
+    na_pass = FALSE
+  ) |>
+  col_vals_between(
+    preconditions = function(x) {
+      x$bmi <- x$weight / ((x$height / 100)^2)
+      x
+    },
+    columns = c("bmi"),
+    left = 0,
+    right = 40
+  ) |>
+  col_vals_in_set(
+    columns = c(
+      "prison", "unempl", "smok",
+      "alcohol", "homeless", "idu",
+      "hiv", "liver"
+    ),
+    set = c(1, 2, 9)
+  ) |>
+  col_vals_in_set(
+    columns = c("cav"),
+    set = c(1, 2, 3, 9)
+  ) |>
+  col_vals_in_set(
+    columns = c("prevtb"),
+    set = c(1, 2, 9)
+  ) |>
+  col_vals_in_set(
+    preconditions = function(x) {
+      hep_type <- x$livertype[x$liver == 1]
+      data.frame(livertype = hep_type)
+    },
+    columns = c("livertype"),
+    set = c(1, 2, 3, 4)
+  ) |>
+  interrogate()
+```
+## Treatment
+
+```{r treatment-quality, echo = TRUE}
+treatment_agent |>
+  col_is_date(
+    columns = c(
+      "trtendat", "endat", "trtstdat",
+      "fuendat"
+    )
+  ) |>
+  col_vals_between(
+    columns = c("totaldose"),
+    left = 0,
+    right = 400
+  ) |>
+  col_vals_between(
+    columns = c("outcome"),
+    left = 1,
+    right = 7,
+    na_pass = FALSE
+  ) |>
+  col_vals_in_set(
+    preconditions = function(x) {
+      x[which(!is.na(x$outcome)), ]
+    },
+    columns = c("trtprtcl"),
+    set = c(0, 1)
+  ) |>
+  col_vals_between(
+    preconditions = function(x) {
+      x[which(x$trtprtcl == 0), ]
+    },
+    columns = c("prtclviol"),
+    left = 1,
+    right = 10
+  ) |>
+  col_vals_between(
+    preconditions = function(x) {
+      x[x$outcome %in% c(1, 2), ]
+    },
+    columns = c("totaldose"),
+    left = 273 - 7,
+    right = 273 + 7
+  ) |>
+  col_vals_between(
+    columns = c("stat12"),
+    left = 1,
+    right = 4
+  ) |>
+  interrogate()
+```
+## Adverse events
+
+```{r adverse-quality, echo = TRUE}
+adverse_agent |>
+  col_is_date(
+    columns = c("aeonsetdt", "aenddt")
+  ) |>
+  col_vals_in_set(
+    columns = c("sae"),
+    set = c(1, 2)
+  ) |>
+  col_vals_between(
+    preconditions = function(x) {
+      x[which(x$sae == 1), ]
+    },
+    columns = c("saetype"),
+    left = 1,
+    right = 6
+  ) |>
+  col_vals_between(
+    columns = c("episode"),
+    left = 1,
+    right = 5
+  ) |>
+  col_vals_between(
+    columns = c("aeterm"),
+    left = 1,
+    right = 26
+  ) |>
+  col_vals_in_set(
+    columns = c("severity"),
+    set = c(1, 2, 3, 4, 9)
+  ) |>
+  col_vals_in_set(
+    columns = c("aeoutcome"),
+    set = c(1:5, 9)
+  ) |>
+  interrogate()
+```
+
+## DST data
+
+```{r dst-quality, echo = TRUE}
+dst_agent |>
+  col_is_date(
+    columns = c("datedst")
+  ) |>
+  col_vals_not_null(
+    columns = c("datedst")
+  ) |>
+  col_vals_in_set(
+    set = c(1, 2, 3, 9),
+    c(
+      "dsth", "dstr",
+      "dstlfx", "dstmfx", "dstdlm1",
+      "dstcfz", "dstbdq1", "dstlzd1"
+    )
+  ) |>
+  interrogate()
+```
+
+## Mycobacterial data
+
+```{r myco-quality, echo = TRUE}
+myco_agent |>
+  col_is_date(
+    columns = c("datespecimen")
+  ) |>
+  col_vals_in_set(
+    columns = c("test_type"),
+    set = c(
+      "afb1", "culq",
+      "culsld", "lpafq", "xpert1"
+    )
+  ) |>
+  col_vals_not_null(
+    columns = c(
+      "datespecimen", "test_type",
+      "result"
+    )
+  ) |>
+  interrogate()
+```

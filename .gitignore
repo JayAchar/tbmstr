@@ -2,3 +2,7 @@ scratch.R
 .Rproj.user
 data/**/*.csv
 docs
+inst/doc
+inst/resources/*.pdf
+inst/resources/lookup/*.csv
+inst/dev/*.html

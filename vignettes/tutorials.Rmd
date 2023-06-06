@@ -1,0 +1,36 @@
+---
+title: "Running interactive tutorials"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Running interactive tutorials}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+```{r, echo = FALSE, eval = TRUE}
+library(tbmstr)
+```
+This package includes interactive tutorials which have been created with the
+`learnr` package. Available tutorials are listed below:
+
+```{r, echo = FALSE, eval = TRUE}
+tutorials <- learnr::available_tutorials("tbmstr")
+df <- tutorials[, c("title", "name", "description")]
+names(df) <- c("Tutorial title", "Name", "Description")
+df |>
+  gt::gt() |>
+  gt::tab_header(title = "Interactive tutorials")
+```
+To run a specific tutorial in your default web browser, run the following
+R command in RStudio - replace the name of the required tutorial: 
+
+```{r, eval = FALSE}
+tbmstr::run_tutorial("example")
+```

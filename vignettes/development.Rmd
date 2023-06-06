@@ -1,0 +1,84 @@
+---
+title: "Package development workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Package development workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+This article provides information that is relevant to anyone contributing
+to this package's development. If you notice any errors or have suggestions
+to improve the documentation or the package, please get in touch with the 
+package creator. 
+
+## Unit testing
+
+To run all package unit tests, run the following code:
+
+```{r}
+testthat::auto_test_package()
+```
+
+A more robust way of continuously running unit tests is to use the terminal
+with `watchexec`. 
+
+First download `watchexec`:
+
+```sh 
+brew install watchexec
+```
+
+Then run a watch command to re-run unit tests when any R file is updated:
+
+```sh 
+watchexec -e R 'Rscript -e "devtools::test()"'
+```
+
+## Vignettes
+
+Vignettes are long-form articles which support users through a full workflow 
+rather than providing them with detailed documentation about each individual 
+package function. 
+
+Vignettes are created in Rmd files and are saved in the `./vignettes` directory.
+They need to be manually rendered to ensure they are up-to-date. This is
+automatically included in the `devtools::check()` function call if the default
+arguments are used. 
+
+During development, it is convenient to review changes to a vignette in the
+rendered HTML. This can be set up with `watchexec` using the command below:
+
+```sh 
+watchexec -w ./vignettes --exts Rmd "Rscript -e "devtools::install(build_vignettes = TRUE)\""
+```
+
+## Tutorials 
+
+This package includes `learnr` interactive tutorials for users to follow. A
+seperate article is included in this documentation to show users how to access
+tutorials. 
+
+To run tutorials in developent, run the following R command:
+
+```{r} 
+devtools::install()
+tbmstr::run_tutorial("example")
+```
+## Internal Rmd 
+
+```r 
+watchexec -e Rmd "Rscript -e 'devtools::load_all(); tbmstr::run_quality_check(
+    data_path = \"data/test-data/epiinfo/\",
+    output_file = file.path(
+         system.file(package = \"tbmstr\"),
+                                \"dev\", \"quality.html\"
+))'"
+```
