@@ -10,6 +10,18 @@
     <loc>https://jayachar.github.io/tbmstr/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/articles/analysis.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/articles/development.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/articles/tutorials.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/authors.html</loc>
   </url>
   <url>
@@ -19,12 +31,36 @@
     <loc>https://jayachar.github.io/tbmstr/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/merge_and_filter_by_start_date.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/prepare_dst.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/prepare_myco.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/prepare_quality_data.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/reference/read_in.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/ready.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/remove_invalid_records.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/reference/render_internal_rmd.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/run_quality_check.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/run_tutorial.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/transform_to_date.html</loc>
   </url>
 </urlset>
