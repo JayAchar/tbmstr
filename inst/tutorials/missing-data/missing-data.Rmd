@@ -1,17 +1,22 @@
 ---
 title: "Effects of missing data and misclassification"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    progressive: true
+    df_print: paged
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
 library(gradethis)
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  exercise.completion = TRUE
+)
 ```
 
-
-## Effects of missing data 
+## Calculating a mean and starndard deviation 
 
 Since scientific research is dependent on study data, missing values are 
 detrimental to the research process. During study implementation, minimising
@@ -26,45 +31,111 @@ how missing data can influence these summary values.
 
 Write the R code required to calculate the mean of 4, 7, and 1:
 
-```{r manually-calculate-mean, exercise=TRUE}
+```{r manually-calculate-mean, exercise=TRUE, exercise.lines = 3}
 
 ```
 ```{r manually-calculate-mean-check}
 grade_this({
-  if (.result == mean(4, 7, 1)) {
-    pass("Well done!")
+  if (.result == mean(c(4, 7, 1))) {
+    pass("Well done! Did you use the `mean` function? Type `?mean` to
+         learn more about this important function.")
   }
-  fail()
+  fail("Sorry - that's not right. Try using the `mean` function.")
 })
 ```
 
-### Exercise with Code
+### Missing values and `mean()`
 
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+Notice how the `mean` function does not automatically handle missing values.
+Run the code below to see the answer generated, then try to adjust it to
+get the correct answer. *Remember that you can read the function documentation
+by typing `?mean` into your RStudio terminal*. 
 
-Now write a function that adds any two numbers and then call it:
-
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
-
-}
+```{r missing-values-mean, exercise = TRUE, exercise.lines = 2}
+mean(c(4, NA, 1))
+```
+```{r missing-values-mean-check}
+grade_this({
+  if (.result == mean(c(4, NA, 1), na.rm = TRUE)) {
+    pass("Well done! Did you read the documentation?")
+  }
+  fail("Sorry - that's not right. Try reading the help documentation.")
+})
 ```
 
-## Topic 2
+### Calculating the standard deviation with R
 
-### Exercise with Hint
+Calculating the standard deviation is more difficult to do manually. Use the
+`sd` function to calculate the standard deviation of 4, 7, and 2:
 
-*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+```{r manually-calculate-sd, exercise = TRUE, exercise.lines = 3}
 
-Modify the following code to limit the number of rows printed to 5:
-
-```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
-mtcars
+```
+```{r manually-calculate-sd-hint}
+sd(c(4, 7, 2))
+```
+```{r manually-calculate-sd-check}
+grade_this({
+  if (.result == sd(c(4, 7, 2))) {
+    pass("Well done! Type `?sd` to learn more.")
+  }
+  fail("Sorry - that's not right. Try looking at the hint.")
+})
 ```
 
-```{r print-limit-hint}
-head(mtcars)
+
+## Calculating an Odds Ratio
+
+### Calculating the odds of success
+
+We can use the odds and an odds ratio to compare an outcome with two levels between groups.
+This example data shows the success and failure of TB treatment in 200 men and women (only the first 10 entries are shown).
+
+```{r odds-setup}
+set.seed(12345)
+male <- data.frame(
+  sex = "Male",
+  outcome = ifelse(rbinom(100, 1, 0.55) == 1, "Success", "Failure")
+)
+
+female <- data.frame(
+  sex = "Female",
+  outcome = ifelse(rbinom(100, 1, 0.65) == 1, "Success", "Failure")
+)
+
+df <- rbind(male, female)
+df <- df[sample(1:nrow(df)), ]
 ```
+
+```{r example-data}
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+
+We can calculate the odds of success for men using the following code:
+
+```{r odds-men, exercise = TRUE, exercise.eval = TRUE, exercise.setup = "odds-setup"}
+sum(df$outcome[df$sex == "Male"] == "Success")
+```
+
+Can you calculate the odds of success for women? 
+
+```{r odds-female-hint}
+sum(df$outcome[df$sex == "Female"] == "Success")
+```
+
+```{r odds-female, exercise = TRUE, exercise.setup = "odds-setup"}
+```
+
+```{r odds-female-check}
+grade_this({
+  if (.result == sum(df$outcome[df$sex == "Female"] == "Success")) {
+    pass("Well done! You got the right answer!")
+  }
+  fail("Sorry - that's not right. Try looking at the hint")
+})
+```
+
+
 
 ### Quiz
 
