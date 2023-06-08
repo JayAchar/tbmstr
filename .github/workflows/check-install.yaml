@@ -1,0 +1,19 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+
+jobs:
+  check-install:
+    runs-on: ubuntu-latest
+    name: Check successful package installation
+    steps:
+      - name: Check installation
+        id: check_names
+        uses: docker/action@v2
+
+      - name: Get the output time
+        run: echo "Tutorial names:${{ steps.check_names.outputs.tutorials }}"
