@@ -13,6 +13,7 @@ github.username: JayAchar
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Suggests: 
+    epitools (>= 0.5.10)
     gradethis,
     gt,
     here,
