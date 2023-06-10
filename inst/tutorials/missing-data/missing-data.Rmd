@@ -4,6 +4,7 @@ output:
   learnr::tutorial:
     progressive: true
 runtime: shiny_prerendered
+description: 'Effects of missing data'
 ---
 
 ```{r setup, include = FALSE}
