@@ -1,0 +1,10 @@
+# action.yml
+name: 'Check package install'
+description: 'Confirm successful package installation'
+outputs:
+  tutorials:
+    # id of output
+    description: 'Names of package tutorials'
+runs:
+  using: 'docker'
+  image: 'docker/Dockerfile'

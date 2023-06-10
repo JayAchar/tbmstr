@@ -41,6 +41,23 @@ Then run a watch command to re-run unit tests when any R file is updated:
 ```sh 
 watchexec -e R 'Rscript -e "devtools::test()"'
 ```
+## Testing package installation
+
+A docker-based approach has been created to test package installation. 
+
+To create the testing docker image run the following:
+
+```sh 
+docker build -t tbmstr:dev -f docker/Dockerfile .
+```
+Then to start the container and test whether the package and it's
+dependencies are successfully installed, run: 
+
+```sh
+docker run -it --rm tbmstr::dev
+```
+A Github action using this system has been added to the repository and is
+set to run when changes are made to the `main` branch. 
 
 ## Vignettes
 

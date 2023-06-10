@@ -10,3 +10,4 @@
 ^pkgdown$
 ^inst/dev$
 ^inst/resources$
+^docker$

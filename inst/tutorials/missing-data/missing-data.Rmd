@@ -1,0 +1,493 @@
+---
+title: "Effects of missing data and misclassification"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+tutorial_options(
+  exercise.completion = TRUE
+)
+# define exercise variables
+numbers <- c(4, 7, 1)
+numbers_missing <- c(4, NA, 1)
+
+create_example_data <- function(m_success, f_success, total) {
+  outcomes <- list(
+  success_m = m_success,
+  success_f = f_success,
+  total = total
+)
+
+male <- data.frame(
+  sex = "Male",
+  outcome = c(
+    rep("Success", outcomes$success_m),
+    rep("Failure", outcomes$total - outcomes$success_m)
+  )
+)
+
+female <- data.frame(
+  sex = "Female",
+  outcome = c(
+    rep("Success", outcomes$success_f),
+    rep("Failure", outcomes$total - outcomes$success_f)
+  )
+)
+
+df <- rbind(male, female)
+df <- df[sample(1:nrow(df)), ]
+
+summary <- epitools::oddsratio.wald(
+  # include the outcomes
+  x = df$outcome,
+  # include the exposure which in our case is the participant sex
+  y = df$sex
+)
+
+or <- summary$measure[2, 1]
+lower <- summary$measure[2, 2]
+upper <- summary$measure[2, 3]
+  
+return(
+  list(
+    df = df,
+    summary = list(
+      or = or,
+      lci = lower,
+      uci = upper
+    ),
+    success = list(
+      male = m_success,
+      female = f_success
+    ),
+    total = total
+  )
+)
+  
+}
+```
+
+## Calculating a mean and starndard deviation 
+
+Since scientific research is dependent on study data, missing values are 
+detrimental to the research process. During study implementation, minimising
+the amount of missing data is crucial to conducting a rigorous study that 
+allows robust conclusions to be drawn.
+
+In this tutorial, you will use R to calculate a mean, an odds ratio, standard
+erros and 95% confidence intervals of sample data. At each step, you will see 
+how missing data can influence these summary values. 
+
+### Calculating a mean with R 
+
+Write the R code required to calculate the mean of `r numbers[1]`, 
+`r numbers[2]`, and `r numbers[3]`:
+
+```{r manually-calculate-mean, exercise=TRUE, exercise.lines = 3}
+
+```
+```{r manually-calculate-mean-hint}
+'A vector of numbers is created with `c(4, 7, 1)`'
+```
+```{r manually-calculate-mean-check}
+grade_this({
+  if (.result == mean(numbers)) {
+    pass("Well done! Did you use the `mean` function? Type `?mean` to
+         learn more about this important function.")
+  }
+  fail("Sorry - that's not right. Try using the `mean` function.")
+})
+```
+
+### Missing values and `mean()`
+
+Notice how the `mean` function does not automatically handle missing values.
+Run the code below to see the answer generated, then try to adjust it to
+get the correct answer. *Remember that you can read the function documentation
+by typing `?mean` into your RStudio terminal*. 
+
+```{r missing-values-mean, exercise = TRUE, exercise.lines = 3}
+mean(c(4, NA, 1))
+```
+```{r missing-values-mean-check}
+grade_this({
+  if (.result == mean(numbers_missing, na.rm = TRUE)) {
+    pass("Well done! Did you read the documentation?")
+  }
+  fail("Sorry - that's not right. Try reading the help documentation.")
+})
+```
+
+### Calculating the standard deviation with R
+
+Calculating the standard deviation is more difficult to do manually. Use the
+`sd` function to calculate the standard deviation of 4, 7, and 1:
+
+```{r manually-calculate-sd, exercise = TRUE, exercise.lines = 3}
+
+```
+```{r manually-calculate-sd-hint}
+sd(numbers)
+```
+```{r manually-calculate-sd-check}
+grade_this({
+  if (.result == sd(numbers)) {
+    pass("Well done! Type `?sd` to learn more.")
+  }
+  fail("Sorry - that's not right. Try looking at the hint.")
+})
+```
+
+
+## Calculating an Odds Ratio
+
+We can use the odds and an odds ratio to compare an outcome with two levels between groups.
+
+### Example data
+
+This example data shows the success and failure of TB treatment in 200 men and women (only the first 10 entries are shown).
+
+```{r odds-setup}
+or_data <- create_example_data(
+  m_success = 55,
+  f_success = 65,
+  total = 100
+)
+
+df <- or_data$df
+
+
+```
+
+```{r example-data}
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+
+### Counting success
+
+We can calculate the number of men who were successfully treated with the following code:
+
+```{r success-men, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 6 }
+df |> 
+  filter(sex == "Male", 
+         outcome == "Success") |> 
+  # nrow counts the number of rows in the data frame after filtering
+  nrow()
+```
+
+Remember that there were 100 men who started treatment. 
+
+### Counting failure
+
+Can you calculate the number of men who failed treatment? Use the code directly above to help you.
+
+```{r fail-men, exercise = TRUE, exercise.eval = TRUE, exercise.setup = "odds-setup", exercise.lines = 6}
+
+```
+```{r fail-men-check}
+grade_this({
+  if (.result == sum(df$outcome[df$sex == "Male"] == "Failure")) {
+    pass("Well done! ")
+  }
+  fail("Sorry - that's not right. Remember the total number of men receiving treatment is 100.")
+})
+```
+
+
+### Calculating odds of success in men
+
+Can you calculate the odds of treatment success in men?
+
+```{r odds-men, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 15, exercise.eval = TRUE}
+
+```
+
+```{r odds-men-solution}
+success <- df |> 
+  filter(sex == "Male", 
+         outcome == "Success") |> 
+  nrow()
+
+failure <- df |> 
+  filter(sex == "Male", 
+         outcome == "Failure") |> 
+  nrow()
+
+success / failure
+```
+
+```{r odds-men-check}
+grade_this({
+  if (.result == or_data$success$male / (or_data$total - or_data$success$male)) {
+    pass("Well done!")
+  }
+  fail("Sorry - that's not right. Try looking at the solution.")
+})
+```
+
+### Calculating odds of success in women
+
+Can you calculate the odds of success for women? 
+
+```{r odds-female, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 15, exercise.eval = TRUE}
+```
+
+```{r odds-female-check}
+grade_this({
+  if (.result == or_data$success$female / (or_data$total - or_data$success$female)) {
+    pass("Well done!")
+  }
+  fail("Sorry - that's not right. Try looking at the solution.")
+})
+```
+```{r odds-female-solution}
+success <- df |> 
+  filter(sex == "Female", 
+         outcome == "Success") |> 
+  nrow()
+
+failure <- df |> 
+  filter(sex == "Female", 
+         outcome == "Failure") |> 
+  nrow()
+
+success / failure
+```
+
+### Interpretation?
+
+```{r quiz-odds-success}
+quiz(
+  caption = NULL,
+  question(
+    "Which sex is more likely to be treated successfully?",
+    answer("Male"),
+    answer("Female", correct = TRUE),
+    answer("We don't know from the information we have")
+  )
+)
+
+```
+
+
+### Odds Ratio
+
+We can quantify the difference in odds of treatment success between men and women using the odds ratio (OR).
+From the odds of success in men and women, how can you calculate the odds ratio (OR)? Use the `round` function
+to round your answer to 2 decimal places:
+
+```{r odds-ratio, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 20, exercise.eval = TRUE}
+
+```
+
+```{r odds-ratio-check}
+grade_this({
+  if (.result %in% c(round(or_data$summary$or, digits = 2),
+                     round(1 / or_data$summary$or, digits = 2))) {
+    pass("Well done!")
+  }
+  fail("Sorry - that's not right. Try looking at the solution.")
+})
+```
+```{r odds-ratio-solution}
+m_success <- df |> 
+  filter(sex == "Male", 
+         outcome == "Success") |> 
+  nrow()
+
+m_failure <- df |> 
+  filter(sex == "Male", 
+         outcome == "Failure") |> 
+  nrow()
+
+m_odds <- m_success / m_failure
+
+
+f_success <- df |> 
+  filter(sex == "Female", 
+         outcome == "Success") |> 
+  nrow()
+
+f_failure <- df |> 
+  filter(sex == "Female", 
+         outcome == "Failure") |> 
+  nrow()
+
+f_odds <- f_success / f_failure
+
+odds_ratio <- m_odds / f_odds
+
+round(odds_ratio, digits = 2)
+```
+
+### Interpretation
+
+```{r quiz-odds-ratio}
+quiz(
+  caption = NULL,
+  question(
+    "Which interpretation of the odds ratio is correct?",
+    answer("The OR suggests that **men** are treated successfully more
+           often than women"),
+    answer("The OR suggests that **women** are treated successfully more
+           often than men",
+           message = "Not the right answer, but you're close."),
+    answer("We can't be certain yet because we don't know how precise this result is.",
+           correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Precision
+
+We must calculate a 95% Confidence Interval for the Odds Ratio we've calculated. 
+To do this manually is too hard, so we can use the `epitools` package:
+
+```{r odds-ratio-95ci, exercise = TRUE, exercise.setup = "odds-setup"}
+epitools::oddsratio.wald(
+  # include the outcomes
+  x = df$outcome,
+  # include the exposure which in our case is the participant sex
+  y = df$sex
+)
+```
+
+### Interpretation
+
+```{r quiz-odds-ratio-95ci}
+quiz(
+  caption = NULL,
+  question(
+    "From the output above, can you find the lower boundary of the 95% confidence interval?",
+    answer("0.6581197"),
+    answer("0.1937892"),
+    answer("0.372456", correct = TRUE),
+    answer("1.0000000"),
+    allow_retry = TRUE
+  ),
+  question(
+    "Can you find the upper boundary of the 95% confidence interval?",
+    answer("1.162879", correct = TRUE),
+    answer("0.1529399"),
+    answer("1.648392"),
+    answer("3.2038484"),
+    allow_retry = TRUE
+  ),
+  question(
+    "Do you expect the p-value to be less than 0.05",
+    answer("Yes"),
+    answer("No", correct = TRUE),
+    allow_retry = TRUE
+  ),
+  question(
+    "Can you find the correct p-value?",
+    answer("0.1529399", 
+           message = "This is hard - we're going to use the p-value derived from the chi-squared test"),
+    answer("0.1937892",
+           message = "This is hard - we're going to use the p-value derived from the chi-squared test"),
+    answer("0.1489147", correct = TRUE)
+  )
+)
+
+```
+
+### Final odds ratio
+
+Our final OR is:
+
+> `r glue::glue("**{round(or_data$summary$or, digits = 2)} (95%CI {round(or_data$summary$lci, digits = 2)}-{round(or_data$summary$uci, digits = 2)})**")`
+
+## Effect of missing data
+
+### Example data
+
+From our previous example data, imagine 15 women and 15 men 
+did not have an outcome recorded by the clinic:
+
+```{r misclassification-setup}
+missing_data <- create_example_data(
+  m_success = 55,
+  f_success = 65,
+  total = 100
+)
+
+df <- missing_data$df
+# find random positions to convert to missing
+set.seed(1234)
+na_positions <- sample(1:missing_data$total, 
+                       size = 15)
+
+df$outcome[df$sex == "Male"][na_positions] <- NA_character_
+df$outcome[df$sex == "Female"][na_positions] <- NA_character_
+
+table(df$outcome, df$sex, exclude = NULL)
+```
+
+### Interpretation
+
+```{r quiz-missing-data-effect}
+quiz(
+  question(
+  "How would these missing results affect the OR and the 95% CI?",
+  answer("Nothing will change, the OR and the 95%CI will be the same"),
+  answer("The OR should be almost the same, but the 95%CI will be wider than the example with all the outcomes available.",
+         correct = TRUE),
+  answer("The p-value will now be <0.05"), 
+  allow_retry = TRUE
+))
+```
+
+Here's the output from the `epitools` package with our new example data:
+
+```{r missing-odds-ratio, echo = TRUE, include = TRUE}
+epitools::oddsratio.wald(
+  # include the outcomes
+  x = df$outcome,
+  # include the exposure which in our case is the participant sex
+  y = df$sex
+)
+```
+
+See how the missing values have excluded from the analysis data - only the
+outcomes from 85 men and 85 women are included.
+
+```{r quiz-missing-method}
+quiz(
+  caption = NULL,
+  question(
+    "What method of handling missing data has been used?",
+    answer("Median imputation"),
+    answer("Last observation carried forward"),
+    answer("Complete case analysis", correct = TRUE),
+    answer("K nearest neighbours")
+  ),
+  question(
+  "What has happened to the OR and the 95% CI?",
+  answer("Nothing has changed, the OR and the 95%CI are the same"),
+  answer("The OR is almost the same, but the 95%CI is wider than the example with all the outcomes available.",
+         correct = TRUE),
+  answer("The p-value is now <0.05"), 
+  allow_retry = TRUE
+  )
+)
+```
+
+## Conclusion
+
+In this example, the mechanism of missingness was MCAR (Missing Completely
+At Random). The result of this type of missingness is to reduce the precision
+of any summary estimate. In our example, the reduction in precision resulted
+in a wider 95% confidence interval, but the odds ratio itself was unchanged.
+Using the complete-case analysis technique in this situation is acceptable
+since no bias (i.e. change to the summary estimate) is introduced.
+
