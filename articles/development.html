@@ -91,6 +91,20 @@ updated:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">watchexec</span> <span class="at">-e</span> R <span class="st">'Rscript -e "devtools::test()"'</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="testing-package-installation">Testing package installation<a class="anchor" aria-label="anchor" href="#testing-package-installation"></a>
+</h2>
+<p>A docker-based approach has been created to test package
+installation.</p>
+<p>To create the testing docker image run the following:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> tbmstr:dev <span class="at">-f</span> docker/Dockerfile .</span></code></pre></div>
+<p>Then to start the container and test whether the package and it’s
+dependencies are successfully installed, run:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--rm</span> tbmstr::dev</span></code></pre></div>
+<p>A Github action using this system has been added to the repository
+and is set to run when changes are made to the <code>main</code>
+branch.</p>
+</div>
+<div class="section level2">
 <h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
 </h2>
 <p>Vignettes are long-form articles which support users through a full
@@ -104,7 +118,7 @@ are used.</p>
 <p>During development, it is convenient to review changes to a vignette
 in the rendered HTML. This can be set up with <code>watchexec</code>
 using the command below:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">watchexec</span> <span class="at">-w</span> ./vignettes <span class="at">--exts</span> Rmd <span class="st">"Rscript -e "</span>devtools::install<span class="er">(</span><span class="ex">build_vignettes</span> = TRUE<span class="kw">)</span><span class="ex">\"</span><span class="st">"</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">watchexec</span> <span class="at">-w</span> ./vignettes <span class="at">--exts</span> Rmd <span class="st">"Rscript -e "</span>devtools::install<span class="er">(</span><span class="ex">build_vignettes</span> = TRUE<span class="kw">)</span><span class="ex">\"</span><span class="st">"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tutorials">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials"></a>
@@ -113,19 +127,19 @@ using the command below:</p>
 users to follow. A seperate article is included in this documentation to
 show users how to access tutorials.</p>
 <p>To run tutorials in developent, run the following R command:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">tbmstr</span><span class="fu">::</span><span class="fu"><a href="../reference/run_tutorial.html">run_tutorial</a></span><span class="op">(</span><span class="st">"example"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="internal-rmd">Internal Rmd<a class="anchor" aria-label="anchor" href="#internal-rmd"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>watchexec <span class="sc">-</span>e Rmd <span class="st">"Rscript -e 'devtools::load_all(); tbmstr::run_quality_check(</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">    data_path = </span><span class="sc">\"</span><span class="st">data/test-data/epiinfo/</span><span class="sc">\"</span><span class="st">,</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">    output_file = file.path(</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">         system.file(package = </span><span class="sc">\"</span><span class="st">tbmstr</span><span class="sc">\"</span><span class="st">),</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                </span><span class="sc">\"</span><span class="st">dev</span><span class="sc">\"</span><span class="st">, </span><span class="sc">\"</span><span class="st">quality.html</span><span class="sc">\"</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">))'"</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>watchexec <span class="sc">-</span>e Rmd <span class="st">"Rscript -e 'devtools::load_all(); tbmstr::run_quality_check(</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">    data_path = </span><span class="sc">\"</span><span class="st">data/test-data/epiinfo/</span><span class="sc">\"</span><span class="st">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">    output_file = file.path(</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">         system.file(package = </span><span class="sc">\"</span><span class="st">tbmstr</span><span class="sc">\"</span><span class="st">),</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                </span><span class="sc">\"</span><span class="st">dev</span><span class="sc">\"</span><span class="st">, </span><span class="sc">\"</span><span class="st">quality.html</span><span class="sc">\"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">))'"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
