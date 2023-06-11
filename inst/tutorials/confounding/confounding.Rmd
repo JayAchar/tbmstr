@@ -1,0 +1,305 @@
+---
+title: "The importance of confounding"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+description: 'Understanding and handling confounding'
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+library(epitools)
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+tutorial_options(
+  exercise.completion = TRUE
+)
+# create example data
+total <- 500L
+sex <- c(
+  rep("Male", total * 0.5),
+  rep("Female", total * 0.5)
+)
+
+smear <- c(
+  rep("Negative", total * 0.05),
+  rep("Positive", total * 0.45),
+  rep("Negative", total * 0.35),
+  rep("Positive", total * 0.15)
+)
+
+simulate <- \() {
+  set.seed(5555)
+  beta0 <- 1.1
+  beta1 <- log(2)
+  beta2 <- log(0.3)
+  pi_x <- exp(beta0 + beta1 * (sex == "Female") + beta2 * (smear == "Positive")) /
+    (1 + exp(beta0 + beta1 * (sex == "Female") + beta2 * (smear == "Positive")))
+  outcome <- rbinom(n = length(sex), size = 1, prob = pi_x)
+  outcome <- ifelse(outcome == 1, "Success", "Failure")
+  data.frame(sex, smear, outcome)
+}
+
+df <- simulate()
+
+df <- df[sample(1:nrow(df)), ]
+
+crude <- epitools::oddsratio.wald(
+  x = df$sex,
+  y = df$outcome
+)
+```
+
+## Confounding
+
+Confounding is all about alternative explanations for an effect being seen. 
+
+In this tutorial, we will use TB treatment outcome, sex and baseline smear 
+microscopy status variables. The example data will include information from
+`r total * 0.5` men and `r total * 0.5` women. The first 10 rows are shown below:
+
+### Example data
+
+```{r example-data}
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+
+```{r outcome-by-sex}
+table(df$sex, df$outcome)
+```
+
+### Crude association between sex and treatment outcome
+
+Can you calculate the odds ratio for treatment success in men compared to women?
+**Round your result to 2 decimal places**
+
+```{r odds-sex-outcome, exercise = TRUE, exercise.lines = 7}
+
+```
+```{r odds-sex-outcome-solution}
+result <- epitools::oddsratio.wald(
+  x = df$sex,
+  y = df$outcome
+)
+
+round(result$measure[2],
+  digits = 2
+)
+```
+
+```{r odds-sex-outcome-check}
+or <- round(epitools::oddsratio.wald(
+  x = df$sex,
+  y = df$outcome
+)$measure[2], 2)
+
+grade_this({
+  if (.result == or) {
+    pass("Well done!")
+  }
+  fail("Sorry - that's not right. Try using the `epitools` package. Remember
+       to round your result to 2 decimal places.")
+})
+```
+### Crude odds ratio 
+
+Here's the crude odds ratio with the 95% confidence interval:
+
+> Crude OR with 95% CI: `r glue::glue("**{round(crude$measure[2], digits = 2)} (95%CI {round(crude$measure[4], digits = 2)}-{round(crude$measure[6], digits = 2)})**")`
+
+### Effect of baseline smear status
+
+To be considered a confounder, the baseline smear status needs to be associated
+with the treatment outcome and sex. 
+
+```{r sex-by-outcome-stratified}
+smear <- c("Positive", "Negative")
+lapply(
+  smear,
+  \(level) {
+    strata <- df[which(df$smear == level), ]
+    table(strata$sex, strata$outcome)
+  }
+) |> setNames(smear)
+```
+
+Can you calculate the odds ratio between treatment outcome and baseline 
+smear status? **Round your result to 2 decimal places**
+
+```{r smear-outcome}
+table(df$smear, df$outcome)
+```
+
+
+```{r odds-smear-outcome, exercise = TRUE, exercise.lines = 7}
+
+```
+```{r odds-smear-outcome-hint}
+"Can you copy and adjust the previous example?"
+```
+```{r odds-smear-outcome-solution}
+result <- epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$outcome
+)
+
+round(result$measure[2],
+  digits = 2
+)
+```
+```{r odds-smear-outcome-check}
+or <- round(epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$outcome
+)$measure[2], 2)
+
+grade_this({
+  if (.result == or) {
+    pass("Well done! ")
+  }
+  fail("Sorry - that's not right. Try using the `epitools` package. Remember
+       to round your result to 2 decimal places.")
+})
+```
+
+
+Can you calculate the odds ratio between sex and baseline smear status?
+**Round your result to 2 decimal places**
+
+```{r sex-smear}
+table(df$sex, df$smear)
+```
+
+
+```{r odds-smear-sex, exercise = TRUE, exercise.lines = 7}
+
+```
+```{r odds-smear-sex-hint}
+"Can you copy and adjust the previous example?"
+```
+```{r odds-smear-sex-solution}
+result <- epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$sex
+)
+
+round(result$measure[2],
+  digits = 2
+)
+```
+```{r odds-smear-sex-check}
+or <- round(epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$sex
+)$measure[2], 2)
+
+grade_this({
+  if (.result == or) {
+    pass("Well done! ")
+  }
+  fail("Sorry - that's not right. Try using the `epitools` package. Remember
+       to round your result to 2 decimal places.")
+})
+```
+
+### Interpretation
+
+```{r quiz-confounding}
+quiz(
+  caption = NULL,
+  question(
+    "Is there an association between smear status and treatment outcome?",
+    answer("Yes", correct = TRUE),
+    answer("No"),
+    answer("Not sure", message = "Have another look at the table showing baseline smear
+           status and treatment outcome. Are the successes and failures equally distributed?"),
+    allow_retry = TRUE
+  ),
+  question(
+    "Is there an association between smear status and sex?",
+    answer("Yes", correct = TRUE),
+    answer("No"),
+    answer("Not sure", message = "Have another look at the table showing baseline smear
+           status and tsex Are the smear positive and negative results equally distributed
+           across sexes?"),
+    allow_retry = TRUE
+  )
+)
+```
+
+## Controlling for confounding
+
+There are multiple methods of controlling for confounding in epidemiological
+studies. 
+
+```{r quiz-controlling}
+wrong <- "No, this is a method that can be used when designing a study."
+quiz(
+  caption = NULL,
+  question(
+    "Choose all methods to control for confounding in the analysis (multiple choices)",
+    answer("Restriction", message = wrong),
+    answer("Stratification", correct = TRUE),
+    answer("Randomisation", message = wrong),
+    answer("Regression modelling", correct = TRUE),
+    answer("Matching", message = wrong)
+  )
+)
+```
+
+Below is the crude association we calculated in the earlier part of this tutorial:
+
+> Crude odds ratio with 95% CI: `r glue::glue("**{round(crude$measure[2], digits = 2)} (95%CI {round(crude$measure[4], digits = 2)}-{round(crude$measure[6], digits = 2)})**")`
+
+Using multivariable logistic regression, we can adjust for the confounding
+effect of smear to give us a more accurate estimate of the association between
+sex and treatment outcome: 
+
+```{r regression, echo = TRUE}
+result <- glm((outcome == "Success") ~ sex + smear,
+  data = df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(
+    exponentiate = TRUE,
+    conf.int = TRUE
+  )
+
+or <- result[which(result$term == "sexMale"), ]
+
+result
+```
+
+The middle row of the output shows the sex and treatment outcome. The adjusted odds ratio is 
+shown below:
+
+> Adjusted odds ratio with 95% CI: `r glue::glue("**{round(or$estimate, digits = 2)} (95%CI {round(or$conf.low, digits = 2)}-{round(or$conf.high, digits = 2)})**")`
+
+## Conclusion
+
+Notice that after adjusting for the effect of baseline smear status, the
+OR is quite different. This suggests that baseline smear status is a
+strong confounder in this data set and it's effect should be accounted for.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

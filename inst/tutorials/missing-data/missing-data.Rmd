@@ -4,6 +4,7 @@ output:
   learnr::tutorial:
     progressive: true
 runtime: shiny_prerendered
+description: 'Effects of missing data'
 ---
 
 ```{r setup, include = FALSE}
@@ -44,13 +45,14 @@ female <- data.frame(
 )
 
 df <- rbind(male, female)
+set.seed(4321) 
 df <- df[sample(1:nrow(df)), ]
 
 summary <- epitools::oddsratio.wald(
-  # include the outcomes
-  x = df$outcome,
-  # include the exposure which in our case is the participant sex
-  y = df$sex
+  # include the exposure - sex
+  x = df$sex,
+  # include the outcome - treatment outcome
+  y = df$outcome
 )
 
 or <- summary$measure[2, 1]
@@ -353,12 +355,12 @@ quiz(
 We must calculate a 95% Confidence Interval for the Odds Ratio we've calculated. 
 To do this manually is too hard, so we can use the `epitools` package:
 
-```{r odds-ratio-95ci, exercise = TRUE, exercise.setup = "odds-setup"}
+```{r odds-ratio-95ci, echo = TRUE}
 epitools::oddsratio.wald(
-  # include the outcomes
-  x = df$outcome,
-  # include the exposure which in our case is the participant sex
-  y = df$sex
+  # include the exposure - sex
+  x = df$sex,
+  # include the outcome - treatment outcome
+  y = df$outcome
 )
 ```
 
@@ -423,14 +425,15 @@ missing_data <- create_example_data(
 
 df <- missing_data$df
 # find random positions to convert to missing
-set.seed(1234)
+set.seed(4321)
 na_positions <- sample(1:missing_data$total, 
-                       size = 15)
+                       size = 20)
+print(na_positions)
 
 df$outcome[df$sex == "Male"][na_positions] <- NA_character_
 df$outcome[df$sex == "Female"][na_positions] <- NA_character_
 
-table(df$outcome, df$sex, exclude = NULL)
+table(df$sex, df$outcome, exclude = NULL)
 ```
 
 ### Interpretation
@@ -444,22 +447,26 @@ quiz(
          correct = TRUE),
   answer("The p-value will now be <0.05"), 
   allow_retry = TRUE
-))
+)) 
 ```
+
+### Updated Odds Ratio
 
 Here's the output from the `epitools` package with our new example data:
 
 ```{r missing-odds-ratio, echo = TRUE, include = TRUE}
 epitools::oddsratio.wald(
-  # include the outcomes
-  x = df$outcome,
-  # include the exposure which in our case is the participant sex
-  y = df$sex
+  # include the exposure - sex
+  x = df$sex,
+  # include the outcome - treatment outcome
+  y = df$outcome
 )
 ```
 
 See how the missing values have excluded from the analysis data - only the
 outcomes from 85 men and 85 women are included.
+
+> Crude association: `r glue::glue("**{round(or_data$summary$or, digits = 2)} (95%CI {round(or_data$summary$lci, digits = 2)}-{round(or_data$summary$uci, digits = 2)})**")`
 
 ```{r quiz-missing-method}
 quiz(
