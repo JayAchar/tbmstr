@@ -20,8 +20,10 @@ tutorial_options(
 )
 # create example data
 total <- 500L
-sex <- c(rep("Male", total * 0.5),
-         rep("Female", total * 0.5))
+sex <- c(
+  rep("Male", total * 0.5),
+  rep("Female", total * 0.5)
+)
 
 smear <- c(
   rep("Negative", total * 0.05),
@@ -35,7 +37,7 @@ simulate <- \() {
   beta0 <- 1.1
   beta1 <- log(2)
   beta2 <- log(0.3)
-  pi_x <- exp(beta0 + beta1 * (sex == "Female") + beta2 * (smear == "Positive")) / 
+  pi_x <- exp(beta0 + beta1 * (sex == "Female") + beta2 * (smear == "Positive")) /
     (1 + exp(beta0 + beta1 * (sex == "Female") + beta2 * (smear == "Positive")))
   outcome <- rbinom(n = length(sex), size = 1, prob = pi_x)
   outcome <- ifelse(outcome == 1, "Success", "Failure")
@@ -84,11 +86,10 @@ result <- epitools::oddsratio.wald(
   y = df$outcome
 )
 
-round(result$measure[2], 
-      digits = 2)
+round(result$measure[2],
+  digits = 2
+)
 ```
-
-> Crude association with 95% CI: `r glue::glue("**{round(crude$measure[2], digits = 2)} (95%CI {round(crude$measure[4], digits = 2)}-{round(crude$measure[6], digits = 2)})**")`
 
 ```{r odds-sex-outcome-check}
 or <- round(epitools::oddsratio.wald(
@@ -98,12 +99,17 @@ or <- round(epitools::oddsratio.wald(
 
 grade_this({
   if (.result == or) {
-    pass("Well done! ")
+    pass("Well done!")
   }
   fail("Sorry - that's not right. Try using the `epitools` package. Remember
        to round your result to 2 decimal places.")
 })
 ```
+### Crude odds ratio 
+
+Here's the crude odds ratio with the 95% confidence interval:
+
+> Crude OR with 95% CI: `r glue::glue("**{round(crude$measure[2], digits = 2)} (95%CI {round(crude$measure[4], digits = 2)}-{round(crude$measure[6], digits = 2)})**")`
 
 ### Effect of baseline smear status
 
@@ -120,7 +126,6 @@ lapply(
   }
 ) |> setNames(smear)
 ```
-
 
 Can you calculate the odds ratio between treatment outcome and baseline 
 smear status? **Round your result to 2 decimal places**
@@ -142,8 +147,9 @@ result <- epitools::oddsratio.wald(
   y = df$outcome
 )
 
-round(result$measure[2], 
-      digits = 2)
+round(result$measure[2],
+  digits = 2
+)
 ```
 ```{r odds-smear-outcome-check}
 or <- round(epitools::oddsratio.wald(
@@ -181,8 +187,9 @@ result <- epitools::oddsratio.wald(
   y = df$sex
 )
 
-round(result$measure[2], 
-      digits = 2)
+round(result$measure[2],
+  digits = 2
+)
 ```
 ```{r odds-smear-sex-check}
 or <- round(epitools::oddsratio.wald(
@@ -244,7 +251,7 @@ quiz(
 )
 ```
 
-Below is the crude association we calculatd in the earlier part of this tutorial:
+Below is the crude association we calculated in the earlier part of this tutorial:
 
 > Crude odds ratio with 95% CI: `r glue::glue("**{round(crude$measure[2], digits = 2)} (95%CI {round(crude$measure[4], digits = 2)}-{round(crude$measure[6], digits = 2)})**")`
 
@@ -254,8 +261,9 @@ sex and treatment outcome:
 
 ```{r regression, echo = TRUE}
 result <- glm((outcome == "Success") ~ sex + smear,
-    data = df,
-    family = binomial(link = "logit")) |> 
+  data = df,
+  family = binomial(link = "logit")
+) |>
   broom::tidy(
     exponentiate = TRUE,
     conf.int = TRUE
@@ -271,6 +279,11 @@ shown below:
 
 > Adjusted odds ratio with 95% CI: `r glue::glue("**{round(or$estimate, digits = 2)} (95%CI {round(or$conf.low, digits = 2)}-{round(or$conf.high, digits = 2)})**")`
 
+## Conclusion
+
+Notice that after adjusting for the effect of baseline smear status, the
+OR is quite different. This suggests that baseline smear status is a
+strong confounder in this data set and it's effect should be accounted for.
 
 
 
