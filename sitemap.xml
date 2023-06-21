@@ -28,10 +28,19 @@
     <loc>https://jayachar.github.io/tbmstr/index.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/apply_labels.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/import_data.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/reference/index.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/merge_and_filter_by_start_date.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/merge_imported.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/prepare_dst.html</loc>
@@ -53,6 +62,9 @@
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/render_internal_rmd.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/run_analysis.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/run_quality_check.html</loc>

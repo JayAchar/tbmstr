@@ -50,13 +50,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_in</span><span class="op">(</span><span class="va">dir_path</span>, <span class="va">file_names</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_in</span><span class="op">(</span><span class="va">parent_dir</span>, <span class="va">file_names</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>dir_path</dt>
-<dd><p>Directory path to study data files</p></dd>
+    <dl><dt>parent_dir</dt>
+<dd><p>Path to parent directory where</p></dd>
 
 
 <dt>file_names</dt>
@@ -72,8 +72,20 @@ Allowed file names are:</p><ul><li><p>adverse</p></li>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A named list of data frames where the names correspond to
-the names of elements provided in the <strong>file_names</strong> parameter</p>
+<p>A named list of named lists where each element is a data
+frame. The data frame names correspond to the names of elements
+provided in the <strong>file_names</strong> parameter</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    
+<div class="section">
+<h3 id="required-file-directory-structure">Required file directory structure<a class="anchor" aria-label="anchor" href="#required-file-directory-structure"></a></h3>
+
+
+<p><img src="figures/read_in_file_tree.png" alt="Required file tree configuration"></p>
+</div>
+
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
