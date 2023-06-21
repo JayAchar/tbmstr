@@ -8,8 +8,6 @@
 #' * baseline
 #' * dst
 #' * myco
-#' @param multi_country Boolean to allow data from multiple
-#'   countries to be combined
 #'
 #' @details
 #' ## Required file directory structure
@@ -19,13 +17,12 @@
 #' @importFrom utils read.csv
 #' @importFrom cli cli_abort cli_alert_success
 #'
-#' @return A named list of data frames where the names correspond to
-#'        the names of elements provided in the **file_names** parameter
-#' @export
+#' @return A named list of named lists where each element is a data
+#'  frame. The data frame names correspond to the names of elements
+#'  provided in the **file_names** parameter
 
 read_in <- function(parent_dir,
-                    file_names,
-                    multi_country = FALSE) {
+                    file_names) {
   if (dir.exists(parent_dir) == FALSE) {
     cli::cli_abort("Parent directory does not exist - try again")
   }
@@ -71,6 +68,7 @@ read_in <- function(parent_dir,
   if (any(files_exist) == FALSE) {
     cli::cli_abort("Requested file(s) does not exist")
   }
+  
 
   dfs <- lapply(
     all_file_paths,
