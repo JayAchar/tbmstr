@@ -38,6 +38,7 @@ jobs:
       - name: Update package registry
         run: >
           sudo apt-get update
+        if: matrix.os == 'ubuntu-latest'
 
       - uses: r-lib/actions/setup-pandoc@v2
 
