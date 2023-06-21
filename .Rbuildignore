@@ -11,3 +11,4 @@
 ^inst/dev$
 ^inst/resources$
 ^docker$
+^translation-en\.json$

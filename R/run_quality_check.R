@@ -7,7 +7,7 @@
 #' @export
 #'
 run_quality_check <- function(data_path, output_file) {
-  raw <- read_in(data_path,
+  raw <- import_data(data_path,
     file_names = list(
       baseline = "baseline",
       myco = "myco",

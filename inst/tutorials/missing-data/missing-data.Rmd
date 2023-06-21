@@ -78,7 +78,7 @@ return(
 }
 ```
 
-## Calculating a mean and starndard deviation 
+## Calculating a mean and standard deviation 
 
 Since scientific research is dependent on study data, missing values are 
 detrimental to the research process. During study implementation, minimising
@@ -413,7 +413,7 @@ Our final OR is:
 
 ### Example data
 
-From our previous example data, imagine 15 women and 15 men 
+From our previous example data, imagine 20 women and 20 men 
 did not have an outcome recorded by the clinic:
 
 ```{r misclassification-setup}
@@ -428,7 +428,6 @@ df <- missing_data$df
 set.seed(4321)
 na_positions <- sample(1:missing_data$total, 
                        size = 20)
-print(na_positions)
 
 df$outcome[df$sex == "Male"][na_positions] <- NA_character_
 df$outcome[df$sex == "Female"][na_positions] <- NA_character_
@@ -464,20 +463,20 @@ epitools::oddsratio.wald(
 ```
 
 See how the missing values have excluded from the analysis data - only the
-outcomes from 85 men and 85 women are included.
+outcomes from 80 men and 80 women are included.
 
 > Crude association: `r glue::glue("**{round(or_data$summary$or, digits = 2)} (95%CI {round(or_data$summary$lci, digits = 2)}-{round(or_data$summary$uci, digits = 2)})**")`
 
 ```{r quiz-missing-method}
 quiz(
   caption = NULL,
-  question(
-    "What method of handling missing data has been used?",
-    answer("Median imputation"),
-    answer("Last observation carried forward"),
-    answer("Complete case analysis", correct = TRUE),
-    answer("K nearest neighbours")
-  ),
+  # question(
+  #   "What method of handling missing data has been used?",
+  #   answer("Median imputation"),
+  #   answer("Last observation carried forward"),
+  #   answer("Complete case analysis", correct = TRUE),
+  #   answer("K nearest neighbours")
+  # ),
   question(
   "What has happened to the OR and the 95% CI?",
   answer("Nothing has changed, the OR and the 95%CI are the same"),

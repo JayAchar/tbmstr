@@ -1,7 +1,7 @@
 #' Read in study data
 #'
 #' Read in study data which has been saved as CSV files
-#' @param dir_path Directory path to study data files
+#' @param parent_dir Path to parent directory where
 #' @param file_names Named list of file names to read in.
 #'       Allowed file names are:
 #' * adverse
@@ -9,16 +9,22 @@
 #' * dst
 #' * myco
 #'
+#' @details
+#' ## Required file directory structure
+#'
+#' ![](read_in_file_tree.png "Required file tree configuration")
+#'
 #' @importFrom utils read.csv
 #' @importFrom cli cli_abort cli_alert_success
 #'
-#' @return A named list of data frames where the names correspond to
-#'        the names of elements provided in the **file_names** parameter
-#' @export
+#' @return A named list of named lists where each element is a data
+#'  frame. The data frame names correspond to the names of elements
+#'  provided in the **file_names** parameter
 
-read_in <- function(dir_path, file_names) {
-  if (dir.exists(dir_path) == FALSE) {
-    cli::cli_abort("Directory does not exist - try again")
+read_in <- function(parent_dir,
+                    file_names) {
+  if (dir.exists(parent_dir) == FALSE) {
+    cli::cli_abort("Parent directory does not exist - try again")
   }
   allowed_files <- c("baseline", "myco", "adverse", "dst")
 
@@ -32,24 +38,47 @@ read_in <- function(dir_path, file_names) {
     )
   }
 
-  all_file_paths <- lapply(file_names, function(name) {
-    file.path(dir_path, paste0(name, ".csv"))
-  })
+  all_dirs <- list.dirs(parent_dir, recursive = FALSE)
 
-  files_exist <- vapply(all_file_paths, function(file_path) {
+  if (length(all_dirs) < 1) {
+    cli::cli_abort("Parent directory is empty - try again")
+  }
+
+  all_file_paths <- lapply(
+    all_dirs,
+    \(dir) {
+      vapply(
+        file_names,
+        \(file) {
+          file.path(dir, paste0(file, ".csv"))
+        }, character(1)
+      )
+    }
+  )
+
+  names(all_file_paths) <- list.dirs(parent_dir,
+    full.names = FALSE,
+    recursive = FALSE
+  )
+
+  files_exist <- vapply(unlist(all_file_paths), function(file_path) {
     file.exists(file_path)
   }, logical(1))
 
-  if (all(files_exist) == FALSE) {
-    print(list.files(dir_path))
+  if (any(files_exist) == FALSE) {
     cli::cli_abort("Requested file(s) does not exist")
   }
+  
 
-  dfs <- lapply(all_file_paths, function(fp) {
-    read.csv(fp)
-  })
-
-  names(dfs) <- names(file_names)
+  dfs <- lapply(
+    all_file_paths,
+    \(dir) {
+      lapply(
+        dir,
+        \(file) read.csv(file)
+      )
+    }
+  )
 
   cli::cli_alert_success("Files successfully read: {length(dfs)}")
 
