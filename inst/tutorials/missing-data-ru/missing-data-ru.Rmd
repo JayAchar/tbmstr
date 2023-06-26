@@ -1,0 +1,531 @@
+---
+title: "Влияние пропущенных данных и неправильной классификации"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+description: Влияние пропущенных данных
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+tutorial_options(
+  exercise.completion = TRUE
+)
+# define exercise variables
+numbers <- c(4, 7, 1)
+numbers_missing <- c(4, NA, 1)
+
+create_example_data <- function(m_success, f_success, total) {
+  outcomes <- list(
+    success_m = m_success,
+    success_f = f_success,
+    total = total
+  )
+
+  male <- data.frame(
+    sex = "Мужской",
+    outcome = c(
+      rep("Успех", outcomes$success_m),
+      rep("Неудача", outcomes$total - outcomes$success_m)
+    )
+  )
+
+  female <- data.frame(
+    sex = "Женский",
+    outcome = c(
+      rep("Успех", outcomes$success_f),
+      rep("Неудача", outcomes$total - outcomes$success_f)
+    )
+  )
+
+  df <- rbind(male, female)
+  set.seed(4321)
+  df <- df[sample(1:nrow(df)), ]
+
+  summary <- epitools::oddsratio.wald(
+    # include the exposure - sex
+    x = df$sex,
+    # include the outcome - treatment outcome
+    y = df$outcome
+  )
+
+  or <- summary$measure[2, 1]
+  lower <- summary$measure[2, 2]
+  upper <- summary$measure[2, 3]
+
+  return(
+    list(
+      df = df,
+      summary = list(
+        or = or,
+        lci = lower,
+        uci = upper
+      ),
+      success = list(
+        male = m_success,
+        female = f_success
+      ),
+      total = total
+    )
+  )
+}
+```
+
+## Расчет среднего и стандартного отклонения 
+
+Поскольку научные исследования зависят от качества данных, пропущенные 
+значения негативно сказываются на процессе исследования. Во время проведения 
+исследования минимизация количества отсутствующих данных имеет решающее 
+значение для обеспечения точности исследования, позволяющей сделать надежные 
+выводы.
+
+В данном уроке вы будете использовать R для вычисления среднего значения, 
+отношения шансов, стандартной ошибки и 95% доверительных интервалов данных 
+выборки. На каждом шаге вы увидите, как пропущенные данные могут повлиять на 
+эти итоговые значения.
+
+### Расчет среднего в R 
+
+Напишите код в R, необходимый для вычисления среднего из `r numbers[1]`, 
+`r numbers[2]`, и `r numbers[3]`:
+
+```{r manually-calculate-mean, exercise=TRUE, exercise.lines = 3}
+
+```
+```{r manually-calculate-mean-hint}
+"Вектор чисел создается с помощью`c(4, 7, 1)`"
+```
+```{r manually-calculate-mean-check}
+grade_this({
+  if (.result == mean(numbers)) {
+    pass("Отлично! Вы использовали функцию `mean`? Наберите `?mean` , чтобы
+         узнать больше об этой важной функции.")
+  }
+  fail("Извините - это неправильно. Попробуйте использовать функцию `mean`")
+})
+```
+
+### Пропущенные значения и `mean()`
+ 
+Обратите внимание, что функция `mean` автоматически не обрабатывает 
+отсутствующие значения. Запустите приведенный ниже код, чтобы увидеть 
+сгенерированный ответ, а затем попробуйте скорректировать его, чтобы получить 
+правильный ответ. *Помните, что вы можете прочитать документацию по функции, 
+набрав `?mean` в терминале RStudio*.
+
+```{r missing-values-mean, exercise = TRUE, exercise.lines = 3}
+mean(c(4, NA, 1))
+```
+```{r missing-values-mean-check}
+grade_this({
+  if (.result == mean(numbers_missing, na.rm = TRUE)) {
+    pass("Отлично! Вы прочитали документацию?")
+  }
+  fail("Извините, это неправильно. Попробуйте прочитать справочную
+       документацию.")
+})
+```
+
+### Вычисление стандартного отклонения с помощью R
+Вычисление стандартного отклонения вручную выполнить сложнее. Воспользуйтесь 
+функцией `sd` для вычисления стандартного отклонения 4, 7 и 1:
+
+```{r manually-calculate-sd, exercise = TRUE, exercise.lines = 3}
+
+```
+```{r manually-calculate-sd-hint}
+sd(numbers)
+```
+```{r manually-calculate-sd-check}
+grade_this({
+  if (.result == sd(numbers)) {
+    pass("Отлично! Наберите `?sd` , чтобы узнать больше.")
+  }
+  fail("Извините, это неправильно. Попробуйте посмотреть подсказку.")
+})
+```
+
+
+## Расчет отношения шансов
+
+Мы можем использовать шансы и отношение шансов для сравнения исхода с двумя 
+уровнями между группами.
+
+### Пример
+
+Этот пример данных показывает успех и неудачу лечения туберкулеза у 200 мужчин 
+и женщин (показаны только первые 10 записей).
+
+```{r odds-setup}
+or_data <- create_example_data(
+  m_success = 55,
+  f_success = 65,
+  total = 100
+)
+
+df <- or_data$df
+```
+
+```{r example-data}
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+
+### Подсчет случаев успешного лечения
+
+Мы можем подсчитать число мужчин, успешно прошедших лечение, с помощью 
+следующего кода:
+
+```{r success-men, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 6 }
+df |>
+  filter(
+    sex == "Мужской",
+    outcome == "Успех"
+  ) |>
+  # nrow подсчитывает количество строк в датафрейме (data frame) после
+  # фильтрации
+  nrow()
+```
+
+Помните, что было 100 мужчин, начавших лечение. 
+
+### Подсчет случаев неудачи лечения
+
+Можете ли вы подсчитать число мужчин, лечение которых было неуспешным? В 
+качестве подсказки используйте код, приведенный выше.
+
+```{r fail-men, exercise = TRUE, exercise.eval = TRUE, exercise.setup = "odds-setup", exercise.lines = 6}
+
+```
+```{r fail-men-check}
+grade_this({
+  if (.result == sum(df$outcome[df$sex == "Мужской"] == "Неудача")) {
+    pass("Отлично!")
+  }
+  fail("Извините, это неправильно. Помните, что общее число мужчин,
+       получающих лечение, равно 100.")
+})
+```
+
+
+### Расчет шансов на успех лечения у мужчин 
+
+Можете ли вы рассчитать шансы на успех лечения у мужчин?
+
+```{r odds-men, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 15, exercise.eval = TRUE}
+
+```
+
+```{r odds-men-solution}
+success <- df |>
+  filter(
+    sex == "Мужской",
+    outcome == "Успех"
+  ) |>
+  nrow()
+
+failure <- df |>
+  filter(
+    sex == "Мужской",
+    outcome == "Неудача"
+  ) |>
+  nrow()
+
+success / failure
+```
+
+```{r odds-men-check}
+grade_this({
+  if (.result == or_data$success$male / (or_data$total - or_data$success$male)) {
+    pass("Отлично!")
+  }
+  fail("Извините, это неправильно. Попробуйте посмотреть решение.")
+})
+```
+
+### Расчет шансов на успех лечения у женщин
+
+Можете ли вы рассчитать шансы на успех лечения у женщин? 
+
+```{r odds-female, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 15, exercise.eval = TRUE}
+```
+
+```{r odds-female-check}
+grade_this({
+  if (.result == or_data$success$female / (or_data$total - or_data$success$female)) {
+    pass("Отлично!")
+  }
+  fail("Извините,  это неправильно. Попробуйте посмотреть решение.")
+})
+```
+```{r odds-female-solution}
+success <- df |>
+  filter(
+    sex == "Женский",
+    outcome == "Успех"
+  ) |>
+  nrow()
+
+failure <- df |>
+  filter(
+    sex == "Женский",
+    outcome == "Неудача"
+  ) |>
+  nrow()
+
+success / failure
+```
+
+### Интерпретация?
+
+```{r quiz-odds-success}
+quiz(
+  caption = NULL,
+  question(
+    "Представители какого пола имеют больше шансов на успех лечения?",
+    answer("Мужской"),
+    answer("Женский", correct = TRUE),
+    answer("Из имеющейся у нас информации мы не знаем")
+  )
+)
+```
+
+
+### Отношение шансов
+
+Мы можем количественно оценить разницу в шансах на успех лечения у мужчин и 
+женщин с помощью отношения шансов (ОШ). Как вы можете рассчитать отношение 
+шансов (ОШ), исходя из шансов на успех лечения у мужчин и женщин? Используйте 
+функцию `round` для округления ответа до 2 знаков после запятой:
+
+```{r odds-ratio, exercise = TRUE, exercise.setup = "odds-setup", exercise.lines = 20, exercise.eval = TRUE}
+
+```
+
+```{r odds-ratio-check}
+grade_this({
+  if (.result %in% c(
+    round(or_data$summary$or, digits = 2),
+    round(1 / or_data$summary$or, digits = 2)
+  )) {
+    pass("Отлично!")
+  }
+  fail("Извините, это неправильно. Попробуйте посмотреть решение.")
+})
+```
+```{r odds-ratio-solution}
+m_success <- df |>
+  filter(
+    sex == "Мужской",
+    outcome == "Успех"
+  ) |>
+  nrow()
+
+m_failure <- df |>
+  filter(
+    sex == "Мужской",
+    outcome == "Неудача"
+  ) |>
+  nrow()
+
+m_odds <- m_success / m_failure
+
+
+f_success <- df |>
+  filter(
+    sex == "Женский",
+    outcome == "Успех"
+  ) |>
+  nrow()
+
+f_failure <- df |>
+  filter(
+    sex == "Женский",
+    outcome == "Неудача"
+  ) |>
+  nrow()
+
+f_odds <- f_success / f_failure
+
+odds_ratio <- m_odds / f_odds
+
+round(odds_ratio, digits = 2)
+```
+
+### Интерпретация
+
+```{r quiz-odds-ratio}
+quiz(
+  caption = NULL,
+  question(
+    "Какая интерпретация отношения шансов является правильной?",
+    answer("ОШ позволяет предположить, что **мужчины** успешно проходят
+           лечение чаще, чем женщины"),
+    answer("ОШ позволяет предположить, что **женщины** успешно проходят
+           лечение чаще, чем мужчины",
+      message = "Не совсем правильный ответ, но вы близки к нему."
+    ),
+    answer("Мы пока не можем быть уверены, потому что не знаем, насколько
+           точен данный результат.",
+      correct = TRUE
+    ),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Точность
+Мы должны рассчитать 95% доверительный интервал для рассчитанного нами 
+отношения шансов. Сделать это вручную слишком сложно, поэтому мы можем 
+воспользоваться пакетом `epitools`:
+
+```{r odds-ratio-95ci, echo = TRUE}
+epitools::oddsratio.wald(
+  # включить воздействие - пол
+  x = df$sex,
+  # включить исход - результат лечения
+  y = df$outcome
+)
+```
+
+### Интерпретация
+
+```{r quiz-odds-ratio-95ci}
+quiz(
+  caption = NULL,
+  question(
+    "Из приведенного выше результата можете ли вы найти нижнюю границу
+    95% доверительного интервала?",
+    answer("0.6581197"),
+    answer("0.1937892"),
+    answer("0.372456", correct = TRUE),
+    answer("1.0000000"),
+    allow_retry = TRUE
+  ),
+  question(
+    "Можете ли вы найти верхнюю границу 95% доверительного интервала?",
+    answer("1.162879", correct = TRUE),
+    answer("0.1529399"),
+    answer("1.648392"),
+    answer("3.2038484"),
+    allow_retry = TRUE
+  ),
+  question(
+    "Ожидаете ли вы, что p-значение будет меньше 0,05",
+    answer("Yes"),
+    answer("No", correct = TRUE),
+    allow_retry = TRUE
+  ),
+  question(
+    "Can you find the correct p-value?",
+    answer("0.1529399",
+      message = "Это сложно - мы будем использовать p-значение, полученное
+      с помощью критерия хи-квадрат."
+    ),
+    answer("0.1937892",
+      message = " Это сложно - мы будем использовать p-значение, полученное
+      с помощью критерия хи-квадрат"
+    ),
+    answer("0.1489147", correct = TRUE)
+  )
+)
+```
+
+### Конечное отношение шансов
+
+Наше итоговое ОШ:
+
+> `r glue::glue("**{round(or_data$summary$or, digits = 2)} (95%CI {round(or_data$summary$lci, digits = 2)}-{round(or_data$summary$uci, digits = 2)})**")`
+
+## Влияние недостающих данных 
+
+### Пример данных
+
+Исходя из наших предыдущих примеров представим, что у 20 женщин и у 20 мужчин 
+не было зарегистрированного клиникой исхода лечения:
+
+```{r misclassification-setup}
+missing_data <- create_example_data(
+  m_success = 55,
+  f_success = 65,
+  total = 100
+)
+
+df <- missing_data$df
+# find random positions to convert to missing
+set.seed(4321)
+na_positions <- sample(1:missing_data$total,
+  size = 20
+)
+
+df$outcome[df$sex == "Мужской"][na_positions] <- NA_character_
+df$outcome[df$sex == "Женский"][na_positions] <- NA_character_
+
+table(df$sex, df$outcome, exclude = NULL)
+```
+
+### Интерпретация
+
+```{r quiz-missing-data-effect}
+quiz(
+  question(
+    "Как эти пропущенные результаты повлияют на ОШ и 95% ДИ?",
+    answer("Ничего не изменится, ОШ и 95%ДИ останутся прежними"),
+    answer("ОШ должно быть почти таким же, но 95%ДИ будет шире, чем в примере
+           со всеми доступными исходами.",
+      correct = TRUE
+    ),
+    answer("Значение p теперь будет <0.05"),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Обновленное отношение шансов
+
+Вот выходные данные пакета `epitools` с новыми данными:
+
+```{r missing-odds-ratio, echo = TRUE, include = TRUE}
+epitools::oddsratio.wald(
+  # включить воздействие - пол
+  x = df$sex,
+  # включить результат - исход лечения
+  y = df$outcome
+)
+```
+
+Посмотрите, как пропущенные значения были исключены из данных анализа – 
+включены только исходы 80 мужчин и 80 женщин.
+
+> Crude association: `r glue::glue("**{round(or_data$summary$or, digits = 2)} (95%CI {round(or_data$summary$lci, digits = 2)}-{round(or_data$summary$uci, digits = 2)})**")`
+
+```{r quiz-missing-method}
+quiz(
+  caption = NULL,
+  question(
+    "Что произошло с ОШ и 95% ДИ?",
+    answer("Ничего не изменилось, ОШ и 95%ДИ остались прежними "),
+    answer("ОШ осталось почти таким же, но 95%ДИ стал шире, чем в примере
+           со всеми доступными исходами.",
+      correct = TRUE
+    ),
+    answer("p-значение теперь <0.05"),
+    allow_retry = TRUE
+  )
+)
+```
+
+## Вывод
+
+В данном примере механизмом формирования пропуска данных был механизм 
+MCAR (Missing Completely At Random)– полностью случайные пропуски. Результатом 
+такого типа пропусков является снижение точности любой суммарной оценки. В 
+нашем примере снижение точности привело к более широкому 95% доверительному 
+интервалу, но само отношение шансов осталось неизменным. Использование метода 
+анализа полных случаев в данной ситуации допустимо поскольку не происходит 
+смещения (т.е. изменения суммарной оценки).
