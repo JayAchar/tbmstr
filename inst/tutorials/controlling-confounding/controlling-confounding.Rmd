@@ -1,0 +1,381 @@
+---
+title: "Adjusting for confounding"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+description: "Mantel-Haenszel and regression methods to adjust for confounding"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+library(epitools)
+library(epiDisplay)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(
+  exercise.completion = TRUE
+)
+
+mat <- data.frame(
+  diabetes = c(
+    rep("present", 4),
+    rep("absent", 4)
+  ),
+  age_group = rep(c(
+    "under_45",
+    "over_45"
+  ), 4),
+  sae = rep(c(rep(TRUE, 2), rep(FALSE, 2)), 2),
+  count = c(
+    34, 19, 31, 5,
+    19, 8, 325, 42
+  )
+)
+
+df <- mat[rep(sequence(nrow(mat)), mat[["count"]]), ]
+df$count <- NULL
+
+epiDisplay::mhor(
+  sae = df$sae == TRUE,
+  age = df$age_group == "over_45",
+  diabetes = df$diabetes == "present",
+  graph = FALSE
+)
+
+glm((sae == TRUE) ~ (diabetes == "present") + (age_group == "over_45"),
+  data = df, family = binomial(link = "logit")
+) |>
+  broom::tidy(exponentiate = TRUE, conf.int = TRUE)
+```
+
+## Controlling for confounding
+
+Confounding is generally a nuisance in statistical analysis. 
+It is helpful to know how to adjust the observed effects for 
+confounding. 
+
+In this short tutorial, you will practice adjusting for confounding
+in two ways - stratification and regression. 
+
+### Example data
+
+The simple example data includes 3 variables: 
+
+* age group (over or under 45 years), 
+* diabetes status (present or absent),
+* SAE (TRUE or FALSE)
+
+We are interested in whether SAE occurrence is associated with age-group
+in this analysis. Based on our knowledge of TB treatment SAEs, and after 
+reviewing the literature, we believe that diabetes might be a confounder that
+we should adjust for. 
+
+Here are the first 10 rows of the example dataset. Note the variable names, 
+and the values the different variables can take: 
+
+```{r example-data}
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+The tables below give you a summary of the distribution of the exposure and 
+outcome variable by diabetes status: 
+
+#### Diabetics
+
+```{r diabetic-sae-by-age}
+dfd <- df[which(df$diabetes == "present"), ]
+knitr::kable(table(dfd$age_group, SAE = dfd$sae))
+```
+
+#### Non-diabetics
+
+```{r non-diabetic-sae-by-age}
+dfd <- df[which(df$diabetes == "absent"), ]
+knitr::kable(table(dfd$age_group, SAE = dfd$sae))
+```
+
+### Crude Odds Ratio
+
+Can you calculate the odds ratio for SAE occurrence in older 
+compared to younger study participants? **Round your result to 2 decimal 
+places**
+
+```{r odds-age-outcome, exercise = TRUE, exercise.lines = 10, exercise.eval = TRUE}
+head(df)
+```
+```{r odds-age-outcome-solution}
+result <- epitools::oddsratio.wald(
+  x = (df$age_group == "over_45"),
+  y = df$sae
+)
+
+round(result$measure[2],
+  digits = 2
+)
+```
+```{r odds-age-outcome-hint }
+table(df$age_group, df$sae)
+```
+```{r odds-age-outcome-check}
+result <- epitools::oddsratio.wald(
+  x = (df$age_group == "over_45"),
+  y = df$sae
+)
+
+or <- round(result$measure[2],
+  digits = 2
+)
+
+grade_this({
+  if (length(.result) > 1) {
+    fail("You need to enter a single number, rounded to 2 decimal places.")
+  }
+
+  if (.result != or) {
+    fail("Sorry - that's not right. Try using the `epitools` package. Remember
+       to round your result to 2 decimal places.")
+  }
+  pass("Well done!")
+})
+```
+
+### Interpretation
+
+```{r quiz-crude-or}
+quiz(
+  caption = NULL,
+  question(
+    "How would you interpret this crude odds ratio?
+    (Select all correct answers)",
+    type = "learnr_checkbox",
+    answer("Older people are more likely to suffer with SAEs", correct = TRUE),
+    answer("Younger people are more likely to suffer with SAEs"),
+    answer("The odds of experiencing a SAE is similar in younger and
+           older people"),
+    answer("The crude odds ratio in younger participants would be 1.0",
+      correct = TRUE
+    ),
+    allow_retry = TRUE
+  )
+)
+```
+### Associations with exposre and outcome 
+
+Is diabetes associated with age-group and SAE occurrence? 
+
+```{r diabetes-age-group, echo = TRUE}
+epitools::oddsratio.wald(
+  x = (df$age_group == "over_45"),
+  y = (df$diabetes == "present")
+)$measure
+```
+**Diabetes does seem to be associated with older age.** The odds ratio is 
+approximately 2.5 with 95% CI which does not include 1.
+
+Is there an association between diabetes and the occurrence of SAEs?
+
+```{r diabetes-sae, echo = TRUE}
+epitools::oddsratio.wald(
+  x = (df$diabetes == "present"),
+  y = df$sae
+)$measure
+```
+The association here is strong! 
+
+Let's start by checking the stratum specific odds ratios. 
+
+## Stratification
+
+### Stratum-specific ORs
+
+We would like to check whether diabetes might be confounding
+the relationship between age group and the occurrence of SAEs. Below is some
+more complex code to calculate the same odds ratio in diabetics and 
+non-diabetics. See if you can understand what is happening in the code, and 
+feel free to ask the course supervisors if you're not sure.
+
+```{r stratum-specific-or, echo = TRUE, warning = FALSE}
+df |>
+  group_by(diabetes) |>
+  summarise(
+    n = n(),
+    or = epitools::oddsratio.wald(
+      x = (.data$age_group == "over_45"),
+      y = .data$sae
+    )$measure[2]
+  )
+```
+
+```{r quiz-stratum-specific}
+quiz(
+  caption = NULL,
+  question(
+    "Is the effect of age-group on SAE occurence stronger in
+              people with diabetes or people without diabetes?",
+    answer("People without diabetes"),
+    answer("People with diabetes"),
+    answer("The effect is very similar in both groups", correct = TRUE),
+    answer("Not sure, we need to see the 95% CIs",
+      message = "This might be true, but since we're just
+                     comparing the two ORs, it's ok to not worry too much about
+                     the precision in this instance."
+    )
+  )
+)
+```
+### Weighted odds ratio estimate
+
+We can use the **Mantel-Haenszel** method to estimate the odds ratio 
+for the occurence of SAEs by age-group. 
+
+There are many ways of calculating the MH odds ratio, but in this course, 
+we will use the `epiDisplay` package. Since R does not know which level in
+our variables we're interested in, we specify them in the function call -
+e.g.  `df$age_group == "over_45"`. This is a useful skill to understand in R, 
+so please ask the course supervisors if you're not sure what this is doing. 
+
+```{r mh-odds, echo = TRUE}
+epiDisplay::mhor(
+  sae = df$sae == TRUE,
+  age = df$age_group == "over_45",
+  diabetes = df$diabetes == "present",
+  graph = FALSE
+)
+```
+
+#### Interpretation
+
+```{r quiz-mh-odds }
+quiz(
+  caption = NULL,
+  question(
+    "From the code output, identify the MH Odds Ratio",
+    answer(3.36, correct = TRUE),
+    answer(3.42),
+    answer(13.15),
+    answer(12.2),
+    random_answer_order = TRUE,
+    incorrect = "The MH Odds Ratio is 3.36"
+  ),
+  question(
+    "From the code output, find the upper bound of the
+              95% CI",
+    answer(6.78, correct = TRUE),
+    answer(8.37),
+    answer(3.24),
+    answer(13.15),
+    random_answer_order = TRUE,
+    incorrect = "The upper bound of the 95% CI is 6.78"
+  ),
+  question(
+    "From the code output, find the lower bound of the
+              95% CI",
+    answer(1.66, correct = TRUE),
+    answer(1.15),
+    answer(0.934),
+    answer(0.028547),
+    random_answer_order = TRUE,
+    incorrect = "The lower bond of the 95% CI is 1.66"
+  ),
+  question(
+    "Compare the crude odds ratio with the MH odds ratio.
+              What do you noticce?",
+    answer("The MH odds ratio is the same as the crude OR"),
+    answer("Diabetes is acting as a confounder", correct = TRUE),
+    answer("The crude odds ratio confidence interval is much wider"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  )
+)
+```
+
+## Logistic regression 
+
+We can use logistic regression to estimate the odds ratio for SAE occurance by
+age-group after adjusting for diabetes status. We will use the `broom` package
+to make the output more readable.
+
+In the code below, we have provided a ***formula*** to the `glm`
+function, along with some information about what type of regression method 
+we want to use (`family = binomial(link = "logit")`). While you don't need to 
+understand too much about the different types of regression avaialble to us, 
+you should realise that the `glm` function can be used with a wide array of
+different regression methods. 
+
+Finally, the `tidy` function, exponentiates the returned results and adds 
+the 95% confidence interval (`conf.int = TRUE`).
+
+The formula object in R is important to understand when using regression 
+methods. Here is the formula in this example:
+
+> sae ~ (age_group == "over_45") + (diabetes == "present"),
+
+There is left-hand side and a right-hand side separated by a *tilde* (`~`).
+The left-hand side represents the outcome (SAE occurence in our example), 
+and the right-hand side represents the explanatory variables. We will learn 
+more about logisic regression in other tutorials and lectures.
+
+You can learn more about the formula in R through this 
+[link](https://www.datacamp.com/tutorial/r-formula-tutorial) to a free online 
+resource in English. 
+
+```{r lr-odds-ratio, echo = TRUE }
+glm(
+  sae ~ (age_group == "over_45") + (diabetes == "present"),
+  data = df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(
+    exponentiate = TRUE,
+    conf.int = TRUE
+  )
+```
+
+#### Interpretation
+
+
+```{r quiz-lr-odds }
+quiz(
+  caption = NULL,
+  question(
+    "From the output, what is the odds ratio of SAE occurence by age-group,
+    after adjusting for diabetes status?",
+    answer(3.34, correct = TRUE),
+    answer(9.78),
+    answer(14.1),
+    answer(19.03),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  ),
+  question(
+    "Does the p-value for this adjusted odds ratio suggest that
+              there's strong, moderate or weak evidence for an association
+              between age-group and occurance of SAEs?",
+    answer("Strong", correct = TRUE),
+    answer("Weak"),
+    answer("No idea!!"),
+    correct = "Correct! The p-value is far smaller than 0.001, suggesting that
+    there's stron evidence for an association."
+  )
+)
+```
+
+## Conclusion
+
+In this tutorial, you have calculated a crude and adjusted odds ratio, and 
+recognised that diabetes is confounding the effect of age-group on SAE
+occurance. We have tried using the Mantel-Haenszel method and have taken 
+our first look at logistic regression. As we continue through the course, 
+we will use logistic regression to adjust for confounding factors. 
+
+
+
+
+
+
+
+
+
+
+
