@@ -56,7 +56,11 @@ crude <- epitools::oddsratio.wald(
 
 ## Confounding
 
-Confounding is all about alternative explanations for an effect being seen. 
+**Confounding** is all about alternative explanations for an effect being seen.
+**Chance** and **bias** are the two other important alternative explanations
+for research study results. If all three can be excluded or accounted for, 
+we can be more confident that our study results are due to the biological
+systems we are interested in.
 
 In this tutorial, we will use TB treatment outcome, sex and baseline smear 
 microscopy status variables. The example data will include information from
@@ -75,7 +79,8 @@ table(df$sex, df$outcome)
 ### Crude association between sex and treatment outcome
 
 Can you calculate the odds ratio for treatment success in men compared to women?
-**Round your result to 2 decimal places**
+You can do this manually or by using the `epitools` package which was shown 
+in the missing data practical.  **Round your result to 2 decimal places**
 
 ```{r odds-sex-outcome, exercise = TRUE, exercise.lines = 7}
 
@@ -234,22 +239,7 @@ quiz(
 ## Controlling for confounding
 
 There are multiple methods of controlling for confounding in epidemiological
-studies. 
-
-```{r quiz-controlling}
-wrong <- "No, this is a method that can be used when designing a study."
-quiz(
-  caption = NULL,
-  question(
-    "Choose all methods to control for confounding in the analysis (multiple choices)",
-    answer("Restriction", message = wrong),
-    answer("Stratification", correct = TRUE),
-    answer("Randomisation", message = wrong),
-    answer("Regression modelling", correct = TRUE),
-    answer("Matching", message = wrong)
-  )
-)
-```
+studies. You will learn more about this in upcoming sessions.
 
 Below is the crude association we calculated in the earlier part of this tutorial:
 
@@ -257,7 +247,8 @@ Below is the crude association we calculated in the earlier part of this tutoria
 
 Using multivariable logistic regression, we can adjust for the confounding
 effect of smear to give us a more accurate estimate of the association between
-sex and treatment outcome: 
+sex and treatment outcome. We will learn more about these techniques in upcoming
+sessions.
 
 ```{r regression, echo = TRUE}
 result <- glm((outcome == "Success") ~ sex + smear,
@@ -274,8 +265,8 @@ or <- result[which(result$term == "sexMale"), ]
 result
 ```
 
-The middle row of the output shows the sex and treatment outcome. The adjusted odds ratio is 
-shown below:
+The middle row of the output shows the odds ratio for treatment outcome by sex
+after adjusting for smear status. The adjusted odds ratio is shown below:
 
 > Adjusted odds ratio with 95% CI: `r glue::glue("**{round(or$estimate, digits = 2)} (95%CI {round(or$conf.low, digits = 2)}-{round(or$conf.high, digits = 2)})**")`
 
@@ -283,23 +274,5 @@ shown below:
 
 Notice that after adjusting for the effect of baseline smear status, the
 OR is quite different. This suggests that baseline smear status is a
-strong confounder in this data set and it's effect should be accounted for.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+strong confounder in this data set and its effect should be accounted for.
 
