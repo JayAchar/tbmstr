@@ -1,0 +1,439 @@
+---
+title: "Introduction to regression modelling"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+description: "Practicing with regression modelling"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+library(ggplot2)
+library(broom)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(
+  exercise.completion = TRUE
+)
+
+# example data for linear regression
+set.seed(12345)
+slope <- 1.8
+x <- runif(30, min = 8, max = 40)
+y <- slope * x + runif(
+  length(x),
+  min = -20,
+  max = 20
+)
+lm_data <- data.frame(
+  x, y
+)
+
+lm_model <- lm(y ~ x, lm_data) |>
+  broom::tidy()
+
+slope_param <- lm_model$estimate[which(lm_model$term == "x")]
+intercept_param <- lm_model$estimate[which(lm_model$term == "(Intercept)")]
+
+# example data for logsitic regression
+mat <- data.frame(
+  diabetes = c(
+    rep(TRUE, 2),
+    rep(FALSE, 2)
+  ),
+  had_sae = c(
+    rep(c(TRUE, FALSE), 2)
+  ),
+  count = c(152, 63, 281, 267)
+)
+
+lr_df <- mat[rep(sequence(nrow(mat)), mat[["count"]]), ]
+lr_df$count <- NULL
+
+lr_model <- glm(
+  had_sae ~ diabetes, lr_df,
+  family = binomial(link = "logit")
+) |> broom::tidy(conf.int = TRUE, exponentiate = TRUE)
+```
+## Introduction to regression modelling
+
+In this tutorial, you will work through the following:
+
+* Exploring parameter estimates with linear regression,
+* Making predictions using model parameters,
+* Fitting a logistic regression model and interpreting the results,
+* Fitting a multivariable logistic regression model
+
+## Linear regression
+
+### Understanding parameters
+
+When we ask R to *fit* a regression model for us, it uses an algorithm to 
+estimate the line of best fit. The result gives us estimates of the parameters
+which can be used to summarise this line. 
+
+For situations where we have one explanatory variable, the equation is as
+follows: 
+
+$$
+Y \sim \beta_0 + X\beta_1
+$$
+
+For a model where wieght is the outcome and height is the 
+explanatory variable, the equation would be as follows: 
+
+$$
+weight \sim \beta_0 + \beta_1 height 
+$$
+
+### Estimating parameters
+
+Using the plot below, estimate the intercept and the slope of the 
+best fitting regression line. 
+
+```{r lm-shiny-ui }
+sliderInput("intercept", "Intercept estimate:", min = -50, max = 50, value = 1)
+sliderInput("slope", "Slope estimate:",
+  min = 1,
+  max = 5,
+  value = 1,
+  step = 0.1
+)
+plotOutput("distPlot")
+```
+```{r lm-shiny-server, context = "server" }
+output$distPlot <- renderPlot({
+  ggplot(
+    lm_data,
+    aes(x = x, y = y)
+  ) +
+    geom_point() +
+    geom_abline(
+      intercept = input$intercept,
+      slope = input$slope,
+      color = "red"
+    ) +
+    labs(
+      x = "Explanatory",
+      y = "Outcome"
+    ) +
+    theme_light()
+})
+```
+### Parameter estimates
+
+The model was fitted using the `lm` function for linear regression:
+
+```{r lm-code, echo = TRUE, eval = FALSE}
+lm(
+  y ~ x,
+  data = lm_data
+) |>
+  broom::tidy()
+```
+The output from the code is below. Answer the following questions.
+
+```{r lm-parameter-estimates }
+lm_model
+```
+
+```{r quiz-lm-parameters }
+quiz(
+  caption = NULL,
+  question(
+    "From the model output above, can you choose the correct slope
+              parameter estimate?",
+    answer(round(slope_param, 1),
+      correct = TRUE
+    ),
+    answer(1.2),
+    answer(2.8),
+    answer(0.6),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  ),
+  question(
+    "Can you choose the correct intercept parameter estimate?",
+    answer(round(intercept_param, 3),
+      correct = TRUE
+    ),
+    answer(3.248),
+    answer(-2.773),
+    answer(1.285),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  )
+)
+```
+## Prediction
+
+We can use the parameter estimates provided by the `lm` function to predict 
+the outcome from the explanatory variable(s).
+
+In our previous example, the output was:
+
+```{r prediction-model }
+lm_model
+```
+Use the paraemter estimates to calculate the outcome when the 
+explanatory variable is 35. **Round your answer to 2 decimal places.**
+
+```{r predict-outcome, exercise = TRUE, exercise.eval = TRUE }
+
+```
+```{r predict-outcome-check }
+result <- round(slope_param * 35 + intercept_param, 2)
+
+grade_this({
+  if (.result == result) {
+    pass("Well done!")
+  }
+  fail("Sorry - that's not correct, try using the hint.")
+})
+```
+```{r predict-outcome-hint }
+slope_param * 35 + intercept_param
+```
+## Logistic regression 
+
+### Example data
+
+We will use some example data to learn about logistic regression. The outcome 
+variable will be whether a participant suffered with a SAE during their
+treatment (`had_sae`), while the single exposure variable will be a binary 
+variable indicating whether the participant had diabetes.
+
+```{r lr-example-data }
+shuffled <- lr_df[sample(1:nrow(lr_df)), ]
+knitr::kable(head(shuffled, 10), row.names = FALSE)
+```
+### Log transformation 
+
+Before we fit our logistic regression model, let's try out log transformation 
+and exponentiation to get a better feeling for how they work. 
+```{r log-transformation-setup }
+log_values <- c(0.1, 0.5, 1, 2, 3, 4, 5, 10, 20, 50)
+exp_values <- log(log_values)
+```
+In the code block below, log transform the following values - `r log_values` 
+
+```{r log-transformation, exercise = TRUE, exercise.eval = TRUE }
+
+```
+```{r log-transformation-hint }
+log(c(0.1, 0.5, 1, 2, 3, 4, 5, 10, 20, 50))
+```
+```{r log-transformation-check }
+result <- log(log_values)
+
+grade_this({
+  if (all(.result == result)) {
+    pass("Well done!!")
+  }
+  fail("Sorry - try using the hint!")
+})
+```
+### Plot - log transformation
+
+The graph below shows how a value changes after log transformation. 
+As the original values become larger, the log tranformed values increase, but
+by a smaller amount. 
+
+Log transforming values less than 1 results in negative values. Negative values 
+have not been included since log tranforming a negative value is not possible.
+
+Notice how `log(1)` is zero. 
+
+```{r log-transformation-plot }
+ggplot(
+  data.frame(
+    x = log_values,
+    y = log(log_values)
+  ),
+  aes(x = x, y = y)
+) +
+  geom_point() +
+  theme_light() +
+  labs(
+    x = "Original values",
+    y = "Log transformed values"
+  )
+```
+
+### Exponentiation 
+
+Since most people don't have an intuition for how to interpret log-transformed
+values, we must convert them back to regular numbers before presenting them.  
+**How do we convert our log tranformed values back to their original values?**
+
+We will use the `exp` function to exponentiate the values: 
+
+```{r exponentiate-example, echo = TRUE}
+exp_values
+exp(exp_values)
+```
+Notice how the returned values have returned to the original vector.
+
+### Interpretation
+
+Below, we fit a logistic regression model to the example data. 
+The outcome variable is `had_sae` and the single explanatory variable is 
+`diabetes`. Both are binary variables - TRUE or FALSE.
+
+Notice that we've used the `tidy` function within the `broom` package 
+to improve the format of the code output, to exponentiate the results so that
+we see odds ratios rather than log odds ratios, and to add 95% confidence
+intervals. After reviewing the output, try to answer the questions.
+
+```{r example-logistic-regression, echo = TRUE }
+glm(
+  had_sae ~ diabetes,
+  data = lr_df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+
+```{r quiz-logistic-regression }
+diabetes_param <- round(lr_model$estimate[which(
+  lr_model$term == "diabetesTRUE"
+)], 4)
+quiz(
+  caption = NULL,
+  question(
+    glue::glue("The odds ratio for diabetes is {diabetes_param}.
+               How do you interpret this value?"),
+    answer(glue::glue("Compared to participants without diabetes, participants
+                      with diabetes have {diabetes_param} times
+                      the odds of suffering a SAE during their treatment"),
+      correct = TRUE
+    ),
+    answer("We must exponentiate the value before interpreting it as
+              an odds ratio"),
+    answer("We can log transform the odds ratio for diabetes to
+                     estimate the odds of a participant without diabetes
+                     suffering with a SAE"),
+    answer("The 95% confidence interval should include 1
+                            for the result to be valid."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+)
+```
+## Multivariable logistic regression
+
+Using another example data set, we will fit a multivariable logistic regression 
+model. This means there will be more than one explanatory variable (age-group 
+and baseline smear status), but still only one outcome (treatment failure).
+
+```{r mv-lr-setup }
+mat <- data.frame(
+  age_group = c(
+    rep("5-9y", 4),
+    rep("10-19y", 4),
+    rep("20-39y", 4),
+    rep("40y+", 4)
+  ),
+  smear_positive = c(
+    rep(c(FALSE, FALSE, TRUE, TRUE), 4)
+  ),
+  tx_failure = c(
+    rep(c(FALSE, TRUE), 8)
+  ),
+  count = c(
+    77, 16, 79, 30,
+    50, 22, 69, 77,
+    85, 123, 40, 176,
+    55, 120, 25, 258
+  )
+)
+
+mv_lr_df <- mat[rep(sequence(nrow(mat)), mat[["count"]]), ]
+mv_lr_df$count <- NULL
+
+mv_lr_model <- glm(
+  tx_failure ~ age_group + smear_positive,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+Here are the first 10 rows of the example data set - notice that the 
+`age_group` variable has more than 2 levels:
+
+```{r mv-lr-example }
+shuffled <- mv_lr_df[sample(1:nrow(mv_lr_df)), ]
+knitr::kable(head(shuffled, 10), row.names = FALSE)
+```
+We fill fit the following model. Notice how we add the 2 explanatory variables 
+to the right-hand side of the equation. They are combined using the `+`. 
+Review the output below the code and answer the corresponding questions. 
+
+```{r mv-lr, echo = TRUE }
+glm(
+  tx_failure ~ age_group + smear_positive,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+
+```{r quiz-mv-lr }
+smear_positive_odds <- round(mv_lr_model$estimate[which(
+  mv_lr_model$term == "smear_positiveTRUE"
+)], 2)
+
+quiz(
+  caption = NULL,
+  question(
+    "How should we interpret the odds ratio for `smear_positive` participants?
+    (select all correct answers)",
+    answer(glue::glue("After adjusting for age-group, compared to smear negative
+           participants, smear positive participants have a
+           {smear_positive_odds} times the odds of treatment failure."),
+      correct = TRUE
+    ),
+    answer("The 95% confidence interval for baseline smear status does
+                  not include 1, so there's little evidence to support an
+                  association being present"),
+    answer("The p-value is very small - <0.001 - which means
+                         there's strong evidence of an association after
+                         adjusting for age-group", correct = TRUE),
+    answer("The odds ratio estimate is not adjusted for
+                                age-group"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  ),
+  question(
+    "Why are there 3 different odds ratio estimates shown for the `age_group`
+    variable?",
+    answer("Each level of an explanatory variable is compared
+                          with a `baseline` level. There are 4 age-groups, so
+                          there are 3 levels reported.", correct = TRUE),
+    answer("The `glm` function has calculated that the
+                                 odds ratios are different in these groups, so
+                                 we must report them separatelly."),
+    answer("It's not clear - there are 4
+                                        age-groups, so there should be 4
+                                        odds ratios reported"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  )
+)
+```
+## Conclusion
+
+In this tutorial, we've explored regression modelling and more specifically, 
+worked through an example of multivariable logistic regression. 
+
+In another tutorial, we will establish the effect of increasing the number of 
+explanatory variables included in a logistic regression model. 
+
