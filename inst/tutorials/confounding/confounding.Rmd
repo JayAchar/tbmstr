@@ -37,8 +37,10 @@ simulate <- \() {
   beta0 <- 1.1
   beta1 <- log(2)
   beta2 <- log(0.3)
-  pi_x <- exp(beta0 + beta1 * (sex == "Female") + beta2 * (smear == "Positive")) /
-    (1 + exp(beta0 + beta1 * (sex == "Female") + beta2 * (smear == "Positive")))
+  pi_x <- exp(beta0 + beta1 *
+    (sex == "Female") + beta2 * (smear == "Positive")) /
+    (1 + exp(beta0 + beta1 *
+      (sex == "Female") + beta2 * (smear == "Positive")))
   outcome <- rbinom(n = length(sex), size = 1, prob = pi_x)
   outcome <- ifelse(outcome == 1, "Success", "Failure")
   data.frame(sex, smear, outcome)
@@ -220,17 +222,18 @@ quiz(
     "Is there an association between smear status and treatment outcome?",
     answer("Yes", correct = TRUE),
     answer("No"),
-    answer("Not sure", message = "Have another look at the table showing baseline smear
-           status and treatment outcome. Are the successes and failures equally distributed?"),
+    answer("Not sure", message = "Have another look at the table showing
+           baseline smear status and treatment outcome. Are the successes and
+           failures equally distributed?"),
     allow_retry = TRUE
   ),
   question(
     "Is there an association between smear status and sex?",
     answer("Yes", correct = TRUE),
     answer("No"),
-    answer("Not sure", message = "Have another look at the table showing baseline smear
-           status and tsex Are the smear positive and negative results equally distributed
-           across sexes?"),
+    answer("Not sure", message = "Have another look at the table showing
+           baseline smear status and tsex Are the smear positive and negative
+           results equally distributed across sexes?"),
     allow_retry = TRUE
   )
 )
