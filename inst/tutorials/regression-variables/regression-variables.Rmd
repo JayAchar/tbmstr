@@ -1,0 +1,316 @@
+---
+title: "Choosing variables for multivaraible regression"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+description: "How many and which variables should we include in our regression model"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+library(epitools)
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+tutorial_options(
+  exercise.completion = TRUE
+)
+
+# example data for choosing variables
+smear_lvls <- c("Neg", "1+", "2+", "3+")
+set.seed(2)
+n <- 300
+gender <- sample(c("Female", "Male"), size = n, replace = TRUE)
+gender <- factor(gender, levels = c("Female", "Male"))
+baseline_smear <- sample(smear_lvls, size = n, replace = TRUE)
+baseline_smear <- factor(baseline_smear,
+  levels = smear_lvls
+)
+age <- round(runif(n, 18, 80))
+
+
+xb <- -1 +
+  0.2 * (gender == "Male") +
+  -0.2 * (baseline_smear == "1+") +
+  -0.6 * (baseline_smear == "2+") +
+  -0.9 * (baseline_smear == "3+") +
+  0.015 * age
+
+p <- 1 / (1 + exp(-xb))
+tx_success <- rbinom(n = n, size = 1, prob = p)
+tx_success <- ifelse(tx_success == 1, TRUE, FALSE)
+
+mv_lr_df <- data.frame(
+  gender,
+  baseline_smear,
+  age,
+  tx_success
+)
+```
+
+## Choosing variables 
+
+When we're using regression models to identify risk factors for a given outcome, 
+one approach to choosing appropriate variables to include in our multi-variable 
+model, is to look at the bi-variable association between each variable and 
+the outcome of interest. Generally, we try to include any variable which has 
+a p-value < 0.1. 
+
+### Example data
+
+Let's work through an example. In this example data, we have three explanatory variables
+and treatment success as the outcome:
+
+* **age** - continuous variable
+* **baseline smear** - categorical variable with the following levels:
+  * *Neg*
+  * *1+*
+  * *2+*
+  * *3+*
+* **gender** - categorical variable - Male and Female
+* **tx_success** - binary variable
+
+Explore the data object below
+
+```{r explore-example-data, exercise = TRUE}
+mv_lr_df
+```
+  
+The first ten rows of the data are shown below: 
+
+```{r choosing-vars-example }
+df <- mv_lr_df[sample(1:nrow(mv_lr_df)), ]
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+
+### Bivariable odds ratios
+
+For `age` and `gender` we can estimate their association with
+`tx_success` using the `glm` function:
+
+```{r glm-age-tx_success, echo = TRUE}
+glm(
+  tx_success ~ age,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(exponentiate = TRUE)
+```
+
+```{r quiz-include-age}
+quiz(
+  caption = NULL,
+  question(
+    "Do you think the `age` variable should be included in the
+    multivariable model?",
+    answer("Yes - p-value is <0.1", correct = TRUE),
+    answer("No - the OR is too small")
+  )
+)
+```
+
+Estimate the bi-variable association between `gender` and 
+`tx_success` below:
+
+```{r glm-gender-tx_success, exercise = TRUE }
+
+```
+
+```{r quiz-glm-gender-tx_success}
+gender_p_val <- glm(
+  tx_success ~ gender,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(exponentiate = TRUE) |>
+  dplyr::filter(term == "genderMale") |>
+  dplyr::pull(p.value) |>
+  round(3)
+
+quiz(
+  caption = NULL,
+  question(
+    "What is the p-value for the association between gender and
+    treatment success?",
+    answer(gender_p_val, correct = TRUE),
+    answer(0.012),
+    answer(0.00013),
+    answer(0.515),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question(
+    "Based on the p-value, should gender be included in the
+    multivariable model?",
+    answer("No, the p-value is >0.1", correct = TRUE),
+    answer("Yes, the OR is high enough")
+  )
+)
+```
+
+### Multi-level variables
+
+In our example data set, `baseline_smear` has more than two levels: 
+
+```{r example-baseline-smear-table, echo = TRUE}
+table(mv_lr_df$baseline_smear)
+```
+
+If we were to use the `glm`  or `epitools::oddsratio` functions, we 
+would get the p-value for each level rather than the variable as a whole. 
+
+```{r example-baseline-smear-glm, echo = TRUE}
+glm(
+  tx_success ~ baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(exponentiate = TRUE)
+```
+
+To calculate a global variable p-value, we must use a new function from
+the `car` package: 
+
+```{r example-baseline-smear-anova, echo = TRUE}
+glm(
+  tx_success ~ baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  car::Anova(type = 3) |>
+  broom::tidy()
+```
+
+```{r quiz-example-baseline-smear-anova}
+smear_p_val <- glm(
+  tx_success ~ baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  car::Anova(type = 3) |>
+  broom::tidy() |>
+  dplyr::pull(p.value)
+
+quiz(
+  caption = NULL,
+  question(
+    "Based on this global variable p-value, should baseline smear
+    be included in the multivariable model?",
+    answer("Yes - the p-value is <0.1", correct = smear_p_val <= 0.1),
+    answer("No - the p-value is >0.1", correct = smear_p_val > 0.1)
+  ),
+  question(
+    "If we were to include baseline smear in our multi-variable
+              model, how many parameters would be added?",
+    answer(1),
+    answer(2),
+    answer(3, correct = TRUE),
+    answer(4),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+## Limited data
+
+The previous example data included `r n` treatment outcomes - the 
+resulting logistic regression model is below:
+
+```{r mv-lr, echo = TRUE}
+glm(
+  tx_success ~ age + baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+
+If we reduce the number of participants to 50, notice how the 
+standard error increases, the confidence intervals widen and the 
+estimates become more extreme. We have lost precision in our model:
+
+```{r mv-lr-50, echo = TRUE}
+df <- mv_lr_df[sample(1:nrow(mv_lr_df), 50), ]
+glm(
+  tx_success ~ age + baseline_smear,
+  data = df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+
+If we reduce even further, say to 20, our estimates become very 
+unusual and errors or warnings may begin to appear: 
+
+```{r mv-lr-20, echo = TRUE}
+df <- mv_lr_df[sample(1:nrow(mv_lr_df), 20), ]
+glm(
+  tx_success ~ age + baseline_smear,
+  data = df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+
+Copy the code above and try to fit the model with data from 
+just 10 participants - see what happens. Try fitting the model
+without the `baseline_smear` variable.
+
+```{r mv-lr-10, exercise = TRUE}
+```
+
+```{r quiz-mv-lr}
+quiz(
+  caption = NULL,
+  question(
+    "What happens when you reduce the data to just 10 participants?
+    (select all correct options)",
+    answer("The parameter estimates become very extreme - they don't make
+           sense", correct = TRUE),
+    answer("The confidence intervals become extremely wide and may include
+          infinity", correct = TRUE),
+    answer("We could fix the warnings by using another statistical
+           technique")
+  ),
+  question(
+    "After removing the `baseline_smear` variable, what happens?",
+    answer(
+      "The age parameter estimate changes dramatically"
+    ),
+    answer(
+      "The extreme values from the previous model seem to improve",
+      correct = TRUE
+    )
+  )
+)
+```
+
+## Conclusion
+
+* Multi-level categorical variables require some special attention
+when using regression modelling. 
+
+* If there's limited data, our estimates will be less precise and
+the model may not fit correctly. 
+
+* If this is occurs, we might try to remove variables so that some 
+information can still be derived from our estimates.
+
+
+
+
+
+
+
+
+
