@@ -36,18 +36,6 @@ mat <- data.frame(
 
 df <- mat[rep(sequence(nrow(mat)), mat[["count"]]), ]
 df$count <- NULL
-
-epiDisplay::mhor(
-  sae = df$sae == TRUE,
-  age = df$age_group == "over_45",
-  diabetes = df$diabetes == "present",
-  graph = FALSE
-)
-
-glm((sae == TRUE) ~ (diabetes == "present") + (age_group == "over_45"),
-  data = df, family = binomial(link = "logit")
-) |>
-  broom::tidy(exponentiate = TRUE, conf.int = TRUE)
 ```
 
 ## Controlling for confounding
@@ -321,7 +309,7 @@ You can learn more about the formula in R through this
 resource in English. 
 
 ```{r lr-odds-ratio, echo = TRUE }
-glm(
+lr_mod <- glm(
   sae ~ (age_group == "over_45") + (diabetes == "present"),
   data = df,
   family = binomial(link = "logit")
@@ -330,18 +318,23 @@ glm(
     exponentiate = TRUE,
     conf.int = TRUE
   )
+lr_mod
 ```
 
 #### Interpretation
 
 
 ```{r quiz-lr-odds }
+or_est <- round(
+  lr_mod$estimate[lr_mod$term == 'age_group == "over_45"TRUE'],
+  2
+)
 quiz(
   caption = NULL,
   question(
     "From the output, what is the odds ratio of SAE occurence by age-group,
     after adjusting for diabetes status?",
-    answer(3.34, correct = TRUE),
+    answer(or_est, correct = TRUE),
     answer(9.78),
     answer(14.1),
     answer(19.03),

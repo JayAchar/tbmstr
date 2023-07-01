@@ -25,7 +25,7 @@ run_tutorial <- function(name,
   if (!is_tutorial_available) {
     cli::cli_abort(
       "The requested tutorial ({name}) is unavailable. Please choose from the following list:
-        {all_tutorials$name}: {all_tutorials$description}"
+        {all_tutorials$name}"
     )
   }
 

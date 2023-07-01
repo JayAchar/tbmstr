@@ -14,6 +14,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Suggests: 
     broom (>= 1.0.0),
+    car (>= 3.1.0),
+    dplyr (>= 1.1.0),
+    epiDisplay (>= 3.5.0.2),
     epitools (>= 0.5.10),
     gradethis,
     gt,

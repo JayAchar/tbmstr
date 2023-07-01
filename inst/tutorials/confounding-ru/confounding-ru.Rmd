@@ -1,0 +1,277 @@
+---
+title: "Важность вмешивающихся факторов"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+description: 'Понимание и учет влияния вмешивающихся факторов'
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+library(epitools)
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+tutorial_options(
+  exercise.completion = TRUE
+)
+# create example data
+total <- 500L
+sex <- c(
+  rep("Мужской", total * 0.5),
+  rep("Женский", total * 0.5)
+)
+
+smear <- c(
+  rep("Отрицательный", total * 0.05),
+  rep("Положительный", total * 0.45),
+  rep("Отрицательный", total * 0.35),
+  rep("Положительный", total * 0.15)
+)
+
+simulate <- \() {
+  set.seed(5555)
+  beta0 <- 1.1
+  beta1 <- log(2)
+  beta2 <- log(0.3)
+  pi_x <- exp(beta0 + beta1 *
+    (sex == " Женский ") + beta2 * (smear == "Положительный")) /
+    (1 + exp(beta0 + beta1 *
+      (sex == " Женский ") + beta2 * (smear == " Положительный ")))
+  outcome <- rbinom(n = length(sex), size = 1, prob = pi_x)
+  outcome <- ifelse(outcome == 1, "Успех", "Неудача")
+  data.frame(sex, smear, outcome)
+}
+
+df <- simulate()
+
+df <- df[sample(1:nrow(df)), ]
+
+crude <- epitools::oddsratio.wald(
+  x = df$sex,
+  y = df$outcome
+)
+```
+
+## Вмешивающиеся факторы
+
+
+**Вмешивающиеся факторы** – это альтернативные объяснения наблюдаемого эффекта.
+**Шанс** и **погрешность** – это два других важных альтернативных объяснения
+результатов исследования. Если все три могут быть исключены или учтены, 
+мы можем быть более уверены, что результаты нашего исследования обусловлены биологическими системами, которые нас интересуют.
+
+В этом уроке мы будем использовать переменные: результат лечения туберкулеза, пол и исходный результат микроскопии мазка мокроты. Приведенные в примере данные будут включать информацию из `r total * 0.5` мужчин и `r total * 0.5` женщин. Первые 10 строк показаны ниже:
+
+### Пример
+
+```{r example-data}
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+
+```{r outcome-by-sex}
+table(df$sex, df$outcome)
+```
+
+### Нескорректированная связь между полом и результатами лечения
+
+Можете ли вы рассчитать отношение шансов на успех лечения у мужчин и у женщин?
+Вы можете сделать это вручную или с помощью пакета `epitools`, который был представлен в практической работе по отсутствующим  данным.  **Округлите полученный результат до 2 знаков после запятой**.
+
+```{r odds-sex-outcome, exercise = TRUE, exercise.lines = 7}
+
+```
+```{r odds-sex-outcome-solution}
+result <- epitools::oddsratio.wald(
+  x = df$sex,
+  y = df$outcome
+)
+
+round(result$measure[2],
+  digits = 2
+)
+```
+
+```{r odds-sex-outcome-check}
+or <- round(epitools::oddsratio.wald(
+  x = df$sex,
+  y = df$outcome
+)$measure[2], 2)
+
+grade_this({
+  if (.result == or) {
+    pass("Отлично!")
+  }
+  fail("Извините - неправильно. Попробуйте использовать пакет
+       `epitools`. Не забывайте округлять результат до 2 знаков после
+       запятой.")
+})
+```
+### Нескорректированное отношение шансов 
+
+Вот нескорректированное отношение шансов с 95% доверительным интервалом:
+
+> Нескорректированное ОШ с 95% ДИ: `r glue::glue("**{round(crude$measure[2], digits = 2)} (95%CI {round(crude$measure[4], digits = 2)}-{round(crude$measure[6], digits = 2)})**")`
+
+### Влияние исходного результата микроскопии мазка мокроты
+
+Чтобы считаться вмешивающимся фактором, исходный результат микроскопии мазка должен быть связан с результатом лечения и полом.
+
+```{r sex-by-outcome-stratified}
+smear <- c("Положительный", "Отрицательный")
+lapply(
+  smear,
+  \(level) {
+    strata <- df[which(df$smear == level), ]
+    table(strata$sex, strata$outcome)
+  }
+) |> setNames(smear)
+```
+
+Можете ли вы рассчитать отношение шансов между результатом лечения и исходным результатом микроскопии мазка? **Округлите полученный результат до 2 знаков после запятой**
+
+```{r smear-outcome}
+table(df$smear, df$outcome)
+```
+
+
+```{r odds-smear-outcome, exercise = TRUE, exercise.lines = 7}
+
+```
+```{r odds-smear-outcome-hint}
+"Можете ли вы скопировать и откорректировать предыдущий пример?"
+```
+```{r odds-smear-outcome-solution}
+result <- epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$outcome
+)
+
+round(result$measure[2],
+  digits = 2
+)
+```
+```{r odds-smear-outcome-check}
+or <- round(epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$outcome
+)$measure[2], 2)
+
+grade_this({
+  if (.result == or) {
+    pass("Отлично! ")
+  }
+  fail("Извините - неправильно. Попробуйте использовать пакет `epitools`.
+       Не забывайте округлять результат до 2 знаков после запятой.")
+})
+```
+
+
+Можете ли вы рассчитать отношение шансов между полом и исходным результатом мазка?
+**Округлите полученный результат до 2 знаков после запятой**
+
+```{r sex-smear}
+table(df$sex, df$smear)
+```
+
+
+```{r odds-smear-sex, exercise = TRUE, exercise.lines = 7}
+
+```
+```{r odds-smear-sex-hint}
+"Можете ли вы скопировать и скорректировать предыдущий пример?"
+```
+```{r odds-smear-sex-solution}
+result <- epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$sex
+)
+
+round(result$measure[2],
+  digits = 2
+)
+```
+```{r odds-smear-sex-check}
+or <- round(epitools::oddsratio.wald(
+  x = df$smear,
+  y = df$sex
+)$measure[2], 2)
+
+grade_this({
+  if (.result == or) {
+    pass("Отлично! ")
+  }
+  fail("Извините - неправильно. Попробуйте использовать пакет `epitools`.
+       Не забывайте округлять результат до 2 знаков после запятой.")
+})
+```
+
+### Интерпретация
+
+```{r quiz-confounding}
+quiz(
+  caption = NULL,
+  question(
+    "Существует ли связь между результатом мазка и результатами лечения?",
+    answer("Да", correct = TRUE),
+    answer("Нет"),
+    answer("Не уверен", message = "Еще раз взгляните на таблицу,
+           показывающую исходный результат микроскопии мазка и результаты
+           лечения. Одинаково ли распределены исходы «успех» и «неудача!?"),
+    allow_retry = TRUE
+  ),
+  question(
+    " Существует ли связь между результатом мазка и полом?",
+    answer("Да", correct = TRUE),
+    answer("Нет"),
+    answer("Не уверен", message = "Еще раз взгляните на таблицу, показывающую
+           исходный результат микроскопии мазка; одинаково ли распределены
+           положительные и отрицательные результаты мазков между полами?"),
+    allow_retry = TRUE
+  )
+)
+```
+
+## Контроль вмешивающихся факторов
+
+Существует множество методов контроля влияния вмешивающихся факторов в 
+эпидемиологических исследованиях. Подробнее об этом вы узнаете на 
+последующих занятиях.
+
+Ниже приведена нескорректированная оценка связи, которую мы рассчитали в 
+предыдущей части этого урока:
+
+> Нескорректированное отношение шансов с 95% ДИ: `r glue::glue("**{round(crude$measure[2], digits = 2)} (95%CI {round(crude$measure[4], digits = 2)}-{round(crude$measure[6], digits = 2)})**")`
+
+Используя многомерную логистическую регрессию, мы можем внести поправку на вмешивающийся эффект результата микроскопии мазка, что даст нам более точную оценку связи между полом и результатами лечения. Подробнее об этих методах мы узнаем на следующих занятиях.
+
+```{r regression, echo = TRUE}
+result <- glm((outcome == "Успех") ~ sex + smear,
+  data = df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(
+    exponentiate = TRUE,
+    conf.int = TRUE
+  )
+
+or <- result[which(result$term == "sexМужской"), ]
+
+result
+```
+В средней строке результатов показано отношение шансов для результатов 
+лечения в зависимости от пола после внесения поправки на результат мазка. 
+Скорректированное отношение шансов показано ниже:
+
+
+> Скорректированное отношение шансов с 95% ДИ: `r glue::glue("**{round(or$estimate, digits = 2)} (95%CI {round(or$conf.low, digits = 2)}-{round(or$conf.high, digits = 2)})**")`
+
+## Заключение
+
+Обратите внимание, что после поправки на влияние исходного результата 
+микроскопии мазков значение ОШ значительно отличается. Это говорит о том, 
+что в этом наборе данных исходный результат микроскопии мазка является 
+сильным вмешивающимся фактором, и его влияние должно быть учтено.
