@@ -1,0 +1,308 @@
+---
+title: "Выбор переменных для многомерной регрессии"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+description: "Сколько и какие переменные мы должны включить в нашу регрессионную модель"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(dplyr)
+library(epitools)
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+tutorial_options(
+  exercise.completion = TRUE
+)
+
+# example data for choosing variables
+smear_lvls <- c("Neg", "1+", "2+", "3+")
+set.seed(2)
+n <- 300
+gender <- sample(c("Женский", "Мужской"), size = n, replace = TRUE)
+gender <- factor(gender, levels = c("Женский", "Мужской"))
+baseline_smear <- sample(smear_lvls, size = n, replace = TRUE)
+baseline_smear <- factor(baseline_smear,
+  levels = smear_lvls
+)
+age <- round(runif(n, 18, 80))
+
+
+xb <- -1 +
+  0.2 * (gender == "Мужской") +
+  -0.2 * (baseline_smear == "1+") +
+  -0.6 * (baseline_smear == "2+") +
+  -0.9 * (baseline_smear == "3+") +
+  0.015 * age
+
+p <- 1 / (1 + exp(-xb))
+tx_success <- rbinom(n = n, size = 1, prob = p)
+tx_success <- ifelse(tx_success == 1, TRUE, FALSE)
+
+mv_lr_df <- data.frame(
+  gender,
+  baseline_smear,
+  age,
+  tx_success
+)
+```
+
+## Выбор переменных 
+
+Один из подходов к выбору соответствующих переменных для включения в 
+многомерную модель при использовании регрессионных моделей для выявления 
+факторов риска для определенного исхода заключается в изучении двумерной 
+связи между каждой переменной и интересующим нас исходом. Как правило, мы 
+стараемся включать переменные, имеющие p-значение < 0,1. 
+
+### Пример
+
+Давайте разберем пример. В этом примере у нас есть три объясняющие переменные 
+и успех лечения в качестве исхода:
+
+* **age** - непрерывная переменная
+* **baseline smear** - категориальная переменная со следующими уровнями:
+  * *Neg*
+  * *1+*
+  * *2+*
+  * *3+*
+* **gender** - категориальная переменная - Мужской и Женский
+* **tx_success** - бинарная переменная
+
+Изучите представленный ниже объект данных 
+
+```{r explore-example-data, exercise = TRUE}
+mv_lr_df
+```
+  
+Первые десять строк данных показаны ниже: 
+
+```{r choosing-vars-example }
+df <- mv_lr_df[sample(1:nrow(mv_lr_df)), ]
+knitr::kable(head(df, 10), row.names = FALSE)
+```
+
+### Двумерные отношения шансов
+
+Оценить связь переменных `age` и `gender` с 
+`tx_success` мы можем с помощью функции `glm`:
+
+```{r glm-age-tx_success, echo = TRUE}
+glm(
+  tx_success ~ age,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(exponentiate = TRUE)
+```
+
+```{r quiz-include-age}
+quiz(
+  caption = NULL,
+  question(
+    "Считаете ли вы, что переменная `age` должна быть включена в
+    многомерную модель?",
+    answer("Да - p-значение <0.1", correct = TRUE),
+    answer("Нет - ОШ слишком маленькое")
+  )
+)
+```
+
+Оцените двумерную связь между `gender` и 
+`tx_success` ниже:
+
+```{r glm-gender-tx_success, exercise = TRUE }
+
+```
+
+```{r quiz-glm-gender-tx_success}
+gender_p_val <- glm(
+  tx_success ~ gender,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(exponentiate = TRUE) |>
+  dplyr::filter(term == "genderМужской") |>
+  dplyr::pull(p.value) |>
+  round(3)
+
+quiz(
+  caption = NULL,
+  question(
+    "Каково p-значение для связи между полом и успехом лечения?",
+    answer(gender_p_val, correct = TRUE),
+    answer(0.012),
+    answer(0.00013),
+    answer(0.515),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question(
+    "Исходя из p-значения, следует ли включать пол в многомерную модель?",
+    answer("Нет, p-значение >0.1", correct = TRUE),
+    answer("Да, ОШ достаточно высокое")
+  )
+)
+```
+
+### Многоуровневые переменные
+
+В нашем наборе данных `baseline_smear` имеет более двух уровней: 
+
+```{r example-baseline-smear-table, echo = TRUE}
+table(mv_lr_df$baseline_smear)
+```
+ 
+Если бы мы использовали функции `glm` или `epitools::oddsratio`, мы бы 
+получили p-значение для каждого уровня, а не для переменной в целом.
+
+```{r example-baseline-smear-glm, echo = TRUE}
+glm(
+  tx_success ~ baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  broom::tidy(exponentiate = TRUE)
+```
+ 
+Чтобы вычислить p-значение глобальной переменной, мы должны использовать 
+новую функцию из пакета `car`:
+
+```{r example-baseline-smear-anova, echo = TRUE}
+glm(
+  tx_success ~ baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  car::Anova(type = 3) |>
+  broom::tidy()
+```
+
+```{r quiz-example-baseline-smear-anova}
+smear_p_val <- glm(
+  tx_success ~ baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |>
+  car::Anova(type = 3) |>
+  broom::tidy() |>
+  dplyr::pull(p.value)
+
+quiz(
+  caption = NULL,
+  question(
+    "Исходя из p-значения этой глобальной переменной, следует ли включать
+    исходный мазок в многомерную модель?",
+    answer("Да - p-значение  <0.1", correct = smear_p_val <= 0.1),
+    answer("Нет - p-значение >0.1", correct = smear_p_val > 0.1)
+  ),
+  question(
+    "Если бы мы включали исходный мазок в нашу многомерную модель сколько
+    параметров было бы добавлено?",
+    answer(1),
+    answer(2),
+    answer(3, correct = TRUE),
+    answer(4),
+    allow_retry = TRUE
+  )
+)
+```
+
+## Ограниченные данные
+
+Данные предыдущего примера включали `r n` исходов лечения - полученная модель 
+логистической регрессии приведена ниже:
+
+```{r mv-lr, echo = TRUE}
+glm(
+  tx_success ~ age + baseline_smear,
+  data = mv_lr_df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+
+Уменьшим число участников до 50, обратите внимание, как увеличивается 
+стандартная ошибка, расширяются доверительные интервалы и становятся более
+экстремальными оценки. Мы потеряли точность в нашей модели:
+
+```{r mv-lr-50, echo = TRUE}
+df <- mv_lr_df[sample(1:nrow(mv_lr_df), 50), ]
+glm(
+  tx_success ~ age + baseline_smear,
+  data = df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+ 
+Если мы еще больше сократим число участников, скажем, 
+до 20, мы получим очень неожиданные оценки, 
+могут появиться ошибки или предупреждения.
+
+```{r mv-lr-20, echo = TRUE}
+df <- mv_lr_df[sample(1:nrow(mv_lr_df), 20), ]
+glm(
+  tx_success ~ age + baseline_smear,
+  data = df,
+  family = binomial(link = "logit")
+) |> broom::tidy(
+  exponentiate = TRUE,
+  conf.int = TRUE
+)
+```
+
+Скопируйте приведенный выше код и попробуйте использовать 
+для модели данные о 10 участниках - посмотрите, что 
+получится. Попробуйте сделать модель
+без переменной `baseline_smear`.
+
+```{r mv-lr-10, exercise = TRUE}
+```
+
+```{r quiz-mv-lr}
+quiz(
+  caption = NULL,
+  question(
+    "Что произойдет, если вы сократите данные всего до 10 участников?
+    (выберите все правильные варианты)",
+    answer("Оценки параметров становятся экстремальными - они не имеют смысла",
+      correct = TRUE
+    ),
+    answer("Доверительные интервалы становятся чрезвычайно широкими и могут
+           включать в себя бесконечность", correct = TRUE),
+    answer("Мы можем исправить предупреждения, используя другую
+ статистическую технику")
+  ),
+  question(
+    "Что произойдет после удаления переменной `baseline_smear`?",
+    answer(
+      "Оценка параметра возраста резко меняется "
+    ),
+    answer(
+      "Экстремальные значения из предыдущей модели, похоже, улучшаются",
+      correct = TRUE
+    )
+  )
+)
+```
+
+## Вывод
+
+* Многоуровневые категориальные переменные требуют особого внимания
+при использовании регрессионного моделирования. 
+
+* Если данных мало, наши оценки будут менее точными и
+модель может не подойти правильно. 
+
+* Если это произойдет, мы можем попытаться удалить переменные, чтобы получить 
+  некоторую информацию из наших оценок.
+

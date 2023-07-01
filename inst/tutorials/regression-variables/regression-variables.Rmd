@@ -214,7 +214,6 @@ quiz(
 )
 ```
 
-
 ## Limited data
 
 The previous example data included `r n` treatment outcomes - the 
@@ -305,12 +304,4 @@ the model may not fit correctly.
 
 * If this is occurs, we might try to remove variables so that some 
 information can still be derived from our estimates.
-
-
-
-
-
-
-
-
 
