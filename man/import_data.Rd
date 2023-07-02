@@ -4,7 +4,7 @@
 \alias{import_data}
 \title{Import data}
 \usage{
-import_data(parent_dir, file_names, multi_country = FALSE)
+import_data(parent_dir, file_names, multi_country = FALSE, apply_labels = TRUE)
 }
 \arguments{
 \item{parent_dir}{Path to parent directory where}
@@ -20,6 +20,10 @@ Allowed file names are:
 
 \item{multi_country}{Boolean to allow data from multiple
 countries to be combined}
+
+\item{apply_labels}{Boolean to indicate whether variables
+which have labels in the package look up table should
+have them applied}
 }
 \value{
 list of data frames corresponding to the names
