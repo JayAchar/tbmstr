@@ -4,6 +4,7 @@
 #' the package and are ready to use it for analyses.
 #'
 #' @importFrom cli cli_alert_success
+#' @importFrom utils packageVersion
 #'
 #' @return NULL - prints a message to the console
 #'
@@ -14,6 +15,7 @@ ready <- function() {
     Sys.info()["sysname"],
     Sys.timezone(),
     Sys.Date(),
+    packageVersion("tbmstr"),
     sep = "-"
   )
   cli::cli_alert_success(

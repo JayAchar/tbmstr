@@ -18,5 +18,5 @@ Data frame
 }
 \description{
 Merge a data frame with the \code{baseline} data frame then filter entries
-according to the treatment initation date
+according to the treatment initaition date
 }

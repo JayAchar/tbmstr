@@ -1,7 +1,7 @@
 #' Merge and Filter by start date
 #'
 #' Merge a data frame with the `baseline` data frame then filter entries
-#' according to the treatment initation date
+#' according to the treatment initaition date
 #'
 #' @param baseline Data frame of baseline study data.
 #' @param target Data frame of target study data.
