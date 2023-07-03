@@ -6,6 +6,10 @@
 #' @export
 #'
 run_ae_summary <- function(data_path, output_file) {
+  cli::cli_abort(
+    "This function is still in development"
+  )
+
   raw <- import_data(data_path,
     file_names = list(
       baseline = "baseline",

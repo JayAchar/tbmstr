@@ -1,3 +1,5 @@
+devtools::load_all()
+suppressMessages(library(dplyr))
 parent_path <- ""
 output_path <- ""
 
@@ -9,25 +11,28 @@ raw <- import_data(
     adverse = "adverse",
     dst = "dst"
   ),
-  multi_country = TRUE
+  multi_country = TRUE,
+  apply_labels = FALSE
 )
 
 set.seed(48)
 final <- list()
 final$baseline <- raw$baseline |>
-  filter(recstatus == 1) |> 
-  filter(globalrecordid %in% sample(raw$baseline$globalrecordid, 200)) |> 
-  select(-cntry, -lastsavelogonname, -inl, -drnum, -dob,
-         -firstsavelogonname)
+  filter(recstatus == 1) |>
+  filter(globalrecordid %in% sample(raw$baseline$globalrecordid, 200)) |>
+  select(
+    -cntry, -lastsavelogonname, -inl, -drnum, -dob,
+    -firstsavelogonname
+  )
 
-final$adverse <- raw$adverse |> 
-  filter(globalrecordid %in% final$baseline$globalrecordid) |> 
+final$adverse <- raw$adverse |>
+  filter(globalrecordid %in% final$baseline$globalrecordid) |>
   select(-aecomment)
 
-final$myco <- raw$myco |> 
+final$myco <- raw$myco |>
   filter(fkey %in% final$baseline$globalrecordid)
 
-final$dst <- raw$dst |> 
+final$dst <- raw$dst |>
   filter(fkey %in% final$baseline$globalrecordid)
 
 invisible(lapply(
@@ -39,4 +44,3 @@ invisible(lapply(
     )
   }
 ))
-
