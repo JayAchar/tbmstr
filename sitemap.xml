@@ -28,6 +28,9 @@
     <loc>https://jayachar.github.io/tbmstr/index.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/apply_all_labels.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/reference/apply_labels.html</loc>
   </url>
   <url>
@@ -41,6 +44,9 @@
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/merge_imported.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/prepare_ae_summary_data.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/prepare_dst.html</loc>
@@ -62,6 +68,9 @@
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/render_internal_rmd.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/run_ae_summary.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/run_analysis.html</loc>
