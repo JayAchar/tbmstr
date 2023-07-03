@@ -4,13 +4,16 @@
 \alias{apply_labels}
 \title{Apply labels}
 \usage{
-apply_labels(df, variable)
+apply_labels(df, variable, convert_to_factor = TRUE)
 }
 \arguments{
 \item{df}{data frame}
 
 \item{variable}{character string representing the name of the target
 variable in \code{df}}
+
+\item{convert_to_factor}{boolean to flat whether to conver the returned
+variable to an unordered factor - defaults to TRUE}
 }
 \value{
 character vector where NA is introduced for unmatched values

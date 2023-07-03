@@ -5,7 +5,7 @@ test_that("single study data file works", {
     )
   )
 
-  observed <- merge_imported(df_list = df_list)
+  observed <- suppressMessages(merge_imported(df_list = df_list))
   expect_true(is.list(observed))
   expect_equal(length(observed), 1)
   expect_true(names(observed) == "baseline")
@@ -26,7 +26,7 @@ test_that("two study data files work", {
     )
   )
 
-  observed <- merge_imported(df_list = df_list)
+  observed <- suppressMessages(merge_imported(df_list = df_list))
 
   expect_true(is.list(observed))
   expect_equal(length(observed), 2)
@@ -75,7 +75,7 @@ test_that("handles multi-country data", {
     )
   )
 
-  expect_error(merge_imported(df_list = df_list))
+  expect_error(suppressMessages(merge_imported(df_list = df_list)))
 
   observed <- suppressMessages(merge_imported(
     df_list = df_list,

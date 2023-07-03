@@ -13,7 +13,9 @@ run_quality_check <- function(data_path, output_file) {
       myco = "myco",
       adverse = "adverse",
       dst = "dst"
-    )
+    ),
+    # applying labels would invalidate quality check report
+    apply_labels = FALSE
   )
 
   # remove invalid records from baseline table

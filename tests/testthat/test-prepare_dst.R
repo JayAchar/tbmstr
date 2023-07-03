@@ -11,19 +11,19 @@ test_that("removes post treatment initiation dsts when quality data required", {
   dst <- data.frame(
     fkey = c("1", "2", "1"),
     datedst = c(
-      "Thu Sep 02 2021 23:45:49 GMT+0200 (Central European Summer Time)",
-      "Thu Dec 09 2021 15:13:51 GMT+0100 (Central European Standard Time)",
+      "2021-09-02T23:45:49.000Z",
+      "2021-12-09T15:13:51.000Z",
       # the thrid dst row should be removed since it is collected after
       # treatment has been initiated for subject 1
-      "Fri Dec 10 2021 15:13:51 GMT+0100 (Central European Standard Time)"
+      "2021-12-10T15:13:51.000Z"
     )
   )
 
   baseline <- data.frame(
     globalrecordid = c(1, 2),
     trtstdat = c(
-      "Thu Sep 02 2021 23:45:49 GMT+0200 (Central European Summer Time)",
-      "Thu Dec 09 2021 15:13:51 GMT+0100 (Central European Standard Time)"
+      "2021-09-02T23:45:49.000Z",
+      "2021-12-09T15:13:51.000Z"
     )
   )
 

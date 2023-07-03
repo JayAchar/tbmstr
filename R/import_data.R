@@ -3,13 +3,17 @@
 #' @inherit read_in
 #' @param multi_country Boolean to allow data from multiple
 #'   countries to be combined
+#' @param apply_labels Boolean to indicate whether variables
+#'   which have labels in the package look up table should
+#'   have them applied
 #' @return list of data frames corresponding to the names
 #'   provided in the **file_names** parameter
 #' @export
 
 import_data <- function(parent_dir,
                         file_names,
-                        multi_country = FALSE) {
+                        multi_country = FALSE,
+                        apply_labels = TRUE) {
   df_list <- read_in(
     parent_dir = parent_dir,
     file_names = file_names
@@ -23,6 +27,9 @@ import_data <- function(parent_dir,
     multi_country = multi_country
   )
 
+  if (apply_labels) {
+    imported <- apply_all_labels(imported)
+  }
+
   return(imported)
 }
-

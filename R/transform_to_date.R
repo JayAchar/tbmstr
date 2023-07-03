@@ -16,11 +16,20 @@ transform_to_date <- function(v) {
     )
   }
 
-  transformed <- as.Date(v,
-    format = "%a %b %d %Y %H:%M:%S"
+  original_na_count <- sum(is.na(v))
+
+  transformed <- tryCatch(
+    {
+      as.Date(v)
+    },
+    error = function(cond) {
+      cli::cli_alert_danger("Date characters could not be parsed and will \\
+                          be returned un-formatted")
+      return(v)
+    }
   )
 
-  if (any(is.na(transformed))) {
+  if (sum(is.na(transformed)) > original_na_count) {
     cli::cli_alert_danger(
       "{sum(is.na(transformed))} dates were not matched and have returned NA"
     )

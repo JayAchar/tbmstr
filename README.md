@@ -17,7 +17,7 @@ This package can be installed by running the following code in your R
 environment: 
 
 ```r
-devtools::install_github("JayAchar/tbmstr")
+remotes::install_github("JayAchar/tbmstr")
 ```
 
 ## Load tutorials
@@ -26,6 +26,6 @@ This package includes a number of `learnr` interactive tutorials. To access
 them, run the following code with the tutorial name:
 
 ```r
-learnr::run_tutorial("tutorial_name", "tbmstr")
+tbmstr::run_tutorial("tutorial_name")
 ```
 

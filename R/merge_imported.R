@@ -36,7 +36,7 @@ merge_imported <- function(df_list, multi_country = FALSE) {
             b[[name]]
           )
         }
-      )
+      ) |> setNames(df_names)
     }
   ) |> setNames(df_names)
 

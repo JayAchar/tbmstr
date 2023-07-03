@@ -1,6 +1,6 @@
 Package: tbmstr
 Title: Analyse DR-TB mSTR Study Data
-Version: 0.0.0.9000
+Version: 0.0.1.0
 Authors@R: 
     person("Jay", "Achar", , "jay.achar@doctors.org.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2521-4422"))
@@ -33,6 +33,6 @@ Imports:
 URL: https://jayachar.github.io/tbmstr/
 VignetteBuilder: knitr
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1.0)
 Remotes:
     rstudio/gradethis
