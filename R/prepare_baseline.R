@@ -4,14 +4,14 @@
 #'
 #' @importFrom cli cli_abort cli_warn cli_alert_warning
 #'
-#' @return
+#' @return df_list with modifications
 #'
 prepare_baseline <- function(df_list) {
   if (!is.list(df_list) || is.data.frame(df_list)) {
     cli::cli_abort("`df_list` must be a list")
   }
 
-  if (!"baseline" %in% names(df_list)) {
+  if (!"baseline" %in% names(df_list) || !is.data.frame(df_list$baseline)) {
     cli::cli_warn("`baseline` data frame not detected")
     return(df_list)
   }
@@ -19,6 +19,12 @@ prepare_baseline <- function(df_list) {
   df_list$baseline <- remove_invalid_records(
     df_list[["baseline"]]
   )
+
+  df_list$baseline$tx_outcome <- factor(ifelse(
+    df_list$baseline$outcome %in% list("Cured", "Completed", 1, 2),
+    "Success", "Failure"
+  ), levels = c("Success", "Failure"))
+
   if (!"adverse" %in% names(df_list)) {
     cli::cli_alert_warning("`adverse` data frame not detected \\
                          - `had_sae` variable not appended")

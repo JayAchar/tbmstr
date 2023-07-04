@@ -23,7 +23,8 @@ test_that("check errors", {
     prepare_baseline(
       df_list = list(
         baseline = data.frame(
-          recstatus = c(1, 0)
+          recstatus = c(1, 0),
+          outcome = c(1, 1)
         )
       )
     )
@@ -32,9 +33,18 @@ test_that("check errors", {
   expect_equal(
     suppressMessages(prepare_baseline(
       df_list = list(
-        baseline = data.frame(recstatus = c(1, 1))
+        baseline = data.frame(
+          recstatus = c(1, 1),
+          outcome = c(1, 1)
+        )
       )
-    )), list(baseline = data.frame(recstatus = c(1, 1)))
+    )), list(baseline = data.frame(
+      recstatus = c(1, 1),
+      outcome = c(1, 1),
+      tx_outcome = factor(c("Success", "Success"),
+        levels = c("Success", "Failure")
+      )
+    ))
   )
 })
 
@@ -43,7 +53,8 @@ test_that("mutate `had_sae`", {
   input <- list(
     baseline = data.frame(
       globalrecordid = c("1", "2"),
-      recstatus = c(1, 1)
+      recstatus = c(1, 1),
+      outcome = c(1, 1)
     ),
     adverse = data.frame(
       globalrecordid = c("1"),
@@ -61,7 +72,8 @@ test_that("mutate `had_sae`", {
   input <- list(
     baseline = data.frame(
       globalrecordid = c("1", "2"),
-      recstatus = c(1, 1)
+      recstatus = c(1, 1),
+      outcome = c(1, 1)
     ),
     adverse = data.frame(
       globalrecordid = c("1"),
@@ -72,5 +84,25 @@ test_that("mutate `had_sae`", {
     prepare_baseline(
       df_list = input
     )$baseline$had_sae, c(TRUE, FALSE)
+  )
+})
+
+test_that("create binary tx_outcome var", {
+  input <- list(
+    baseline = data.frame(
+      recstatus = c(1, 1),
+      outcome = c(1, 3)
+    )
+  )
+
+  expect_equal(
+    prepare_baseline(input),
+    list(baseline = data.frame(
+      recstatus = c(1, 1),
+      outcome = c(1, 3),
+      tx_outcome = factor(c("Success", "Failure"),
+        levels = c("Success", "Failure")
+      )
+    ))
   )
 })

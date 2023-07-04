@@ -9,6 +9,9 @@ prepare_baseline(df_list)
 \arguments{
 \item{df_list}{List of named data frames}
 }
+\value{
+df_list with modifications
+}
 \description{
 Prepare baseline data frame
 }

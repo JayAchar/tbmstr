@@ -25,12 +25,10 @@ run_analysis <- function(parent_dir,
     return(raw)
   }
 
-  # TODO prepare_analysis_data
-  prepare_baseline(
+  baselined <- prepare_baseline(
     df_list = raw
   )
   # select required variables
-  # label all variables
   # calculate relevant variables - e.g. age group, BMI
   # output outcome and adverse event data frames in list
   #
@@ -49,5 +47,5 @@ run_analysis <- function(parent_dir,
   # TODO fit logistic regression model for treatment outcome
 
   # TODO output final fully adjusted model table
-  return(raw)
+  return(baselined)
 }
