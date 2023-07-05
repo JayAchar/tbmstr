@@ -1,7 +1,8 @@
 #' Run analysis
 #'
 #' @inherit import_data
-#'
+#' @param data_only boolean flag to describe whether to only return
+#'   prepared data list
 #' @return NULL - creates files in output directory
 #' @export
 #'
@@ -13,7 +14,8 @@ run_analysis <- function(parent_dir,
                            dst = "dst"
                          ),
                          multi_country = FALSE,
-                         apply_labels = TRUE) {
+                         apply_labels = TRUE,
+                         data_only = FALSE) {
   raw <- import_data(
     parent_dir = parent_dir,
     file_names = file_names,
@@ -33,6 +35,9 @@ run_analysis <- function(parent_dir,
   # output outcome and adverse event data frames in list
   #
 
+  if (data_only) {
+    return(baselined)
+  }
   # TODO output table 1
 
 
@@ -47,5 +52,6 @@ run_analysis <- function(parent_dir,
   # TODO fit logistic regression model for treatment outcome
 
   # TODO output final fully adjusted model table
-  return(baselined)
+  cli::cli_abort("Change `data_only` to TRUE to only \\
+                        return prepared data")
 }

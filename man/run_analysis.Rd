@@ -9,7 +9,8 @@ run_analysis(
   file_names = list(baseline = "baseline", myco = "myco", adverse = "adverse", dst =
     "dst"),
   multi_country = FALSE,
-  apply_labels = TRUE
+  apply_labels = TRUE,
+  data_only = FALSE
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ countries to be combined}
 \item{apply_labels}{Boolean to indicate whether variables
 which have labels in the package look up table should
 have them applied}
+
+\item{data_only}{boolean flag to describe whether to only return
+prepared data list}
 }
 \value{
 NULL - creates files in output directory
