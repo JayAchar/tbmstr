@@ -2,6 +2,7 @@ library(tbmstr)
 suppressMessages(library(gtsummary))
 suppressMessages(library(dplyr))
 library(gt)
+library(broom)
 
 # change parent_dir as required
 parent_dir <- here::here("data", "parent_dir")
@@ -17,20 +18,29 @@ raw <- run_analysis(
   data_only = TRUE
 )
 
-raw$baseline |> 
-  mutate(had_sae = factor(if_else(
-    had_sae == TRUE, "Yes", "No"
-  ), levels = c("No", "Yes"))) |> 
+df <- raw$baseline |>
+  mutate(
+    had_sae = factor(if_else(
+      had_sae == TRUE, "Yes", "No"
+    ), levels = c("No", "Yes")),
+    is_employed = empl == "Employed"
+  )
+
+df |>
   tbl_summary(
-    include = c(age, sex, empl,
-                smok, hiv, diab,
-                cav, hbsag, hcvab,
-                outcome, had_sae,
-                stat12),
+    include = c(
+      age, sex, empl,
+      is_employed,
+      smok, hiv, diab,
+      cav, hbsag, hcvab,
+      outcome, had_sae,
+      stat12
+    ),
     label = list(
       age ~ "Age (years)",
       sex ~ "Sex",
       empl ~ "Employment status",
+      is_employed ~ "Is the participant employed?",
       smok ~ "Smoking status",
       hiv ~ "HIV status",
       diab ~ "Diabetes",
@@ -44,11 +54,52 @@ raw$baseline |>
     type = all_dichotomous() ~ "categorical",
     missing = "ifany",
     missing_text = "Missing"
-  ) |> 
-  bold_labels() |> 
-  as_gt() |> 
+  ) |>
+  bold_labels() |>
+  as_gt() |>
   gt::gtsave(
-    filename = "table_1.html",
+    filename = "table_1.docx",
     path = output_dir
   )
-  
+
+
+df |>
+  filter(hbsag != "Not done") |>
+  tbl_uvregression(
+    include = c(
+      tx_outcome,
+      age,
+      sex,
+      is_employed,
+      smok,
+      hiv,
+      diab,
+      cav,
+      hbsag,
+      hcvab
+    ),
+    label = list(
+      age ~ "Age (years)",
+      sex ~ "Sex",
+      empl ~ "Employment status",
+      is_employed ~ "Is the participant employed?",
+      smok ~ "Smoking status",
+      hiv ~ "HIV status",
+      diab ~ "Diabetes",
+      cav ~ "Cavitatory disease",
+      hbsag ~ "HBsAg status",
+      hcvab ~ "HCV Ab status"
+    ),
+    method = glm,
+    method.args = list(family = binomial(link = "logit")),
+    exponentiate = TRUE,
+    y = tx_outcome == "Success",
+    add_estimate_to_reference_rows = TRUE
+  ) |>
+  add_global_p() |>
+  bold_labels() |>
+  as_gt() |>
+  gt::gtsave(
+    filename = "table_2.docx",
+    path = output_dir
+  )
