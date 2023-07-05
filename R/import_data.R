@@ -26,9 +26,9 @@ import_data <- function(parent_dir,
     df_list = df_list,
     multi_country = multi_country
   )
-  
+
   # merge SAE boolean into baseline
-  had_sae <- unique(imported$adverse$globalrecordid[which(imported$adverse$sae == 1) ])
+  had_sae <- unique(imported$adverse$globalrecordid[which(imported$adverse$sae == 1)])
   imported$baseline$had_sae <- imported$baseline$globalrecordid %in% had_sae
 
   if (apply_labels) {

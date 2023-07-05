@@ -22,6 +22,7 @@ invisible(lapply(
     )
 
     write.csv(mtcars,
+      row.names = FALSE,
       file = file.path(
         temp_dir, as.character(x),
         "test_data.csv"
@@ -38,7 +39,6 @@ test_that("read_in reads in CSV files with parent_dir argument correctly", {
       baseline = "test_data"
     )
   ))
-
   expect_true(is.list(observed))
   expect_true(length(observed) == dir_count)
   expect_equal(names(observed), c("1", "2", "3"))
@@ -47,12 +47,12 @@ test_that("read_in reads in CSV files with parent_dir argument correctly", {
 
   # one additional column is added when writing mtcars to CSV
   # since the row.names are converted to their own column
-  expect_equal(dim(observed[["1"]][["baseline"]]), c(32, 12))
+  expect_equal(dim(observed[["1"]][["baseline"]]), c(32, 11))
 
   # # check that the column names are correct
   expect_equal(
     colnames(observed[["1"]][["baseline"]]),
-    c("X", colnames(mtcars))
+    colnames(mtcars)
   )
 
   expect_message(read_in(
