@@ -14,7 +14,7 @@
 #'
 #' ![](read_in_file_tree.png "Required file tree configuration")
 #'
-#' @importFrom utils read.csv
+#' @importFrom readr read_csv
 #' @importFrom cli cli_abort cli_alert_success
 #'
 #' @return A named list of named lists where each element is a data
@@ -68,14 +68,14 @@ read_in <- function(parent_dir,
   if (any(files_exist) == FALSE) {
     cli::cli_abort("Requested file(s) does not exist")
   }
-  
+
 
   dfs <- lapply(
     all_file_paths,
     \(dir) {
       lapply(
         dir,
-        \(file) read.csv(file)
+        \(file) readr::read_csv(file, show_col_types = FALSE)
       )
     }
   )
