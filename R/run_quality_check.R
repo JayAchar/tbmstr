@@ -2,6 +2,7 @@
 #'
 #' @param data_path path to data directory
 #' @param output_file path and name of output file - must be .html
+#' @import pointblank
 #'
 #' @return NULL - creates a HTML file as a side-effect
 #' @export

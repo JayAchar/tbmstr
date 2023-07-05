@@ -1,6 +1,6 @@
 Package: tbmstr
 Title: Analyse DR-TB mSTR Study Data
-Version: 0.0.1.2
+Version: 0.0.2.0
 Authors@R: 
     person("Jay", "Achar", , "jay.achar@doctors.org.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2521-4422"))
@@ -22,13 +22,13 @@ Suggests:
     gt,
     here,
     knitr,
-    pointblank,
     rsconnect,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
     cli (>= 3.4.0),
     learnr (>= 0.11.0),
+    pointblank (>= 0.11.4),
     readr (>= 2.1.0),
     rmarkdown
 URL: https://jayachar.github.io/tbmstr/

@@ -4,16 +4,46 @@
 \alias{run_analysis}
 \title{Run analysis}
 \usage{
-run_analysis(data_path, output_dir)
+run_analysis(
+  parent_dir,
+  file_names = list(baseline = "baseline", myco = "myco", adverse = "adverse", dst =
+    "dst"),
+  multi_country = FALSE,
+  apply_labels = TRUE,
+  data_only = FALSE
+)
 }
 \arguments{
-\item{data_path}{path to data directory}
+\item{parent_dir}{Path to parent directory where}
 
-\item{output_dir}{path to output directory}
+\item{file_names}{Named list of file names to read in.
+Allowed file names are:
+\itemize{
+\item adverse
+\item baseline
+\item dst
+\item myco
+}}
+
+\item{multi_country}{Boolean to allow data from multiple
+countries to be combined}
+
+\item{apply_labels}{Boolean to indicate whether variables
+which have labels in the package look up table should
+have them applied}
+
+\item{data_only}{boolean flag to describe whether to only return
+prepared data list}
 }
 \value{
 NULL - creates files in output directory
 }
 \description{
-Run analysis
+Read in study data which has been saved as CSV files
+}
+\details{
+\subsection{Required file directory structure}{
+
+\figure{read_in_file_tree.png}{Required file tree configuration}
+}
 }

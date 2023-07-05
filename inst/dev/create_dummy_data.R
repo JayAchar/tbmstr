@@ -3,6 +3,8 @@ suppressMessages(library(dplyr))
 parent_path <- ""
 output_path <- ""
 
+
+
 raw <- import_data(
   parent_dir = parent_path,
   file_names = list(
@@ -23,7 +25,8 @@ final$baseline <- raw$baseline |>
   select(
     -cntry, -lastsavelogonname, -inl, -drnum, -dob,
     -firstsavelogonname
-  )
+  ) |> 
+  mutate(cntry = 1)
 
 final$adverse <- raw$adverse |>
   filter(globalrecordid %in% final$baseline$globalrecordid) |>

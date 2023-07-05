@@ -80,7 +80,7 @@ read_in <- function(parent_dir,
     }
   )
 
-  cli::cli_alert_success("Files successfully read: {length(dfs)}")
+  cli::cli_alert_success("Data sets successfully read: {length(dfs)}")
 
   return(dfs)
 }
