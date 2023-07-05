@@ -4,11 +4,12 @@
 ^.here$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^data/test-data$
+^data$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^inst/dev$
 ^inst/resources$
 ^docker$
+^scripts$
 ^translation-en\.json$

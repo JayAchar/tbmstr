@@ -1,6 +1,8 @@
 scratch.R
 .Rproj.user
 data/**/*.csv
+data/parent_dir/*
+data/output/*
 docs
 inst/doc
 inst/resources/*.pdf
