@@ -1,3 +1,15 @@
+input <- list(
+  baseline = data.frame(
+    globalrecordid = c(1, 2),
+    recstatus = c(1, 1),
+    outcome = c(1, 1),
+    height = c(120, 120),
+    weight = c(34, 34)
+  ),
+  adverse = data.frame()
+)
+
+
 test_that("check errors", {
   expect_error(
     prepare_baseline(
@@ -5,123 +17,89 @@ test_that("check errors", {
     )
   )
   expect_warning(
-    prepare_baseline(
+    suppressMessages(prepare_baseline(
       df_list = list(
         adverse = data.frame()
       )
-    )
+    ), "cliMessage")
   )
   expect_equal(
-    suppressWarnings(prepare_baseline(
-      df_list = list(
-        adverse = data.frame()
-      )
-    )), list(adverse = data.frame())
+    suppressWarnings(
+      suppressMessages(prepare_baseline(
+        df_list = list(
+          adverse = data.frame()
+        )
+      ), "cliMessage")
+    ), list(adverse = data.frame())
   )
 
-  expect_message(
-    prepare_baseline(
-      df_list = list(
-        baseline = data.frame(
-          recstatus = c(1, 1),
-          outcome = c(1, 1)
-        )
-      )
-    ), "`tx_outcome` variable refactored from `outcome`"
-  )
 
+  remove_withdrawn <- input
+  remove_withdrawn$baseline$recstatus[2] <- 0L
   expect_message(
     prepare_baseline(
-      df_list = list(
-        baseline = data.frame(
-          recstatus = c(1, 0),
-          outcome = c(1, 1)
-        )
-      )
+      df_list = remove_withdrawn
     ), "Found 1 record to remove."
   )
-
-  expect_equal(
-    suppressMessages(prepare_baseline(
-      df_list = list(
-        baseline = data.frame(
-          recstatus = c(1, 1),
-          outcome = c(1, 1)
-        )
-      )
-    ), "cliMessage"), list(baseline = data.frame(
-      recstatus = c(1, 1),
-      outcome = c(1, 1),
-      tx_outcome = factor(c("Success", "Success"),
-        levels = c("Success", "Failure")
-      ),
-      had_sae = NA
-    ))
-  )
 })
-
+#
 test_that("mutate `had_sae`", {
   # use sae variable as integer - i.e. with no label applied
-  input <- list(
-    baseline = data.frame(
-      globalrecordid = c("1", "2"),
-      recstatus = c(1, 1),
-      outcome = c(1, 1)
-    ),
-    adverse = data.frame(
-      globalrecordid = c("1"),
-      sae = c(1)
-    )
+  numeric_sae <- input
+  numeric_sae$adverse <- data.frame(
+    globalrecordid = c(1),
+    sae = c(1)
   )
 
   expect_equal(
     suppressMessages(prepare_baseline(
-      df_list = input
+      df_list = numeric_sae
     ), "cliMessage")$baseline$had_sae,
     c(TRUE, FALSE)
   )
 
 
   # use text label applied to SAE variable
-  input <- list(
-    baseline = data.frame(
-      globalrecordid = c("1", "2"),
-      recstatus = c(1, 1),
-      outcome = c(1, 1)
-    ),
-    adverse = data.frame(
-      globalrecordid = c("1"),
-      sae = c("Seriouse")
-    )
+  text_sae <- input
+  text_sae$adverse <- data.frame(
+    globalrecordid = c(1),
+    sae = c("Seriouse")
   )
+
   expect_equal(
     suppressMessages(prepare_baseline(
-      df_list = input
+      df_list = text_sae
     ), "cliMessage")$baseline$had_sae,
     c(TRUE, FALSE)
   )
 })
 
 test_that("create binary tx_outcome var", {
-  input <- list(
-    baseline = data.frame(
-      recstatus = c(1, 1),
-      outcome = c(1, 3)
-    )
-  )
+  tx_outcome_input <- input
+  tx_outcome_input$baseline$outcome[2] <- 3L
 
   expect_equal(
-    suppressMessages(
-      prepare_baseline(input),
-      "cliMessage"
-    ),
-    list(baseline = data.frame(
-      recstatus = c(1, 1),
-      outcome = c(1, 3),
-      tx_outcome = factor(c("Success", "Failure"),
-        levels = c("Success", "Failure")
-      ),
-      had_sae = NA
-    ))
+    prepare_baseline(tx_outcome_input)$baseline$tx_outcome,
+    factor(c("Success", "Failure"),
+      levels = c("Success", "Failure")
+    )
+  )
+})
+
+test_that("calculate BMI correctly", {
+  expect_equal(
+    round(
+      prepare_baseline(input)$baseline$bmi,
+      2
+    ), c(23.61, 23.61)
+  )
+
+  missing_height <- input
+  missing_height$baseline$height[1] <- NA
+  expect_equal(
+    round(
+      prepare_baseline(missing_height)$baseline$bmi,
+      2
+    ), c(NA, 23.61)
   )
 })
