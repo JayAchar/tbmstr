@@ -4,7 +4,8 @@ input <- list(
     recstatus = c(1, 1),
     outcome = c(1, 1),
     height = c(120, 120),
-    weight = c(34, 34)
+    weight = c(34, 34),
+    stat12 = c(1, 3)
   ),
   adverse = data.frame()
 )
@@ -79,7 +80,9 @@ test_that("create binary tx_outcome var", {
   tx_outcome_input$baseline$outcome[2] <- 3L
 
   expect_equal(
-    prepare_baseline(tx_outcome_input)$baseline$tx_outcome,
+    suppressMessages(prepare_baseline(
+      tx_outcome_input
+    )$baseline$tx_outcome, "cliMessage"),
     factor(c("Success", "Failure"),
       levels = c("Success", "Failure")
     )
@@ -89,7 +92,7 @@ test_that("create binary tx_outcome var", {
 test_that("calculate BMI correctly", {
   expect_equal(
     round(
-      prepare_baseline(input)$baseline$bmi,
+      suppressMessages(prepare_baseline(input)$baseline$bmi, "cliMessage"),
       2
     ), c(23.61, 23.61)
   )
@@ -98,7 +101,10 @@ test_that("calculate BMI correctly", {
   missing_height$baseline$height[1] <- NA
   expect_equal(
     round(
-      prepare_baseline(missing_height)$baseline$bmi,
+      suppressMessages(
+        prepare_baseline(missing_height)$baseline$bmi,
+        "cliMessage"
+      ),
       2
     ), c(NA, 23.61)
   )

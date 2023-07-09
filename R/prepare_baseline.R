@@ -50,6 +50,13 @@ prepare_baseline <- function(df_list) {
   df_list$baseline$bmi <- df_list$baseline$weight /
     ((df_list$baseline$height / 100)^2)
 
+  df_list$baseline$eos_outcome <- create_eos_outcome(
+    eot = df_list$baseline$outcome,
+    eof = df_list$baseline$stat12
+  )
+  cli::cli_alert_info("`eos_outocome` variable calculated from \\
+                      `outcome` and `stat12`.")
+
   if (!"had_sae" %in% names(df_list$baseline)) {
     had_sae <- unique(df_list$adverse$globalrecordid[which(
       df_list$adverse$sae %in% list(1, "Seriouse")
