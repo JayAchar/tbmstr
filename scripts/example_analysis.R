@@ -29,8 +29,9 @@ df <- raw$baseline |>
 df |>
   tbl_summary(
     include = c(
-      age, sex, empl,
+      age, sex, empl, 
       is_employed,
+      covid,
       smok, hiv, diab,
       cav, hbsag, hcvab,
       outcome, had_sae,
@@ -42,6 +43,7 @@ df |>
       empl ~ "Employment status",
       is_employed ~ "Is the participant employed?",
       smok ~ "Smoking status",
+      covid ~ "COVID-19",
       hiv ~ "HIV status",
       diab ~ "Diabetes",
       cav ~ "Cavitatory disease",
@@ -62,9 +64,10 @@ df |>
     path = output_dir
   )
 
+filtered <- df |>
+  filter(hcvab != "Not done")
 
-df |>
-  filter(hbsag != "Not done") |>
+filtered |>
   tbl_uvregression(
     include = c(
       tx_outcome,
@@ -75,8 +78,8 @@ df |>
       hiv,
       diab,
       cav,
-      hbsag,
-      hcvab
+      hcvab,
+      covid
     ),
     label = list(
       age ~ "Age (years)",
@@ -87,7 +90,6 @@ df |>
       hiv ~ "HIV status",
       diab ~ "Diabetes",
       cav ~ "Cavitatory disease",
-      hbsag ~ "HBsAg status",
       hcvab ~ "HCV Ab status"
     ),
     method = glm,
@@ -97,9 +99,23 @@ df |>
     add_estimate_to_reference_rows = TRUE
   ) |>
   add_global_p() |>
+  bold_labels()
+  as_gt() |>
+  gt::gtsave(
+    filename = "table_2.html",
+    path = output_dir
+  )
+
+m1 <- glm(
+    (tx_outcome == "Success") ~ age + smok + is_employed, 
+    data = filtered,
+    family = binomial(link = "logit")
+  ) |> broom::tidy(exponentiate = TRUE)
+
+tbl_regression(m1, exponentiate = TRUE) |>
   bold_labels() |>
   as_gt() |>
   gt::gtsave(
-    filename = "table_2.docx",
+    filename = "table_3.html",
     path = output_dir
   )
