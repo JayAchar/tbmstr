@@ -5,7 +5,9 @@ input <- list(
     outcome = c(1, 1),
     height = c(120, 120),
     weight = c(34, 34),
-    stat12 = c(1, 3)
+    stat12 = c(1, 3),
+    trtstdat = as.POSIXct(c("2021-01-01", "2021-02-01")),
+    convdat = as.POSIXct(c("2021-02-01", "2021-03-12"))
   ),
   adverse = data.frame()
 )
