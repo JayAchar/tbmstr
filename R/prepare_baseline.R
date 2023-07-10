@@ -49,6 +49,8 @@ prepare_baseline <- function(df_list) {
   # calculate BMI variable
   df_list$baseline$bmi <- df_list$baseline$weight /
     ((df_list$baseline$height / 100)^2)
+  cli::cli_alert_info("`bmi` variable calculated from \\
+                      `height` and `weight`.")
 
   df_list$baseline$eos_outcome <- create_eos_outcome(
     eot = df_list$baseline$outcome,
@@ -56,6 +58,13 @@ prepare_baseline <- function(df_list) {
   )
   cli::cli_alert_info("`eos_outocome` variable calculated from \\
                       `outcome` and `stat12`.")
+
+  df_list$baseline$cc_days <- create_cc_days(
+    trtstdat = df_list$baseline$trtstdat,
+    convdat = df_list$baseline$convdat
+  )
+  cli::cli_alert_info("`cc_days` variable calculated from \\
+                      `trtstdat` and `convdat`.")
 
   if (!"had_sae" %in% names(df_list$baseline)) {
     had_sae <- unique(df_list$adverse$globalrecordid[which(
