@@ -9,9 +9,14 @@ input <- list(
     trtstdat = as.POSIXct(c("2021-01-01", "2021-02-01")),
     convdat = as.POSIXct(c("2021-02-01", "2021-03-12"))
   ),
-  adverse = data.frame()
+  adverse = data.frame(),
+  myco = data.frame(
+    fkey = character(0),
+    datespecimen = as.POSIXct(character(0)),
+    test_type = character(0),
+    result = character(0)
+  )
 )
-
 
 test_that("check errors", {
   expect_error(

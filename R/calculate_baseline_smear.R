@@ -24,7 +24,8 @@ calculate_baseline_smear <- function(baseline,
   merged <- merge(bdf,
     valid_results,
     by.x = "globalrecordid",
-    by.y = "fkey"
+    by.y = "fkey",
+    all.x = TRUE
   )
 
   merged$test_type <- NULL
@@ -35,22 +36,50 @@ calculate_baseline_smear <- function(baseline,
   ff$datespecimen <- NULL
   # 8. Keep specimen closest to treatment initiation
   sp <- split(ff, ff$globalrecordid)
+  # handle myco data frame with no rows
+  if (length(sp) == 0) {
+    baseline$afb1 <- NA
+    baseline$smear <- apply_labels(baseline, "afb1")
+    baseline$afb1 <- NULL
+    return(baseline)
+  }
   min_lst <- lapply(
     sp,
     \(grp) {
       min_days <- which(grp[["days"]] == min(grp[["days"]]))
-      grp[min_days, ]
+      df <- grp[min_days, ]
+      if (length(min_days) > 1) {
+        if (length(unique(df$result)) == 1) {
+          return(
+            df[1, ]
+          )
+        }
+        if (any(df$result %in% list(1, "Positive"))) {
+          return(
+            df[which(df$result %in% list(1, "Positive")), ]
+          )
+        }
+      }
+      df
     }
   )
   df <- Reduce(
     rbind,
     min_lst,
   )
-  df$days <- NULL
   names(df)[names(df) == "result"] <- "afb1"
   df$smear <- apply_labels(df, "afb1")
-  df$afb1 <- NULL
-  df
-  # 9. Ensure there's only one value per subject
   # 10. Merge baseline_smear with original baseline df
+  output <- merge(
+    baseline,
+    df[, c("globalrecordid", "smear")],
+    by = "globalrecordid",
+    all.x = TRUE
+  )
+
+  if (nrow(output) != nrow(baseline)) {
+    cli::cli_abort("Output row count should equal input row count.")
+  }
+
+  return(output)
 }

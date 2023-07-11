@@ -11,7 +11,7 @@ prepare_baseline <- function(df_list) {
     cli::cli_abort("`df_list` must be a list")
   }
 
-  required <- c("baseline", "adverse")
+  required <- c("baseline", "adverse", "myco")
   is_not_df <- vapply(
     required,
     \(name) !is.data.frame(df_list[[name]]),
@@ -71,6 +71,15 @@ prepare_baseline <- function(df_list) {
   if (!is_testing()) {
     cli::cli_alert_info("`cc_days` variable calculated from \\
                       `trtstdat` and `convdat`.")
+  }
+
+  df_list$baseline <- calculate_baseline_smear(
+    baseline = df_list$baseline,
+    myco = df_list$myco
+  )
+  if (!is_testing()) {
+    cli::cli_alert_info("`smear` variable calculated from \\
+                      `myco` data frame.")
   }
 
   if (!"had_sae" %in% names(df_list$baseline)) {
