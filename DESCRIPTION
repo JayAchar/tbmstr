@@ -1,6 +1,6 @@
 Package: tbmstr
 Title: Analyse DR-TB mSTR Study Data
-Version: 0.0.3.0
+Version: 0.0.4.0
 Authors@R: 
     person("Jay", "Achar", , "jay.achar@doctors.org.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2521-4422"))

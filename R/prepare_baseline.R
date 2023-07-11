@@ -11,7 +11,7 @@ prepare_baseline <- function(df_list) {
     cli::cli_abort("`df_list` must be a list")
   }
 
-  required <- c("baseline", "adverse")
+  required <- c("baseline", "adverse", "myco")
   is_not_df <- vapply(
     required,
     \(name) !is.data.frame(df_list[[name]]),
@@ -40,22 +40,47 @@ prepare_baseline <- function(df_list) {
   )
 
   # create binary end of treatment outcome variable
-  df_list$baseline$tx_outcome <- factor(ifelse(
-    df_list$baseline$outcome %in% list("Cured", "Completed", 1, 2),
-    "Success", "Failure"
-  ), levels = c("Success", "Failure"))
-  cli::cli_alert_info("`tx_outcome` variable refactored from `outcome`.")
+  df_list$baseline$tx_outcome <- create_binary_tx_outcome(
+    df_list$baseline$outcome
+  )
+  if (!is_testing()) {
+    cli::cli_alert_info("`tx_outcome` variable refactored from `outcome`.")
+  }
 
   # calculate BMI variable
   df_list$baseline$bmi <- df_list$baseline$weight /
     ((df_list$baseline$height / 100)^2)
+  if (!is_testing()) {
+    cli::cli_alert_info("`bmi` variable calculated from \\
+                      `height` and `weight`.")
+  }
 
   df_list$baseline$eos_outcome <- create_eos_outcome(
     eot = df_list$baseline$outcome,
     eof = df_list$baseline$stat12
   )
-  cli::cli_alert_info("`eos_outocome` variable calculated from \\
+  if (!is_testing()) {
+    cli::cli_alert_info("`eos_outocome` variable calculated from \\
                       `outcome` and `stat12`.")
+  }
+
+  df_list$baseline$cc_days <- create_cc_days(
+    trtstdat = df_list$baseline$trtstdat,
+    convdat = df_list$baseline$convdat
+  )
+  if (!is_testing()) {
+    cli::cli_alert_info("`cc_days` variable calculated from \\
+                      `trtstdat` and `convdat`.")
+  }
+
+  df_list$baseline <- calculate_baseline_smear(
+    baseline = df_list$baseline,
+    myco = df_list$myco
+  )
+  if (!is_testing()) {
+    cli::cli_alert_info("`smear` variable calculated from \\
+                      `myco` data frame.")
+  }
 
   if (!"had_sae" %in% names(df_list$baseline)) {
     had_sae <- unique(df_list$adverse$globalrecordid[which(

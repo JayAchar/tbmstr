@@ -5,11 +5,18 @@ input <- list(
     outcome = c(1, 1),
     height = c(120, 120),
     weight = c(34, 34),
-    stat12 = c(1, 3)
+    stat12 = c(1, 3),
+    trtstdat = as.POSIXct(c("2021-01-01", "2021-02-01")),
+    convdat = as.POSIXct(c("2021-02-01", "2021-03-12"))
   ),
-  adverse = data.frame()
+  adverse = data.frame(),
+  myco = data.frame(
+    fkey = character(0),
+    datespecimen = as.POSIXct(character(0)),
+    test_type = character(0),
+    result = character(0)
+  )
 )
-
 
 test_that("check errors", {
   expect_error(
@@ -83,8 +90,8 @@ test_that("create binary tx_outcome var", {
     suppressMessages(prepare_baseline(
       tx_outcome_input
     )$baseline$tx_outcome, "cliMessage"),
-    factor(c("Success", "Failure"),
-      levels = c("Success", "Failure")
+    factor(c("Successful", "Unsuccessful"),
+      levels = c("Successful", "Unsuccessful")
     )
   )
 })
