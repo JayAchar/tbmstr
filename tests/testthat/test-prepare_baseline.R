@@ -85,8 +85,8 @@ test_that("create binary tx_outcome var", {
     suppressMessages(prepare_baseline(
       tx_outcome_input
     )$baseline$tx_outcome, "cliMessage"),
-    factor(c("Success", "Failure"),
-      levels = c("Success", "Failure")
+    factor(c("Successful", "Unsuccessful"),
+      levels = c("Successful", "Unsuccessful")
     )
   )
 })

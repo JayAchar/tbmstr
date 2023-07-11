@@ -30,3 +30,22 @@ merge_and_filter_by_start_date <- function(baseline, target, target_date_var) {
     merged[[target_date_var]] <= merged$trtstdat
   ), ]
 }
+
+
+
+#' @noRd
+
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
+}
+
+
+#' @Rd
+create_binary_tx_outcome <- function(outcome) {
+  var <- factor(ifelse(
+    outcome %in% list("Cured", "Completed", 1, 2),
+    "Successful", "Unsuccessful"
+  ), levels = c("Successful", "Unsuccessful"))
+  var[which(is.na(outcome))] <- NA
+  var
+}
