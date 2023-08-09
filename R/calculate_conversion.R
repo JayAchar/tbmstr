@@ -13,7 +13,8 @@ calculate_conversion <- function(subject_df,
     is.data.frame(subject_df),
     all(c("id", "date", "result") %in% names(subject_df)),
     length(unique(subject_df$id)) == 1L,
-    all(subject_df$result %in% c(0, 1))
+    all(subject_df$result %in% c(0, 1)),
+    all(!is.na(subject_df$date))
   )
 
   # capture number of results
@@ -30,11 +31,17 @@ calculate_conversion <- function(subject_df,
       # if the difference is less than the tolerance, check the previous
       # row.
 
+      # For each result, recurse backwards to find the longest sequence of
+      # negative results then calculate the number of days
+
       days_diff <- Reduce(
         x = row:min(result_sequence),
         f = function(res, inc) {
           if (inc == 1) {
             return(res)
+          }
+          if (subject_df[inc, "result"] == 1) {
+            return(0)
           }
           # stop recursing back if the current diff since negative > required
           if (res >= tolerance) {
@@ -61,7 +68,6 @@ calculate_conversion <- function(subject_df,
   )
 
   subject_df$diff <- diffs
-
   # retain candidate results which might represent conversion
   candidates <- subject_df[which(subject_df$diff >= tolerance), ]
 
