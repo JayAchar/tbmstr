@@ -18,3 +18,14 @@ test_that("message if parsing fails", {
 
   expect_message(transform_to_date(input))
 })
+
+test_that("allos correctly formatted date to pass through", {
+  input <- as.POSIXct(c(
+    "2021-07-23T00:00:00.000Z",
+    NA_character_
+  ))
+  
+  observed <- transform_to_date(input)
+  
+  expect_equal(class(observed), c("POSIXct", "POSIXt"))
+})
