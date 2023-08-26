@@ -3,6 +3,7 @@ scratch.R
 data/**/*.csv
 data/parent_dir/*
 data/output/*
+data/regional_*/*
 docs
 inst/doc
 inst/resources/*.pdf
