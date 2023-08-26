@@ -62,10 +62,10 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
                       `height` and `weight`.")
   }
 
-  df_list$baseline$eos_outcome <- create_eos_outcome(
-    eot = df_list$baseline$outcome,
-    eof = df_list$baseline$stat12
+  df_list$baseline <- create_eos_outcome(
+    df_list$baseline
   )
+  
   if (!is_testing()) {
     cli::cli_alert_info("`eos_outocome` variable calculated from \\
                       `outcome` and `stat12`.")

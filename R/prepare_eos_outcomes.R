@@ -4,7 +4,7 @@
 #'   EoS evaluation dates
 #'
 #' @importFrom stats reshape
-#' @return
+#' @return data frame of outcome data in long format
 #'
 prepare_eos_outcomes <- function(df) {
   status_vars <- grep(
@@ -27,7 +27,7 @@ prepare_eos_outcomes <- function(df) {
     v.names = "status",
     varying = status_vars,
     times = date_vars
-  )
+  ) |> as.data.frame()
 
   dates <- vapply(
     seq_along(output_df$date_var),

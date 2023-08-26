@@ -27,11 +27,24 @@ calculate_eos_outcome <- function(df) {
 
   ## if treatment failure is found return early with
   ## failure result and date
-  if (any(df$outcome %in% defs$eot_failure)) {
+  if (any(df$outcome %in% c(defs$eot_failure, "Withdrawn"))) {
+    eos_outcome <- "Died"
+
+    if (df$outcome[1] == "Failed") {
+      eos_outcome <- "Treatment failure"
+    }
+    if (df$outcome[1] == "Lost to follow-up") {
+      eos_outcome <- "Treatment LTFU"
+    }
+    if (df$outcome[1] == "Withdrawn") {
+      warning("Withdrawn subjects detected - suggest removing")
+      eos_outcome <- "Not evaluated"
+    }
+
     return(
       data.frame(
         globalrecordid = df$globalrecordid[1],
-        eos_outcome = factor(df$outcome[1],
+        eos_outcome = factor(eos_outcome,
           levels = internal$definitions$eos_levels
         ),
         eos_date = df$trtendat[1]
@@ -43,18 +56,35 @@ calculate_eos_outcome <- function(df) {
   ## sort data frame by fudat
   sorted <- df[order(df$fudat), ]
   ## check each status result
-  earliest_failure_index <- min(
-    which(sorted$status %in% defs$eos_failure)
-  )
-  # for earliest failure and return with date
+  failure_indices <- which(sorted$status %in% defs$eos_failure)
+
+  if (length(failure_indices) > 0) {
+    earliest_failure_index <- min(failure_indices)
+    # for earliest failure and return with date
+    return(
+      data.frame(
+        globalrecordid = df$globalrecordid[1],
+        eos_outcome = factor(sorted$status[earliest_failure_index],
+          levels = internal$definitions$eos_levels
+        ),
+        eos_date = sorted$fudat[earliest_failure_index]
+      )
+    )
+  }
+
+  final_fu <- df$trtendat[1]
+
+  if (!all(is.na(df$fudat))) {
+    final_fu <- max(df$fudat, na.rm = TRUE)
+  }
 
   return(
     data.frame(
       globalrecordid = df$globalrecordid[1],
-      eos_outcome = factor(sorted$status[earliest_failure_index],
+      eos_outcome = factor("No TB",
         levels = internal$definitions$eos_levels
       ),
-      eos_date = sorted$fudat[earliest_failure_index]
+      eos_date = final_fu
     )
   )
 }

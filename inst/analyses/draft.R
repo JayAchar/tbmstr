@@ -26,7 +26,6 @@ raw$baseline <- remove_invalid_records(
   raw$baseline
 )
 
-
 # prepare data for quality check
 quality_data <- prepare_quality_data(
   study_data = list(

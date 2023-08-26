@@ -10,6 +10,9 @@ prepare_eos_outcomes(df)
 \item{df}{data frame containing unique ID, EoS outcomes and
 EoS evaluation dates}
 }
+\value{
+data frame of outcome data in long format
+}
 \description{
 Reshape EoS outcome variables
 }

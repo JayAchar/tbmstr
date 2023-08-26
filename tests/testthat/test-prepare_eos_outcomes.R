@@ -8,7 +8,7 @@ custom_outcome <- function(str) {
 }
 
 test_that("reshaping works", {
-  input <- data.frame(
+  input <- tibble::tibble(
     globalrecordid = "a",
     stat3 = custom_outcome(c("No TB")),
     evldat3 = c(as.POSIXct("2021-01-01")),
@@ -30,7 +30,7 @@ test_that("reshaping works", {
 })
 
 test_that("reshaping works with dynamic variable names", {
-  input <- data.frame(
+  input <- tibble::tibble(
     globalrecordid = "a",
     stat9 = custom_outcome(c("No TB")),
     evldat9 = c(as.POSIXct("2021-01-01")),
@@ -50,4 +50,3 @@ test_that("reshaping works with dynamic variable names", {
     ignore_attr = TRUE
   )
 })
-
