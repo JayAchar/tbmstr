@@ -40,7 +40,7 @@ is_testing <- function() {
 }
 
 
-#' @Rd
+#' @noRd
 create_binary_tx_outcome <- function(outcome) {
   var <- factor(ifelse(
     outcome %in% list("Cured", "Completed", 1, 2),

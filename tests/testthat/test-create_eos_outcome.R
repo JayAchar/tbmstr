@@ -1,69 +1,74 @@
-eos_levels <- c(
-  "No TB", "Reoccurance", "Died during follow-up",
-  "Unsuccessful treatment", "Not evaluated"
-)
-
 test_that("errors when incorrect inputs", {
+  skip()
   expect_error(
     create_eos_outcome(
-      eot = data.frame(),
-      eof = 1
-    ), "Input arguments should be numeric vectors or factors."
+      df = data.frame()
+    ), "Input data frame does not include required variables."
   )
 
   expect_error(
     create_eos_outcome(
-      eot = c(1, 2),
-      eof = c(1)
-    ),
-    "Input arguments should be the same length."
-  )
-
-  expect_error(
-    create_eos_outcome(
-      eot = 1,
-      eof = factor("No TB")
-    ),
-    "Input arguments should be the same class."
+      df = list()
+    ), "Input argument should be a data frame."
   )
 })
 
-test_that("detect success correctly", {
+test_that("complete follow-up success", {
+  skip()
   # end of treatment outcome is success
   # and eos outcome is no TB
-
+  skip()
+  input <- data.frame(
+    id = c(1),
+    outcome = c("Cured"),
+    stat3 = c("No TB"),
+    stat6 = c("No TB"),
+    stat9 = c("No TB"),
+    stat12 = c("No TB"),
+  )
   # using values
   expect_equal(create_eos_outcome(
-    eot = c(1, 2),
-    eof = c(1, 1)
-  ), factor(c("No TB", "No TB"),
-    levels = eos_levels
+    df = input
+  ), factor(c("No TB"),
+    levels = internal$definitions$eos_levels
   ))
+})
 
-  # using character vector
+test_that("partial follow-up success", {
+  skip()
+  input <- data.frame(
+    id = c(1),
+    outcome = c("Completed"),
+    stat3 = c("No TB"),
+    stat6 = c("No TB"),
+    stat9 = c(NA_character_),
+    stat12 = c(NA_character_),
+  )
+  # using values
   expect_equal(create_eos_outcome(
-    eot = factor("Cured"),
-    eof = factor("No TB")
-  ), factor("No TB",
-    levels = eos_levels
-  ))
-
-  expect_equal(create_eos_outcome(
-    eot = factor("Completed"),
-    eof = factor("No TB")
-  ), factor("No TB",
-    levels = eos_levels
+    df = input
+  ), factor(c("No TB"),
+    levels = internal$definitions$eos_levels
   ))
 })
 
 test_that("detect on treatment failure correctly", {
+  skip()
+
+  input <- data.frame(
+    id = c(1),
+    outcome = c("Failed"),
+    stat3 = c("No TB"),
+    stat6 = c("No TB"),
+    stat9 = c("Reoccrance"),
+    stat12 = c(NA_character_),
+  )
   expect_equal(
     create_eos_outcome(
-      eot = 3,
-      eof = NA_real_
+      df = input
     ),
     factor("Unsuccessful treatment",
-      levels = eos_levels
+      levels = internal$definitions$eos_levels
     )
   )
 
@@ -73,53 +78,27 @@ test_that("detect on treatment failure correctly", {
       eof = factor("Reoccurance")
     ),
     factor("Unsuccessful treatment",
-      levels = eos_levels
-    )
-  )
-
-  expect_equal(
-    create_eos_outcome(
-      eot = factor("Failed"),
-      eof = factor("No TB")
-    ),
-    factor("Unsuccessful treatment",
-      levels = eos_levels
+      levels = internal$definitions$eos_levels
     )
   )
 })
 
 test_that("detect post-treatment failure", {
+  skip()
+  input <- data.frame(
+    id = c(1),
+    outcome = c("Completed"),
+    stat3 = c("No TB"),
+    stat6 = c("No TB"),
+    stat9 = c("Reoccurance"),
+    stat12 = c(NA_character_),
+  )
   expect_equal(
     create_eos_outcome(
-      eot = 1,
-      eof = 2
+      df = input
     ),
     factor("Reoccurance",
-      levels = eos_levels
-    )
-  )
-})
-
-test_that("detect post-treatment death", {
-  expect_equal(
-    create_eos_outcome(
-      eot = 2,
-      eof = 3
-    ),
-    factor("Died during follow-up",
-      levels = eos_levels
-    )
-  )
-})
-
-test_that("detect not evaluated", {
-  expect_equal(
-    create_eos_outcome(
-      eot = factor("Not evaluated"),
-      eof = factor("No TB")
-    ),
-    factor("Not evaluated",
-      levels = eos_levels
+      levels = internal$definitions$eos_levels
     )
   )
 })

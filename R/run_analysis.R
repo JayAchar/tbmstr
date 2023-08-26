@@ -38,20 +38,7 @@ run_analysis <- function(parent_dir,
   if (data_only) {
     return(baselined)
   }
-  # TODO output table 1
 
-
-  # TODO calculate summary statistics for treatment outcome
-
-  # TODO calculate summary statistics for adverse events
-
-  # TODO output treatment outcomes by explanatory variable
-
-  # TODO output adverse events by explanatory variable
-
-  # TODO fit logistic regression model for treatment outcome
-
-  # TODO output final fully adjusted model table
   cli::cli_abort("Change `data_only` to TRUE to only \\
                         return prepared data")
 }

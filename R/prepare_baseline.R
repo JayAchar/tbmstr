@@ -1,12 +1,15 @@
 #' Prepare baseline data frame
 #'
 #' @param df_list List of named data frames
+#' @param cohort define cohort type required
 #'
 #' @importFrom cli cli_abort cli_warn cli_alert_warning cli_alert_info
 #'
 #' @return df_list with modifications
 #'
-prepare_baseline <- function(df_list) {
+prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
+  cohort <- match.arg(cohort)
+
   if (!is.list(df_list) || is.data.frame(df_list)) {
     cli::cli_abort("`df_list` must be a list")
   }
@@ -38,6 +41,10 @@ prepare_baseline <- function(df_list) {
   df_list$baseline <- remove_invalid_records(
     df_list[["baseline"]]
   )
+
+  if (cohort == "treatment") {
+    df_list$baseline <- remove_withdrawn_subjects(df_list[["baseline"]])
+  }
 
   # create binary end of treatment outcome variable
   df_list$baseline$tx_outcome <- create_binary_tx_outcome(

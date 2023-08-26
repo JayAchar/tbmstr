@@ -5,14 +5,14 @@
 #' @param type SAE or AE represents the type of AE required
 #' @importFrom cli cli_abort
 #'
-#' @return
+#' @return data frame
 #'
 
 prepare_ae_summary_data <- function(baseline, adverse,
                                     type = c("SAE", "AE")) {
   if (!(is.data.frame(baseline) && is.data.frame(adverse))) {
     cli::cli_abort("Input parameters - `baseline` and `adverse` must \\
-                       be data frames")
+                       be data frames.")
   }
 
   type <- match.arg(type)
@@ -35,13 +35,28 @@ prepare_ae_summary_data <- function(baseline, adverse,
     sae_type <- df$saetype
   }
 
-  # TODO: partially completed only
+
+  df$duration <- as.numeric(
+    difftime(df$aenddt,
+      df$aeonsetdt,
+      units = "days"
+    )
+  )
+
+  df$onset <- ceiling(
+    as.numeric(
+      difftime(df$aeonsetdt, df$trtstdat, units = "days")
+    ) / 30
+  )
+
   return(
     data.frame(
       Type = df$aeterm,
       `SAE type` = sae_type,
       Severity = df$severity,
-      Outcome = df$aeoutcome
+      Outcome = df$aeoutcome,
+      duruation = df$duration,
+      onset = df$onset
     )
   )
 }

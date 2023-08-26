@@ -18,6 +18,8 @@ apply_labels <- function(df, variable, convert_to_factor = TRUE) {
     cli::cli_abort("`df` must be a data frame")
   }
 
+  lut <- internal$lut
+
   if (!is.character(variable)) {
     cli::cli_abort("`variable` must be a single length string vector")
   }

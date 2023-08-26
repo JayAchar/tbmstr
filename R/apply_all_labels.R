@@ -31,16 +31,23 @@ apply_all_labels <- function(lst) {
     lst,
     \(df) {
       # conmpare df names with lut
-      included_vars <- names(df)[names(df) %in% lut$name]
+      included_vars <- names(df)[names(df) %in% internal$lut$name]
       # replace vars in place
       df[included_vars] <- lapply(
         included_vars,
         \(var_name) {
-          apply_labels(
+          labelled <- apply_labels(
             df = df,
             variable = var_name,
             convert_to_factor = TRUE
           )
+
+          if (var_name == "outcome") {
+            ukr_target_rows <- which(df$cntry == 10 & df$outcome == 6)
+            labelled[ukr_target_rows] <- "Withdrawn"
+          }
+
+          return(labelled)
         }
       )
       df

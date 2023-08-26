@@ -4,10 +4,12 @@
 \alias{prepare_baseline}
 \title{Prepare baseline data frame}
 \usage{
-prepare_baseline(df_list)
+prepare_baseline(df_list, cohort = c("treatment", "adverse"))
 }
 \arguments{
 \item{df_list}{List of named data frames}
+
+\item{cohort}{define cohort type required}
 }
 \value{
 df_list with modifications

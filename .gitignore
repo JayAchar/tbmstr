@@ -9,3 +9,5 @@ inst/doc
 inst/resources/*.pdf
 inst/resources/lookup/*.csv
 inst/dev/*.html
+inst/analyses/output/*.html
+inst/analyses/output/*.docx

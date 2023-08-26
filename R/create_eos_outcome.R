@@ -7,25 +7,33 @@
 #' missing. This function combines the end of treatment outcome and the
 #' `status12` variable to create a valid end of study outcome.
 #'
-#' @param eot vector of End of treatment outcomes
-#' @param eof vector of End of follow-up outcomes
+#' @param df baseline data frame
 #'
 #' @return vector (factor) with the same length as the input arguments which
 #' represents the end of study outcome
 
-create_eos_outcome <- function(eot, eof) {
-  is_eot_ok <- is.numeric(eot) || is.factor(eot)
-  is_eof_ok <- is.numeric(eof) || is.factor(eof)
-  if (!is_eot_ok || !is_eof_ok) {
-    cli::cli_abort("Input arguments should be numeric vectors or factors.")
+create_eos_outcome <- function(df) {
+  # TODO: refactor after completing prepare_eos_outcome & calculate_eos_outcome
+  # input should be the baseline data frame
+  # pass basline data frame to prepare_eos_outcome
+  # pass output to calculate_eos_outcome
+  # confirm that each original subject has an outcome
+  # generate warnings for odd outcomes
+  # recurrence after death
+
+  required_vars <- c(
+    "globalrecordid", "trtendat",
+    "outcome", "stat3",
+    "stat6", "stat9", "stat12",
+    "evldat3", "evldat6", "evldat9", "evldat12"
+  )
+
+  if (!is.data.frame(df)) {
+    cli::cli_abort("Input argument should be a data frame.")
   }
 
-  if (length(eot) != length(eof)) {
-    cli::cli_abort("Input arguments should be the same length.")
-  }
-
-  if (class(eot) != class(eof)) {
-    cli::cli_abort("Input arguments should be the same class.")
+  if (!all(required_vars %in% names(df))) {
+    cli::cli_abort("Input data frame does not include required variables.")
   }
 
   eos_levels <- c(
