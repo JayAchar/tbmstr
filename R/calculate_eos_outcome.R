@@ -22,6 +22,8 @@ calculate_eos_outcome <- function(df) {
     length(unique(df$globalrecordid)) == 1
   )
 
+  # FIXME: incorporate deathdat for death_df
+
   # definitions from package data
   defs <- internal$definitions
 
@@ -45,9 +47,14 @@ calculate_eos_outcome <- function(df) {
       data.frame(
         globalrecordid = df$globalrecordid[1],
         eos_outcome = factor(eos_outcome,
-          levels = internal$definitions$eos_levels
+          levels = defs$eos_levels
         ),
-        eos_date = df$trtendat[1]
+        eos_date = df$trtendat[1],
+        event_death = eos_outcome == "Died",
+        date_death = ifelse(eos_outcome == "Died",
+          as.POSIXct(df$trtendat[1]),
+          as.POSIXct(NA_character_)
+        )
       )
     )
   }
@@ -55,19 +62,39 @@ calculate_eos_outcome <- function(df) {
   ## if treatment success
   ## sort data frame by fudat
   sorted <- df[order(df$fudat), ]
+
+  death_indices <- which(sorted$status == "Died")
   ## check each status result
   failure_indices <- which(sorted$status %in% defs$eos_failure)
+
+  death_df <- data.frame(
+    globalrecordid = df$globalrecordid[1],
+    event_death = FALSE,
+    date_death = as.POSIXct(NA_character_)
+  )
+
+  # create death event data
+  if (length(death_indices) > 0) {
+    death_df$event_death <- TRUE
+    death_df$date_death <- as.POSIXct(
+      sorted$fudat[min(death_indices, na.rm = TRUE)]
+    )
+  }
 
   if (length(failure_indices) > 0) {
     earliest_failure_index <- min(failure_indices)
     # for earliest failure and return with date
     return(
-      data.frame(
-        globalrecordid = df$globalrecordid[1],
-        eos_outcome = factor(sorted$status[earliest_failure_index],
-          levels = internal$definitions$eos_levels
+      merge(
+        data.frame(
+          globalrecordid = df$globalrecordid[1],
+          eos_outcome = factor(sorted$status[earliest_failure_index],
+            levels = defs$eos_levels
+          ),
+          eos_date = sorted$fudat[earliest_failure_index]
         ),
-        eos_date = sorted$fudat[earliest_failure_index]
+        death_df,
+        by = "globalrecordid"
       )
     )
   }
@@ -79,12 +106,16 @@ calculate_eos_outcome <- function(df) {
   }
 
   return(
-    data.frame(
-      globalrecordid = df$globalrecordid[1],
-      eos_outcome = factor("No TB",
-        levels = internal$definitions$eos_levels
+    merge(
+      data.frame(
+        globalrecordid = df$globalrecordid[1],
+        eos_outcome = factor("No TB",
+          levels = defs$eos_levels
+        ),
+        eos_date = final_fu
       ),
-      eos_date = final_fu
+      death_df,
+      by = "globalrecordid"
     )
   )
 }

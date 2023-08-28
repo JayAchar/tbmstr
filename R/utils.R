@@ -31,14 +31,10 @@ merge_and_filter_by_start_date <- function(baseline, target, target_date_var) {
   ), ]
 }
 
-
-
 #' @noRd
-
 is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
-
 
 #' @noRd
 create_binary_tx_outcome <- function(outcome) {
@@ -48,4 +44,13 @@ create_binary_tx_outcome <- function(outcome) {
   ), levels = c("Successful", "Unsuccessful"))
   var[which(is.na(outcome))] <- NA
   var
+}
+
+#' @noRd
+create_formula <- function(outcome, predictors) {
+  str <- paste(outcome,
+    paste(predictors, collapse = "+"),
+    sep = " ~ "
+  )
+  as.formula(str)
 }

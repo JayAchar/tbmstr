@@ -8,13 +8,13 @@
 #' `status12` variable to create a valid end of study outcome.
 #'
 #' @param df baseline data frame
-#' 
+#'
 #' @importFrom cli cli_progress_along
 #'
-#' @return Original baseline data frame with added variables - eos_outcome &is  eos_date
+#' @return Original baseline data frame with added variables -
+#' eos_outcome &  eos_date
 
 create_eos_outcome <- function(df) {
-
   required_vars <- c(
     "globalrecordid", "trtendat",
     "outcome", "stat3",
@@ -29,28 +29,44 @@ create_eos_outcome <- function(df) {
   if (!all(required_vars %in% names(df))) {
     cli::cli_abort("Input data frame does not include required variables.")
   }
-  
-  row_n <- seq_along(df$globalrecordid)
-  
-  
+
   l_df <- lapply(
-    X = cli::cli_progress_along(df$globalrecordid, 
-                                name = "Calculating EoS outcomes"),
+    X = cli::cli_progress_along(df$globalrecordid,
+      name = "Calculating EoS outcomes"
+    ),
     FUN = \(index) {
       long <- prepare_eos_outcomes(df[index, ])
       calculate_eos_outcome(long)
-    })
-  
+    }
+  )
+
   eos_outcome_df <- Reduce(
     f = rbind,
     x = l_df
   )
-  
 
-  merge(
-    df, 
+  merged <- merge(
+    df,
     eos_outcome_df,
     by = "globalrecordid"
   )
+
+  merged$fail_days <- as.numeric(difftime(merged$eos_date,
+    merged$trtstdat,
+    unit = "days"
+  ))
   
+  dd <- as.POSIXct(ifelse(merged$event_death, 
+                    merged$date_death,
+                    merged$eos_date))
+
+  merged$death_days <- as.numeric(difftime(dd,
+    merged$trtstdat,
+    unit = "days"
+  ))
+
+  merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
+  merged$date_fail <- merged$eos_date
+
+  merged
 }

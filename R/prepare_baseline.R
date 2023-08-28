@@ -62,19 +62,27 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
                       `height` and `weight`.")
   }
 
+  # if trtendat is missing, impute endat
+  df_list$baseline$trtendat <- ifelse(
+    is.na(df_list$baseline$trtendat),
+    df_list$baseline$endat,
+    df_list$baseline$trtendat
+  )
+  
   df_list$baseline <- create_eos_outcome(
     df_list$baseline
   )
-  
+
   if (!is_testing()) {
-    cli::cli_alert_info("`eos_outocome` variable calculated from \\
-                      `outcome` and `stat12`.")
+    cli::cli_alert_info("`eos_outocome` variable calculated as first
+                        unsuccessful outcome.")
   }
 
   df_list$baseline$cc_days <- create_cc_days(
     trtstdat = df_list$baseline$trtstdat,
     convdat = df_list$baseline$convdat
   )
+
   if (!is_testing()) {
     cli::cli_alert_info("`cc_days` variable calculated from \\
                       `trtstdat` and `convdat`.")
@@ -84,6 +92,7 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     baseline = df_list$baseline,
     myco = df_list$myco
   )
+
   if (!is_testing()) {
     cli::cli_alert_info("`smear` variable calculated from \\
                       `myco` data frame.")

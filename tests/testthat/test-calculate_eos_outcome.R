@@ -23,7 +23,9 @@ test_that("detecting on-treatment failure result works", {
   expected <- data.frame(
     globalrecordid = c("a"),
     eos_outcome = custom_eos_outcome("Died"),
-    eos_date = as.POSIXct("2020-10-15")
+    eos_date = as.POSIXct("2020-10-15"),
+    event_death = TRUE,
+    date_death = as.POSIXct("2020-10-15")
   )
 
   observed <- calculate_eos_outcome(input)
@@ -46,7 +48,9 @@ test_that("detects first follow-up failure", {
   expected <- data.frame(
     globalrecordid = c("a"),
     eos_outcome = custom_eos_outcome("Died"),
-    eos_date = as.POSIXct("2021-03-01")
+    eos_date = as.POSIXct("2021-03-01"),
+    event_death = TRUE,
+    date_death = as.POSIXct("2021-03-01")
   )
 
   observed <- calculate_eos_outcome(input)
@@ -68,7 +72,9 @@ test_that("handle unsorted follow-up episodes", {
   expected <- data.frame(
     globalrecordid = c("a"),
     eos_outcome = custom_eos_outcome("Died"),
-    eos_date = as.POSIXct("2021-01-01")
+    eos_date = as.POSIXct("2021-01-01"),
+    event_death = TRUE,
+    date_death = as.POSIXct("2021-01-01")
   )
 
   observed <- calculate_eos_outcome(input)
@@ -90,7 +96,9 @@ test_that("handle study success outcome", {
   expected <- data.frame(
     globalrecordid = c("a"),
     eos_outcome = custom_eos_outcome("No TB"),
-    eos_date = as.POSIXct("2021-03-01")
+    eos_date = as.POSIXct("2021-03-01"),
+    event_death = FALSE,
+    date_death = as.POSIXct(NA_character_)
   )
 
   observed <- calculate_eos_outcome(input)
@@ -113,7 +121,9 @@ test_that("handle on treatment failure", {
   expected <- data.frame(
     globalrecordid = c("a"),
     eos_outcome = custom_eos_outcome("Treatment failure"),
-    eos_date = as.POSIXct("2020-10-15")
+    eos_date = as.POSIXct("2020-10-15"),
+    event_death = FALSE,
+    date_death = as.POSIXct(NA_character_)
   )
 
   observed <- calculate_eos_outcome(input)
@@ -135,7 +145,9 @@ test_that("warning for withdrawn", {
   expected <- data.frame(
     globalrecordid = c("a"),
     eos_outcome = custom_eos_outcome("Not evaluated"),
-    eos_date = as.POSIXct("2020-10-15")
+    eos_date = as.POSIXct("2020-10-15"),
+    event_death = FALSE,
+    date_death = as.POSIXct(NA_character_)
   )
 
   expect_warning(calculate_eos_outcome(input))
@@ -159,7 +171,9 @@ test_that("handle missing follow-up episodes", {
   expected <- data.frame(
     globalrecordid = c("a"),
     eos_outcome = custom_eos_outcome("No TB"),
-    eos_date = as.POSIXct("2020-10-15")
+    eos_date = as.POSIXct("2020-10-15"),
+    event_death = FALSE,
+    date_death = as.POSIXct(NA_character_)
   )
 
   observed <- calculate_eos_outcome(input)
