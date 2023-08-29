@@ -55,15 +55,18 @@ create_eos_outcome <- function(df) {
     merged$trtstdat,
     unit = "days"
   ))
-  
-  dd <- as.POSIXct(ifelse(merged$event_death, 
-                    merged$date_death,
-                    merged$eos_date))
+
+  dd <- as.POSIXct(ifelse(merged$event_death,
+    merged$date_death,
+    merged$eos_date
+  ))
 
   merged$death_days <- as.numeric(difftime(dd,
     merged$trtstdat,
     unit = "days"
   ))
+
+
 
   merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
   merged$date_fail <- merged$eos_date

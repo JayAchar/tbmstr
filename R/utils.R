@@ -54,3 +54,49 @@ create_formula <- function(outcome, predictors) {
   )
   as.formula(str)
 }
+
+#' @noRd
+relevel_variables <- function(df, config) {
+  stopifnot(
+    is.list(config),
+    is.data.frame(df)
+  )
+
+  keys <- names(config)
+
+  df[keys] <- lapply(
+    keys,
+    \(key) {
+      relevel(df[[key]], ref = config[[key]])
+    }
+  )
+  df
+}
+
+#' @noRd
+
+apply_manual_adjustments <- function(lst, adjustments) {
+  stopifnot(
+    is.list(lst),
+    is.list(adjustments)
+  )
+
+  modified <- Reduce(
+    f = \(init, al) {
+      id_var <- al[["id"]]
+      init[[al$name]] <- Reduce(
+        x = al$adjustments,
+        f = \(i, aa) {
+          target_row <- which(i[[id_var]] == aa$id)
+          i[target_row, aa$var] <- aa$value
+          i
+        },
+        init = lst[[al$name]]
+      )
+      init
+    },
+    x = adjustments,
+    init = lst
+  )
+  modified
+}

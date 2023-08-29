@@ -54,9 +54,14 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     cli::cli_alert_info("`tx_outcome` variable refactored from `outcome`.")
   }
 
+  # TODO: create baseline CD4 count categorical variable
+
   # calculate BMI variable
   df_list$baseline$bmi <- df_list$baseline$weight /
     ((df_list$baseline$height / 100)^2)
+
+  # TODO: categorise BMI variable
+
   if (!is_testing()) {
     cli::cli_alert_info("`bmi` variable calculated from \\
                       `height` and `weight`.")
@@ -68,7 +73,7 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     df_list$baseline$endat,
     df_list$baseline$trtendat
   )
-  
+
   df_list$baseline <- create_eos_outcome(
     df_list$baseline
   )
@@ -78,6 +83,7 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
                         unsuccessful outcome.")
   }
 
+  # FIXME: use create_cc_days function to check the cc days var
   df_list$baseline$cc_days <- create_cc_days(
     trtstdat = df_list$baseline$trtstdat,
     convdat = df_list$baseline$convdat
