@@ -64,7 +64,8 @@ prepared$baseline$outcome <- droplevels(
 )
 
 covariates <- c(
-  "age", "sex", "cntry", "cav", "bmi", "hiv", "hcvab",
+  "age", "sex", "cntry", "cav", "bmi_group",
+  "hiv", "hcvab",
   "smear", "prison", "alcohol", "prevtb", "diab",
   "covid", "regimen"
 )
@@ -74,7 +75,7 @@ labels <- list(
   sex ~ "Sex",
   cntry ~ "Country",
   cav ~ "X-ray cavities",
-  bmi ~ "Body Mass Index",
+  bmi_group ~ "Body Mass Index (kg/m^2)",
   hiv ~ "HIV status",
   hcvab ~ "HCV Ab status",
   smear ~ "Baseline smear microscopy status",
@@ -108,11 +109,10 @@ hiv_cohort <- prepared$baseline[which(prepared$baseline$hiv == "Yes"), ]
 # output table 1
 mt1 <- gtsummary::tbl_summary(
   data = prepared$baseline,
-  include = covariates,
+  include = all_of(covariates),
   label = labels,
   # TODO: Reorder variables
   # TODO: `cav` includes two unknown types - combine
-  # TODO: Categorise BMI variable
   # TODO: Convert baseline smear to grade rather than positive/negative
 ) |> gtsummary::as_flex_table()
 
@@ -198,7 +198,7 @@ mv_fail <- survival::coxph(
   survival::Surv(
     prepared$baseline$fail_days,
     prepared$baseline$event_fail
-  ) ~ age + sex + bmi +
+  ) ~ age + sex + bmi_group +
     hiv + prison + alcohol + prevtb + cav + hcvab + smear,
   data = prepared$baseline
 )
@@ -207,7 +207,7 @@ mv_fail_labels <- list(
   age ~ "Age (yrs)",
   sex ~ "Sex",
   cav ~ "X-ray cavities",
-  bmi ~ "Body Mass Index",
+  bmi_group ~ "Body Mass Index (kg/m^2)",
   hiv ~ "HIV status",
   hcvab ~ "HCV Ab status",
   smear ~ "Baseline smear microscopy status",
@@ -359,7 +359,6 @@ tables_doc <- officer::read_docx() |>
   body_add_par("Main Table 2", style = "heading 1") |>
   body_add_flextable(value = mt2) |>
   body_add_break() |>
-  
   body_end_section_portrait() |>
   body_add_par("Main Table 3", style = "heading 1") |>
   body_add_par(
@@ -368,7 +367,7 @@ tables_doc <- officer::read_docx() |>
   ) |>
   body_add_flextable(value = mt3) |>
   body_add_break() |>
-  body_end_section_landscape() |> 
+  body_end_section_landscape() |>
   body_add_par("Supplementary Table 1", style = "heading 1") |>
   body_add_flextable(value = st1) |>
   body_add_break() |>
@@ -379,9 +378,8 @@ tables_doc <- officer::read_docx() |>
   body_end_section_portrait() |>
   body_add_par("Supplementary Table 3", style = "heading 1") |>
   body_add_flextable(value = st3) |>
-  body_add_break() |> 
-  body_end_section_landscape() |> 
-
-print(tables_doc,
-  target = here::here(output_dir, "tables.docx")
-)
+  body_add_break() |>
+  body_end_section_landscape() |>
+  print(tables_doc,
+    target = here::here(output_dir, "tables.docx")
+  )

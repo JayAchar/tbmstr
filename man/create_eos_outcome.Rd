@@ -10,7 +10,8 @@ create_eos_outcome(df)
 \item{df}{baseline data frame}
 }
 \value{
-Original baseline data frame with added variables - eos_outcome &is  eos_date
+Original baseline data frame with added variables -
+eos_outcome &  eos_date
 }
 \description{
 The original end of study outcome - \code{stat12} only provides information

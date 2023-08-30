@@ -60,7 +60,10 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
   df_list$baseline$bmi <- df_list$baseline$weight /
     ((df_list$baseline$height / 100)^2)
 
-  # TODO: categorise BMI variable
+  df_list$baseline$bmi_group <- factor(
+    cut(df_list$baseline$bmi, c(0, 18.4999999, 100)),
+    labels = c("\u003C18.5", "\u226518.5")
+  )
 
   if (!is_testing()) {
     cli::cli_alert_info("`bmi` variable calculated from \\

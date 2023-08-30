@@ -53,7 +53,7 @@ create_eos_outcome <- function(df) {
 
   merged$fail_days <- as.numeric(difftime(merged$eos_date,
     merged$trtstdat,
-    unit = "days"
+    units = "days"
   ))
 
   dd <- as.POSIXct(ifelse(merged$event_death,
@@ -63,7 +63,7 @@ create_eos_outcome <- function(df) {
 
   merged$death_days <- as.numeric(difftime(dd,
     merged$trtstdat,
-    unit = "days"
+    units = "days"
   ))
 
 

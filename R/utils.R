@@ -47,6 +47,7 @@ create_binary_tx_outcome <- function(outcome) {
 }
 
 #' @noRd
+#' @importFrom stats as.formula
 create_formula <- function(outcome, predictors) {
   str <- paste(outcome,
     paste(predictors, collapse = "+"),
@@ -56,6 +57,7 @@ create_formula <- function(outcome, predictors) {
 }
 
 #' @noRd
+#' @importFrom stats relevel
 relevel_variables <- function(df, config) {
   stopifnot(
     is.list(config),
