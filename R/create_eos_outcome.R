@@ -7,93 +7,69 @@
 #' missing. This function combines the end of treatment outcome and the
 #' `status12` variable to create a valid end of study outcome.
 #'
-#' @param eot vector of End of treatment outcomes
-#' @param eof vector of End of follow-up outcomes
+#' @param df baseline data frame
 #'
-#' @return vector (factor) with the same length as the input arguments which
-#' represents the end of study outcome
+#' @importFrom cli cli_progress_along
+#'
+#' @return Original baseline data frame with added variables -
+#' eos_outcome &  eos_date
 
-create_eos_outcome <- function(eot, eof) {
-  is_eot_ok <- is.numeric(eot) || is.factor(eot)
-  is_eof_ok <- is.numeric(eof) || is.factor(eof)
-  if (!is_eot_ok || !is_eof_ok) {
-    cli::cli_abort("Input arguments should be numeric vectors or factors.")
-  }
-
-  if (length(eot) != length(eof)) {
-    cli::cli_abort("Input arguments should be the same length.")
-  }
-
-  if (class(eot) != class(eof)) {
-    cli::cli_abort("Input arguments should be the same class.")
-  }
-
-  eos_levels <- c(
-    "No TB", "Reoccurance", "Died during follow-up",
-    "Unsuccessful treatment", "Not evaluated"
+create_eos_outcome <- function(df) {
+  required_vars <- c(
+    "globalrecordid", "trtendat",
+    "outcome", "stat3",
+    "stat6", "stat9", "stat12",
+    "evldat3", "evldat6", "evldat9", "evldat12"
   )
 
-  eos <- vapply(
-    seq_along(eot),
-    \(i) {
-      if (
-        (eot[i] %in% list(
-          1, 2, "Cured", "Completed"
-        )) && eof[i] %in% list(
-          1, "No TB"
-        )) {
-        return("No TB")
-      }
+  if (!is.data.frame(df)) {
+    cli::cli_abort("Input argument should be a data frame.")
+  }
 
-      if (
-        eot[i] %in% list(
-          3, 4, 5,
-          "Failed",
-          "Died",
-          "Lost to follow-up"
-        )
-      ) {
-        return("Unsuccessful treatment")
-      }
+  if (!all(required_vars %in% names(df))) {
+    cli::cli_abort("Input data frame does not include required variables.")
+  }
 
-      if (
-        (eot[i] %in% list(
-          1, 2, "Cured", "Completed"
-        )) && eof[i] %in% list(
-          2, "Reoccurance"
-        )
-      ) {
-        return("Reoccurance")
-      }
-
-      if (
-        (eot[i] %in% list(
-          1, 2, "Cured", "Completed"
-        )) && eof[i] %in% list(
-          3, "Died"
-        )
-      ) {
-        return("Died during follow-up")
-      }
-
-
-      if (
-        eot[i] %in% list(
-          6, "Not evaluated"
-        ) || eof[i] %in% list(
-          4, "Not evvaluated"
-        )
-      ) {
-        return("Not evaluated")
-      }
-
-      return(NA_character_)
-    }, character(1)
+  l_df <- lapply(
+    X = cli::cli_progress_along(df$globalrecordid,
+      name = "Calculating EoS outcomes"
+    ),
+    FUN = \(index) {
+      long <- prepare_eos_outcomes(df[index, ])
+      calculate_eos_outcome(long)
+    }
   )
 
-  return(
-    factor(eos,
-      levels = eos_levels
-    )
+  eos_outcome_df <- Reduce(
+    f = rbind,
+    x = l_df
   )
+
+  merged <- merge(
+    df,
+    eos_outcome_df,
+    by = "globalrecordid"
+  )
+
+  merged$fail_days <- as.numeric(difftime(merged$eos_date,
+    merged$trtstdat,
+    units = "days"
+  ))
+
+  dd <- as.POSIXct(ifelse(merged$event_death,
+    merged$date_death,
+    merged$eos_date
+  ))
+
+  merged$death_days <- as.numeric(difftime(dd,
+    merged$trtstdat,
+    units = "days"
+  ))
+
+
+
+  merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
+  merged$date_fail <- merged$eos_date
+
+  merged
 }

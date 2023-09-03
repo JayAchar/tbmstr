@@ -31,16 +31,12 @@ merge_and_filter_by_start_date <- function(baseline, target, target_date_var) {
   ), ]
 }
 
-
-
 #' @noRd
-
 is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
 
-
-#' @Rd
+#' @noRd
 create_binary_tx_outcome <- function(outcome) {
   var <- factor(ifelse(
     outcome %in% list("Cured", "Completed", 1, 2),
@@ -48,4 +44,61 @@ create_binary_tx_outcome <- function(outcome) {
   ), levels = c("Successful", "Unsuccessful"))
   var[which(is.na(outcome))] <- NA
   var
+}
+
+#' @noRd
+#' @importFrom stats as.formula
+create_formula <- function(outcome, predictors) {
+  str <- paste(outcome,
+    paste(predictors, collapse = "+"),
+    sep = " ~ "
+  )
+  as.formula(str)
+}
+
+#' @noRd
+#' @importFrom stats relevel
+relevel_variables <- function(df, config) {
+  stopifnot(
+    is.list(config),
+    is.data.frame(df)
+  )
+
+  keys <- names(config)
+
+  df[keys] <- lapply(
+    keys,
+    \(key) {
+      relevel(df[[key]], ref = config[[key]])
+    }
+  )
+  df
+}
+
+#' @noRd
+
+apply_manual_adjustments <- function(lst, adjustments) {
+  stopifnot(
+    is.list(lst),
+    is.list(adjustments)
+  )
+
+  modified <- Reduce(
+    f = \(init, al) {
+      id_var <- al[["id"]]
+      init[[al$name]] <- Reduce(
+        x = al$adjustments,
+        f = \(i, aa) {
+          target_row <- which(i[[id_var]] == aa$id)
+          i[target_row, aa$var] <- aa$value
+          i
+        },
+        init = lst[[al$name]]
+      )
+      init
+    },
+    x = adjustments,
+    init = lst
+  )
+  modified
 }

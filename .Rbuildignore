@@ -10,6 +10,8 @@
 ^pkgdown$
 ^inst/dev$
 ^inst/resources$
+^inst/communicate$
+^inst/analyses$
 ^docker$
 ^scripts$
 ^translation-en\.json$

@@ -1,12 +1,15 @@
 #' Prepare baseline data frame
 #'
 #' @param df_list List of named data frames
+#' @param cohort define cohort type required
 #'
 #' @importFrom cli cli_abort cli_warn cli_alert_warning cli_alert_info
 #'
 #' @return df_list with modifications
 #'
-prepare_baseline <- function(df_list) {
+prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
+  cohort <- match.arg(cohort)
+
   if (!is.list(df_list) || is.data.frame(df_list)) {
     cli::cli_abort("`df_list` must be a list")
   }
@@ -39,6 +42,10 @@ prepare_baseline <- function(df_list) {
     df_list[["baseline"]]
   )
 
+  if (cohort == "treatment") {
+    df_list$baseline <- remove_withdrawn_subjects(df_list[["baseline"]])
+  }
+
   # create binary end of treatment outcome variable
   df_list$baseline$tx_outcome <- create_binary_tx_outcome(
     df_list$baseline$outcome
@@ -47,27 +54,44 @@ prepare_baseline <- function(df_list) {
     cli::cli_alert_info("`tx_outcome` variable refactored from `outcome`.")
   }
 
+  # TODO: create baseline CD4 count categorical variable
+
   # calculate BMI variable
   df_list$baseline$bmi <- df_list$baseline$weight /
     ((df_list$baseline$height / 100)^2)
+
+  df_list$baseline$bmi_group <- factor(
+    cut(df_list$baseline$bmi, c(0, 18.4999999, 100)),
+    labels = c("\u003C18.5", "\u226518.5")
+  )
+
   if (!is_testing()) {
     cli::cli_alert_info("`bmi` variable calculated from \\
                       `height` and `weight`.")
   }
 
-  df_list$baseline$eos_outcome <- create_eos_outcome(
-    eot = df_list$baseline$outcome,
-    eof = df_list$baseline$stat12
+  # if trtendat is missing, impute endat
+  df_list$baseline$trtendat <- ifelse(
+    is.na(df_list$baseline$trtendat),
+    df_list$baseline$endat,
+    df_list$baseline$trtendat
   )
+
+  df_list$baseline <- create_eos_outcome(
+    df_list$baseline
+  )
+
   if (!is_testing()) {
-    cli::cli_alert_info("`eos_outocome` variable calculated from \\
-                      `outcome` and `stat12`.")
+    cli::cli_alert_info("`eos_outocome` variable calculated as first
+                        unsuccessful outcome.")
   }
 
+  # FIXME: use create_cc_days function to check the cc days var
   df_list$baseline$cc_days <- create_cc_days(
     trtstdat = df_list$baseline$trtstdat,
     convdat = df_list$baseline$convdat
   )
+
   if (!is_testing()) {
     cli::cli_alert_info("`cc_days` variable calculated from \\
                       `trtstdat` and `convdat`.")
@@ -77,6 +101,7 @@ prepare_baseline <- function(df_list) {
     baseline = df_list$baseline,
     myco = df_list$myco
   )
+
   if (!is_testing()) {
     cli::cli_alert_info("`smear` variable calculated from \\
                       `myco` data frame.")

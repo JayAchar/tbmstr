@@ -13,6 +13,9 @@ prepare_ae_summary_data(baseline, adverse, type = c("SAE", "AE"))
 
 \item{type}{SAE or AE represents the type of AE required}
 }
+\value{
+data frame
+}
 \description{
 Prepare AE summary data
 }

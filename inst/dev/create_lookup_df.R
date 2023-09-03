@@ -70,10 +70,3 @@ lut <- lookup$vars |>
     name,
     "^aeoutcome[2-5]{1}$"
   ))
-
-
-
-usethis::use_data(lut,
-  internal = TRUE,
-  overwrite = TRUE
-)

@@ -4,16 +4,14 @@
 \alias{create_eos_outcome}
 \title{Create End of Study outcome}
 \usage{
-create_eos_outcome(eot, eof)
+create_eos_outcome(df)
 }
 \arguments{
-\item{eot}{vector of End of treatment outcomes}
-
-\item{eof}{vector of End of follow-up outcomes}
+\item{df}{baseline data frame}
 }
 \value{
-vector (factor) with the same length as the input arguments which
-represents the end of study outcome
+Original baseline data frame with added variables -
+eos_outcome &  eos_date
 }
 \description{
 The original end of study outcome - \code{stat12} only provides information

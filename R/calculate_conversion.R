@@ -6,7 +6,6 @@
 #'
 #' @return data frame with subject ID and conversion date variable
 #'
-#' @examples
 calculate_conversion <- function(subject_df,
                                  tolerance = 30L) {
   stopifnot(

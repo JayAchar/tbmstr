@@ -10,6 +10,7 @@
 #' @return A date vector
 #'
 transform_to_date <- function(v) {
+  if (any(class(v) %in% c("POSIXct", "POSIXt"))) return(v)
   if (!is.character(v)) {
     cli::cli_abort(
       "Requires character vector"

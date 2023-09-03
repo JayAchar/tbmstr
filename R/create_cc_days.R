@@ -26,5 +26,6 @@ create_cc_days <- function(
   if (length(trtstdat) != length(convdat)) {
     cli::cli_abort("Input arguments should be the same length.")
   }
-  as.numeric(convdat - trtstdat)
+
+  as.numeric(difftime(convdat, trtstdat, units = "days"))
 }

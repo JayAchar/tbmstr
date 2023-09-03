@@ -3,8 +3,14 @@ scratch.R
 data/**/*.csv
 data/parent_dir/*
 data/output/*
+data/regional_*/*
 docs
 inst/doc
 inst/resources/*.pdf
 inst/resources/lookup/*.csv
 inst/dev/*.html
+inst/dev/scratch.R
+inst/analyses/output/*.html
+inst/analyses/output/*.docx
+inst/analyses/output/*.png
+inst/analyses/output/*.zip

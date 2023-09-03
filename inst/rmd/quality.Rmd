@@ -29,11 +29,8 @@ data <- params$data
 raw <- params$raw
 ```
 ```{r prepare-data, include = FALSE}
-country_code <- unique(raw$baseline$cntry)
-stopifnot(length(country_code) == 1)
-country_name <- lut[which(
-  lut$name == "cntry" & lut$value == country_code
-), ]$description
+country_names <- paste(unique(raw$baseline$cntry),
+                       collapse = ", ")
 last_save <- max(raw$baseline$lastsavetime, na.rm = TRUE)
 unique_subjects <- length(unique(raw$baseline$globalrecordid))
 eot_outcomes <- nrow(raw$baseline[which(!is.na(raw$baseline$outcome)), ])
@@ -41,7 +38,7 @@ eos_outcomes <- nrow(raw$baseline[which(!is.na(raw$baseline$stat12)), ])
 ```
 ## Summary
 
-**Country**: `r country_name`  
+**Countries**: `r country_names`  
 **Last save date**: `r last_save`  
 **Study participants**: `r unique_subjects`  
 **Participants with end of treatment outcome**: `r eot_outcomes`  
@@ -105,12 +102,12 @@ myco_agent <-
 ```{r inclusion-quality, echo = TRUE}
 # TODO add baseline lab confirmation & DST quality check
 inclusion_agent |>
-  col_is_date(
+  col_is_posix(
     columns = c("icfdat")
   ) |>
   col_vals_gt(
     columns = c("icfdat"),
-    value = as.Date("2019-01-01")
+    value = as.POSIXct("2019-01-01")
   ) |>
   interrogate()
 ```
@@ -119,7 +116,7 @@ inclusion_agent |>
 
 ```{r baseline-quality, echo = TRUE}
 baseline_agent |>
-  col_is_date(
+  col_is_posix(
     columns = c("lastsavetime")
   ) |>
   rows_distinct(
@@ -130,12 +127,8 @@ baseline_agent |>
   ) |>
   col_vals_between(
     columns = c("dob"),
-    left = as.Date("1900-01-01"),
-    right = as.Date("2022-01-01"),
-    preconditions = function(x) {
-      x$dob <- as.Date(x$dob, format = "%a %b %d %Y")
-      x
-    }
+    left = as.POSIXct("1900-01-01"),
+    right = as.POSIXct("2022-01-01")
   ) |>
   col_vals_in_set(
     columns = "sex",
@@ -192,7 +185,7 @@ baseline_agent |>
 
 ```{r treatment-quality, echo = TRUE}
 treatment_agent |>
-  col_is_date(
+  col_is_posix(
     columns = c(
       "trtendat", "endat", "trtstdat",
       "fuendat"
@@ -243,7 +236,7 @@ treatment_agent |>
 
 ```{r adverse-quality, echo = TRUE}
 adverse_agent |>
-  col_is_date(
+  col_is_posix(
     columns = c("aeonsetdt", "aenddt")
   ) |>
   col_vals_in_set(
@@ -283,7 +276,7 @@ adverse_agent |>
 
 ```{r dst-quality, echo = TRUE}
 dst_agent |>
-  col_is_date(
+  col_is_posix(
     columns = c("datedst")
   ) |>
   col_vals_not_null(
@@ -304,7 +297,7 @@ dst_agent |>
 
 ```{r myco-quality, echo = TRUE}
 myco_agent |>
-  col_is_date(
+  col_is_posix(
     columns = c("datespecimen")
   ) |>
   col_vals_in_set(
