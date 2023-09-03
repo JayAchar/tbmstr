@@ -40,6 +40,9 @@
     <loc>https://jayachar.github.io/tbmstr/reference/calculate_conversion.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/calculate_eos_outcome.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/reference/create_cc_days.html</loc>
   </url>
   <url>
@@ -67,6 +70,9 @@
     <loc>https://jayachar.github.io/tbmstr/reference/prepare_dst.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/prepare_eos_outcomes.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/reference/prepare_myco.html</loc>
   </url>
   <url>
@@ -82,10 +88,10 @@
     <loc>https://jayachar.github.io/tbmstr/reference/remove_invalid_records.html</loc>
   </url>
   <url>
-    <loc>https://jayachar.github.io/tbmstr/reference/render_internal_rmd.html</loc>
+    <loc>https://jayachar.github.io/tbmstr/reference/remove_withdrawn_subjects.html</loc>
   </url>
   <url>
-    <loc>https://jayachar.github.io/tbmstr/reference/run_ae_summary.html</loc>
+    <loc>https://jayachar.github.io/tbmstr/reference/render_internal_rmd.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/run_analysis.html</loc>
