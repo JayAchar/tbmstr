@@ -1,0 +1,49 @@
+---
+title: "Analysis development"
+author: "Jay Achar"
+date: "`r Sys.time()`"
+output: html_document
+params:
+  tables: "Error"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+if (knitr::is_html_output()) {
+  knitr::knit_hooks$set(
+    wrap = function(before, options, envir) {
+      if (before) {
+        paste0("<details><summary>", options$wrap, "</summary>")
+      } else {
+        paste0("</details>")
+      }
+    }
+  )
+}
+```
+
+```{r wrap="Table 1", echo = FALSE}
+params$tables$mt1
+```
+
+
+```{r wrap="Table 2", echo = FALSE}
+params$tables$mt2
+```
+
+```{r wrap="Table 3", echo = FALSE}
+params$tables$mt3
+```
+
+```{r wrap="Supplementary Table 1", echo = FALSE}
+params$tables$st1
+```
+
+```{r wrap="Supplementary Table 2", echo = FALSE}
+params$tables$st2
+```
+
+```{r wrap="Supplementary Table 3", echo = FALSE}
+params$tables$st3
+```

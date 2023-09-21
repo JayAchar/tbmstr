@@ -29,3 +29,17 @@ them, run the following code with the tutorial name:
 tbmstr::run_tutorial("tutorial_name")
 ```
 
+## Analyses development
+
+Scripts have been created to draft analyses. To speed up development, 
+run the following command in the command line: 
+
+```sh 
+Rscript -e "source('./inst/analyses/main.R');run_analysis()"
+```
+
+To make the command run on save, use the folowing: 
+
+```sh 
+watchexec -e Rmd,R "Rscript -e \"source('./inst/analyses/main.R');run_analysis()\""
+```
