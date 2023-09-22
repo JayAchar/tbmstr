@@ -35,7 +35,7 @@ create_tables <- function(pd, hiv_cohort) {
     # TODO: Reorder variables
     # TODO: `cav` includes two unknown types - combine
     # TODO: Convert baseline smear to grade rather than positive/negative
-  ) |> gtsummary::as_flex_table()
+  )
 
   # descriptive outcomes table
   tables$mt2 <- gtsummary::tbl_summary(

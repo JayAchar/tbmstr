@@ -2,7 +2,9 @@
 
 export(apply_all_labels)
 export(import_data)
+export(prepare_baseline)
 export(ready)
+export(relevel_variables)
 export(render_internal_rmd)
 export(run_analysis)
 export(run_quality_check)
