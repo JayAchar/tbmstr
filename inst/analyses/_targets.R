@@ -42,6 +42,14 @@ list(
     cohort = "treatment"
   )),
   tar_target(clean, relevel_vars(prepared)),
+  tar_target(
+    high_dose_list,
+    create_high_dose_list(
+      clean,
+      list(output_dir = output_dir)
+    ),
+    format = "file"
+  ),
   tar_target(hiv_cohort, create_hiv_cohort(clean)),
   tar_target(tables, create_tables(
     clean,
