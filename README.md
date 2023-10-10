@@ -29,3 +29,11 @@ them, run the following code with the tutorial name:
 tbmstr::run_tutorial("tutorial_name")
 ```
 
+## Analyses development
+
+Scripts have been created to draft analyses. To speed up development, 
+run the following command in the command line: 
+
+```sh 
+watchexec -e Rmd,R "Rscript -e \"targets::tar_make(script = '.inst/analyses/_targets.R')\""
+```

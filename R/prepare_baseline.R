@@ -4,6 +4,7 @@
 #' @param cohort define cohort type required
 #'
 #' @importFrom cli cli_abort cli_warn cli_alert_warning cli_alert_info
+#' @export
 #'
 #' @return df_list with modifications
 #'
@@ -101,6 +102,11 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     baseline = df_list$baseline,
     myco = df_list$myco
   )
+
+  df_list$baseline$outcome <- droplevels(
+    df_list$baseline$outcome
+  )
+
 
   if (!is_testing()) {
     cli::cli_alert_info("`smear` variable calculated from \\

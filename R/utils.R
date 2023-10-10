@@ -56,8 +56,14 @@ create_formula <- function(outcome, predictors) {
   as.formula(str)
 }
 
-#' @noRd
+
+#' Relevel variables
+#'
+#' Choose base level for variables
+#' @param df data frame
+#' @param config list
 #' @importFrom stats relevel
+#' @export
 relevel_variables <- function(df, config) {
   stopifnot(
     is.list(config),
