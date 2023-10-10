@@ -55,7 +55,17 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     cli::cli_alert_info("`tx_outcome` variable refactored from `outcome`.")
   }
 
-  # TODO: create baseline CD4 count categorical variable
+  # create grouped baseline CD4 variable
+  df_list$baseline$cd4_grp <- cut(
+                                df_list$baseline$cd4,
+                                c(0, 50, 100, 200, 300, 400, 500, 100000))
+
+  levels(df_list$baseline$cd4_grp) <- c(
+                                                "0-50", "51-100",
+                                                "101-200",
+                                                "201-300", "301-400", "401-500",
+                                                "500+"
+                                                )
 
   # calculate BMI variable
   df_list$baseline$bmi <- df_list$baseline$weight /
@@ -70,6 +80,13 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     cli::cli_alert_info("`bmi` variable calculated from \\
                       `height` and `weight`.")
   }
+
+  # convert basleine ART status to a factor
+         df_list$baseline$art <- factor(df_list$baseline$art,
+          levels = c(0, 1),
+          labels = c("No", "Yes")
+        )
+
 
   # if trtendat is missing, impute endat
   df_list$baseline$trtendat <- ifelse(

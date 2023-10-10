@@ -53,14 +53,6 @@ apply_all_labels <- function(lst) {
           return(labelled)
         }
       )
-      # convert ART status variable to factor
-      # this variable is not included in the LUT
-      if ("art" %in% names(df)) {
-        df[["art"]] <- factor(df[["art"]],
-          levels = c(0, 1),
-          labels = c("No", "Yes")
-        )
-      }
       df
     }
   )

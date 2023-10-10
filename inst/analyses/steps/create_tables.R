@@ -50,7 +50,8 @@ create_tables <- function(pd, hiv_cohort) {
   hiv_labels <- list(
     art ~ "Receiving ART",
     artreg ~ "ART regimen",
-    cd4 ~ "Baseline CD4 count"
+    cd4 ~ "Baseline CD4 count",
+    cd4_grp ~ "Baseline CD4 group"
   )
 
   ## outcomes stratified by HIV status
@@ -67,26 +68,27 @@ create_tables <- function(pd, hiv_cohort) {
     modify_spanning_header(
       c("stat_1", "stat_2", "stat_3") ~ "**HIV status**"
     ) |>
-    as_flex_table()
+    gtsummary::as_flex_table()
 
   hiv_labels <- list(
     art ~ "Receiving ART",
     artreg ~ "ART regimen",
-    cd4 ~ "Baseline CD4 count"
+    cd4 ~ "Baseline CD4 count",
+    cd4_grp ~ "Baseline CD4 group"
   )
 
   tables$st2 <- gtsummary::tbl_summary(
     data = hiv_cohort,
-    include = c("art", "artreg", "cd4"),
+    include = c("art", "artreg", "cd4", "cd4_grp"),
     label = hiv_labels
-  ) |> as_flex_table()
+  ) |> gtsummary::as_flex_table()
 
   t10 <- gtsummary::tbl_uvregression(
     data = hiv_cohort,
     method = survival::coxph,
     y = survival::Surv(fail_days, event_fail),
     exponentiate = TRUE,
-    include = c("art", "cd4"),
+    include = c("art", "cd4", "cd4_grp"),
     label = hiv_labels
   ) |>
     gtsummary::add_n(location = "label") |>
@@ -97,7 +99,7 @@ create_tables <- function(pd, hiv_cohort) {
     method = survival::coxph,
     y = survival::Surv(death_days, event_death),
     exponentiate = TRUE,
-    include = c("art", "cd4"),
+    include = c("art", "cd4", "cd4_grp"),
     label = hiv_labels
   ) |>
     gtsummary::add_n(location = "label") |>
@@ -106,7 +108,7 @@ create_tables <- function(pd, hiv_cohort) {
   tables$st3 <- gtsummary::tbl_merge(
     list(t10, t11),
     tab_spanner = c("**Study failure**", "**Death**")
-  ) |> as_flex_table()
+  ) |> gtsummary::as_flex_table()
 
   # output table 2
   t3 <- gtsummary::tbl_uvregression(
@@ -152,7 +154,7 @@ create_tables <- function(pd, hiv_cohort) {
   tables$mt3 <- gtsummary::tbl_merge(
     list(t3, t4),
     tab_spanner = c("**Crude**", "**Adjusted**")
-  ) |> as_flex_table()
+  ) |> gtsummary::as_flex_table()
 
   tables
 }
