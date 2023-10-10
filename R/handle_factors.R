@@ -3,7 +3,7 @@
 #' Clean, relevel, and generally prepare factor variables
 #' in the baseline data frame for analysis
 #'
-#' @param baseline_df
+#' @param baseline_df baseline characteristics data frame
 #'
 
 handle_factors <- function(baseline_df) {
