@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|4db590dde1ff28d0|||||||||||||||
+.Random.seed|object|a75df02d4c632416|||||||||||||||
 adjusted|stem|5f9a4572e79266a4|ddbfd4534c143854|f4a851e4d2382520|-1421124365||t19640.4621184533s|e101748ad4ec08a5|2467486|rds|local|vector|||0.004||
 apply_all_labels|function|8b7f8543e14368d5|||||||||||||||
 apply_labels|function|01c103e00b428ff5|||||||||||||||
@@ -7,7 +7,7 @@ apply_manual_adjustments|function|6f8846607d4c4a0f|||||||||||||||
 calculate_baseline_smear|function|d9df2968ed6433e2|||||||||||||||
 calculate_conversion|function|1a13c7051b7209b5|||||||||||||||
 calculate_eos_outcome|function|ba4c29c2f7647eeb|||||||||||||||
-clean|stem|c255868538d87d7e|c5a732f123a5222a|f98e0b58e3af6ed4|1640993750||t19640.7641607589s|cf53d2a10feab9c3|459476|rds|local|vector|||0.002||
+clean|stem|7ef440fedb71b722|c5a732f123a5222a|09868223190c83ad|1640993750||t19640.8267208276s|60c7118d5cce400f|460669|rds|local|vector|||0.002||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|c0673e4bd1ba8213|||||||||||||||
 create_eos_outcome|function|32e64d5266128f7e|||||||||||||||
@@ -16,14 +16,14 @@ create_high_dose_list|function|fba6a7829f2e58a7|||||||||||||||
 create_hiv_cohort|function|1b990b25e1b719db|||||||||||||||
 create_plots|function|a6c1dcbd1284138f|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
-create_tables|function|38c3a8580b5cb972|||||||||||||||
+create_tables|function|f30c70ee9140f886|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
-docx_output|stem|da7e5646cbdfced7|9b9cc9babe6cddf6|a3f33b0b159c2dd7|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.992||
+docx_output|stem|da7e5646cbdfced7|9b9cc9babe6cddf6|184e2bf6fd61fcfb|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.627||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|68a544a2e219933f|-1301001980|/Users/jayachar/Documents/github_repos/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||1.322||
-handle_factors|function|8896c4f30a9af498|||||||||||||||
-high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|0f710ccd5559b253|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.015||
-hiv_cohort|stem|f2e1faee6309dd29|b32361c0af7d7ccd|1d2dde90206f8825|831035627||t19640.7641609943s|78180987293e633a|58043|rds|local|vector|||0.004||
-html_output|stem|da7e5646cbdfced7|565cea135ae43586|a3f33b0b159c2dd7|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||2.508||
+handle_factors|function|8fefcfd42be0f40f|||||||||||||||
+high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|c607d2db0f9745d7|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.016||
+hiv_cohort|stem|3c53b448164db1fd|b32361c0af7d7ccd|e63c4af3c3f5c532|831035627||t19640.8267210851s|1a75668dcf5ed321|58199|rds|local|vector|||0.003||
+html_output|stem|da7e5646cbdfced7|565cea135ae43586|184e2bf6fd61fcfb|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||3.098||
 import|function|2ae53e4261497ef2|||||||||||||||
 import_data|function|abe0de4470663550|||||||||||||||
 internal|object|50dbdfc912ff6153|||||||||||||||
@@ -33,21 +33,21 @@ manual_adjustments|function|989ecd9d8b89f4bb|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
-plots|stem|8e097f7b6aa2412e|44e8539c05e516ff|fafede41a83154a2|-252074359||t19640.7654603598s|87a1954c4c125638|1257571|rds|local|vector|||0.422||
+plots|stem|fbc8c5e2642510ac|44e8539c05e516ff|beefa5811be7419f|-252074359||t19640.8281460683s|36cd7fc038924836|1259183|rds|local|vector|||0.486||
 prepare_ae_summary_data|function|6aaf30476da08d9d|||||||||||||||
-prepare_baseline|function|4d49999e906e9ec8|||||||||||||||
+prepare_baseline|function|eeb214a4cf925326|||||||||||||||
 prepare_dst|function|c96b8676efdeb5ef|||||||||||||||
 prepare_eos_outcomes|function|3a4ebd06541832f7|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem|e75bf6fa85e5e9fe|98bd9b56a1a4ba5b|a84a9bca1d1a25f7|-2067579251||t19640.7641594546s|b14674df390154fe|2510284|rds|local|vector|||54.464||
+prepared|stem|b00650b0b0919dc5|98bd9b56a1a4ba5b|6322d82dd4029be1|-2067579251||t19640.8228834763s|7d3d934702cd6624|2511513|rds|local|vector|||56.322||
 quality_file|object|b47ce84473eda33d|||||||||||||||
 quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|d6126e113a357ff5|-1876087034||t19640.4634795414s|44e327d1ee1978d7|43|rds|local|vector|||116.789||
 raw|stem|934181fe85597adb|5230d070e25adf69|9abe679feacfe993|1775868223||t19640.4621113157s|e85698ae410578df|2467488|rds|local|vector|||3.573|1m22mimport_data will be deprecated in the next version  use run_analysis instead|
 read_in|function|bba4bed8f3dec115|||||||||||||||
 ready|function|9d7b499b2827734c|||||||||||||||
 relevel_variables|function|38d774da4ff1eb17|||||||||||||||
-relevel_vars|function|8d53e05944f5a0b9|||||||||||||||
+relevel_vars|function|75296ee4b13794c1|||||||||||||||
 remove_invalid_records|function|9e60d13657e08d61|||||||||||||||
 remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
 render|function|f656cc47efcd25f8|||||||||||||||
@@ -56,6 +56,6 @@ run_analysis|function|5cf40116195f385e|||||||||||||||
 run_quality_check|function|cb01a095ef0d044c|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|cfe4ebd21fbce98a|477d309e7f399201|6c8768dbca5a204d|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png|t19640.7655870713s|c6c41a1e0d62f67a|668255|file|local|vector|||5.431|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
-tables|stem|efa7ea3eafb323f9|7b5bd5938f687d53|c1cf87e93fc39022|397746313||t19640.7654482912s|99fbdb726e15c060|294722286|rds|local|vector|||45.199|1m22mThere were 6 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  2  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 5 remaining warnings.. Loglik converged before variable  14  coefficient may be infinite.|
+saved_plots|stem|cfe4ebd21fbce98a|477d309e7f399201|76590134ced0e63e|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png|t19640.8282673518s|c6c41a1e0d62f67a|668255|file|local|vector|||4.743|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
+tables|stem|12a72ffbda8f581d|7b5bd5938f687d53|043cc09a131361f6|397746313||t19640.8281330955s|86a331b5f5193471|322080038|rds|local|vector|||46.457|1m22mThere were 6 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  2  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 5 remaining warnings.. Loglik converged before variable  14  coefficient may be infinite.|
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||

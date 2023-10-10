@@ -67,5 +67,19 @@ handle_factors <- function(baseline_df) {
     }
   )
 
+  # convert smoking intensity into a factor variable
+  baseline_df$sm_fact <- ifelse(
+    baseline_df$smdur >= 20,
+    2, 1
+  )
+
+  baseline_df$sm_fact[is.na(baseline_df$sm_fact)] <- 0
+
+  baseline_df$sm_fact <- factor(
+    baseline_df$sm_fact,
+    levels = c(0:2),
+    labels = c("None", "<20 pack-years", "\u226520 pack-years")
+  )
+
   return(baseline_df)
 }

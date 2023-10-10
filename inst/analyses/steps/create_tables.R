@@ -4,6 +4,7 @@ create_tables <- function(pd, hiv_cohort) {
   covariates <- c(
     "age", "sex", "cntry", "cav", "bmi_group",
     "hiv", "hcvab", "idu", "homeless", "empl",
+    "smok", "sm_fact",
     "smear", "prison", "alcohol", "prevtb", "diab",
     "covid", "regimen", "ast_alt_grd",
     "prfneugrd", "hbgrd", "creatgrd",
@@ -22,7 +23,9 @@ create_tables <- function(pd, hiv_cohort) {
     prison ~ "History of incarceration",
     homeless ~ "Homeless",
     empl ~ "Employment status",
-    idu ~ "Histoy of injecting drug use",
+    smok ~ "Smoking history",
+    sm_fact ~ "Smoking intensity",
+    idu ~ "History of injecting drug use",
     alcohol ~ "Excess alcohol use",
     prevtb ~ "Previous TB episode",
     diab ~ "Diabetes",
