@@ -55,8 +55,6 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     cli::cli_alert_info("`tx_outcome` variable refactored from `outcome`.")
   }
 
-  # TODO: create baseline CD4 count categorical variable
-
   # calculate BMI variable
   df_list$baseline$bmi <- df_list$baseline$weight /
     ((df_list$baseline$height / 100)^2)
@@ -112,6 +110,10 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
     cli::cli_alert_info("`smear` variable calculated from \\
                       `myco` data frame.")
   }
+
+  df_list$baseline <- handle_factors(
+    df_list$baseline
+  )
 
   if (!"had_sae" %in% names(df_list$baseline)) {
     had_sae <- unique(df_list$adverse$globalrecordid[which(

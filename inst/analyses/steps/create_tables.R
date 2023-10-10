@@ -4,8 +4,11 @@ create_tables <- function(pd, hiv_cohort) {
   covariates <- c(
     "age", "sex", "cntry", "cav", "bmi_group",
     "hiv", "hcvab", "idu", "homeless", "empl",
+    "smok", "sm_fact",
     "smear", "prison", "alcohol", "prevtb", "diab",
-    "covid", "regimen"
+    "covid", "regimen", "ast_alt_grd",
+    "prfneugrd", "hbgrd", "creatgrd",
+    "visgrd"
   )
 
   labels <- list(
@@ -20,12 +23,19 @@ create_tables <- function(pd, hiv_cohort) {
     prison ~ "History of incarceration",
     homeless ~ "Homeless",
     empl ~ "Employment status",
-    idu ~ "Histoy of injecting drug use",
+    smok ~ "Smoking history",
+    sm_fact ~ "Smoking intensity",
+    idu ~ "History of injecting drug use",
     alcohol ~ "Excess alcohol use",
     prevtb ~ "Previous TB episode",
     diab ~ "Diabetes",
     covid ~ "Baseline SARS-CoV2 status",
-    regimen ~ "Treatment regimen"
+    regimen ~ "Treatment regimen",
+    prfneugrd  ~ "Baseline peripheral neuropathy",
+    hbgrd ~ "Baseline anaemia",
+    creatgrd ~ "Baseline renal dysfunction",
+    visgrd ~ "Baseline visual loss",
+    ast_alt_grd ~ "Baseline elevated AST/ALT"
   )
 
   tables$mt1 <- gtsummary::tbl_summary(
@@ -50,7 +60,8 @@ create_tables <- function(pd, hiv_cohort) {
   hiv_labels <- list(
     art ~ "Receiving ART",
     artreg ~ "ART regimen",
-    cd4 ~ "Baseline CD4 count"
+    cd4 ~ "Baseline CD4 count",
+    cd4_grp ~ "Baseline CD4 group"
   )
 
   ## outcomes stratified by HIV status
@@ -67,26 +78,27 @@ create_tables <- function(pd, hiv_cohort) {
     modify_spanning_header(
       c("stat_1", "stat_2", "stat_3") ~ "**HIV status**"
     ) |>
-    as_flex_table()
+    gtsummary::as_flex_table()
 
   hiv_labels <- list(
     art ~ "Receiving ART",
     artreg ~ "ART regimen",
-    cd4 ~ "Baseline CD4 count"
+    cd4 ~ "Baseline CD4 count",
+    cd4_grp ~ "Baseline CD4 group"
   )
 
   tables$st2 <- gtsummary::tbl_summary(
     data = hiv_cohort,
-    include = c("art", "artreg", "cd4"),
+    include = c("art", "artreg", "cd4", "cd4_grp"),
     label = hiv_labels
-  ) |> as_flex_table()
+  ) |> gtsummary::as_flex_table()
 
   t10 <- gtsummary::tbl_uvregression(
     data = hiv_cohort,
     method = survival::coxph,
     y = survival::Surv(fail_days, event_fail),
     exponentiate = TRUE,
-    include = c("art", "cd4"),
+    include = c("art", "cd4", "cd4_grp"),
     label = hiv_labels
   ) |>
     gtsummary::add_n(location = "label") |>
@@ -97,7 +109,7 @@ create_tables <- function(pd, hiv_cohort) {
     method = survival::coxph,
     y = survival::Surv(death_days, event_death),
     exponentiate = TRUE,
-    include = c("art", "cd4"),
+    include = c("art", "cd4", "cd4_grp"),
     label = hiv_labels
   ) |>
     gtsummary::add_n(location = "label") |>
@@ -106,7 +118,7 @@ create_tables <- function(pd, hiv_cohort) {
   tables$st3 <- gtsummary::tbl_merge(
     list(t10, t11),
     tab_spanner = c("**Study failure**", "**Death**")
-  ) |> as_flex_table()
+  ) |> gtsummary::as_flex_table()
 
   # output table 2
   t3 <- gtsummary::tbl_uvregression(
@@ -152,7 +164,7 @@ create_tables <- function(pd, hiv_cohort) {
   tables$mt3 <- gtsummary::tbl_merge(
     list(t3, t4),
     tab_spanner = c("**Crude**", "**Adjusted**")
-  ) |> as_flex_table()
+  ) |> gtsummary::as_flex_table()
 
   tables
 }

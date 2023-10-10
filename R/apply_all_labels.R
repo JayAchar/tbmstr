@@ -50,7 +50,6 @@ apply_all_labels <- function(lst) {
             ukr_target_rows <- which(df$cntry == 10 & df$outcome == 6)
             labelled[ukr_target_rows] <- "Withdrawn"
           }
-
           return(labelled)
         }
       )

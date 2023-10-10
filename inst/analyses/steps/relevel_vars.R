@@ -10,7 +10,8 @@ relevel_vars <- function(dd) {
     homeless = "No",
     cav = "No cavity",
     hcvab = "Seronegative",
-    smear = "Negative"
+    smear = "Negative",
+    smok = "No"
   )
 
   dd$baseline <- tbmstr::relevel_variables(dd$baseline,
