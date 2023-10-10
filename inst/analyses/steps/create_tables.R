@@ -5,7 +5,8 @@ create_tables <- function(pd, hiv_cohort) {
     "age", "sex", "cntry", "cav", "bmi_group",
     "hiv", "hcvab", "idu", "homeless", "empl",
     "smear", "prison", "alcohol", "prevtb", "diab",
-    "covid", "regimen", "prfneugrd", "hbgrd", "creatgrd",
+    "covid", "regimen", "ast_alt_grd",
+    "prfneugrd", "hbgrd", "creatgrd",
     "visgrd"
   )
 
@@ -30,7 +31,8 @@ create_tables <- function(pd, hiv_cohort) {
     prfneugrd  ~ "Baseline peripheral neuropathy",
     hbgrd ~ "Baseline anaemia",
     creatgrd ~ "Baseline renal dysfunction",
-    visgrd ~ "Baseline visual loss"
+    visgrd ~ "Baseline visual loss",
+    ast_alt_grd ~ "Baseline elevated AST/ALT"
   )
 
   tables$mt1 <- gtsummary::tbl_summary(

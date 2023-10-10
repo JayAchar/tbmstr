@@ -9,6 +9,16 @@
 handle_factors <- function(baseline_df) {
   stopifnot(is.data.frame(baseline_df))
 
+  ae_labels <- c(
+    "None",
+    "Grade 1",
+    "Grade 2",
+    "Grade 3",
+    "Grade 4"
+  )
+
+  ae_levels <- c("None", "I", "II", "III", "IV")
+
   # create grouped baseline CD4 variable
   baseline_df$cd4_grp <- cut(
     baseline_df$cd4,
@@ -28,17 +38,22 @@ handle_factors <- function(baseline_df) {
     labels = c("No", "Yes")
   )
 
-  ae_vars <- c("prfneugrd", "hbgrd", "creatgrd", "visgrd")
-
-  ae_labels <- c(
-    "None",
-    "Grade 1",
-    "Grade 2",
-    "Grade 3",
-    "Grade 4"
+  # combine baseline AST/ALT AE grade
+  baseline_df$ast_alt_grd <- pmax(
+    as.numeric(baseline_df$astgrd),
+    as.numeric(baseline_df$altgrd),
+    na.rm = TRUE
   )
 
-  ae_levels <- c("None", "I", "II", "III", "IV")
+  baseline_df$ast_alt_grd[is.na(baseline_df$ast_alt_grd)] <- 0
+
+  baseline_df$ast_alt_grd <- factor(
+    baseline_df$ast_alt_grd,
+    levels = c(0:4),
+    labels = ae_labels
+  )
+
+  ae_vars <- c("prfneugrd", "hbgrd", "creatgrd", "visgrd")
 
   baseline_df[ae_vars] <- lapply(
     ae_vars,
