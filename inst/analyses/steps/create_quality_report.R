@@ -1,5 +1,5 @@
 create_quality_report <- function(dd, raw, template, output_path) {
-  quality_data <- prepare_quality_data(
+  quality_data <- tbmstr:::prepare_quality_data(
     study_data = list(
       baseline = dd$baseline,
       myco = dd$myco,

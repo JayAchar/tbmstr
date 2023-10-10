@@ -1,5 +1,5 @@
 import <- function(path) {
-  data <- import_data(
+  data <- tbmstr::import_data(
     parent_dir = path,
     multi_country = TRUE,
     apply_labels = FALSE,
@@ -11,7 +11,7 @@ import <- function(path) {
     )
   )
 
-  data$baseline <- remove_invalid_records(
+  data$baseline <- tbmstr:::remove_invalid_records(
     data$baseline
   )
 
