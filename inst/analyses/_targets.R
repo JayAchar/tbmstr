@@ -37,8 +37,8 @@ list(
     "quality.Rmd",
     output_dir
   )),
-  tar_target(labelled, tbmstr::apply_all_labels(adjusted)),
-  tar_target(prepared, tbmstr::prepare_baseline(labelled,
+  tar_target(labelled, apply_all_labels(adjusted)),
+  tar_target(prepared, prepare_baseline(labelled,
     cohort = "treatment"
   )),
   tar_target(clean, relevel_vars(prepared)),

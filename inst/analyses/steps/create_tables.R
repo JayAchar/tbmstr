@@ -5,7 +5,8 @@ create_tables <- function(pd, hiv_cohort) {
     "age", "sex", "cntry", "cav", "bmi_group",
     "hiv", "hcvab", "idu", "homeless", "empl",
     "smear", "prison", "alcohol", "prevtb", "diab",
-    "covid", "regimen"
+    "covid", "regimen", "prfneugrd", "hbgrd", "creatgrd",
+    "visgrd"
   )
 
   labels <- list(
@@ -25,7 +26,11 @@ create_tables <- function(pd, hiv_cohort) {
     prevtb ~ "Previous TB episode",
     diab ~ "Diabetes",
     covid ~ "Baseline SARS-CoV2 status",
-    regimen ~ "Treatment regimen"
+    regimen ~ "Treatment regimen",
+    prfneugrd  ~ "Baseline peripheral neuropathy",
+    hbgrd ~ "Baseline anaemia",
+    creatgrd ~ "Baseline renal dysfunction",
+    visgrd ~ "Baseline visual loss"
   )
 
   tables$mt1 <- gtsummary::tbl_summary(
