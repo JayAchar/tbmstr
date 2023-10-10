@@ -83,6 +83,12 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tbmstr</span><span class="fu">::</span><span class="fu"><a href="reference/run_tutorial.html">run_tutorial</a></span><span class="op">(</span><span class="st">"tutorial_name"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="analyses-development">Analyses development<a class="anchor" aria-label="anchor" href="#analyses-development"></a>
+</h2>
+<p>Scripts have been created to draft analyses. To speed up development, run the following command in the command line:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">watchexec</span> <span class="at">-e</span> Rmd,R <span class="st">"Rscript -e </span><span class="dt">\"</span><span class="st">targets::tar_make(script = '.inst/analyses/_targets.R')</span><span class="dt">\"</span><span class="st">"</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
