@@ -16,6 +16,8 @@
 create_cc_days <- function(
     trtstdat,
     convdat) {
+  # TODO: cc_days should be censored at around 4 months based on
+  # the failure outcome
   is_trtstdat_class_ok <- all(class(trtstdat) %in% c("POSIXct", "POSIXt"))
   is_convdat_class_ok <- all(class(convdat) %in% c("POSIXct", "POSIXt"))
 

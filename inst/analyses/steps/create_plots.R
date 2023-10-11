@@ -80,5 +80,18 @@ create_plots <- function(pd, hiv_cohort) {
       title = "Kaplan Meier estimates for time to death by ART status",
       x = "Time from treatment start (days)"
     )
+
+  plots$conversion <- ggsurvfit::survfit2(
+    survival::Surv(cc_days, cc_event) ~ 1,
+    data = pd
+  ) |>
+    ggsurvfit::ggsurvfit(type = "risk") +
+    ggsurvfit::add_confidence_interval() +
+    ggsurvfit::add_risktable() +
+    ggplot2::coord_cartesian(ylim = c(0, 1)) +
+    ggplot2::labs(
+      title = "Kaplan Meier estimates for time to sputum culture conversion",
+      x = "Time from treatment start (days)"
+    )
   plots
 }

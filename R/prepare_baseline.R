@@ -85,10 +85,9 @@ prepare_baseline <- function(df_list, cohort = c("treatment", "adverse")) {
                         unsuccessful outcome.")
   }
 
-  # FIXME: use create_cc_days function to check the cc days var
-  df_list$baseline$cc_days <- create_cc_days(
-    trtstdat = df_list$baseline$trtstdat,
-    convdat = df_list$baseline$convdat
+  df_list$baseline <- create_conversion_variables(
+    baseline = df_list$baseline,
+    myco = df_list$myco
   )
 
   if (!is_testing()) {
