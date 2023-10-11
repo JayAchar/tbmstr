@@ -47,3 +47,7 @@ params$tables$st2
 ```{r wrap="Supplementary Table 3", echo = FALSE}
 params$tables$st3
 ```
+
+```{r wrap="Culture conversion risk", echo = FALSE}
+params$tables$cc_risk
+```

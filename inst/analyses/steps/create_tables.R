@@ -1,4 +1,4 @@
-create_tables <- function(pd, hiv_cohort) {
+create_tables <- function(pd, hiv_cohort, surv_objects) {
   tables <- list()
 
   covariates <- c(
@@ -165,6 +165,13 @@ create_tables <- function(pd, hiv_cohort) {
     list(t3, t4),
     tab_spanner = c("**Crude**", "**Adjusted**")
   ) |> gtsummary::as_flex_table()
+
+  tables$cc_risk <- gtsummary::tbl_survfit(
+    surv_objects$cc,
+    times = c(30, 60, 90, 120, 150),
+    reverse = TRUE,
+    label_header = "**{time} days**"
+  )
 
   tables
 }
