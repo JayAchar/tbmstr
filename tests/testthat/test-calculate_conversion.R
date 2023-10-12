@@ -184,3 +184,23 @@ test_that("handles all positive", {
 
   expect_equal(observed, expected)
 })
+
+test_that("handles unordered results", {
+  input <- data.frame(
+    id = c(1, 1, 1),
+    date = as.Date(c(35, 1, 40), origin = "1970-01-01"),
+    result = c(0, 0, 0)
+  )
+
+  expected <- data.frame(
+    id = 1,
+    date = as.Date(1, origin = "1970-01-01")
+  )
+
+  observed <- calculate_conversion(
+    subject_df = input,
+    tolerance = 30
+  )
+
+  expect_equal(observed, expected)
+})

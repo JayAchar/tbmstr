@@ -26,10 +26,7 @@ has_positive_baseline_culture <- function(baseline, myco) {
   results <- lapply(
     X = sp_lst,
     FUN = \(cultures) {
-      data.frame(
-        globalrecordid = unique(cultures$fkey),
-        result = nrow(cultures)
-      )
+      is_baseline_culture_positive(cultures)
     }
   )
 
@@ -54,13 +51,11 @@ is_baseline_culture_positive <- function(df) {
     units = "days"
   )
 
-  print(diff_days)
   # filter to keep only eligible results
   filtered <- df[which(
     diff_days < 7
   ), ]
 
-  print(filtered)
   # check if any of the results are positive
   result <- any(
     filtered$result %in% c(1)

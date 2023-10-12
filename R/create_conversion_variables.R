@@ -10,17 +10,35 @@
 #'   cc_event variables
 
 create_conversion_variables <- function(baseline, myco) {
-  # TODO: create `calculate_cc_date` variable to use myco data
-
   # confirm baseline culture result
+  culture_positive_df <- has_positive_baseline_culture(baseline, myco)
 
-
+  # add is_baseline_culture_positive variable
+  baseline_positive <- merge(
+    baseline,
+    culture_positive_df,
+    by = "globalrecordid",
+    all.x = TRUE
+  )
 
   risk_end_date <- as.POSIXct(ifelse(
     is.na(baseline$convdat),
     baseline$trtendat,
     baseline$convdat
   ), tz = "UTC")
+
+  baseline_lab_cc <- create_cc_days(
+    trtstdat = NULL,
+    convdat = NULL,
+    baseline = baseline_positive,
+    myco = myco,
+    lab = TRUE
+  )
+
+  # lab_cc_event <- ifelse(
+  #   is.na(calculated_cc_days),
+  #   FALSE, TRUE
+  # )
 
   cc_days <- create_cc_days(
     trtstdat = baseline$trtstdat,
@@ -33,7 +51,7 @@ create_conversion_variables <- function(baseline, myco) {
   )
 
   merge(
-    baseline,
+    baseline_lab_cc,
     data.frame(
       globalrecordid = baseline$globalrecordid,
       cc_days = cc_days,

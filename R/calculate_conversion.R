@@ -16,6 +16,9 @@ calculate_conversion <- function(subject_df,
     all(!is.na(subject_df$date))
   )
 
+  # order by date
+  subject_df <- subject_df[order(subject_df$date), ]
+
   # capture number of results
   result_sequence <- seq_len(nrow(subject_df))
 
