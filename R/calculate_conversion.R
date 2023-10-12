@@ -23,57 +23,57 @@ calculate_conversion <- function(subject_df,
   diffs <- vapply(
     X = result_sequence,
     FUN = function(row) {
-      if (row == 1 || subject_df[row, "result"] == 1) {
+      row_result <- subject_df[row, "result"]
+
+      if (row_result == 1) {
+        return(NA)
+      }
+
+      if (row == 1) {
         return(0)
       }
 
-      # if the difference is less than the tolerance, check the previous
-      # row.
+      previous_row_result <- subject_df[row - 1, "result"]
 
-      # For each result, recurse backwards to find the longest sequence of
-      # negative results then calculate the number of days
-
-      days_diff <- Reduce(
-        x = row:min(result_sequence),
-        f = function(res, inc) {
-          if (inc == 1) {
-            return(res)
-          }
-          if (subject_df[inc, "result"] == 1) {
-            return(0)
-          }
-          # stop recursing back if the current diff since negative > required
-          if (res >= tolerance) {
-            return(res)
-          }
-          # if we encounter a positive result when recursing back,
-          # reset the value
-          if (subject_df[inc - 1, "result"] == 1) {
-            return(0)
-          }
-          # if the recursed result is also negative, add accumulate the
-          # additional diff_days
-          if (subject_df[inc - 1, "result"] == 0) {
-            diff <- as.numeric(subject_df[row, "date"] -
-              subject_df[row - 1, "date"])
-            return(diff + res)
-          }
-        },
-        init = 0
-      )
-      return(days_diff)
+      if (previous_row_result == 0) {
+        diff_lag <- as.numeric(
+          difftime(
+            subject_df[row, "date"],
+            subject_df[row - 1, "date"]
+          )
+        )
+        return(diff_lag)
+      }
+      return(0)
     },
     FUN.VALUE = double(1)
   )
 
-  subject_df$diff <- diffs
-  # retain candidate results which might represent conversion
-  candidates <- subject_df[which(subject_df$diff >= tolerance), ]
+  cum_diffs <- Reduce(
+    x = diffs,
+    f = \(acc, value) {
+      if (is.na(value)) {
+        return(c(acc, NA))
+      }
+      lag_value <- ifelse(
+        length(acc) == 0,
+        0, acc[length(acc)]
+      )
+      if (is.na(lag_value)) {
+        return(c(acc, value))
+      }
+      return(c(acc, lag_value + value))
+    }, init = numeric(0)
+  )
 
-  if (nrow(candidates) == 0) {
-    conversion_date <- as.Date(NA)
-  } else {
-    conversion_date <- min(candidates$date)
+  gt_tolerance <- which(cum_diffs >= tolerance)
+
+  conversion_date <- as.Date(NA)
+
+  if (length(gt_tolerance) > 0) {
+    all_zeros <- which(cum_diffs == 0)
+    target_zero <- min(all_zeros[all_zeros < min(gt_tolerance)])
+    conversion_date <- subject_df[target_zero, "date"]
   }
 
   return(

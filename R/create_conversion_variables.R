@@ -11,6 +11,11 @@
 
 create_conversion_variables <- function(baseline, myco) {
   # TODO: create `calculate_cc_date` variable to use myco data
+
+  # confirm baseline culture result
+
+
+
   risk_end_date <- as.POSIXct(ifelse(
     is.na(baseline$convdat),
     baseline$trtendat,
