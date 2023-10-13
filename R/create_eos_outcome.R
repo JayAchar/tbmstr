@@ -11,6 +11,8 @@
 #'
 #' @importFrom cli cli_progress_along
 #'
+#' @export
+#'
 #' @return Original baseline data frame with added variables -
 #' eos_outcome &  eos_date
 
@@ -26,9 +28,20 @@ create_eos_outcome <- function(df) {
     cli::cli_abort("Input argument should be a data frame.")
   }
 
+  if ("fail_days" %in% names(df)) {
+    return(df)
+  }
+
   if (!all(required_vars %in% names(df))) {
     cli::cli_abort("Input data frame does not include required variables.")
   }
+
+  # if trtendat is missing, impute endat
+  df$trtendat <- ifelse(
+    is.na(df$trtendat),
+    df$endat,
+    df$trtendat
+  )
 
   l_df <- lapply(
     X = cli::cli_progress_along(df$globalrecordid,
@@ -70,6 +83,9 @@ create_eos_outcome <- function(df) {
 
   merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
   merged$date_fail <- merged$eos_date
+
+  alert_info("`eos_outocome` variable calculated as first
+                          unsuccessful outcome.")
 
   merged
 }

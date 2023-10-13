@@ -38,7 +38,8 @@ list(
     output_dir
   )),
   tar_target(labelled, apply_all_labels(adjusted)),
-  tar_target(prepared, prepare_baseline(labelled,
+  tar_target(include_outcomes, create_outcomes(labelled)),
+  tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),
   tar_target(clean, relevel_vars(prepared)),

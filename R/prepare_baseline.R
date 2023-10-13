@@ -27,22 +27,9 @@ prepare_baseline <- function(df_list,
 
   df_list$baseline <- calculate_variables(df_list$baseline)
 
-  if (!"fail_days" %in% names(df_list$baseline)) {
-    # if trtendat is missing, impute endat
-    df_list$baseline$trtendat <- ifelse(
-      is.na(df_list$baseline$trtendat),
-      df_list$baseline$endat,
-      df_list$baseline$trtendat
-    )
-
-    df_list$baseline <- create_eos_outcome(
-      df_list$baseline
-    )
-
-    alert_info("`eos_outocome` variable calculated as first
-                          unsuccessful outcome.")
-  }
-
+  df_list$baseline <- create_eos_outcome(
+    df_list$baseline
+  )
 
   df_list$baseline <- create_conversion_variables(
     baseline = df_list$baseline,
