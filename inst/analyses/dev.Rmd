@@ -51,3 +51,15 @@ params$tables$st3
 ```{r wrap="Culture conversion risk", echo = FALSE}
 params$tables$cc_risk
 ```
+
+```{r wrap="Reasons for discontinuation", echo = FALSE}
+params$tables$failure_reasons
+```
+
+The reasons for failure may not be correct. They are taken
+from the `prtclviol` variable and are restricted to only
+those participants who were given an outcome of `Failed`.
+
+More information is likely to be availble for those
+with `Other` reasons for ceasing treatment in the `trtcom`
+variable.

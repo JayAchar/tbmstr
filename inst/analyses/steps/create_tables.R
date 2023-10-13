@@ -1,4 +1,4 @@
-create_tables <- function(pd, hiv_cohort, surv_objects) {
+create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
   tables <- list()
 
   covariates <- c(
@@ -172,6 +172,19 @@ create_tables <- function(pd, hiv_cohort, surv_objects) {
     reverse = TRUE,
     label_header = "**{time} days**"
   )
+
+failed$prtclviol <- droplevels(failed$prtclviol)
+
+tables$failure_reasons <- gtsummary::tbl_summary(
+  data = failed,
+  include = "prtclviol",
+  label = list(
+    prtclviol ~ "Reasons for discontinuation"
+  ),
+  sort = list(
+    everything() ~ "frequency"
+  )) |>
+  gtsummary::modify_header(label = "")
 
   tables
 }

@@ -59,9 +59,6 @@ create_cc_days <- function(
     cc_dates_lst <- lapply(
       sp_lst,
       \(cultures) {
-        if(unique(cultures$id) == "00b4ad11-4694-404d-9c87-3c223fa72b55") {
-          browser()
-        }
         calculate_conversion(
           cultures,
           tolerance = 30
