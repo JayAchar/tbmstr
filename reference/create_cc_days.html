@@ -62,7 +62,7 @@ the number of days until culture conversion.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_cc_days</span><span class="op">(</span><span class="va">trtstdat</span>, <span class="va">convdat</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_cc_days</span><span class="op">(</span><span class="va">trtstdat</span>, <span class="va">convdat</span>, <span class="va">baseline</span>, <span class="va">myco</span>, lab <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,6 +74,19 @@ the number of days until culture conversion.</p>
 <dt>convdat</dt>
 <dd><p>date vector representing the study team's recorded culture
 conversion date.</p></dd>
+
+
+<dt>baseline</dt>
+<dd><p>data frame of baseline participant characteristics</p></dd>
+
+
+<dt>myco</dt>
+<dd><p>data frame of participant mycobacteriology results</p></dd>
+
+
+<dt>lab</dt>
+<dd><p>boolean to signifiy whether lab results should be used to
+calculate culture conversion dates</p></dd>
 
 </dl></div>
     <div class="section level2">
