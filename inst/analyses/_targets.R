@@ -50,12 +50,15 @@ list(
     ),
     format = "file"
   ),
+  tar_target(conversion_cohort, create_conversion_cohort(clean)),
   tar_target(hiv_cohort, create_hiv_cohort(clean)),
+  tar_target(surv_objects, create_surv_objects(clean, hiv_cohort)),
   tar_target(tables, create_tables(
     clean,
-    hiv_cohort
+    hiv_cohort,
+    surv_objects
   )),
-  tar_target(plots, create_plots(clean, hiv_cohort)),
+  tar_target(plots, create_plots(surv_objects, hiv_cohort)),
   tar_target(html_output, render(
     tables,
     list(

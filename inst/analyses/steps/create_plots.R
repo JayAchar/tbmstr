@@ -1,11 +1,7 @@
-create_plots <- function(pd, hiv_cohort) {
+create_plots <- function(surv_objects, hiv_cohort) {
   plots <- list()
 
-
-  plots$p1 <- ggsurvfit::survfit2(
-    survival::Surv(fail_days, event_fail) ~ 1,
-    data = pd
-  ) |>
+  plots$p1 <- surv_objects$fail |>
     ggsurvfit::ggsurvfit() +
     ggsurvfit::add_confidence_interval() +
     ggsurvfit::add_risktable() +
@@ -15,12 +11,7 @@ create_plots <- function(pd, hiv_cohort) {
       x = "Time from treatment start (days)"
     )
 
-  plots$p2 <- ggsurvfit::survfit2(
-    survival::Surv(
-      death_days, event_death
-    ) ~ 1,
-    data = pd
-  ) |>
+  plots$p2 <- surv_objects$death |>
     ggsurvfit::ggsurvfit() +
     ggsurvfit::add_confidence_interval() +
     ggsurvfit::add_risktable() +
@@ -30,12 +21,7 @@ create_plots <- function(pd, hiv_cohort) {
       x = "Time from treatment start (days)"
     )
 
-  plots$p3 <- ggsurvfit::survfit2(
-    survival::Surv(
-      death_days, event_death
-    ) ~ hiv,
-    data = pd
-  ) |>
+  plots$p3 <- surv_objects$death_by_hiv |>
     ggsurvfit::ggsurvfit() +
     ggsurvfit::add_confidence_interval() +
     ggsurvfit::add_risktable() +
@@ -66,18 +52,23 @@ create_plots <- function(pd, hiv_cohort) {
       y = "Baseline CD4 count (sqrt transformation)"
     )
 
-  plots$p5 <- ggsurvfit::survfit2(
-    survival::Surv(
-      death_days, event_death
-    ) ~ art,
-    data = hiv_cohort
-  ) |>
+  plots$p5 <- surv_objects$hiv_death |>
     ggsurvfit::ggsurvfit() +
     ggsurvfit::add_confidence_interval() +
     ggsurvfit::add_risktable() +
     ggplot2::coord_cartesian(ylim = c(0, 1)) +
     ggplot2::labs(
       title = "Kaplan Meier estimates for time to death by ART status",
+      x = "Time from treatment start (days)"
+    )
+
+  plots$conversion <- surv_objects$cc |>
+    ggsurvfit::ggsurvfit(type = "risk") +
+    ggsurvfit::add_confidence_interval() +
+    ggsurvfit::add_risktable() +
+    ggplot2::coord_cartesian(ylim = c(0, 1)) +
+    ggplot2::labs(
+      title = "Kaplan Meier estimates for time to sputum culture conversion",
       x = "Time from treatment start (days)"
     )
   plots

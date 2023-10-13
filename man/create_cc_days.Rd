@@ -4,13 +4,20 @@
 \alias{create_cc_days}
 \title{Calculate time to culture conversion}
 \usage{
-create_cc_days(trtstdat, convdat)
+create_cc_days(trtstdat, convdat, baseline, myco, lab = FALSE)
 }
 \arguments{
 \item{trtstdat}{date vector representing the treatment initation date}
 
 \item{convdat}{date vector representing the study team's recorded culture
 conversion date.}
+
+\item{baseline}{data frame of baseline participant characteristics}
+
+\item{myco}{data frame of participant mycobacteriology results}
+
+\item{lab}{boolean to signifiy whether lab results should be used to
+calculate culture conversion dates}
 }
 \value{
 numeric vector representing the number of days to culture conversion
