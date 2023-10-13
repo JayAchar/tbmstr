@@ -1,12 +1,14 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|7113e727e1b13a98|||||||||||||||
+.Random.seed|object|61bd4acbd19fc90d|||||||||||||||
 adjusted|stem|5f9a4572e79266a4|ddbfd4534c143854|f4a851e4d2382520|-1421124365||t19640.4621184533s|e101748ad4ec08a5|2467486|rds|local|vector|||0.004||
+alert_info|function|35312f4444683ee9|||||||||||||||
 apply_all_labels|function|8b7f8543e14368d5|||||||||||||||
 apply_labels|function|01c103e00b428ff5|||||||||||||||
 apply_manual_adjustments|function|6f8846607d4c4a0f|||||||||||||||
 calculate_baseline_smear|function|d9df2968ed6433e2|||||||||||||||
 calculate_conversion|function|2c49684040ee8311|||||||||||||||
 calculate_eos_outcome|function|ba4c29c2f7647eeb|||||||||||||||
+calculate_variables|function|bef95e913f4082fb|||||||||||||||
 clean|stem|ba7801fa04ef1775|c5a732f123a5222a|6718ab7912fab661|1640993750||t19642.6158819527s|e0072d233d00b206|465634|rds|local|vector|||0.001||
 conversion_cohort|stem|12a7dd36420745b1|8af3c9fe9c913b91|415c42bba0026748|104995942||t19642.6168275379s|b346a76e2219001a|384860|rds|local|vector|||0.005||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
@@ -41,12 +43,13 @@ merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
 plots|stem|2530328b9ae4b79d|700007547abf162d|391c8e747efb3f38|-252074359||t19642.6182020886s|ea5075caea40bcb8|1542359|rds|local|vector|||0.585||
 prepare_ae_summary_data|function|6aaf30476da08d9d|||||||||||||||
-prepare_baseline|function|782a256d2f9d98ca|||||||||||||||
+prepare_baseline|function|e4f24644cc799a0c|||||||||||||||
+prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
 prepare_dst|function|c96b8676efdeb5ef|||||||||||||||
 prepare_eos_outcomes|function|3a4ebd06541832f7|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem|98930e4cacf016f6|98bd9b56a1a4ba5b|3c99c4baa71ba48a|-2067579251||t19642.6158807251s|a05ee8d23d5b755e|2518089|rds|local|vector|||58.94||
+prepared|stem|98930e4cacf016f6|98bd9b56a1a4ba5b|67e6dc8fb2fbbd0f|-2067579251||t19643.3457011253s|a05ee8d23d5b755e|2518089|rds|local|vector|||59.573||
 quality_file|object|b47ce84473eda33d|||||||||||||||
 quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|d6126e113a357ff5|-1876087034||t19640.4634795414s|44e327d1ee1978d7|43|rds|local|vector|||116.789||
 raw|stem|934181fe85597adb|5230d070e25adf69|9abe679feacfe993|1775868223||t19640.4621113157s|e85698ae410578df|2467488|rds|local|vector|||3.573|1m22mimport_data will be deprecated in the next version  use run_analysis instead|
