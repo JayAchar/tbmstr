@@ -50,6 +50,7 @@ list(
     ),
     format = "file"
   ),
+  tar_target(conversion_cohort, create_conversion_cohort(clean)),
   tar_target(hiv_cohort, create_hiv_cohort(clean)),
   tar_target(surv_objects, create_surv_objects(clean, hiv_cohort)),
   tar_target(tables, create_tables(
