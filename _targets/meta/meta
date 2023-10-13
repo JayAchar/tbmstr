@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|0586a75fe00c2241|||||||||||||||
+.Random.seed|object|a6393376f59756f9|||||||||||||||
 adjusted|stem|5f9a4572e79266a4|ddbfd4534c143854|f4a851e4d2382520|-1421124365||t19640.4621184533s|e101748ad4ec08a5|2467486|rds|local|vector|||0.004||
 alert_info|function|35312f4444683ee9|||||||||||||||
 apply_all_labels|function|868a4631401a0a2c|||||||||||||||
@@ -8,33 +8,34 @@ apply_manual_adjustments|function|6f8846607d4c4a0f|||||||||||||||
 calculate_baseline_smear|function|d9df2968ed6433e2|||||||||||||||
 calculate_conversion|function|2c49684040ee8311|||||||||||||||
 calculate_eos_outcome|function|ba4c29c2f7647eeb|||||||||||||||
+calculate_follow_up_days|function|90182d89809ece91|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
-clean|stem|17c8376d5abc9aa3|c5a732f123a5222a|80c7cb7354cd2d9d|1640993750||t19643.3617897046s|7e4b1ab0a2749ffc|465655|rds|local|vector|||0.002||
-conversion_cohort|stem|8e1d59d95d48c202|8af3c9fe9c913b91|34f8407d9c6ddf24|104995942||t19643.3617909769s|be76bc226b07da8b|384462|rds|local|vector|||0.003||
+clean|stem|e8f3f094f7407787|c5a732f123a5222a|136696d16802be7d|1640993750||t19643.4018782234s|8a4af30d68440c90|470321|rds|local|vector|||0.007||
+conversion_cohort|stem|79e7b4e4b8bf8391|8af3c9fe9c913b91|d1202a1f734bfc8d|104995942||t19643.4018795797s|1e5df0e4685c8389|388796|rds|local|vector|||0.004||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|8ddd484b1d345d72|||||||||||||||
 create_conversion_cohort|function|b6a3e3a653025ee6|||||||||||||||
 create_conversion_variables|function|f071cf3082b549f9|||||||||||||||
-create_eos_outcome|function|360b552c8e2f54b4|||||||||||||||
+create_eos_outcome|function|dcbd50392743afd6|||||||||||||||
 create_formula|function|f251ed1107fd883a|||||||||||||||
 create_high_dose_list|function|fba6a7829f2e58a7|||||||||||||||
 create_hiv_cohort|function|1b990b25e1b719db|||||||||||||||
-create_outcomes|function|f871fbe63d34cda8|||||||||||||||
+create_outcomes|function|cecb0211f84a7c9d|||||||||||||||
 create_plots|function|763b64a81a81927e|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
 create_surv_objects|function|1c89de9a326bf965|||||||||||||||
 create_tables|function|295469748b2ab87f|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
-docx_output|stem|da7e5646cbdfced7|9b9cc9babe6cddf6|ccd1cfd058e9606e|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.939||
+docx_output|stem|da7e5646cbdfced7|9b9cc9babe6cddf6|fe3066b1432a0929|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||3.252||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|68a544a2e219933f|-1301001980|/Users/jayachar/Documents/github_repos/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||1.322||
 handle_factors|function|8fefcfd42be0f40f|||||||||||||||
 has_positive_baseline_culture|function|9b5a31a8a97e72cb|||||||||||||||
-high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|619043476af8abd0|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.011||
-hiv_cohort|stem|bb08e568a7f35e74|b32361c0af7d7ccd|5ec1af818968eb7c|831035627||t19643.361789922s|791bc66fb7375b78|58717|rds|local|vector|||0.002||
-html_output|stem|da7e5646cbdfced7|565cea135ae43586|ccd1cfd058e9606e|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||2.561||
+high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|5c7e35e2d4777e9a|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.015||
+hiv_cohort|stem|d935df0daccf435c|b32361c0af7d7ccd|b63f77a3d3571633|831035627||t19643.4018784535s|9bbe0dae439c2d0a|59345|rds|local|vector|||0.002||
+html_output|stem|da7e5646cbdfced7|565cea135ae43586|fe3066b1432a0929|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||2.436||
 import|function|2ae53e4261497ef2|||||||||||||||
 import_data|function|3a92af04a9834135|||||||||||||||
-include_outcomes|stem|2667a5329485123a|4f17e4fac67e9d0d|5dfc0e7ae3862ad4|889393346||t19643.3617194098s|a22e8d94e6108412|2522847|rds|local|vector|||57.313|Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  su|
+include_outcomes|stem|a002a5896db6024a|4f17e4fac67e9d0d|90ba57a2c785f004|889393346||t19643.3831207184s|96c9bfa16709a14e|2522932|rds|local|vector|||59.9|Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  su|
 internal|object|50dbdfc912ff6153|||||||||||||||
 is_baseline_culture_positive|function|caa602ff6046bb1c|||||||||||||||
 is_testing|function|c84c75094f227895|||||||||||||||
@@ -43,15 +44,15 @@ manual_adjustments|function|989ecd9d8b89f4bb|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
-plots|stem|63c05b4820d91ff7|700007547abf162d|4872b2a6c817b163|-252074359||t19643.3632020314s|9d71e47601d2269f|1542386|rds|local|vector|||0.514||
+plots|stem|9908cd793cf78947|700007547abf162d|d2baa13f06658430|-252074359||t19643.4032737909s|c9f5af003e19628d|1549912|rds|local|vector|||0.601||
 prepare_ae_summary_data|function|6aaf30476da08d9d|||||||||||||||
-prepare_baseline|function|7dde895597f729cc|||||||||||||||
+prepare_baseline|function|5d0f588406d203c0|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
 prepare_dst|function|c96b8676efdeb5ef|||||||||||||||
 prepare_eos_outcomes|function|3a4ebd06541832f7|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem|27a11879e452e39b|efca67645a24c271|6e4ec3dc49a1e7b5|-2067579251||t19643.3617884551s|c2a4eabdc0d1104d|2518138|rds|local|vector|||5.34||
+prepared|stem|d5925dba3fe86d5a|efca67645a24c271|85b3dfa4958fe100|-2067579251||t19643.4018764459s|ba0c7b6278571286|2524372|rds|local|vector|||5.745||
 quality_file|object|b47ce84473eda33d|||||||||||||||
 quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|d6126e113a357ff5|-1876087034||t19640.4634795414s|44e327d1ee1978d7|43|rds|local|vector|||116.789||
 raw|stem|934181fe85597adb|5230d070e25adf69|9abe679feacfe993|1775868223||t19640.4621113157s|e85698ae410578df|2467488|rds|local|vector|||3.573|1m22mimport_data will be deprecated in the next version  use run_analysis instead|
@@ -67,7 +68,7 @@ run_analysis|function|5cf40116195f385e|||||||||||||||
 run_quality_check|function|a7a677a20b49aee7|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|094943c2c9a1161d|477d309e7f399201|80cc5d3f8b692eb0|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png|t19643.3633313755s|b19d93dd5686272b|775365|file|local|vector|||5.661|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
-surv_objects|stem|6678c722698d742f|6b0c70a307591d39|ab873372f7bf6e70|1652951019||t19643.3617930711s|ff1a63642285e2c6|629138|rds|local|vector|||0.039||
-tables|stem|4e350676db9eab37|a1e59eda1ae68eb3|9d260972b8b31613|397746313||t19643.3631897668s|daa22d74d0e37205|325932809|rds|local|vector|||49.328|1m22mThere were 6 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  2  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 5 remaining warnings.. Loglik converged before variable  14  coefficient may be infinite.|
+saved_plots|stem|094943c2c9a1161d|477d309e7f399201|371ba8017457094c|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png|t19643.4033990431s|b19d93dd5686272b|775365|file|local|vector|||5.122|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
+surv_objects|stem|5675e7acc436d569|6b0c70a307591d39|a25d82693808e768|1652951019||t19643.4018818102s|7dddfc32e767bbda|634908|rds|local|vector|||0.036||
+tables|stem|e5b738c8beea2980|a1e59eda1ae68eb3|b2201d2ea39e5059|397746313||t19643.4032590446s|964329b40eae9b89|329296240|rds|local|vector|||44.747|1m22mThere were 6 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  2  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 5 remaining warnings.. Loglik converged before variable  14  coefficient may be infinite.|
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||

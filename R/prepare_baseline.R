@@ -31,6 +31,8 @@ prepare_baseline <- function(df_list,
     df_list$baseline
   )
 
+  df_list$baseline <- calculate_follow_up_days(df_list$baseline)
+
   df_list$baseline <- create_conversion_variables(
     baseline = df_list$baseline,
     myco = df_list$myco
@@ -47,7 +49,6 @@ prepare_baseline <- function(df_list,
   df_list$baseline$outcome <- droplevels(
     df_list$baseline$outcome
   )
-
 
   alert_info("`smear` variable calculated from \\
                       `myco` data frame.")

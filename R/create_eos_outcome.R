@@ -37,11 +37,11 @@ create_eos_outcome <- function(df) {
   }
 
   # if trtendat is missing, impute endat
-  df$trtendat <- ifelse(
+  df$trtendat <- as.POSIXct(ifelse(
     is.na(df$trtendat),
     df$endat,
     df$trtendat
-  )
+  ), tz = "UTC")
 
   l_df <- lapply(
     X = cli::cli_progress_along(df$globalrecordid,
