@@ -6,7 +6,7 @@ library(targets)
 tar_option_set(
   # packages that your targets need to run
   packages = c(
-    "tbmstr",
+    "tbmstr", "officer", "flextable",
     "dplyr", "ggplot2", "readr", "cli",
     "gtsummary", "survival", "readxl"
   ),

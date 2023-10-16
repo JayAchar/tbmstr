@@ -32,5 +32,15 @@ create_surv_objects <- function(df, hiv_cohort) {
     data = df
   )
 
+  # TODO: add random effects to account for clustering by country
+  so$mv_fail <- survival::coxph(
+    survival::Surv(
+      df$fail_days,
+      df$event_fail
+    ) ~ age + sex + bmi_group +
+      hiv + prison + alcohol + prevtb + cav + hcvab + smear,
+    data = df
+  )
+
   return(so)
 }

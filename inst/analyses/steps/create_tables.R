@@ -45,7 +45,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     # TODO: Reorder variables
     # TODO: `cav` includes two unknown types - combine
     # TODO: Convert baseline smear to grade rather than positive/negative
-  )
+  ) |> gtsummary::as_flex_table()
 
   # descriptive outcomes table
   tables$mt2 <- gtsummary::tbl_summary(
@@ -130,17 +130,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     include = all_of(covariates[!covariates == "cntry"])
   ) |>
     gtsummary::add_n(location = "label") |>
-    gtsummary::add_nevent(location = "level")
-
-  # TODO: add random effects to account for clustering by country
-  mv_fail <- survival::coxph(
-    survival::Surv(
-      pd$fail_days,
-      pd$event_fail
-    ) ~ age + sex + bmi_group +
-      hiv + prison + alcohol + prevtb + cav + hcvab + smear,
-    data = pd
-  )
+    gtsummary::add_nevent(location = "level") 
 
   mv_fail_labels <- list(
     age ~ "Age (yrs)",
@@ -155,7 +145,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     prevtb ~ "Previous TB episode"
   )
 
-  t4 <- mv_fail |>
+  t4 <- surv_objects$mv_fail |>
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = mv_fail_labels,
@@ -171,7 +161,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     times = c(30, 60, 90, 120, 150),
     reverse = TRUE,
     label_header = "**{time} days**"
-  )
+  ) |>
+gtsummary::as_flex_table()
 
 failed$prtclviol <- droplevels(failed$prtclviol)
 
@@ -184,7 +175,8 @@ tables$failure_reasons <- gtsummary::tbl_summary(
   sort = list(
     everything() ~ "frequency"
   )) |>
-  gtsummary::modify_header(label = "")
+  gtsummary::modify_header(label = "") |>
+  gtsummary::as_flex_table()
 
   tables
 }
