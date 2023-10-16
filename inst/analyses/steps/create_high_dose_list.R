@@ -1,5 +1,13 @@
 create_high_dose_list <- function(dd, config) {
+  final <- prepare_high_dose_list(dd)
+  write.csv(final,
+    file = file.path(config$output_dir, "high_dose.csv")
+  )
+}
+
+prepare_high_dose_list <- function(dd) {
   keep <- c(
+    "globalrecordid",
     "cntry",
     "drnum",
     "trtstdat",
@@ -26,9 +34,5 @@ create_high_dose_list <- function(dd, config) {
 
   keep_rows <- unique(c(high_doses, high_days))
 
-  final <- high_dose[keep_rows, ]
-
-  write.csv(final,
-    file = file.path(config$output_dir, "high_dose.csv")
-  )
+  high_dose[keep_rows, ]
 }

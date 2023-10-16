@@ -1,5 +1,5 @@
 import <- function(path) {
-  data <- tbmstr::import_data(
+  data <- import_data(
     parent_dir = path,
     multi_country = TRUE,
     apply_labels = FALSE,
@@ -7,7 +7,8 @@ import <- function(path) {
       adverse = "adverse",
       baseline = "baseline",
       myco = "myco",
-      dst = "dst"
+      dst = "dst",
+      adherence = "adherence"
     )
   )
 

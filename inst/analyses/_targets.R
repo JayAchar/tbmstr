@@ -8,7 +8,7 @@ tar_option_set(
   packages = c(
     "tbmstr",
     "dplyr", "ggplot2", "readr", "cli",
-    "gtsummary", "survival"
+    "gtsummary", "survival", "readxl"
   ),
   imports = c("tbmstr"),
   format = "rds" # default storage format
@@ -25,12 +25,18 @@ lapply(list.files("inst/analyses/steps", full.names = TRUE), source)
 data_path <- here::here("data", "regional_prepared")
 output_dir <- here::here("inst", "analyses", "output")
 quality_file <- here::here(output_dir, "quality.html")
+adjustments_path <- here::here("inst", "analyses", "adjustments", "data")
 
 # Replace the target list below with your own:
 list(
   tar_target(file, data_path, format = "file"),
   tar_target(raw, import(file)),
-  tar_target(adjusted, manual_adjustments(raw)),
+  tar_target(adjustment_files,
+    command = adjustments_path,
+    format = "file"
+  ),
+  tar_target(adjustments, import_adjustments(adjustment_files)),
+  tar_target(adjusted, apply_adjustments(raw, adjustments)),
   tar_target(quality_report, create_quality_report(
     adjusted,
     raw,
