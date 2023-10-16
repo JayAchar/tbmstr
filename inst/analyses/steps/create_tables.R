@@ -38,10 +38,23 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     ast_alt_grd ~ "Baseline elevated AST/ALT"
   )
 
+  types <- list(
+                hiv ~ "categorical",
+                idu ~  "categorical",
+                homeless ~ "categorical",
+                smok ~ "categorical",
+                prison ~ "categorical",
+                diab ~ "categorical",
+                alcohol ~ "categorical",
+                prevtb ~ "categorical",
+                covid ~ "categorical"
+  )
+
   tables$mt1 <- gtsummary::tbl_summary(
     data = pd,
     include = all_of(covariates),
     label = labels,
+    type = types,
     # TODO: Reorder variables
     # TODO: `cav` includes two unknown types - combine
     # TODO: Convert baseline smear to grade rather than positive/negative
@@ -58,7 +71,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
   ) |> gtsummary::as_flex_table()
 
   hiv_labels <- list(
-    art ~ "Receiving ART",
+    art ~ "Baseline ART status",
     artreg ~ "ART regimen",
     cd4 ~ "Baseline CD4 count",
     cd4_grp ~ "Baseline CD4 group"
@@ -75,22 +88,18 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       eos_outcome ~ "End of study outcome"
     )
   ) |>
-    modify_spanning_header(
-      c("stat_1", "stat_2", "stat_3") ~ "**HIV status**"
+    gtsummary::modify_spanning_header(
+      c("stat_1", "stat_2") ~ "**HIV status**"
     ) |>
     gtsummary::as_flex_table()
 
-  hiv_labels <- list(
-    artreg ~ "Baseline ART regimen",
-    cd4 ~ "Baseline CD4 count",
-    cd4_grp ~ "Baseline CD4 group"
-  )
 
   tables$st2 <- gtsummary::tbl_summary(
     data = hiv_cohort,
-    include = c("artreg", "cd4", "cd4_grp"),
+    include = c("art", "artreg", "cd4", "cd4_grp"),
     label = hiv_labels
   ) |> gtsummary::as_flex_table()
+
 
   t10 <- gtsummary::tbl_uvregression(
     data = hiv_cohort,

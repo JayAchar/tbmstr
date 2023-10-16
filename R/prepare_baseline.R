@@ -64,6 +64,22 @@ prepare_baseline <- function(df_list,
     df_list$baseline$had_sae <- df_list$baseline$globalrecordid %in% had_sae
   }
 
+  df_list$baseline[] <- lapply(
+    df_list$baseline,
+    FUN = \(col) {
+      if (!is.factor(col)) {
+        return(col)
+      }
+      unknowns <- which(col == "Unknown")
+      if (length(unknowns) == 0) {
+        return(col)
+      }
+      col[which(col == "Unknown")] <- NA
+      col <- droplevels(col)
+      col
+    }
+  )
+
   return(df_list)
 }
 
