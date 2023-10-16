@@ -36,6 +36,15 @@ is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
 
+
+#' @noRd
+#' @importFrom cli cli_alert_info
+alert_info <- function(msg) {
+  if (!is_testing()) {
+    cli::cli_alert_info(msg)
+  }
+}
+
 #' @noRd
 create_binary_tx_outcome <- function(outcome) {
   var <- factor(ifelse(

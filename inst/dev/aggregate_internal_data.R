@@ -1,11 +1,9 @@
 source(here::here("inst", "dev", "create_lookup_df.R"))
 source(here::here("inst", "dev", "create_definitions.R"))
-source(here::here("inst", "dev", "manual_adjustments.R"))
 
 internal <- list(
   lut = lut,
-  definitions = definitions,
-  adjustments = adjustments
+  definitions = definitions
 )
 
 usethis::use_data(

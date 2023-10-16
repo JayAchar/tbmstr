@@ -27,9 +27,7 @@ apply_all_labels <- function(lst) {
     cli::cli_abort("All items in the input list must be data frames")
   }
 
-  if (!is_testing()) {
-    cli::cli_alert_info("Ukrainian withdrawls re-coded")
-  }
+  alert_info("Ukrainian withdrawls re-coded")
 
   lapply(
     lst,
