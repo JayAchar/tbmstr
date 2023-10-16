@@ -81,15 +81,14 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     gtsummary::as_flex_table()
 
   hiv_labels <- list(
-    art ~ "Receiving ART",
-    artreg ~ "ART regimen",
+    artreg ~ "Baseline ART regimen",
     cd4 ~ "Baseline CD4 count",
     cd4_grp ~ "Baseline CD4 group"
   )
 
   tables$st2 <- gtsummary::tbl_summary(
     data = hiv_cohort,
-    include = c("art", "artreg", "cd4", "cd4_grp"),
+    include = c("artreg", "cd4", "cd4_grp"),
     label = hiv_labels
   ) |> gtsummary::as_flex_table()
 
@@ -130,7 +129,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     include = all_of(covariates[!covariates == "cntry"])
   ) |>
     gtsummary::add_n(location = "label") |>
-    gtsummary::add_nevent(location = "level") 
+    gtsummary::add_nevent(location = "level")
 
   mv_fail_labels <- list(
     age ~ "Age (yrs)",
