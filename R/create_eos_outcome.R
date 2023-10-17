@@ -8,6 +8,7 @@
 #' `status12` variable to create a valid end of study outcome.
 #'
 #' @param df baseline data frame
+#' @param max_follow_up number of days defined as the maximum follow-up time
 #'
 #' @importFrom cli cli_progress_along
 #'
@@ -16,7 +17,7 @@
 #' @return Original baseline data frame with added variables -
 #' eos_outcome &  eos_date
 
-create_eos_outcome <- function(df) {
+create_eos_outcome <- function(df, max_follow_up) {
   required_vars <- c(
     "globalrecordid", "trtendat",
     "outcome", "stat3",
@@ -82,10 +83,6 @@ create_eos_outcome <- function(df) {
   merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
   merged$date_fail <- merged$eos_date
 
-  # censor death_days to 9 tx months + 12 follow-up months
-  # 273 * 1.1 is defined in the study protocol as the maximum allowable
-  # treatment duration - 9 months + 10%
-  max_follow_up <- 273 * 1.1 + 13 * 31
 
   # if a participant died after the end of study follow-up, they won't be
   # included in the time to event analysis
