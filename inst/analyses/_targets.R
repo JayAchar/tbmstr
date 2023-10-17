@@ -26,6 +26,7 @@ data_path <- here::here("data", "regional_prepared")
 output_dir <- here::here("inst", "analyses", "output")
 quality_file <- here::here(output_dir, "quality.html")
 adjustments_path <- here::here("inst", "analyses", "adjustments", "data")
+dev_templte <- here::here("inst", "analyses", "dev.Rmd")
 
 # Replace the target list below with your own:
 list(
@@ -75,19 +76,25 @@ list(
     surv_objects,
     hiv_cohort
   )),
+  tar_target(dev_template,
+    command = dev_templte,
+    format = "file"
+  ),
   tar_target(html_output, render(
     tables,
     list(
       output_dir = output_dir,
       output_format = "html_document"
-    )
+    ),
+    template = dev_template
   ), format = "file"),
   tar_target(docx_output, render(
     tables,
     list(
       output_dir = output_dir,
       output_format = "word_document"
-    )
+    ),
+    template = NULL
   ), format = "file"),
   tar_target(saved_plots, save_plots(
     plots,
