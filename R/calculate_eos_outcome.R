@@ -22,8 +22,6 @@ calculate_eos_outcome <- function(df) {
     length(unique(df$globalrecordid)) == 1
   )
 
-  # FIXME: incorporate deathdat for death_df
-
   # definitions from package data
   defs <- internal$definitions
 

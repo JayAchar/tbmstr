@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|b55f1061d75137fc|||||||||||||||
+.Random.seed|object|c5267a34fa732073|||||||||||||||
 adjusted|stem|374d711faca7efd9|6c6b542f48028b9c|2328e366c3baaab6|-1421124365||t19646.4788521602s|23ca0396037bbe37|3131146|rds|local|vector|||0.006||
 adjustment_files|stem|6acc6e91795ad881|b94ec94d67c8138a|d385c1f8404e6914|-1925945130|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19646.4850731378s|bce99b594ffe2eda|128|file|local|vector|||2.095||
 adjustments|stem|3b69e0c36fede8d7|72405807525fc108|ae8022cb56d4f8ba|-1410765967||t19646.5436744783s|bad4729a6c5a6a49|1552|rds|local|vector|||0.117||
@@ -15,18 +15,18 @@ calculate_conversion|function|2c49684040ee8311|||||||||||||||
 calculate_eos_outcome|function|f67f3c843a2e6dfd|||||||||||||||
 calculate_follow_up_days|function|b3354adc50bba49b|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
-clean|stem|8ccac58b5412572e|c5a732f123a5222a|150b4c04ca91c68e|1640993750||t19647.3452809983s|ddbc13eae068d5f2|471285|rds|local|vector|||0.001||
-conversion_cohort|stem|85d2cc3dff0174c0|8af3c9fe9c913b91|25d5d7cf2d3a79e4|104995942||t19647.3452825834s|07e7216ea0819deb|389450|rds|local|vector|||0.005||
+clean|stem|861813447264c09a|c5a732f123a5222a|d77d5e61f9f5f332|1640993750||t19647.3725230284s|83ac0e7a66467383|470867|rds|local|vector|||0.001||
+conversion_cohort|stem|abd50c70e9bbfe25|8af3c9fe9c913b91|ebfd14f8e90d377c|104995942||t19647.3725246743s|246fe66ef08692eb|389152|rds|local|vector|||0.005||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|8f04422d33615cae|||||||||||||||
 create_conversion_cohort|function|829c22ce9f6282ec|||||||||||||||
 create_conversion_variables|function|01a0dc723786197d|||||||||||||||
-create_eos_outcome|function|30c25fef4c0a5790|||||||||||||||
+create_eos_outcome|function|d4bf160aae2285fd|||||||||||||||
 create_failure_cohort|function|a8068be832dcc6f1|||||||||||||||
 create_formula|function|f251ed1107fd883a|||||||||||||||
 create_high_dose_list|function|a9535461483da243|||||||||||||||
 create_hiv_cohort|function|55c8296ab74660ac|||||||||||||||
-create_outcomes|function|ebec58b22b40b83c|||||||||||||||
+create_outcomes|function|45248828c5019a7a|||||||||||||||
 create_plots|function|763b64a81a81927e|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
 create_surv_objects|function|67fb2fc321f1a98f|||||||||||||||
@@ -34,17 +34,17 @@ create_tables|function|c85ffd930eb9568f|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
 docx_output|stem|da7e5646cbdfced7|9b9cc9babe6cddf6|854dab8f78233318|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||3.498||
 failreu_cohort|stem|aea187cc127cbd34|58dc0aa77b379573|582ca30f14683158|1008426122||t19643.430730473s|232b52a90fd771f1|38530|rds|local|vector|||0.003||
-failure_cohort|stem|e664a1868b5920bb|58dc0aa77b379573|827f51a6a9c8b4dc|-53581509||t19647.3452811839s|3969f84a6f541464|44123|rds|local|vector|||0.002||
+failure_cohort|stem|e664a1868b5920bb|58dc0aa77b379573|4a1327488b8506cf|-53581509||t19647.3725232929s|3969f84a6f541464|44123|rds|local|vector|||0.003||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|68a544a2e219933f|-1301001980|/Users/jayachar/Documents/github_repos/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||1.322||
 handle_factors|function|8fefcfd42be0f40f|||||||||||||||
 has_positive_baseline_culture|function|9b5a31a8a97e72cb|||||||||||||||
-high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|1190a7dbdb13f455|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.01||
-hiv_cohort|stem|96459838aca95fd9|b32361c0af7d7ccd|be29779cbfc6b6ed|831035627||t19647.3452814396s|a844f4e6f993ac4f|59389|rds|local|vector|||0.003||
+high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|51f6988ee1cd07f9|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.011||
+hiv_cohort|stem|811b102f35c6f7e9|b32361c0af7d7ccd|dd78c3a0fb5012df|831035627||t19647.3725235477s|f04587b6552a1114|59353|rds|local|vector|||0.004||
 html_output|stem|da7e5646cbdfced7|565cea135ae43586|854dab8f78233318|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||2.326||
 import|function|8d8ca9c068a570d6|||||||||||||||
 import_adjustments|function|0049b6d40d2e3192|||||||||||||||
 import_data|function|4c34025e61854557|||||||||||||||
-include_outcomes|stem|f2112760afdb87e4|4f17e4fac67e9d0d|7d538df6a13910e9|889393346||t19647.3452039281s|cc73b2d807020565|3172798|rds|local|vector|||57.106|Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  su|
+include_outcomes|stem|bd656d84c38b69ee|4f17e4fac67e9d0d|9875112803819671|889393346||t19647.3724436119s|77dcfa3fb7147207|3172400|rds|local|vector|||76.712|Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  su|
 internal|object|826f1a2d7871d01a|||||||||||||||
 is_baseline_culture_positive|function|caa602ff6046bb1c|||||||||||||||
 is_testing|function|c84c75094f227895|||||||||||||||
@@ -53,16 +53,16 @@ manual_adjustments|function|989ecd9d8b89f4bb|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
-plots|stem|f464dbd003589ac7|700007547abf162d|0fab417fb82ae87f|-252074359||t19647.3458060474s|75fd96f5c8c9314f|1999987|rds|local|vector|||0.544||
+plots|stem|1465b64f7bf6c6f4|700007547abf162d|4ac228c7e7fd639b|-252074359||t19647.373106247s|f95c9783186bf9fc|2003605|rds|local|vector|||0.533||
 prepare_ae_summary_data|function|6aaf30476da08d9d|||||||||||||||
-prepare_baseline|function|d172266018ec7a16|||||||||||||||
+prepare_baseline|function|37d1415e6fc3f957|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
 prepare_dst|function|c96b8676efdeb5ef|||||||||||||||
 prepare_eos_outcomes|function|3a4ebd06541832f7|||||||||||||||
 prepare_high_dose_list|function|864eb602ca9ecc02|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem|de0523620dd694e4|efca67645a24c271|f850954b3c529761|-2067579251||t19647.3452796739s|ddeefb6ebc076af1|3173938|rds|local|vector|||5.611||
+prepared|stem|233ef9a87f9c0da5|efca67645a24c271|d5cb5ff42f6817e0|-2067579251||t19647.3725216915s|e8fa6b82c476ca81|3173295|rds|local|vector|||5.832||
 quality_file|object|b47ce84473eda33d|||||||||||||||
 quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|5294979013b6c1fb|-1876087034||t19646.4797975472s|44e327d1ee1978d7|43|rds|local|vector|||80.423||
 raw|stem|97e3ec8b6999d020|5230d070e25adf69|42c8502817e26aef|1775868223||t19646.5437392311s|133878a86e1bf1c4|3131149|rds|local|vector|||4.68|1m22mimport_data will be deprecated in the next version  use run_analysis instead|
@@ -75,11 +75,11 @@ remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
 render|function|cedd0b4fdbaabe70|||||||||||||||
 render_docx|function|2495292563fc6257|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
-run_analysis|function|3c4e9d19a12878a0|||||||||||||||
+run_analysis|function|64db3256f1615fa9|||||||||||||||
 run_quality_check|function|05a04c8b65fcffa4|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|e9f0b88238b2e79e|477d309e7f399201|965af9ce5e7ef2e2|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png|t19647.3458672185s|7b3bfe9684146e61|754808|file|local|vector|||5.275|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
-surv_objects|stem|85356240f3250984|3a99f1115fddd8fb|dafbcacd9e5f26a6|1652951019||t19647.345285972s|c35627f5a3b8d3b1|1136562|rds|local|vector|||0.057||
-tables|stem|42753a1b1d905fff|3af9b6f8203a5bb1|bdd0d2cba3d3c10f|397746313||t19647.345794976s|8667382b905fc205|48005|rds|local|vector|||43.919|1m22mThere were 4 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  3  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 3 remaining warnings.|
+saved_plots|stem|013b4945576b472a|477d309e7f399201|166c4d1578c9e3ec|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png|t19647.3731707199s|26a9229af6582005|759263|file|local|vector|||5.562|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
+surv_objects|stem|5d070c2491be9676|3a99f1115fddd8fb|070cfcb974046b1e|1652951019||t19647.3725287409s|9ed78a1dc93f93aa|1136324|rds|local|vector|||0.065||
+tables|stem|42753a1b1d905fff|3af9b6f8203a5bb1|d9a0477e561ec935|397746313||t19647.3730952924s|8667382b905fc205|48005|rds|local|vector|||48.894|1m22mThere were 4 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  3  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 3 remaining warnings.|
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||

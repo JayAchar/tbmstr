@@ -79,10 +79,13 @@ create_eos_outcome <- function(df) {
     units = "days"
   ))
 
+  merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
+  merged$date_fail <- merged$eos_date
+
   # censor death_days to 9 tx months + 12 follow-up months
   # 273 * 1.1 is defined in the study protocol as the maximum allowable
   # treatment duration - 9 months + 10%
-  max_follow_up <- 273 * 1.1 + 12 * 31
+  max_follow_up <- 273 * 1.1 + 13 * 31
 
   # if a participant died after the end of study follow-up, they won't be
   # included in the time to event analysis
@@ -94,8 +97,14 @@ create_eos_outcome <- function(df) {
     merged$death_days > max_follow_up
   )] <- max_follow_up
 
-  merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
-  merged$date_fail <- merged$eos_date
+
+  merged$event_fail[
+    merged$fail_days > max_follow_up
+  ] <- FALSE
+
+  merged$fail_days[which(
+    merged$fail_days > max_follow_up
+  )] <- max_follow_up
 
   alert_info("`eos_outocome` variable calculated as first
                           unsuccessful outcome.")

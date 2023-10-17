@@ -239,7 +239,7 @@ epiDisplay::mhor(
 #### Интерпретация
 
 ```{r quiz-mh-odds }
-# NOTE: epiDisplay::mhor does not return a result object
+# epiDisplay::mhor does not return a result object
 
 quiz(
   caption = NULL,
