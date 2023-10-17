@@ -23,6 +23,8 @@ create_conversion_cohort <- function(dd) {
   cohort <- dd[which(dd$is_baseline_culture_positive), ]
   # Failing to culture convert after 4 months of treatment is a
   # failure definition
+  # TODO: this censoring should be moved to the function
+  # where the variables are calculated if possible
   cohort$cc_event[which(cohort$cc_days > 4 * 31)] <- FALSE
   cohort$cc_days[which(cohort$cc_days > 4 * 31)] <- 4 * 31
   return(cohort)
