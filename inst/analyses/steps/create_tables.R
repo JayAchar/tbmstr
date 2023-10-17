@@ -166,7 +166,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
   tables$cc_risk <- gtsummary::tbl_survfit(
     surv_objects$cc,
-    times = c(30, 60, 90, 120, 150),
+    times = c(30, 60, 90, 120),
     reverse = TRUE,
     label_header = "**{time} days**"
   ) |>

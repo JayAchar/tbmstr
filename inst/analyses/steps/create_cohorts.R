@@ -20,7 +20,12 @@ create_hiv_cohort <- function(dd) {
 }
 
 create_conversion_cohort <- function(dd) {
-  dd[which(dd$is_baseline_culture_positive), ]
+  cohort <- dd[which(dd$is_baseline_culture_positive), ]
+  # Failing to culture convert after 4 months of treatment is a
+  # failure definition
+  cohort$cc_event[which(cohort$cc_days > 4 * 31)] <- FALSE
+  cohort$cc_days[which(cohort$cc_days > 4 * 31)] <- 4 * 31
+  return(cohort)
 }
 
 create_failure_cohort <- function(dd) {

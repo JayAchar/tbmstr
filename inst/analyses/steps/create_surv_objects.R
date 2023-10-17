@@ -1,4 +1,4 @@
-create_surv_objects <- function(df, hiv_cohort) {
+create_surv_objects <- function(df, hiv_cohort, cc_cohort) {
   so <- list()
 
   so$fail <- ggsurvfit::survfit2(
@@ -29,7 +29,7 @@ create_surv_objects <- function(df, hiv_cohort) {
 
   so$cc <- ggsurvfit::survfit2(
     survival::Surv(cc_days, cc_event) ~ 1,
-    data = df
+    data = cc_cohort
   )
 
   # TODO: add random effects to account for clustering by country
