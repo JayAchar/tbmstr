@@ -108,3 +108,11 @@ htmltools::hr()
 params$tables$failure_reasons
 ```
 
+```{r wrap="Outcomes after 12 months follow-up", echo = FALSE}
+htmltools::h2(
+  "Treatment and study oucomes in participants with 12 months follow-up"
+)
+htmltools::hr()
+params$tables$full_fu
+```
+

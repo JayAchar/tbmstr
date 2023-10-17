@@ -215,5 +215,18 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     gtsummary::modify_header(label = "") |>
     gtsummary::as_flex_table()
 
+  full_fu <- pd[which((!is.na(pd$stat12)) | pd$tx_outcome == "Unsuccessful" | 
+                      pd$eos_outcome != "No TB"), ]
+
+    tables$full_fu <- gtsummary::tbl_summary(
+      data = full_fu,
+      include = dplyr::all_of(c("outcome", "eos_outcome")),
+      label = list(
+        outcome ~ "End of treatment outcome",
+        eos_outcome ~ "End of study outcome"
+      ),
+      missing_text = missing_text) |>
+gtsummary::as_flex_table()
+
     tables
 }
