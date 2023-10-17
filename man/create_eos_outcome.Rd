@@ -4,10 +4,12 @@
 \alias{create_eos_outcome}
 \title{Create End of Study outcome}
 \usage{
-create_eos_outcome(df)
+create_eos_outcome(df, max_follow_up)
 }
 \arguments{
 \item{df}{baseline data frame}
+
+\item{max_follow_up}{number of days defined as the maximum follow-up time}
 }
 \value{
 Original baseline data frame with added variables -

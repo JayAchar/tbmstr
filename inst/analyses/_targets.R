@@ -6,7 +6,7 @@ library(targets)
 tar_option_set(
   # packages that your targets need to run
   packages = c(
-    "tbmstr",
+    "tbmstr", "officer", "flextable",
     "dplyr", "ggplot2", "readr", "cli",
     "gtsummary", "survival", "readxl"
   ),
@@ -60,14 +60,21 @@ list(
   tar_target(conversion_cohort, create_conversion_cohort(clean)),
   tar_target(hiv_cohort, create_hiv_cohort(clean)),
   tar_target(failure_cohort, create_failure_cohort(clean)),
-  tar_target(surv_objects, create_surv_objects(clean, hiv_cohort)),
+  tar_target(surv_objects, create_surv_objects(
+    clean,
+    hiv_cohort,
+    conversion_cohort
+  )),
   tar_target(tables, create_tables(
     clean,
     hiv_cohort,
     failure_cohort,
     surv_objects
   )),
-  tar_target(plots, create_plots(surv_objects, hiv_cohort)),
+  tar_target(plots, create_plots(
+    surv_objects,
+    hiv_cohort
+  )),
   tar_target(html_output, render(
     tables,
     list(

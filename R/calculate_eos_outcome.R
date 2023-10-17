@@ -22,8 +22,6 @@ calculate_eos_outcome <- function(df) {
     length(unique(df$globalrecordid)) == 1
   )
 
-  # FIXME: incorporate deathdat for death_df
-
   # definitions from package data
   defs <- internal$definitions
 
@@ -52,7 +50,7 @@ calculate_eos_outcome <- function(df) {
         eos_date = df$trtendat[1],
         event_death = eos_outcome == "Died",
         date_death = ifelse(eos_outcome == "Died",
-          as.POSIXct(df$trtendat[1]),
+          as.POSIXct(df$trtendat[1], tz = "UTC"),
           as.POSIXct(NA_character_)
         )
       )

@@ -23,9 +23,6 @@ create_cc_days <- function(
     baseline,
     myco,
     lab = FALSE) {
-  # TODO: cc_days should be censored at around 4 months based on
-  # the failure outcome
-
   if (lab) {
     # rename variables (id, result, date) - filter
     # to only keep cultures with positive or negative results - record

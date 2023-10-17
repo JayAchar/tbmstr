@@ -8,6 +8,7 @@
 #' `status12` variable to create a valid end of study outcome.
 #'
 #' @param df baseline data frame
+#' @param max_follow_up number of days defined as the maximum follow-up time
 #'
 #' @importFrom cli cli_progress_along
 #'
@@ -16,7 +17,7 @@
 #' @return Original baseline data frame with added variables -
 #' eos_outcome &  eos_date
 
-create_eos_outcome <- function(df) {
+create_eos_outcome <- function(df, max_follow_up) {
   required_vars <- c(
     "globalrecordid", "trtendat",
     "outcome", "stat3",
@@ -79,10 +80,28 @@ create_eos_outcome <- function(df) {
     units = "days"
   ))
 
-
-
   merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
   merged$date_fail <- merged$eos_date
+
+
+  # if a participant died after the end of study follow-up, they won't be
+  # included in the time to event analysis
+  merged$event_death[
+    merged$death_days > max_follow_up
+  ] <- FALSE
+
+  merged$death_days[which(
+    merged$death_days > max_follow_up
+  )] <- max_follow_up
+
+
+  merged$event_fail[
+    merged$fail_days > max_follow_up
+  ] <- FALSE
+
+  merged$fail_days[which(
+    merged$fail_days > max_follow_up
+  )] <- max_follow_up
 
   alert_info("`eos_outocome` variable calculated as first
                           unsuccessful outcome.")
