@@ -41,6 +41,7 @@ import_adjustments <- function(path) {
         c("row_n", var)
       ]
 
+
       # create data frame with globalrecordid, variable name & updated value
       m_df <- merge(
         a_df,
@@ -62,6 +63,11 @@ import_adjustments <- function(path) {
 
         m_df$outcome <- outcome_codes
         m_df <- m_df[which(!is.na(m_df$outcome)), ]
+      }
+
+      if (nrow(m_df) != sum(has_changed)) {
+        cli::cli_alert_warning(
+          "{var}: Only {nrow(m_df)}/{sum(has_changed)} adjustments have been applied")
       }
 
       m_df$row_n <- NULL

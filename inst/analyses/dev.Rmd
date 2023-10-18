@@ -6,6 +6,16 @@ output: html_document
 params:
   tables: "Error"
 ---
+```{css css, echo=FALSE}
+summary {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2rem;
+}
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -23,39 +33,69 @@ if (knitr::is_html_output()) {
 }
 ```
 
-```{r wrap="Table 1", echo = FALSE}
-params$tables$mt1
+```{r wrap="Treatment cohort description", echo = FALSE}
+htmltools::h2(
+  "Baseline demographic and clinical characteristics of participants"
+)
+htmltools::hr()
+params$tables$tx_description
 ```
 
 
-```{r wrap="Table 2", echo = FALSE}
-params$tables$mt2
+```{r wrap="Treatment cohort outcomes", echo = FALSE}
+htmltools::h2(
+  "Description of end of treatment and end of study outcomes for all participants"
+)
+htmltools::hr()
+params$tables$tx_outcomes
 ```
 
-```{r wrap="Table 3", echo = FALSE}
-params$tables$mt3
+```{r wrap="Predictors of unsuccessful outcome", echo = FALSE}
+htmltools::h2(
+  "Crude and adjusted analysis of independent predictors of unsuccessful study outcome"
+)
+htmltools::hr()
+params$tables$tx_mv_failure
 ```
 
-```{r wrap="Supplementary Table 1", echo = FALSE}
-params$tables$st1
+```{r wrap="Treatment outcomes by HIV status", echo = FALSE}
+htmltools::h2(
+  "Description of end of treatment and end of study outcomes for all participants by baseline HIV status"
+)
+htmltools::hr()
+params$tables$tx_outcomes_by_hiv
 ```
 
-```{r wrap="Supplementary Table 2", echo = FALSE}
-params$tables$st2
+```{r wrap="Baseline HIV treatment and CD4 count description", echo = FALSE}
+htmltools::h2(
+  "Description of baseline CD4 count and HIV treatment regimens in participants living with HIV"
+)
+htmltools::hr()
+params$tables$hiv_outcomes
 ```
 
-```{r wrap="Supplementary Table 3", echo = FALSE}
-params$tables$st3
+```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
+htmltools::h2(
+  "Crude associations between baseline HIV treatment and CD4 count and time to unsuccessful outcome and time to death"
+)
+htmltools::hr()
+params$tables$hiv_failure_death
 ```
 
 ```{r wrap="Culture conversion risk", echo = FALSE}
+htmltools::h2(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
 params$tables$cc_risk
 ```
 
 ```{r wrap="Reasons for discontinuation", echo = FALSE}
-params$tables$failure_reasons
-```
-
+htmltools::h2(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
+htmltools::p("
 The reasons for failure may not be correct. They are taken
 from the `prtclviol` variable and are restricted to only
 those participants who were given an outcome of `Failed`.
@@ -63,3 +103,16 @@ those participants who were given an outcome of `Failed`.
 More information is likely to be availble for those
 with `Other` reasons for ceasing treatment in the `trtcom`
 variable.
+")
+htmltools::hr()
+params$tables$failure_reasons
+```
+
+```{r wrap="Outcomes after 12 months follow-up", echo = FALSE}
+htmltools::h2(
+  "Treatment and study oucomes in participants with 12 months follow-up"
+)
+htmltools::hr()
+params$tables$full_fu
+```
+
