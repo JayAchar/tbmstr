@@ -76,7 +76,7 @@ params$tables$hiv_outcomes
 
 ```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
 htmltools::h2(
-  "Crude assocaitions between baseline HIV treatment and CD4 count and time to unsuccessful outcome and time to death"
+  "Crude associations between baseline HIV treatment and CD4 count and time to unsuccessful outcome and time to death"
 )
 htmltools::hr()
 params$tables$hiv_failure_death
