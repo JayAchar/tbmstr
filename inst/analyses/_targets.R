@@ -82,6 +82,7 @@ list(
   ),
   tar_target(html_output, render(
     tables,
+    plots,
     list(
       output_dir = output_dir,
       output_format = "html_document"
@@ -90,6 +91,7 @@ list(
   ), format = "file"),
   tar_target(docx_output, render(
     tables,
+    plots = NULL,
     list(
       output_dir = output_dir,
       output_format = "word_document"

@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|fdc41a53b3242014|||||||||||||||
+.Random.seed|object|a8c8de368bf2e01c|||||||||||||||
 adjusted|stem|c55260a3a932a198|6c6b542f48028b9c|a7a6dbe36ab77851|-1421124365||t19648.294584933s|032c9f24d402887f|3131157|rds|local|vector|||0.019||
 adjustment_files|stem|a5d8d72b7eca4c3b|b94ec94d67c8138a|d385c1f8404e6914|-1925945130|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19648.2961551199s|bce99b594ffe2eda|128|file|local|vector|||1.664||
 adjustments|stem|f030b862cfe903e0|72405807525fc108|07edc5b7ab678e30|-1410765967||t19648.2986455298s|59e5e5a503986d8c|2020|rds|local|vector|||0.135||
@@ -33,9 +33,9 @@ create_surv_objects|function|3fa9679622cd33c4|||||||||||||||
 create_table_labels|function|c73818109141986c|||||||||||||||
 create_tables|function|48fc57e37189d5b4|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
-dev_template|stem|8f3feb8d48c229e2|a0d65182b1311ebf|ff7a523f3fd78d33|-99310048|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/dev.Rmd|t19648.3554855127s|35744c499189fc7e|4167|file|local|vector|||1.612||
+dev_template|stem|838c3d5fb43aaa67|a0d65182b1311ebf|ff7a523f3fd78d33|-99310048|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/dev.Rmd|t19648.4033595772s|fa4f99ea7b6bb771|4291|file|local|vector|||1.562||
 dev_templte|object|4d026a5edb00f1ba|||||||||||||||
-docx_output|stem|da7e5646cbdfced7|f201abf257e6f265|74661dd6b4a60320|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.747||
+docx_output|stem|da7e5646cbdfced7|54ee6a4595127f7c|11caf67ed2d858f9|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.703||
 failreu_cohort|stem|aea187cc127cbd34|58dc0aa77b379573|582ca30f14683158|1008426122||t19643.430730473s|232b52a90fd771f1|38530|rds|local|vector|||0.003||
 failure_cohort|stem|1102d43a96d3f05c|58dc0aa77b379573|2863f4ec4259bf70|-53581509||t19648.2962258248s|c4da40c2e78e95c2|49351|rds|local|vector|||0.002||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|68a544a2e219933f|-1301001980|/Users/jayachar/Documents/github_repos/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||1.322||
@@ -43,7 +43,7 @@ handle_factors|function|8fefcfd42be0f40f|||||||||||||||
 has_positive_baseline_culture|function|9b5a31a8a97e72cb|||||||||||||||
 high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|d35005d6ecbcaeb4|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.01||
 hiv_cohort|stem|bd804293bf0705d9|b32361c0af7d7ccd|3dcccf106653361a|831035627||t19648.2962260976s|d26de2a4d08a96b4|59362|rds|local|vector|||0.004||
-html_output|stem|da7e5646cbdfced7|e9ed82b2d1375752|f97cb779f351dafa|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||2.203||
+html_output|stem|da7e5646cbdfced7|9c9af7c46ca282a1|1b44bc2f26bd0811|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||7.127||
 import|function|8d8ca9c068a570d6|||||||||||||||
 import_adjustments|function|ac15cd13302a86b4|||||||||||||||
 import_data|function|4c34025e61854557|||||||||||||||
@@ -76,7 +76,7 @@ relevel_variables|function|38d774da4ff1eb17|||||||||||||||
 relevel_vars|function|75296ee4b13794c1|||||||||||||||
 remove_invalid_records|function|9e60d13657e08d61|||||||||||||||
 remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
-render|function|cbcb71deb8a96de0|||||||||||||||
+render|function|347ffa6ed04a844c|||||||||||||||
 render_docx|function|98f07b61c715298f|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
 run_analysis|function|bee58e2786273766|||||||||||||||
