@@ -1,9 +1,14 @@
-create_surv_objects <- function(df, hiv_cohort, cc_cohort) {
+create_surv_objects <- function(df, hiv_cohort, cc_cohort, fu_cohort) {
   so <- list()
 
   so$fail <- ggsurvfit::survfit2(
     survival::Surv(fail_days, event_fail) ~ 1,
     data = df
+  )
+
+  so$fu_fail <- ggsurvfit::survfit2(
+    survival::Surv(fu_days, event_fail) ~ 1,
+    data = fu_cohort
   )
 
   so$death <- ggsurvfit::survfit2(

@@ -61,10 +61,12 @@ list(
   tar_target(conversion_cohort, create_conversion_cohort(clean)),
   tar_target(hiv_cohort, create_hiv_cohort(clean)),
   tar_target(failure_cohort, create_failure_cohort(clean)),
+  tar_target(fu_cohort, create_fu_cohort(clean)),
   tar_target(surv_objects, create_surv_objects(
     clean,
     hiv_cohort,
-    conversion_cohort
+    conversion_cohort,
+    fu_cohort
   )),
   tar_target(tables, create_tables(
     clean,

@@ -180,5 +180,12 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       missing_text = missing_text) |>
 gtsummary::as_flex_table()
 
+tables$fu_survival <- surv_objects$fu_fail |>
+  gtsummary::tbl_survfit(
+    times = c(90, 180, 270, 360),
+    label_header = "**{time} days**"
+  ) |>
+gtsummary::as_flex_table()
+
     tables
 }

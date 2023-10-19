@@ -33,3 +33,20 @@ create_conversion_cohort <- function(dd) {
 create_failure_cohort <- function(dd) {
   dd[which(dd$outcome == "Failed"), ]
 }
+
+create_fu_cohort <- function(dd) {
+  max_fu <- 12 * 31
+  cohort <- dd[which(dd$tx_outcome == "Successful"), ]
+  # fu event = event_fail
+  cohort$fu_days <- as.numeric(difftime(
+    cohort$eos_date, cohort$trtendat,
+    units = "days"
+  ))
+
+  # censor
+  cohort$event_fail[which(cohort$fu_days > max_fu)] <- FALSE
+  cohort$fu_days[which(cohort$fu_days > max_fu)] <- max_fu
+
+  # fu event = event_fail
+  return(cohort)
+}

@@ -10,7 +10,8 @@ calculate_follow_up_days <- function(df) {
   # start
   c("trtstdat")
 
-  # end
+  # FIXME: this is not accurately calculated - see GH issue #99
+
   end_dates <- c(
     "trtendat",
     "endat",

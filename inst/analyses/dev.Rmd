@@ -154,3 +154,11 @@ htmltools::hr()
 params$tables$full_fu
 ```
 
+```{r wrap="Probability of study success during follow-up", echo = FALSE}
+htmltools::h2(
+  "Overall probability of successful study outcome during treatment follow-up"
+)
+htmltools::hr()
+params$plots$fu_survival
+params$tables$fu_survival
+```
