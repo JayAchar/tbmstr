@@ -1,4 +1,4 @@
-render <- function(tables, config, template) {
+render <- function(tables, plots, config, template) {
   stopifnot(is.list(config))
   if (config$output_format == "html_document") {
     rmarkdown::render(
@@ -6,7 +6,8 @@ render <- function(tables, config, template) {
       output_dir = config$output_dir,
       output_format = config$output_format,
       params = list(
-        tables = tables
+        tables = tables,
+        plots = plots
       )
     )
     extension <- ".html"

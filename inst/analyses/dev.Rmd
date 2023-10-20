@@ -4,13 +4,13 @@ author: "Jay Achar"
 date: "`r Sys.time()`"
 output: html_document
 params:
-  tables: "Error"
----
-```{css css, echo=FALSE}
-summary {
-  font-size: 2rem;
-  font-weight: bold;
-}
+  tables: "Error" 
+  plots: "Error" 
+--- 
+
+```{css css, echo=FALSE} 
+
+summary { font-size: 2rem; font-weight: bold; }
 
 h2 {
   font-size: 2rem;
@@ -32,6 +32,30 @@ if (knitr::is_html_output()) {
   )
 }
 ```
+## Methods
+
+Baseline clinical and demographic characteristics, and treatment and study
+outcomes were desdribed for the treatment cohort. Treatment and study outcomes
+were also described by baseline HIV status. The crude effects of baseline CD4
+count and HIV treatment regimen were described in participants living with HIV.
+
+Time to culture conversion was described for participants in whom baseline
+sputum MGIT culture was positive. The cumulative incidence of culture conversion
+was reported by 30 day increments until 120 days.
+
+We described univariable assocations between baseline characteristics and
+unfavourable study outcomes as crude hazard ratios, 95% confidence intervals and
+p-values. Unsuccessful treatment outcomes and death or recurrence during
+follow-up were defined as unsuccessful study outcomes. Participants who were
+lost to post-treatment follow-up where censored. We then fitted a multivariable
+Cox proportional hazard model with a random intercept to account for clustering
+by study country. Characteristics with a p<0.1 were included. Since very few
+missing values were present in the data set, we used a complete case approach to
+handling missingness. The effects of imputing missing values on model estimates
+were explored through sensitivity analyses.
+
+All statistical analyses were performed with R software (version 4.3.0).
+
 
 ```{r wrap="Treatment cohort description", echo = FALSE}
 htmltools::h2(
@@ -44,10 +68,16 @@ params$tables$tx_description
 
 ```{r wrap="Treatment cohort outcomes", echo = FALSE}
 htmltools::h2(
-  "Description of end of treatment and end of study outcomes for all participants"
+  "Description of end of treatment and end of study outcomes for all
+participants"
 )
+
 htmltools::hr()
+
 params$tables$tx_outcomes
+params$plots$p1
+
+params$plots$p2
 ```
 
 ```{r wrap="Predictors of unsuccessful outcome", echo = FALSE}
@@ -64,6 +94,8 @@ htmltools::h2(
 )
 htmltools::hr()
 params$tables$tx_outcomes_by_hiv
+
+params$plots$p3
 ```
 
 ```{r wrap="Baseline HIV treatment and CD4 count description", echo = FALSE}
@@ -72,6 +104,10 @@ htmltools::h2(
 )
 htmltools::hr()
 params$tables$hiv_outcomes
+
+params$plots$p4
+
+params$plots$p5
 ```
 
 ```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
@@ -88,6 +124,8 @@ htmltools::h2(
 )
 htmltools::hr()
 params$tables$cc_risk
+
+params$plots$conversion
 ```
 
 ```{r wrap="Reasons for discontinuation", echo = FALSE}
@@ -116,3 +154,11 @@ htmltools::hr()
 params$tables$full_fu
 ```
 
+```{r wrap="Probability of study success during follow-up", echo = FALSE}
+htmltools::h2(
+  "Overall probability of successful study outcome during treatment follow-up"
+)
+htmltools::hr()
+params$plots$fu_survival
+params$tables$fu_survival
+```

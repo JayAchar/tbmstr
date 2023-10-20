@@ -2,6 +2,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
   tables <- list()
 
   missing_text <- "Missing"
+  labels <- create_table_labels()
 
   covariates <- c(
     "age",
@@ -34,36 +35,6 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     "visgrd"
   )
 
-    labels <- list(
-      age ~ "Age (yrs)",
-      sex ~ "Sex",
-      bmi_group ~ "Body Mass Index (kg/m^2)",
-      cntry ~ "Country",
-      # demographics
-      prison ~ "History of incarceration",
-      homeless ~ "Homeless",
-      empl ~ "Employment status",
-      smok ~ "Smoking history",
-      sm_fact ~ "Smoking intensity",
-      idu ~ "History of injecting drug use",
-      alcohol ~ "Excess alcohol use",
-      # other health conditions
-      hiv ~ "HIV status",
-
-      # TB specific features
-      cav ~ "X-ray cavities",
-      hcvab ~ "HCV Ab status",
-      smear ~ "Baseline smear microscopy status",
-      prevtb ~ "Previous TB episode",
-      diab ~ "Diabetes",
-      covid ~ "Baseline SARS-CoV2 status",
-      regimen ~ "Treatment regimen",
-      prfneugrd  ~ "Baseline peripheral neuropathy",
-      hbgrd ~ "Baseline anaemia",
-      creatgrd ~ "Baseline renal dysfunction",
-      visgrd ~ "Baseline visual loss",
-      ast_alt_grd ~ "Baseline elevated AST/ALT"
-    )
 
     types <- list(
                   hiv ~ "categorical",
@@ -80,10 +51,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     tables$tx_description <- gtsummary::tbl_summary(
       data = pd,
       include = dplyr::all_of(covariates),
-      label = labels,
+      label = labels$tx_desc,
       type = types,
       missing_text = missing_text,
-      # TODO: Convert baseline smear to grade rather than positive/negative
     ) |> gtsummary::as_flex_table()
 
     # descriptive outcomes table
@@ -96,13 +66,6 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       ),
       missing_text = missing_text
     ) |> gtsummary::as_flex_table()
-
-    hiv_labels <- list(
-      art ~ "Baseline ART status",
-      artreg ~ "ART regimen",
-      cd4 ~ "Baseline CD4 count",
-      cd4_grp ~ "Baseline CD4 group"
-    )
 
     ## outcomes stratified by HIV status
     tables$tx_outcomes_by_hiv <- gtsummary::tbl_summary(
@@ -124,8 +87,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     tables$hiv_outcomes <- gtsummary::tbl_summary(
       data = hiv_cohort,
-      include = c("art", "artreg", "cd4", "cd4_grp"),
-      label = hiv_labels,
+      include = c("art", "artreg", "cd4", "cd4_grp", "cpt"),
+      label = labels$hiv,
       missing_text = missing_text
     ) |> gtsummary::as_flex_table()
 
@@ -135,8 +98,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       method = survival::coxph,
       y = survival::Surv(fail_days, event_fail),
       exponentiate = TRUE,
-      include = c("art", "cd4", "cd4_grp"),
-      label = hiv_labels
+      include = c("art", "cd4", "cd4_grp", "cpt"),
+      label = labels$hiv 
     ) |>
       gtsummary::add_n(location = "label") |>
       gtsummary::add_nevent(location = "level")
@@ -146,8 +109,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       method = survival::coxph,
       y = survival::Surv(death_days, event_death),
       exponentiate = TRUE,
-      include = c("art", "cd4", "cd4_grp"),
-      label = hiv_labels
+      include = c("art", "cd4", "cd4_grp", "cpt"),
+      label = labels$hiv
     ) |>
       gtsummary::add_n(location = "label") |>
       gtsummary::add_nevent(location = "level")
@@ -160,7 +123,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     # output table 2
     t3 <- gtsummary::tbl_uvregression(
       data = pd,
-      label = labels,
+      label = labels$tx_desc,
       method = survival::coxph,
       y = survival::Surv(fail_days, event_fail),
       exponentiate = TRUE,
@@ -169,23 +132,11 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       gtsummary::add_n(location = "label") |>
       gtsummary::add_nevent(location = "level")
 
-    mv_fail_labels <- list(
-      age ~ "Age (yrs)",
-      sex ~ "Sex",
-      cav ~ "X-ray cavities",
-      bmi_group ~ "Body Mass Index (kg/m^2)",
-      hiv ~ "HIV status",
-      hcvab ~ "HCV Ab status",
-      smear ~ "Baseline smear microscopy status",
-      prison ~ "History of incarceration",
-      alcohol ~ "Excess alcohol use",
-      prevtb ~ "Previous TB episode"
-    )
 
     t4 <- surv_objects$mv_fail |>
       gtsummary::tbl_regression(
         exponentiate = TRUE,
-        label = mv_fail_labels,
+        label = labels$mv,
       )
 
     tables$tx_mv_failure <- gtsummary::tbl_merge(
@@ -226,6 +177,13 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
         eos_outcome ~ "End of study outcome"
       ),
       missing_text = missing_text) |>
+gtsummary::as_flex_table()
+
+tables$fu_survival <- surv_objects$fu_fail |>
+  gtsummary::tbl_survfit(
+    times = c(90, 180, 270, 360),
+    label_header = "**{time} days**"
+  ) |>
 gtsummary::as_flex_table()
 
     tables
