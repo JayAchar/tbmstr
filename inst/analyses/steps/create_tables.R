@@ -54,7 +54,6 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       label = labels$tx_desc,
       type = types,
       missing_text = missing_text,
-      # TODO: Convert baseline smear to grade rather than positive/negative
     ) |> gtsummary::as_flex_table()
 
     # descriptive outcomes table
@@ -88,7 +87,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     tables$hiv_outcomes <- gtsummary::tbl_summary(
       data = hiv_cohort,
-      include = c("art", "artreg", "cd4", "cd4_grp"),
+      include = c("art", "artreg", "cd4", "cd4_grp", "cpt"),
       label = labels$hiv,
       missing_text = missing_text
     ) |> gtsummary::as_flex_table()
@@ -99,7 +98,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       method = survival::coxph,
       y = survival::Surv(fail_days, event_fail),
       exponentiate = TRUE,
-      include = c("art", "cd4", "cd4_grp"),
+      include = c("art", "cd4", "cd4_grp", "cpt"),
       label = labels$hiv 
     ) |>
       gtsummary::add_n(location = "label") |>
@@ -110,7 +109,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       method = survival::coxph,
       y = survival::Surv(death_days, event_death),
       exponentiate = TRUE,
-      include = c("art", "cd4", "cd4_grp"),
+      include = c("art", "cd4", "cd4_grp", "cpt"),
       label = labels$hiv
     ) |>
       gtsummary::add_n(location = "label") |>
