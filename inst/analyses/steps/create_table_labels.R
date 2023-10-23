@@ -1,6 +1,6 @@
 create_table_labels <- function() {
   mv_fail <- list(
-    age ~ "Age (yrs)",
+    age_grp ~ "Age group (yrs)",
     sex ~ "Sex",
     cav ~ "X-ray cavities",
     bmi_group ~ "Body Mass Index (kg/m^2)",

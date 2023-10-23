@@ -5,7 +5,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
   labels <- create_table_labels()
 
   covariates <- c(
-    "age",
+    "age_grp",
     "sex",
     "bmi_group",
     "cntry",
@@ -37,6 +37,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
 
     types <- list(
+                  age_grp ~ "categorical",
                   hiv ~ "categorical",
                   idu ~  "categorical",
                   homeless ~ "categorical",

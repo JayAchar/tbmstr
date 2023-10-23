@@ -41,7 +41,7 @@ create_surv_objects <- function(df, hiv_cohort, cc_cohort, fu_cohort) {
     survival::Surv(
       df$eos_days,
       df$event_fail
-    ) ~ age + sex + bmi_group + homeless + idu + smok +
+    ) ~ age_grp + sex + bmi_group + homeless + idu + smok +
       hiv + prison + alcohol + prevtb + cav + hcvab + smear +
       hbgrd +
       survival::frailty(cntry, distribution = "gaussian"),
