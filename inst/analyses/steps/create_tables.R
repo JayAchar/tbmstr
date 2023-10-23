@@ -96,7 +96,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     t10 <- gtsummary::tbl_uvregression(
       data = hiv_cohort,
       method = survival::coxph,
-      y = survival::Surv(fail_days, event_fail),
+      y = survival::Surv(eos_days, event_fail),
       exponentiate = TRUE,
       include = c("art", "cd4", "cd4_grp", "cpt"),
       label = labels$hiv 
@@ -107,7 +107,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     t11 <- gtsummary::tbl_uvregression(
       data = hiv_cohort,
       method = survival::coxph,
-      y = survival::Surv(death_days, event_death),
+      y = survival::Surv(eos_days, event_death),
       exponentiate = TRUE,
       include = c("art", "cd4", "cd4_grp", "cpt"),
       label = labels$hiv
@@ -125,7 +125,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       data = pd,
       label = labels$tx_desc,
       method = survival::coxph,
-      y = survival::Surv(fail_days, event_fail),
+      y = survival::Surv(eos_days, event_fail),
       exponentiate = TRUE,
       include = dplyr::all_of(covariates[!covariates == "cntry"])
     ) |>

@@ -6,7 +6,6 @@
 #' @param df data frame of all participants' baseline characteristics
 #' @param eval_months evaluation months
 #'
-#' @return
 #'
 calculate_final_follow_up <- function(df,
                                       eval_months = c(3, 6, 9, 12)) {
@@ -69,12 +68,17 @@ calculate_final_follow_up <- function(df,
             p_df[1, ]
           )
         }
-        cli::cli_abort("{p_df$globalrecordid[1]} Multiple final outcomes detected")        
+        cli::cli_abort(
+          "{p_df$globalrecordid[1]} Multiple final outcomes detected"
+        )
       }
       return(p_df)
     }
   )
 
+  # FIXME: 2 post treatment deaths were found in previous
+  # workflow and are missing in the updated version.
+  # Should there be 43 post treatment deaths or 41??
   final_df <- Reduce(rbind, final)
   # remove duplicated records
   rdf <- final_df[!duplicated(final_df$globalrecordid), ]

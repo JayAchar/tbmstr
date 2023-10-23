@@ -136,6 +136,7 @@ test_that("Ignores missing status", {
 })
 
 test_that("Ignores follow-up after death", {
+  # TODO: ignore post death follow-up
   skip()
   input <- data.frame(
     globalrecordid = "a",
@@ -164,6 +165,8 @@ test_that("Ignores follow-up after death", {
     ignore_attr = TRUE
   )
 })
+
+# TODO: handle participants with no post-treatment follow-up
 
 test_that("Handles incorrectly ordered eval dates", {
   input <- data.frame(

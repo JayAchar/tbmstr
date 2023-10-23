@@ -118,9 +118,14 @@ apply_manual_adjustments <- function(lst, adjustments) {
   modified
 }
 
-#' @noRd
+#' Calculate days between two dates
+#'
+#' @param start start date
+#' @param end end date
+#' @export
 
 diff_days <- function(start, end) {
   as.numeric(difftime(end, start,
-           units = "days"))
+    units = "days"
+  ))
 }

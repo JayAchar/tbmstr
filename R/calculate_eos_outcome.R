@@ -19,19 +19,19 @@ calculate_eos_outcome <- function(df, follow_up_df) {
     nrow(follow_up_df) == 1,
     df$globalrecordid == follow_up_df$globalrecordid
   )
-  
+
   # definitions from package data
   defs <- internal$definitions
-  
+
   ## if treatment failure is found return early with
   ## failure result and date
   if (df$outcome %in% c(defs$eot_failure, "Withdrawn")) {
     eos_outcome <- NULL
-    
+
     if (df$outcome == "Died") {
       eos_outcome <- "Died"
     }
-    
+
     if (df$outcome == "Failed") {
       eos_outcome <- "Treatment failure"
     }
@@ -42,31 +42,31 @@ calculate_eos_outcome <- function(df, follow_up_df) {
       warning("Withdrawn subjects detected - suggest removing")
       eos_outcome <- "Not evaluated"
     }
-    
+
     if (is.null(eos_outcome)) {
       cli::cli_abort("{df$globalrecordid}: Treatment outcome not recognised")
     }
-    
+
     return(
       data.frame(
         globalrecordid = df$globalrecordid,
         eos_outcome = factor(eos_outcome,
-                             levels = defs$eos_levels),
+          levels = defs$eos_levels
+        ),
         eos_date = df$trtendat
       )
     )
   }
-  
+
   ## if treatment success
-  
+
   return(
     data.frame(
       globalrecordid = df$globalrecordid,
       eos_outcome = factor(follow_up_df$final_fu_status,
-                           levels = defs$eos_levels),
+        levels = defs$eos_levels
+      ),
       eos_date = follow_up_df$final_fu_date
     )
   )
-  
-  
 }

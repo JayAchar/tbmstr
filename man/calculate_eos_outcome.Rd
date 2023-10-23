@@ -4,12 +4,15 @@
 \alias{calculate_eos_outcome}
 \title{Calculate End of Study outcome}
 \usage{
-calculate_eos_outcome(df)
+calculate_eos_outcome(df, follow_up_df)
 }
 \arguments{
 \item{df}{data frame for one subject with end of
 treatment and follow up outcomes with their
 respective date variables}
+
+\item{follow_up_df}{data frame of describing the final post treatment
+follow up date, status and month}
 }
 \value{
 data frame with

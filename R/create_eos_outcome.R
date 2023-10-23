@@ -73,24 +73,13 @@ create_eos_outcome <- function(df, max_follow_up) {
     by = "globalrecordid"
   )
 
-  # merged$fail_days <- as.numeric(difftime(merged$eos_date,
-  #   merged$trtstdat,
-  #   units = "days"
-  # ))
-  #
-  # dd <- as.POSIXct(ifelse(merged$event_death,
-  #   merged$date_death,
-  #   merged$eos_date
-  # ))
-  #
-  # merged$death_days <- as.numeric(difftime(dd,
-  #   merged$trtstdat,
-  #   units = "days"
-  # ))
-  #
-  # merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
-  # merged$date_fail <- merged$eos_date
+  merged$eos_days <- diff_days(
+    merged$trtstdat,
+    merged$eos_date
+  )
 
+  merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
+  merged$event_death <- merged$eos_outcome == "Died"
 
   # if a participant died after the end of study follow-up, they won't be
   # included in the time to event analysis

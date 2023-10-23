@@ -59,6 +59,7 @@ list(
     ),
     format = "file"
   ),
+  # TODO: add censoring
   tar_target(conversion_cohort, create_conversion_cohort(clean)),
   tar_target(hiv_cohort, create_hiv_cohort(clean)),
   tar_target(failure_cohort, create_failure_cohort(clean)),
