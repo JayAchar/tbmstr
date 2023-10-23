@@ -32,6 +32,17 @@ handle_factors <- function(baseline_df) {
     "500+"
   )
 
+  baseline_df$cd4_4grp <- cut(
+    baseline_df$cd4,
+    c(0, 100, 250, 500, 100000)
+  )
+
+  levels(baseline_df$cd4_4grp) <- c(
+    "0-100", "101-250",
+    "251-500",
+    "500+"
+  )
+
   # convert basleine ART status to a factor
   baseline_df$art <- factor(baseline_df$art,
     levels = c(0, 1),

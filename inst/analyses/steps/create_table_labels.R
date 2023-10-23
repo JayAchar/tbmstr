@@ -33,7 +33,7 @@ create_table_labels <- function() {
     art ~ "Baseline ART status",
     artreg ~ "ART regimen",
     cd4 ~ "Baseline CD4 count",
-    cd4_grp ~ "Baseline CD4 group",
+    cd4_4grp ~ "Baseline CD4 group",
     cpt ~ "Receiving cotrimoxazole"
   )
 
