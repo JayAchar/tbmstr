@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|273fe6c57a1a8543|||||||||||||||
+.Random.seed|object|1f1001888fe5c715|||||||||||||||
 adjusted|stem|c55260a3a932a198|6c6b542f48028b9c|a7a6dbe36ab77851|-1421124365||t19648.294584933s|032c9f24d402887f|3131157|rds|local|vector|||0.019||
 adjustment_files|stem|a5d8d72b7eca4c3b|b94ec94d67c8138a|d385c1f8404e6914|-1925945130|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19648.2961551199s|bce99b594ffe2eda|128|file|local|vector|||1.664||
 adjustments|stem|f030b862cfe903e0|72405807525fc108|07edc5b7ab678e30|-1410765967||t19648.2986455298s|59e5e5a503986d8c|2020|rds|local|vector|||0.135||
@@ -16,14 +16,14 @@ calculate_eos_outcome|function|29b3e1e3fa129855|||||||||||||||
 calculate_final_follow_up|function|47a472ae5675d963|||||||||||||||
 calculate_follow_up_days|function|b42e1378d2af8147|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
-clean|stem|80619aff3c5661de|c5a732f123a5222a|359c6413cc42fb0e|1640993750||t19653.5024045314s|c6236df5f0c32c34|462201|rds|local|vector|||0.002||
-conversion_cohort|stem|4fb08c7d7596b20c|8af3c9fe9c913b91|da0366bdf6ec3f1b|104995942||t19653.5067294263s|0b5d65c41470395b|381549|rds|local|vector|||0.007||
+clean|stem|da4bf872fb569713|c5a732f123a5222a|9ae1e0a29d19b1ff|1640993750||t19653.5276330012s|dd3206a4196868fe|457139|rds|local|vector|||0.001||
+conversion_cohort|stem|e879b964b13bd9a2|8af3c9fe9c913b91|3560c6db72e3aeaa|104995942||t19653.5276357539s|04d13bb5dcbf90c4|377206|rds|local|vector|||0.007||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|f90ff615039acf37|||||||||||||||
 create_conversion_cohort|function|829c22ce9f6282ec|||||||||||||||
 create_conversion_variables|function|db9b2ae15663af13|||||||||||||||
 create_eos_outcome|function|83e2a5534432c7d1|||||||||||||||
-create_failure_cohort|function|a8841fb4be9ed9f9|||||||||||||||
+create_failure_cohort|function|a8068be832dcc6f1|||||||||||||||
 create_follow_up|function|81f84f7179ba6c90|||||||||||||||
 create_formula|function|f251ed1107fd883a|||||||||||||||
 create_fu_cohort|function|c86949b2aeedca74|||||||||||||||
@@ -41,15 +41,15 @@ dev_templte|object|4d026a5edb00f1ba|||||||||||||||
 diff_days|function|f9e0ebc24b0bd91c|||||||||||||||
 docx_output|stem|da7e5646cbdfced7|54ee6a4595127f7c|0eb84c2ab9b0ea6e|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.987||
 failreu_cohort|stem|aea187cc127cbd34|58dc0aa77b379573|582ca30f14683158|1008426122||t19643.430730473s|232b52a90fd771f1|38530|rds|local|vector|||0.003||
-failure_cohort|stem|37720771a2e22438|58dc0aa77b379573|7c363553c1d15744|-53581509||t19653.5067280411s|e8390df2213bc18a|49250|rds|local|vector|||0.003||
+failure_cohort|stem|b08fa93ced6be478|58dc0aa77b379573|973138f9498a5ec8|-53581509||t19653.527634322s|0e13638b57a605c9|48916|rds|local|vector|||0.002||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|68a544a2e219933f|-1301001980|/Users/jayachar/Documents/github_repos/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||1.322||
 follow_up|stem|3858ff8b0a26f5b5|24f3df52027d3e7d|97601f37d4713908|-206865066||t19650.42656647s||3182272|rds|local|vector|||0.003||could not find function create_follow_up
-fu_cohort|stem|d5a4b68958cfecc6|5830d7d012bf1af7|b1c8af4df4521006|-1783988309||t19653.5067278106s|6cdb4dd8a702a9f7|374800|rds|local|vector|||0.017||
+fu_cohort|stem|4501b7c2800de49d|5830d7d012bf1af7|f926c0256e6f6072|-1783988309||t19653.5276341346s|e4c71ac36c46c9e5|374834|rds|local|vector|||0.011||
 handle_factors|function|8fefcfd42be0f40f|||||||||||||||
 has_positive_baseline_culture|function|e7660ee10784fc98|||||||||||||||
-high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|9834027d5ffa3e91|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.015||
-hiv_cohort|stem|da2bb2a679025bc7|b32361c0af7d7ccd|5f86b7734e462f86|831035627||t19653.5067282888s|f5086c576bfb8ce1|58872|rds|local|vector|||0.003||
-html_output|stem|da7e5646cbdfced7|9c9af7c46ca282a1|233ef6ba62c33218|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||6.897||
+high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|bd4466bae572a4a7|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.01||
+hiv_cohort|stem|5f21f078ccf44032|b32361c0af7d7ccd|be4da3e4851313bf|831035627||t19653.5276345577s|dafee3bc03f501c3|58440|rds|local|vector|||0.003||
+html_output|stem|da7e5646cbdfced7|9c9af7c46ca282a1|11cea7f4153f54ce|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||7.065||
 import|function|8d8ca9c068a570d6|||||||||||||||
 import_adjustments|function|ac15cd13302a86b4|||||||||||||||
 import_data|function|4c34025e61854557|||||||||||||||
@@ -63,16 +63,16 @@ manual_adjustments|function|989ecd9d8b89f4bb|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
-plots|stem|42b028876df81914|700007547abf162d|60488229e6e68811|-252074359||t19653.5092908345s|2ca8ce627af9c7eb|2456731|rds|local|vector|||0.702||
+plots|stem|989cd804b7689b64|700007547abf162d|82845b4103117360|-252074359||t19653.5276567075s|8b2554c33510c342|2448563|rds|local|vector|||0.739||
 prepare_ae_summary_data|function|88532b1adfa09bca|||||||||||||||
-prepare_baseline|function|de2eda7f8a7bd0b7|||||||||||||||
+prepare_baseline|function|7bd0ae6241a9365e|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
 prepare_dst|function|c96b8676efdeb5ef|||||||||||||||
 prepare_eos_outcomes|function|3a4ebd06541832f7|||||||||||||||
 prepare_high_dose_list|function|e25e2a1b9e6143b6|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem|0fef00fd365bd4ff|efca67645a24c271|7fc89ade8579939b|-2067579251||t19653.5024032077s|57df0da33e8ecef2|3164918|rds|local|vector|||8.268||
+prepared|stem|5ed5dc70bd531ebd|efca67645a24c271|c5ab8eb0f713b4f1|-2067579251||t19653.5276317129s|bcdf63b0806946aa|3165639|rds|local|vector|||5.865||
 quality_file|object|b47ce84473eda33d|||||||||||||||
 quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|9a5adfc7ab2c7160|-1876087034||t19648.295441183s|44e327d1ee1978d7|43|rds|local|vector|||72.606||
 raw|stem|97e3ec8b6999d020|5230d070e25adf69|42c8502817e26aef|1775868223||t19646.5437392311s|133878a86e1bf1c4|3131149|rds|local|vector|||4.68|1m22mimport_data will be deprecated in the next version  use run_analysis instead|
@@ -85,11 +85,11 @@ remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
 render|function|347ffa6ed04a844c|||||||||||||||
 render_docx|function|98f07b61c715298f|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
-run_analysis|function|c5243f0964f0f6bc|||||||||||||||
+run_analysis|function|aedb7e74fa1ecac7|||||||||||||||
 run_quality_check|function|05a04c8b65fcffa4|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|9f2af0946debb743|477d309e7f399201|d0ff01129e3925fa|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19653.5116545136s|67370950feb1d120|841973|file|local|vector|||6.487|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
-surv_objects|stem|6ea073dea51fe485|d6669086fd8daa89|d7b6b1120692c8b9|1652951019||t19653.5092756109s|ee018bcb55869dd8|1531558|rds|local|vector|||0.864|Inner loop failed to coverge for iterations 2 3 4 5|
-tables|stem|09e489cb0d37a16f|3af9b6f8203a5bb1|41b6a26cb9398602|397746313||t19653.5115778831s|e84d77ec93df84bc|53860|rds|local|vector|||47.805|1m22mThere were 3 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  3  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 2 remaining warnings.|
+saved_plots|stem|9f2af0946debb743|477d309e7f399201|8337e75f75e12057|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19653.528286305s|67370950feb1d120|841973|file|local|vector|||6.123|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
+surv_objects|stem|5424bb5676e03374|d6669086fd8daa89|942eb5c4629deebe|1652951019||t19653.5276422416s|243f9ae7164fcb52|1523994|rds|local|vector|||0.206|Inner loop failed to coverge for iterations 2 3 4 5|
+tables|stem|09e489cb0d37a16f|3af9b6f8203a5bb1|412c4a3e1a50f1b0|397746313||t19653.5282154089s|e84d77ec93df84bc|53860|rds|local|vector|||48.207|1m22mThere were 3 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  3  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 2 remaining warnings.|
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||
