@@ -31,10 +31,9 @@ calculate_follow_up_days <- function(df) {
 
   end_dates <- do.call(pmax, c(end_df, na.rm = TRUE))
 
-  fu_days <- difftime(
-    end_dates,
+  fu_days <- diff_days(
     df$trtstdat,
-    units = "days"
+    end_dates
   )
 
   df$fu_days <- as.numeric(fu_days)

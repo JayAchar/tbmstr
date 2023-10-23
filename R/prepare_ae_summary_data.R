@@ -36,18 +36,18 @@ prepare_ae_summary_data <- function(baseline, adverse,
   }
 
 
-  df$duration <- as.numeric(
-    difftime(df$aenddt,
-      df$aeonsetdt,
-      units = "days"
-    )
+  df$duration <- diff_days(
+    df$aeonsetdt,
+    df$aenddt
   )
 
   df$onset <- ceiling(
-    as.numeric(
-      difftime(df$aeonsetdt, df$trtstdat, units = "days")
-    ) / 30
-  )
+    diff_days(
+      df$trtstdat,
+      df$aeonsetdt
+    )
+  ) / 30
+
 
   return(
     data.frame(

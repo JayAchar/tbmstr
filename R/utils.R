@@ -117,3 +117,10 @@ apply_manual_adjustments <- function(lst, adjustments) {
   )
   modified
 }
+
+#' @noRd
+
+diff_days <- function(start, end) {
+  as.numeric(difftime(end, start,
+           units = "days"))
+}

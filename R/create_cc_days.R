@@ -78,12 +78,9 @@ create_cc_days <- function(
     )
 
     # calculate culture conversion days
-    cc_dates_trt$lab_cc_days <- as.numeric(
-      difftime(
-        cc_dates_trt$lab_cc_date,
-        cc_dates_trt$trtstdat,
-        units = "days"
-      )
+    cc_dates_trt$lab_cc_days <- diff_days(
+      cc_dates_trt$trtstdat,
+      cc_dates_trt$lab_cc_date
     )
 
     cc_dates_trt$lab_cc_date <- NULL
@@ -105,6 +102,9 @@ create_cc_days <- function(
       cli::cli_abort("Input arguments should be the same length.")
     }
 
-    return(as.numeric(difftime(convdat, trtstdat, units = "days")))
+    return(diff_days(
+      trtstdat,
+      convdat
+    ))
   }
 }
