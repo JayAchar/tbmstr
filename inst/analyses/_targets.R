@@ -46,8 +46,8 @@ list(
   )),
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(include_outcomes, create_outcomes(labelled)),
-  tar_target(follow_up, create_follow_up(include_outcomes)),
-  tar_target(prepared, prepare_baseline(follow_up,
+  # tar_target(follow_up, create_follow_up(include_outcomes)),
+  tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),
   tar_target(clean, relevel_vars(prepared)),

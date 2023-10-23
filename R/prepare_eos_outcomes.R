@@ -7,6 +7,7 @@
 #' @return data frame of outcome data in long format
 #'
 prepare_eos_outcomes <- function(df) {
+  # FIXME: can this function be deleted??
   status_vars <- grep(
     pattern = "^stat[0-9]+$",
     x = names(df),

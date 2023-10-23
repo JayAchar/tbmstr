@@ -18,6 +18,9 @@
 #' eos_outcome &  eos_date
 
 create_eos_outcome <- function(df, max_follow_up) {
+  # select important variables
+  # add eos_date, eos_outcome, eos_days to original df
+
   required_vars <- c(
     "globalrecordid", "trtendat",
     "outcome", "stat3",
@@ -29,7 +32,7 @@ create_eos_outcome <- function(df, max_follow_up) {
     cli::cli_abort("Input argument should be a data frame.")
   }
 
-  if ("fail_days" %in% names(df)) {
+  if ("eos_outcome" %in% names(df)) {
     return(df)
   }
 
@@ -44,13 +47,18 @@ create_eos_outcome <- function(df, max_follow_up) {
     df$trtendat
   ), tz = "UTC")
 
+  # calculate final follow-up for participants with successful outcomes
+  fudf <- calculate_final_follow_up(df)
+
   l_df <- lapply(
     X = cli::cli_progress_along(df$globalrecordid,
       name = "Calculating EoS outcomes"
     ),
     FUN = \(index) {
-      long <- prepare_eos_outcomes(df[index, ])
-      calculate_eos_outcome(long)
+      id <- df$globalrecordid[index]
+      fu <- fudf[which(fudf$globalrecordid == id), ]
+      df <- df[which(df$globalrecordid == id), ]
+      calculate_eos_outcome(df, fu)
     }
   )
 
@@ -65,43 +73,43 @@ create_eos_outcome <- function(df, max_follow_up) {
     by = "globalrecordid"
   )
 
-  merged$fail_days <- as.numeric(difftime(merged$eos_date,
-    merged$trtstdat,
-    units = "days"
-  ))
-
-  dd <- as.POSIXct(ifelse(merged$event_death,
-    merged$date_death,
-    merged$eos_date
-  ))
-
-  merged$death_days <- as.numeric(difftime(dd,
-    merged$trtstdat,
-    units = "days"
-  ))
-
-  merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
-  merged$date_fail <- merged$eos_date
+  # merged$fail_days <- as.numeric(difftime(merged$eos_date,
+  #   merged$trtstdat,
+  #   units = "days"
+  # ))
+  #
+  # dd <- as.POSIXct(ifelse(merged$event_death,
+  #   merged$date_death,
+  #   merged$eos_date
+  # ))
+  #
+  # merged$death_days <- as.numeric(difftime(dd,
+  #   merged$trtstdat,
+  #   units = "days"
+  # ))
+  #
+  # merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
+  # merged$date_fail <- merged$eos_date
 
 
   # if a participant died after the end of study follow-up, they won't be
   # included in the time to event analysis
-  merged$event_death[
-    merged$death_days > max_follow_up
-  ] <- FALSE
-
-  merged$death_days[which(
-    merged$death_days > max_follow_up
-  )] <- max_follow_up
-
-
-  merged$event_fail[
-    merged$fail_days > max_follow_up
-  ] <- FALSE
-
-  merged$fail_days[which(
-    merged$fail_days > max_follow_up
-  )] <- max_follow_up
+  # merged$event_death[
+  #   merged$death_days > max_follow_up
+  # ] <- FALSE
+  #
+  # merged$death_days[which(
+  #   merged$death_days > max_follow_up
+  # )] <- max_follow_up
+  #
+  #
+  # merged$event_fail[
+  #   merged$fail_days > max_follow_up
+  # ] <- FALSE
+  #
+  # merged$fail_days[which(
+  #   merged$fail_days > max_follow_up
+  # )] <- max_follow_up
 
   alert_info("`eos_outocome` variable calculated as first
                           unsuccessful outcome.")

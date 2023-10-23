@@ -1,14 +1,22 @@
-create_follow_up <- function(lst) {
-  bdf <- lst$baseline
-
+#' Calculate final follow up
+#'
+#' Calculate the final follow up date, month and status for
+#' participants who successfully completed treatment
+#'
+#' @param df data frame of all participants' baseline characteristics
+#' @param eval_months evaluation months
+#'
+#' @return
+#'
+calculate_final_follow_up <- function(df,
+                                      eval_months = c(3, 6, 9, 12)) {
   # only select required variables
-  keep <- names(bdf)[grepl(
+  keep <- names(df)[grepl(
     "^stat|^evldat",
-    names(bdf)
+    names(df)
   )]
-  fdf <- bdf[, c("globalrecordid", keep)]
 
-  eval_months <- c(3, 6, 9, 12)
+  fdf <- df[, c("globalrecordid", keep)]
 
   # create long data frame for each follow-up month
   month_lst <- lapply(
@@ -23,7 +31,6 @@ create_follow_up <- function(lst) {
       return(
         data.frame(
           globalrecordid = temp_df$globalrecordid,
-          final_fu_month = m,
           final_fu_status = temp_df[[stat_var]],
           final_fu_date = temp_df[[dat_var]]
         )
@@ -49,7 +56,6 @@ create_follow_up <- function(lst) {
         return(
           data.frame(
             globalrecordid = p$globalrecordid,
-            final_fu_month = NA,
             final_fu_status = NA,
             final_fu_date = NA
           )
@@ -57,9 +63,13 @@ create_follow_up <- function(lst) {
       }
       p_df <- p[which(p$final_fu_date == max(p$final_fu_date, na.rm = TRUE)), ]
       if (nrow(p_df) > 1) {
-        # return evaluation with the lowest month
-        # when evaluation dates are the same
-        return(p_df[order(p_df$final_fu_month), ][1, ])
+        # if final_status is the same - return any row
+        if (length(unique(p_df$final_fu_status)) == 1) {
+          return(
+            p_df[1, ]
+          )
+        }
+        cli::cli_abort("{p_df$globalrecordid[1]} Multiple final outcomes detected")        
       }
       return(p_df)
     }
@@ -70,11 +80,10 @@ create_follow_up <- function(lst) {
   rdf <- final_df[!duplicated(final_df$globalrecordid), ]
 
   mdf <- merge(
-    bdf,
+    df,
     rdf,
     by = "globalrecordid",
     all.x = TRUE
   )
-  lst$baseline <- mdf
-  return(lst)
+  return(mdf)
 }
