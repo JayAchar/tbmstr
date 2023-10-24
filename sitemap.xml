@@ -43,7 +43,7 @@
     <loc>https://jayachar.github.io/tbmstr/reference/calculate_eos_outcome.html</loc>
   </url>
   <url>
-    <loc>https://jayachar.github.io/tbmstr/reference/calculate_follow_up_days.html</loc>
+    <loc>https://jayachar.github.io/tbmstr/reference/calculate_final_follow_up.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/calculate_variables.html</loc>
@@ -56,6 +56,9 @@
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/create_eos_outcome.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/diff_days.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/handle_factors.html</loc>
@@ -83,9 +86,6 @@
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/prepare_dst.html</loc>
-  </url>
-  <url>
-    <loc>https://jayachar.github.io/tbmstr/reference/prepare_eos_outcomes.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/prepare_myco.html</loc>
