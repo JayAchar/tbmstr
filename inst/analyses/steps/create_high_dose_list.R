@@ -22,11 +22,9 @@ prepare_high_dose_list <- function(dd) {
     tz = "UTC"
   )
 
-  high_dose$trt_days <- as.numeric(
-    difftime(high_dose$trtendat,
-      high_dose$trtstdat,
-      units = "days"
-    )
+  high_dose$trt_days <- diff_days(
+    high_dose$trtstdat,
+    high_dose$trtendat
   )
 
   high_doses <- which(high_dose$totaldose >= 300)

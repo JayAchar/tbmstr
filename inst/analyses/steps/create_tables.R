@@ -5,7 +5,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
   labels <- create_table_labels()
 
   covariates <- c(
-    "age",
+    "age_grp",
     "sex",
     "bmi_group",
     "cntry",
@@ -37,6 +37,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
 
     types <- list(
+                  age_grp ~ "categorical",
                   hiv ~ "categorical",
                   idu ~  "categorical",
                   homeless ~ "categorical",
@@ -71,7 +72,6 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     tables$tx_outcomes_by_hiv <- gtsummary::tbl_summary(
       data = pd,
       by = "hiv",
-      # TODO: combine Unknown HIV status with 'No'
       include = c("outcome", "eos_outcome"),
       label = list(
         outcome ~ "End of treatment outcome",
@@ -87,7 +87,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     tables$hiv_outcomes <- gtsummary::tbl_summary(
       data = hiv_cohort,
-      include = c("art", "artreg", "cd4", "cd4_grp", "cpt"),
+      include = c("art", "artreg", "cd4",
+                  "cd4_4grp",
+                  "cpt"),
       label = labels$hiv,
       missing_text = missing_text
     ) |> gtsummary::as_flex_table()
@@ -96,10 +98,11 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     t10 <- gtsummary::tbl_uvregression(
       data = hiv_cohort,
       method = survival::coxph,
-      y = survival::Surv(fail_days, event_fail),
+      y = survival::Surv(eos_days, event_fail),
       exponentiate = TRUE,
-      include = c("art", "cd4", "cd4_grp", "cpt"),
-      label = labels$hiv 
+      include = c("art", "cd4_4grp",
+                  "cpt"),
+      label = labels$hiv
     ) |>
       gtsummary::add_n(location = "label") |>
       gtsummary::add_nevent(location = "level")
@@ -107,9 +110,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     t11 <- gtsummary::tbl_uvregression(
       data = hiv_cohort,
       method = survival::coxph,
-      y = survival::Surv(death_days, event_death),
+      y = survival::Surv(eos_days, event_death),
       exponentiate = TRUE,
-      include = c("art", "cd4", "cd4_grp", "cpt"),
+      include = c("art", "cd4_4grp", "cpt"),
       label = labels$hiv
     ) |>
       gtsummary::add_n(location = "label") |>
@@ -125,7 +128,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
       data = pd,
       label = labels$tx_desc,
       method = survival::coxph,
-      y = survival::Surv(fail_days, event_fail),
+      y = survival::Surv(eos_days, event_fail),
       exponentiate = TRUE,
       include = dplyr::all_of(covariates[!covariates == "cntry"])
     ) |>

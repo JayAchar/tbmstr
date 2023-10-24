@@ -38,10 +38,10 @@ create_fu_cohort <- function(dd) {
   max_fu <- 12 * 31
   cohort <- dd[which(dd$tx_outcome == "Successful"), ]
   # fu event = event_fail
-  cohort$fu_days <- as.numeric(difftime(
-    cohort$eos_date, cohort$trtendat,
-    units = "days"
-  ))
+  cohort$fu_days <- diff_days(
+    cohort$trtendat,
+    cohort$eos_date
+  )
 
   # censor
   cohort$event_fail[which(cohort$fu_days > max_fu)] <- FALSE

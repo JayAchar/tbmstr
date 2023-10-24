@@ -1,6 +1,6 @@
 create_table_labels <- function() {
   mv_fail <- list(
-    age ~ "Age (yrs)",
+    age_grp ~ "Age group (yrs)",
     sex ~ "Sex",
     cav ~ "X-ray cavities",
     bmi_group ~ "Body Mass Index (kg/m^2)",
@@ -33,7 +33,7 @@ create_table_labels <- function() {
     art ~ "Baseline ART status",
     artreg ~ "ART regimen",
     cd4 ~ "Baseline CD4 count",
-    cd4_grp ~ "Baseline CD4 group",
+    cd4_4grp ~ "Baseline CD4 group",
     cpt ~ "Receiving cotrimoxazole"
   )
 

@@ -117,3 +117,25 @@ apply_manual_adjustments <- function(lst, adjustments) {
   )
   modified
 }
+
+#' Calculate days between two dates
+#'
+#' @param start start date
+#' @param end end date
+#' @export
+
+diff_days <- function(start, end) {
+  as.numeric(difftime(end, start,
+    units = "days"
+  ))
+}
+
+#' @noRd
+
+factor_eos_outcome <- function(outcome_str) {
+  # definitions from package data
+  defs <- internal$definitions
+  factor(outcome_str,
+    levels = defs$eos_levels
+  )
+}

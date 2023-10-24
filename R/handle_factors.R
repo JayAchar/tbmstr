@@ -9,6 +9,32 @@
 handle_factors <- function(baseline_df) {
   stopifnot(is.data.frame(baseline_df))
 
+  # categorise age groups
+  # aim to have relatively equal groups
+  age_grp_labels <- c(
+    "<15",
+    "15-25",
+    "26-35",
+    "36-45",
+    "46-55",
+    "56-65",
+    ">65"
+  )
+  baseline_df$age_grp <- cut(
+    baseline_df$age,
+    c(
+      0, 15,
+      25,
+      35,
+      45,
+      55,
+      65,
+      90
+    ),
+    labels = age_grp_labels
+  )
+
+
   ae_labels <- c(
     "None",
     "Grade 1",
@@ -29,6 +55,17 @@ handle_factors <- function(baseline_df) {
     "0-50", "51-100",
     "101-200",
     "201-300", "301-400", "401-500",
+    "500+"
+  )
+
+  baseline_df$cd4_4grp <- cut(
+    baseline_df$cd4,
+    c(0, 100, 250, 500, 100000)
+  )
+
+  levels(baseline_df$cd4_4grp) <- c(
+    "0-100", "101-250",
+    "251-500",
     "500+"
   )
 

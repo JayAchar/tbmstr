@@ -46,6 +46,7 @@ list(
   )),
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(include_outcomes, create_outcomes(labelled)),
+  # tar_target(follow_up, create_follow_up(include_outcomes)),
   tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),
@@ -58,6 +59,7 @@ list(
     ),
     format = "file"
   ),
+  # TODO: add censoring
   tar_target(conversion_cohort, create_conversion_cohort(clean)),
   tar_target(hiv_cohort, create_hiv_cohort(clean)),
   tar_target(failure_cohort, create_failure_cohort(clean)),

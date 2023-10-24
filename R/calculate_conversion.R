@@ -39,12 +39,11 @@ calculate_conversion <- function(subject_df,
       previous_row_result <- subject_df[row - 1, "result"]
 
       if (previous_row_result == 0) {
-        diff_lag <- as.numeric(
-          difftime(
-            subject_df[row, "date"],
-            subject_df[row - 1, "date"]
+        diff_lag <-
+          diff_days(
+            subject_df[row - 1, "date"],
+            subject_df[row, "date"]
           )
-        )
         return(diff_lag)
       }
       return(0)

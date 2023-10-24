@@ -45,10 +45,9 @@ has_positive_baseline_culture <- function(baseline, myco) {
 
 is_baseline_culture_positive <- function(df) {
   # find diff time for each result from treatment start date
-  diff_days <- difftime(
-    df$datespecimen,
+  diff_days <- diff_days(
     df$trtstdat,
-    units = "days"
+    df$datespecimen
   )
 
   # filter to keep only eligible results

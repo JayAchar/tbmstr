@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|cabc66de1f9b300c|||||||||||||||
+.Random.seed|object|ff6f49e12f8ab69b|||||||||||||||
 adjusted|stem|c55260a3a932a198|6c6b542f48028b9c|a7a6dbe36ab77851|-1421124365||t19648.294584933s|032c9f24d402887f|3131157|rds|local|vector|||0.019||
 adjustment_files|stem|a5d8d72b7eca4c3b|b94ec94d67c8138a|d385c1f8404e6914|-1925945130|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19648.2961551199s|bce99b594ffe2eda|128|file|local|vector|||1.664||
 adjustments|stem|f030b862cfe903e0|72405807525fc108|07edc5b7ab678e30|-1410765967||t19648.2986455298s|59e5e5a503986d8c|2020|rds|local|vector|||0.135||
@@ -11,47 +11,52 @@ apply_all_labels|function|d1e14c0552053eb1|||||||||||||||
 apply_labels|function|cddbb0644e981600|||||||||||||||
 apply_manual_adjustments|function|6f8846607d4c4a0f|||||||||||||||
 calculate_baseline_smear|function|d38b5b407bfb1603|||||||||||||||
-calculate_conversion|function|2c49684040ee8311|||||||||||||||
-calculate_eos_outcome|function|f67f3c843a2e6dfd|||||||||||||||
-calculate_follow_up_days|function|b3354adc50bba49b|||||||||||||||
+calculate_conversion|function|ffbc9061db142cf2|||||||||||||||
+calculate_eos_outcome|function|29b3e1e3fa129855|||||||||||||||
+calculate_final_follow_up|function|10596c8e5a29691d|||||||||||||||
+calculate_follow_up_days|function|b42e1378d2af8147|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
-clean|stem|33cfe5cfe1644d73|c5a732f123a5222a|870e5377351822eb|1640993750||t19648.2962256059s|8fa46de39de9eba2|470947|rds|local|vector|||0.001||
-conversion_cohort|stem|d415f5c1e3b04fb1|8af3c9fe9c913b91|625cebdef4e9499f|104995942||t19648.2962273428s|a1fcda7fb6eccbb5|389251|rds|local|vector|||0.005||
+clean|stem|a304d6bbdfd6f012|c5a732f123a5222a|27e2967bed9eca19|1640993750||t19654.2999001177s|01bdf04f512d8756|459163|rds|local|vector|||0.001||
+conversion_cohort|stem|beab682f082da052|8af3c9fe9c913b91|62a1d43e33fa18a4|104995942||t19654.2999031228s|ded57d3ad205994d|378831|rds|local|vector|||0.004||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
-create_cc_days|function|8f04422d33615cae|||||||||||||||
+create_cc_days|function|f90ff615039acf37|||||||||||||||
 create_conversion_cohort|function|829c22ce9f6282ec|||||||||||||||
-create_conversion_variables|function|01a0dc723786197d|||||||||||||||
-create_eos_outcome|function|1884d1cf6a60af8b|||||||||||||||
+create_conversion_variables|function|db9b2ae15663af13|||||||||||||||
+create_eos_outcome|function|3c480b80bd0069a9|||||||||||||||
 create_failure_cohort|function|a8068be832dcc6f1|||||||||||||||
+create_follow_up|function|81f84f7179ba6c90|||||||||||||||
 create_formula|function|f251ed1107fd883a|||||||||||||||
-create_fu_cohort|function|7b60e27578477a04|||||||||||||||
-create_high_dose_list|function|a9535461483da243|||||||||||||||
+create_fu_cohort|function|c86949b2aeedca74|||||||||||||||
+create_high_dose_list|function|c0cae3f78ce30dca|||||||||||||||
 create_hiv_cohort|function|55c8296ab74660ac|||||||||||||||
-create_outcomes|function|4eddde926a71847c|||||||||||||||
+create_outcomes|function|ac9bd910d2fd7788|||||||||||||||
 create_plots|function|4180b85d57459a1c|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
-create_surv_objects|function|724fc3cf11457d8f|||||||||||||||
-create_table_labels|function|eda973c934dc5a74|||||||||||||||
-create_tables|function|8d5b89d6f3ced86d|||||||||||||||
+create_surv_objects|function|37802e7469142acd|||||||||||||||
+create_table_labels|function|9891417acc958e2c|||||||||||||||
+create_tables|function|a143bb1faf2a44d4|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
-dev_template|stem|c6e82eb8a1a1f185|a0d65182b1311ebf|ff7a523f3fd78d33|-99310048|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/dev.Rmd|t19649.5343522017s|963c41d185872f88|4532|file|local|vector|||1.698||
+dev_template|stem|c6e82eb8a1a1f185|a0d65182b1311ebf|ff7a523f3fd78d33|-99310048|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/dev.Rmd|t19650.3576152754s|963c41d185872f88|4532|file|local|vector|||1.698||
 dev_templte|object|4d026a5edb00f1ba|||||||||||||||
-docx_output|stem|da7e5646cbdfced7|54ee6a4595127f7c|ed01e4c1be12faba|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.801||
+diff_days|function|f9e0ebc24b0bd91c|||||||||||||||
+docx_output|stem|da7e5646cbdfced7|54ee6a4595127f7c|bcbb5feea1c412b5|-181196123||t0s|f4066a65ff755f48|0|file|local|vector|||2.93||
+factor_eos_outcome|function|f8c1bb192a28000c|||||||||||||||
 failreu_cohort|stem|aea187cc127cbd34|58dc0aa77b379573|582ca30f14683158|1008426122||t19643.430730473s|232b52a90fd771f1|38530|rds|local|vector|||0.003||
-failure_cohort|stem|1102d43a96d3f05c|58dc0aa77b379573|2863f4ec4259bf70|-53581509||t19648.2962258248s|c4da40c2e78e95c2|49351|rds|local|vector|||0.002||
+failure_cohort|stem|709f90f9722fe95a|58dc0aa77b379573|093149029dfd2068|-53581509||t19654.2999016783s|ff4e2b4df11ce839|49199|rds|local|vector|||0.003||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|68a544a2e219933f|-1301001980|/Users/jayachar/Documents/github_repos/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||1.322||
-fu_cohort|stem|0ec05c8908179361|5830d7d012bf1af7|957bc25df2ca82f3|-1783988309||t19649.5240929318s|59833bcee819a3ef|381064|rds|local|vector|||0.017||
-handle_factors|function|8fefcfd42be0f40f|||||||||||||||
-has_positive_baseline_culture|function|9b5a31a8a97e72cb|||||||||||||||
-high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|d35005d6ecbcaeb4|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.01||
-hiv_cohort|stem|bd804293bf0705d9|b32361c0af7d7ccd|3dcccf106653361a|831035627||t19648.2962260976s|d26de2a4d08a96b4|59362|rds|local|vector|||0.004||
-html_output|stem|da7e5646cbdfced7|9c9af7c46ca282a1|a9e87ab4849b037b|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||8.674||
+follow_up|stem|3858ff8b0a26f5b5|24f3df52027d3e7d|97601f37d4713908|-206865066||t19650.42656647s||3182272|rds|local|vector|||0.003||could not find function create_follow_up
+fu_cohort|stem|3103642d98f43b88|5830d7d012bf1af7|a5d1de3394dab0f6|-1783988309||t19654.2999014267s|7528543042776b13|376503|rds|local|vector|||0.013||
+handle_factors|function|a3a6dfa7f52e80bc|||||||||||||||
+has_positive_baseline_culture|function|e7660ee10784fc98|||||||||||||||
+high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|e0ea6e59c98f424f|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.018||
+hiv_cohort|stem|504b1a6f16b93998|b32361c0af7d7ccd|0d1b52844d245d06|831035627||t19654.299901914s|5208a73863c32b0e|58821|rds|local|vector|||0.003||
+html_output|stem|da7e5646cbdfced7|9c9af7c46ca282a1|6785e50e746e58a5|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||8.796||
 import|function|8d8ca9c068a570d6|||||||||||||||
 import_adjustments|function|ac15cd13302a86b4|||||||||||||||
 import_data|function|4c34025e61854557|||||||||||||||
-include_outcomes|stem|2a27edde49d55e90|4f17e4fac67e9d0d|d9fc697a03e54984|889393346||t19648.2961473918s|4a2ca4c097a9c0cf|3172453|rds|local|vector|||60.079|Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  suggest removing. Withdrawn subjects detected  su|
+include_outcomes|stem|912d3038daa2a980|4f17e4fac67e9d0d|f689cfc36ac8ae8c|889393346||t19654.2998134153s|9678c88f7c8c0c34|3169892|rds|local|vector|||20.161|longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a multiple of shorter object length. longer object length is not a mul|
 internal|object|826f1a2d7871d01a|||||||||||||||
-is_baseline_culture_positive|function|caa602ff6046bb1c|||||||||||||||
+is_baseline_culture_positive|function|b9889b611d1d5048|||||||||||||||
 is_testing|function|c84c75094f227895|||||||||||||||
 labelled|stem|2ff3f07dbd8c9674|69e4d089f9c1ebaf|9a9f5377cd7f51a0|-892234559||t19648.2946006486s|33a4a5d9c6dd549e|3104040|rds|local|vector|||0.462|1m22mapply_labels sae 1 missing value have been introduced. 1m22mapply_labels covid 2 missing values have been introduced. 1m22mapply_labels cause1 39 missing values have been introduced. 1m22mapply_labels cause2 7 missing values have been introduced. 1m22mapply_labels cause3 5 missing values have been introduced. 1m22mapply_labels vislf 1098 missing values have been introduced. 1m22mapply_labels visrt 1097 missing values have been introduced|
 lrtest|function|67db2e4b06f40d2d|||||||||||||||
@@ -59,16 +64,16 @@ manual_adjustments|function|989ecd9d8b89f4bb|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
-plots|stem|481034676d55b1d7|700007547abf162d|5ae50024ae08d047|-252074359||t19649.5345439293s|f9030e958b1b3040|2473991|rds|local|vector|||0.664||
-prepare_ae_summary_data|function|6aaf30476da08d9d|||||||||||||||
-prepare_baseline|function|90b63d0159f136ca|||||||||||||||
+plots|stem|b5423e2e08c3da38|700007547abf162d|afe1f0129cd4d3c0|-252074359||t19654.2999277543s|069751ef7d206bee|2446663|rds|local|vector|||0.729||
+prepare_ae_summary_data|function|88532b1adfa09bca|||||||||||||||
+prepare_baseline|function|e2f5a1706255e5b4|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
 prepare_dst|function|c96b8676efdeb5ef|||||||||||||||
 prepare_eos_outcomes|function|3a4ebd06541832f7|||||||||||||||
-prepare_high_dose_list|function|864eb602ca9ecc02|||||||||||||||
+prepare_high_dose_list|function|e25e2a1b9e6143b6|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem|8048bf3fb5048e11|efca67645a24c271|ab8fd9210f32497f|-2067579251||t19648.2962242796s|0d3030061e21d8b9|3173451|rds|local|vector|||5.771||
+prepared|stem|8858b127a0d24e04|efca67645a24c271|5aa178121f9b2ab3|-2067579251||t19654.299898418s|b1596730054dc691|3165105|rds|local|vector|||6.338||
 quality_file|object|b47ce84473eda33d|||||||||||||||
 quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|9a5adfc7ab2c7160|-1876087034||t19648.295441183s|44e327d1ee1978d7|43|rds|local|vector|||72.606||
 raw|stem|97e3ec8b6999d020|5230d070e25adf69|42c8502817e26aef|1775868223||t19646.5437392311s|133878a86e1bf1c4|3131149|rds|local|vector|||4.68|1m22mimport_data will be deprecated in the next version  use run_analysis instead|
@@ -81,11 +86,11 @@ remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
 render|function|347ffa6ed04a844c|||||||||||||||
 render_docx|function|98f07b61c715298f|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
-run_analysis|function|bee58e2786273766|||||||||||||||
+run_analysis|function|9a94bb6cb3443eb1|||||||||||||||
 run_quality_check|function|05a04c8b65fcffa4|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|f248386b5b7b670e|477d309e7f399201|09cc7ad74bad1170|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19649.5352583734s|71c4ad71e18ffecb|839552|file|local|vector|||6.498|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
-surv_objects|stem|92f6913a2572e789|d6669086fd8daa89|7b4314eb525ddc9f|1652951019||t19649.5240998835s|82e5f0a7124b6dd2|1553576|rds|local|vector|||0.252|Inner loop failed to coverge for iterations 2 3|
-tables|stem|38f7ac9e1469dea7|3af9b6f8203a5bb1|dee9663ff2d59841|397746313||t19650.3166584136s|0b2d7d2bb5c44118|53721|rds|local|vector|||55.247|1m22mThere were 3 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  3  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 2 remaining warnings.|
+saved_plots|stem|d69c2bc5ec712b98|477d309e7f399201|0a4742b76c60d75f|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19654.3008793453s|b4ad92e93f828887|842278|file|local|vector|||9.435|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
+surv_objects|stem|3f620ae1439a57a1|d6669086fd8daa89|a61cc529aa24033f|1652951019||t19654.2999113042s|31dde4d014f8dc5f|1527641|rds|local|vector|||0.326|Inner loop failed to coverge for iterations 2 3 4 5|
+tables|stem|7822bd2fc2afba07|3af9b6f8203a5bb1|644cb7034c2df45e|397746313||t19654.3007700712s|2a77e3c64e7e2ae4|54261|rds|local|vector|||72.698|1m22mThere were 3 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  3  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 2 remaining warnings.|
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||
