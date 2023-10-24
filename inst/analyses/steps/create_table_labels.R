@@ -18,7 +18,7 @@ create_table_labels <- function() {
 
   labels <- c(mv_fail, list(
     cntry ~ "Country",
-    empl ~ "Employment status",
+    empl_3grp ~ "Employment status",
     sm_fact ~ "Smoking intensity",
     diab ~ "Diabetes",
     covid ~ "Baseline SARS-CoV2 status",

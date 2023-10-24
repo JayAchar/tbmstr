@@ -45,6 +45,15 @@ handle_factors <- function(baseline_df) {
 
   ae_levels <- c("None", "I", "II", "III", "IV")
 
+  # group employment levels
+  baseline_df$empl_3grp <- baseline_df$empl
+
+  baseline_df$empl_3grp[which(
+    baseline_df$empl_3grp %in% c("Student", "Retired")
+  )] <- "Other"
+
+  baseline_df$empl_3grp <- droplevels(baseline_df$empl_3grp)
+
   # create grouped baseline CD4 variable
   baseline_df$cd4_grp <- cut(
     baseline_df$cd4,

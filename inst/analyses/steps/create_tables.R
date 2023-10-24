@@ -12,7 +12,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     "idu",
     "homeless",
-    "empl",
+    "empl_3grp",
     "prison",
     "smok",
     "alcohol",
