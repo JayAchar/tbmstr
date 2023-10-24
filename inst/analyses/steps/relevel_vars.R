@@ -1,5 +1,6 @@
 relevel_vars <- function(dd) {
   relevel_vars <- list(
+    age_grp = "36-45",
     prison = "No",
     alcohol = "No",
     prevtb = "No",
@@ -14,7 +15,7 @@ relevel_vars <- function(dd) {
     smok = "No"
   )
 
-  dd$baseline <- tbmstr::relevel_variables(dd$baseline,
+  dd$baseline <- relevel_variables(dd$baseline,
     config = relevel_vars
   )
 }
