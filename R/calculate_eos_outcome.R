@@ -59,7 +59,12 @@ calculate_eos_outcome <- function(df, follow_up_df) {
   }
 
   ## if treatment success
-
+  # FIX: some participants have deathfu == TRUE but no FU eval == Died
+  # Suggest including deathfu == TRUE which also have a deathdat
+  # but not if the date is missing and no mention in the FU evals
+  #
+  # FIX: if the eos_outcome will be death, then the deathdat should be used
+  # unless it is na
   return(
     data.frame(
       globalrecordid = df$globalrecordid,

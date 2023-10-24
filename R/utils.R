@@ -129,3 +129,13 @@ diff_days <- function(start, end) {
     units = "days"
   ))
 }
+
+#' @noRd
+
+factor_eos_outcome <- function(outcome_str) {
+  # definitions from package data
+  defs <- internal$definitions
+  factor(outcome_str,
+    levels = defs$eos_levels
+  )
+}

@@ -11,7 +11,7 @@ calculate_final_follow_up <- function(df,
                                       eval_months = c(3, 6, 9, 12)) {
   # only select required variables
   keep <- names(df)[grepl(
-    "^stat|^evldat",
+    "^stat|^evldat|trtendat",
     names(df)
   )]
 
@@ -40,27 +40,67 @@ calculate_final_follow_up <- function(df,
   # create data frame from monthly list
   full_df <- Reduce(rbind, month_lst)
 
-
-  # remove missing and not evaluated
-  is_invalid_status <- is.na(full_df$final_fu_status) |
-    full_df$final_fu_status == "Not evaluated"
-  filtered <- full_df[!is_invalid_status, ]
-
   # split by participant
-  pps <- split(filtered, filtered$globalrecordid)
+  pps <- split(full_df, full_df$globalrecordid)
 
   final <- lapply(pps,
     FUN = \(p) {
-      if (length(p$final_fu_date[!is.na(p$final_fu_date)]) == 0) {
+      # remove invalid evaluations
+      # remove missing and not evaluated
+      is_invalid_status <- is.na(p$final_fu_status) |
+        p$final_fu_status == "Not evaluated" | is.na(p$final_fu_date)
+
+      filtered <- p[!is_invalid_status, ]
+
+      if (nrow(filtered) == 0) {
+        tx_hx <- df[which(p$globalrecordid == df$globalrecordid), c(
+          "outcome",
+          "trtendat"
+        )]
+
+        tx_outcome <- ifelse(tx_hx$outcome %in% c("Cured", "Completed"),
+          "No TB", NA_character_
+        )
+
         return(
           data.frame(
             globalrecordid = p$globalrecordid,
-            final_fu_status = NA,
-            final_fu_date = NA
+            final_fu_status = factor_eos_outcome(tx_outcome),
+            final_fu_date = tx_hx$trtendat
           )
         )
       }
-      p_df <- p[which(p$final_fu_date == max(p$final_fu_date, na.rm = TRUE)), ]
+
+      rows_died <- which(filtered$final_fu_status == "Died")
+
+      if (length(rows_died) > 0) {
+        earliest_died_fu_date <- filtered[min(rows_died), "final_fu_date"]
+        deathdat <- df$deathdat[
+          which(
+            unique(p$globalrecordid) == df$globalrecordid
+          )
+        ]
+
+        death_date <- ifelse(is.na(deathdat),
+          earliest_died_fu_date,
+          deathdat
+        )
+
+        return(
+          data.frame(
+            globalrecordid = p$globalrecordid,
+            final_fu_status = factor_eos_outcome("Died"),
+            final_fu_date = death_date
+          )
+        )
+      }
+
+      p_df <- filtered[which(
+        filtered$final_fu_date == max(filtered$final_fu_date,
+          na.rm = TRUE
+        )
+      ), ]
+
       if (nrow(p_df) > 1) {
         # if final_status is the same - return any row
         if (length(unique(p_df$final_fu_status)) == 1) {
