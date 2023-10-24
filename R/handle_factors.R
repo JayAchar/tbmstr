@@ -45,6 +45,8 @@ handle_factors <- function(baseline_df) {
 
   ae_levels <- c("None", "I", "II", "III", "IV")
 
+  baseline_df$smear <- droplevels(baseline_df$smear)
+
   # group employment levels
   baseline_df$empl_3grp <- baseline_df$empl
 
@@ -126,6 +128,13 @@ handle_factors <- function(baseline_df) {
     levels = c(0:2),
     labels = c("None", "<20 pack-years", "\u226520 pack-years")
   )
+
+  # combine levels of baseline AE variable
+  baseline_df <- combine_ae_grades(baseline_df, "ast_alt_grd", "ast_alt_bin") |>
+    combine_ae_grades("prfneugrd", "prfneu_bin") |>
+    combine_ae_grades("hbgrd", "hb_bin") |>
+    combine_ae_grades("creatgrd", "creat_bin") |>
+    combine_ae_grades("visgrd", "vis_bin")
 
   return(baseline_df)
 }
