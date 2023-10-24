@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|50b60f16498dd7b7|||||||||||||||
+.Random.seed|object|cf0f1d9faa1d4639|||||||||||||||
 adjusted|stem|c55260a3a932a198|6c6b542f48028b9c|a7a6dbe36ab77851|-1421124365||t19648.294584933s|032c9f24d402887f|3131157|rds|local|vector|||0.019||
 adjustment_files|stem|a5d8d72b7eca4c3b|b94ec94d67c8138a|d385c1f8404e6914|-1925945130|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19648.2961551199s|bce99b594ffe2eda|128|file|local|vector|||1.664||
 adjustments|stem|f030b862cfe903e0|72405807525fc108|07edc5b7ab678e30|-1410765967||t19648.2986455298s|59e5e5a503986d8c|2020|rds|local|vector|||0.135||
@@ -34,7 +34,7 @@ create_plots|function|4180b85d57459a1c|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
 create_surv_objects|function|37802e7469142acd|||||||||||||||
 create_table_labels|function|9891417acc958e2c|||||||||||||||
-create_tables|function|a143bb1faf2a44d4|||||||||||||||
+create_tables|function|b75f2f0ccc52f16c|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
 dev_template|stem|0a025b6bdad1d12a|a0d65182b1311ebf|ff7a523f3fd78d33|-99310048|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/dev.Rmd|t19654.4100981693s|fbf7788fca0efa8f|4821|file|local|vector|||1.789||
 dev_templte|object|4d026a5edb00f1ba|||||||||||||||
@@ -86,12 +86,12 @@ remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
 render|function|97dbc24b80be6d6d|||||||||||||||
 render_docx|function|98f07b61c715298f|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
-reports|stem|da7e5646cbdfced7|ece660e212fe8bd0|ea9208d33e301160|-653841556||t0s|f4066a65ff755f48|0|file|local|vector|||26.554||
+reports|stem|da7e5646cbdfced7|ece660e212fe8bd0|6fbfed1913bfa57e|-653841556||t0s|f4066a65ff755f48|0|file|local|vector|||16.984||
 run_analysis|function|9a94bb6cb3443eb1|||||||||||||||
 run_quality_check|function|05a04c8b65fcffa4|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
 saved_plots|stem|d69c2bc5ec712b98|477d309e7f399201|a70625d550253ede|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19654.4325483903s|b4ad92e93f828887|842278|file|local|vector|||9.094|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
 surv_objects|stem|fc618a61595a4450|d6669086fd8daa89|ead09f37b11a2d6a|1652951019||t19654.4313156208s|790f17486a8df10b|1527440|rds|local|vector|||0.906|Inner loop failed to coverge for iterations 2 3 4 5|
-tables|stem|cc58c371c913e197|3af9b6f8203a5bb1|05ca37bcf1273d89|397746313||t19654.4324278568s|b48ee68b0240dd81|54200|rds|local|vector|||96.034|1m22mThere were 3 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  3  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 2 remaining warnings.|
+tables|stem|21884b32f3182510|3af9b6f8203a5bb1|9726365224b4b205|397746313||t19654.4790226843s|d10c28689be11287|54162|rds|local|vector|||56.901|1m22mThere were 3 warnings in mutate.The first warning was1m22m36mℹ39m In argument model  map....Caused by warning in coxph.fit33m39m Loglik converged before variable  4  coefficient may be infinite. 1m22m36mℹ39m Run dplyrlast_dplyr_warnings to see the 2 remaining warnings.|
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||

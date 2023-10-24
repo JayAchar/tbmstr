@@ -49,6 +49,11 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
                   covid ~ "categorical"
     )
 
+  pd <- pd[, c("eos_date", "eos_outcome",
+               "outcome", "eos_days", "event_fail",
+               "stat12", "tx_outcome",
+                covariates)]
+
     tables$tx_description <- gtsummary::tbl_summary(
       data = pd,
       include = dplyr::all_of(covariates),
@@ -70,7 +75,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     ## outcomes stratified by HIV status
     tables$tx_outcomes_by_hiv <- gtsummary::tbl_summary(
-      data = pd,
+      data = pd[which(!is.na(pd$hiv)), ],
       by = "hiv",
       include = c("outcome", "eos_outcome"),
       label = list(
