@@ -2,7 +2,9 @@
 title: "Analysis development"
 author: "Jay Achar"
 date: "`r Sys.time()`"
-output: html_document
+output: 
+  - html_document
+  - officedown::rdocx_document
 params:
   tables: "Error" 
   plots: "Error" 
@@ -19,6 +21,9 @@ h2 {
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(flextable)
+library(officedown)
+library(officer)
 
 if (knitr::is_html_output()) {
   knitr::knit_hooks$set(
@@ -56,15 +61,16 @@ were explored through sensitivity analyses.
 
 All statistical analyses were performed with R software (version 4.3.0).
 
+\newpage
 
 ```{r wrap="Treatment cohort description", echo = FALSE}
 htmltools::h2(
   "Baseline demographic and clinical characteristics of participants"
 )
 htmltools::hr()
-params$tables$tx_description
+autofit(params$tables$tx_description)
 ```
-
+\newpage
 
 ```{r wrap="Treatment cohort outcomes", echo = FALSE}
 htmltools::h2(
@@ -80,13 +86,16 @@ params$plots$p1
 params$plots$p2
 ```
 
+<!---BLOCK_LANDSCAPE_START--->
+
 ```{r wrap="Predictors of unsuccessful outcome", echo = FALSE}
 htmltools::h2(
   "Crude and adjusted analysis of independent predictors of unsuccessful study outcome"
 )
 htmltools::hr()
-params$tables$tx_mv_failure
+autofit(params$tables$tx_mv_failure)
 ```
+<!---BLOCK_LANDSCAPE_STOP--->
 
 ```{r wrap="Treatment outcomes by HIV status", echo = FALSE}
 htmltools::h2(
@@ -97,6 +106,8 @@ params$tables$tx_outcomes_by_hiv
 
 params$plots$p3
 ```
+
+\newpage
 
 ```{r wrap="Baseline HIV treatment and CD4 count description", echo = FALSE}
 htmltools::h2(
@@ -109,6 +120,7 @@ params$plots$p4
 
 params$plots$p5
 ```
+<!---BLOCK_LANDSCAPE_START--->
 
 ```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
 htmltools::h2(
@@ -117,6 +129,8 @@ htmltools::h2(
 htmltools::hr()
 params$tables$hiv_failure_death
 ```
+
+<!---BLOCK_LANDSCAPE_STOP--->
 
 ```{r wrap="Culture conversion risk", echo = FALSE}
 htmltools::h2(
@@ -127,6 +141,8 @@ params$tables$cc_risk
 
 params$plots$conversion
 ```
+
+\newpage
 
 ```{r wrap="Reasons for discontinuation", echo = FALSE}
 htmltools::h2(
@@ -145,6 +161,7 @@ variable.
 htmltools::hr()
 params$tables$failure_reasons
 ```
+\newpage
 
 ```{r wrap="Outcomes after 12 months follow-up", echo = FALSE}
 htmltools::h2(
@@ -153,6 +170,7 @@ htmltools::h2(
 htmltools::hr()
 params$tables$full_fu
 ```
+\newpage
 
 ```{r wrap="Probability of study success during follow-up", echo = FALSE}
 htmltools::h2(

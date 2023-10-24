@@ -84,23 +84,13 @@ list(
     command = dev_templte,
     format = "file"
   ),
-  tar_target(html_output, render(
+  tar_target(reports, render(
     tables,
     plots,
     list(
-      output_dir = output_dir,
-      output_format = "html_document"
+      output_dir = output_dir
     ),
     template = dev_template
-  ), format = "file"),
-  tar_target(docx_output, render(
-    tables,
-    plots = NULL,
-    list(
-      output_dir = output_dir,
-      output_format = "word_document"
-    ),
-    template = NULL
   ), format = "file"),
   tar_target(saved_plots, save_plots(
     plots,
