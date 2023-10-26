@@ -58,19 +58,19 @@ list(
     ),
     format = "file"
   ),
-  # TODO: add censoring
-  tar_target(conversion_cohort, create_conversion_cohort(clean)),
-  tar_target(hiv_cohort, create_hiv_cohort(clean)),
-  tar_target(failure_cohort, create_failure_cohort(clean)),
-  tar_target(fu_cohort, create_fu_cohort(clean)),
+  tar_target(censored, apply_censoring(clean)),
+  tar_target(conversion_cohort, create_conversion_cohort(censored)),
+  tar_target(hiv_cohort, create_hiv_cohort(censored)),
+  tar_target(failure_cohort, create_failure_cohort(censored)),
+  tar_target(fu_cohort, create_fu_cohort(censored)),
   tar_target(surv_objects, create_surv_objects(
-    clean,
+    censored,
     hiv_cohort,
     conversion_cohort,
     fu_cohort
   )),
   tar_target(tables, create_tables(
-    clean,
+    censored,
     hiv_cohort,
     failure_cohort,
     surv_objects
