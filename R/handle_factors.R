@@ -138,3 +138,27 @@ handle_factors <- function(baseline_df) {
 
   return(baseline_df)
 }
+
+
+#' Combine AE grades
+#'
+#' A custom function to combine AE variables with multiple grades into
+#' a binary varaible
+#'
+#' @param df data frame of baseline characteristics
+#' @param target string representing the variable being targetted
+#' @param result string name of the resulting variable
+#'
+combine_ae_grades <- function(df, target, result) {
+  # df <- combine_ae_grades(clean, "hbgrd", "hb_bin")
+  df[[result]] <- as.character(df[[target]])
+
+  df[[result]][df[[result]] != "None"] <- "Yes"
+  df[[result]][df[[result]] == "None"] <- "No"
+
+  df[[result]] <- factor(
+    df[[result]],
+    c("No", "Yes")
+  )
+  return(df)
+}
