@@ -37,20 +37,8 @@ create_surv_objects <- function(df, hiv_cohort, cc_cohort, fu_cohort) {
     data = cc_cohort
   )
 
-  so$mv_fail <- survival::coxph(
-    survival::Surv(
-      df$eos_days,
-      df$event_fail
-    ) ~ age_grp + sex + bmi_group + homeless + idu + smok +
-      hiv + prison + alcohol + prevtb + cav + hcvab + smear +
-      hb_bin +
-      survival::frailty(cntry, distribution = "gaussian"),
-    data = df
-  )
 
-  print(
-    survival::cox.zph(so$mv_fail)
-  )
+  so$mv_fail <- calculate_multivariable_model(df)
 
   return(so)
 }

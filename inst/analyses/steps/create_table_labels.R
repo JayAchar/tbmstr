@@ -1,19 +1,16 @@
 create_table_labels <- function() {
   mv_fail <- list(
     age_grp ~ "Age group (yrs)",
-    sex ~ "Sex",
     cav ~ "X-ray cavities",
     bmi_group ~ "Body Mass Index (kg/m^2)",
     hiv ~ "HIV status",
-    hcvab ~ "HCV Ab status",
+    empl_3grp ~ "Employment status",
     smear ~ "Baseline smear microscopy status",
-    prison ~ "History of incarceration",
     alcohol ~ "Excess alcohol use",
-    prevtb ~ "Previous TB episode",
-    homeless ~ "Homeless",
     smok ~ "Smoking history",
-    idu ~ "History of injecting drug use",
-    hb_bin ~ "Baseline anaemia"
+    hb_bin ~ "Baseline anaemia",
+    ast_alt_bin ~ "Baseline elevated AST/ALT",
+    creat_bin ~ "Baseline renal dysfunction"
   )
 
   desc <- list(

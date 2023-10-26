@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|bf2b873089be8dd4|||||||||||||||
+.Random.seed|object|08504884f65b16ad|||||||||||||||
 adjusted|stem|c55260a3a932a198|6c6b542f48028b9c|a7a6dbe36ab77851|-1421124365||t19648.294584933s|032c9f24d402887f|3131157|rds|local|vector|||0.019||
 adjustment_files|stem|a5d8d72b7eca4c3b|b94ec94d67c8138a|d385c1f8404e6914|-1925945130|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19648.2961551199s|bce99b594ffe2eda|128|file|local|vector|||1.664||
 adjustments|stem|f030b862cfe903e0|72405807525fc108|07edc5b7ab678e30|-1410765967||t19648.2986455298s|59e5e5a503986d8c|2020|rds|local|vector|||0.135||
@@ -15,6 +15,7 @@ calculate_conversion|function|ffbc9061db142cf2|||||||||||||||
 calculate_eos_outcome|function|29b3e1e3fa129855|||||||||||||||
 calculate_final_follow_up|function|10596c8e5a29691d|||||||||||||||
 calculate_follow_up_days|function|b42e1378d2af8147|||||||||||||||
+calculate_multivariable_model|function|5dfcc4e7f6e2b78d|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
 clean|stem|70257cc3e337b6fc|c5a732f123a5222a|96f1b992fae4b46f|1640993750||t19654.5702483225s|4c0411fb77e170f6|462566|rds|local|vector|||0.002||
 combine_ae_grades|function|5ee59858b52c532b|||||||||||||||
@@ -33,9 +34,9 @@ create_hiv_cohort|function|55c8296ab74660ac|||||||||||||||
 create_outcomes|function|ac9bd910d2fd7788|||||||||||||||
 create_plots|function|4180b85d57459a1c|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
-create_surv_objects|function|2d5021fa645c63d7|||||||||||||||
-create_table_labels|function|39e27d3d4fd75893|||||||||||||||
-create_tables|function|025f31a96dbaab24|||||||||||||||
+create_surv_objects|function|01973bd708428ee1|||||||||||||||
+create_table_labels|function|ed0a3fe24c007236|||||||||||||||
+create_tables|function|dc57b8402a8db320|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
 dev_template|stem|0a025b6bdad1d12a|a0d65182b1311ebf|ff7a523f3fd78d33|-99310048|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/dev.Rmd|t19654.4100981693s|fbf7788fca0efa8f|4821|file|local|vector|||1.789||
 dev_templte|object|4d026a5edb00f1ba|||||||||||||||
@@ -65,7 +66,7 @@ manual_adjustments|function|989ecd9d8b89f4bb|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
-plots|stem|1e312ae29eff73cd|700007547abf162d|bf121275d4db5def|-252074359||t19654.5858777411s|f96977a1b1fe7297|2454387|rds|local|vector|||0.621||
+plots|stem|0759436ea3e4eb23|700007547abf162d|a7093b0bcfbc5ee0|-252074359||t19656.5333503867s|97fcfbf5cd16824a|3220908|rds|local|vector|||0.84||
 prepare_ae_summary_data|function|88532b1adfa09bca|||||||||||||||
 prepare_baseline|function|2a7139ee535c8c72|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
@@ -87,12 +88,12 @@ remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
 render|function|97dbc24b80be6d6d|||||||||||||||
 render_docx|function|98f07b61c715298f|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
-reports|stem|da7e5646cbdfced7|ece660e212fe8bd0|01482dd2a6bb6f56|-653841556||t0s|f4066a65ff755f48|0|file|local|vector|||15.621||
+reports|stem|da7e5646cbdfced7|ece660e212fe8bd0|217766e4c1254b6a|-653841556||t0s|f4066a65ff755f48|0|file|local|vector|||22.249||
 run_analysis|function|ccb2a8321cc4f534|||||||||||||||
 run_quality_check|function|05a04c8b65fcffa4|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|d69c2bc5ec712b98|477d309e7f399201|4f658c693ec4082d|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19654.5859517193s|b4ad92e93f828887|842278|file|local|vector|||6.386|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
-surv_objects|stem|75e83a12c0cb3d58|d6669086fd8daa89|a685c4583efbd94e|1652951019||t19654.5757390554s|2aaea85c9a7e1bb9|1534112|rds|local|vector|||0.229|Inner loop failed to coverge for iterations 2 3|
-tables|stem|2ddb05f3c25bcc04|3af9b6f8203a5bb1|15238a58cdf15775|397746313||t19654.6001621884s|97ee00217ad27fc4|51901|rds|local|vector|||47||
+saved_plots|stem|d69c2bc5ec712b98|477d309e7f399201|5af51298001a9b87|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19656.5334314455s|b4ad92e93f828887|842278|file|local|vector|||6.993|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
+surv_objects|stem|15036d0aef9975ef|d6669086fd8daa89|5a4c9bd7a613c172|1652951019||t19656.5278235498s|5d621a01eb3684d9|2313217|rds|local|vector|||9.48|Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 3 4. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to cove|
+tables|stem|29f25765068ead24|3af9b6f8203a5bb1|1e3e7939e328f21a|397746313||t19656.5468022133s|07a93cc6b412370c|51799|rds|local|vector|||49.585||
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||
