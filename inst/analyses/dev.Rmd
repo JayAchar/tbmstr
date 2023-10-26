@@ -40,7 +40,7 @@ if (knitr::is_html_output()) {
 ## Methods
 
 Baseline clinical and demographic characteristics, and treatment and study
-outcomes were desdribed for the treatment cohort. Treatment and study outcomes
+outcomes were described for the treatment cohort. Treatment and study outcomes
 were also described by baseline HIV status. The crude effects of baseline CD4
 count and HIV treatment regimen were described in participants living with HIV.
 
@@ -54,10 +54,12 @@ p-values. Unsuccessful treatment outcomes and death or recurrence during
 follow-up were defined as unsuccessful study outcomes. Participants who were
 lost to post-treatment follow-up where censored. We then fitted a multivariable
 Cox proportional hazard model with a random intercept to account for clustering
-by study country. Characteristics with a p<0.1 were included. Since very few
-missing values were present in the data set, we used a complete case approach to
-handling missingness. The effects of imputing missing values on model estimates
-were explored through sensitivity analyses.
+by study country. Characteristics with a p<0.1 were evaluated for inclusion.
+Eligible characteristics were included in the multivariable model using a
+forward stepwise appraoch. Since very few missing values were present in the 
+data set, we used a complete case approach to handling missingness. The effects 
+of imputing missing values on model estimates were explored through sensitivity 
+analyses.
 
 All statistical analyses were performed with R software (version 4.3.0).
 
