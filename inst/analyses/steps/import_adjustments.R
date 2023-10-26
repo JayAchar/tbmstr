@@ -203,6 +203,16 @@ import_adjustments <- function(path) {
           id = "ce7bd3e3-561f-4942-97bc-ed1c74bbd563",
           var = "endat",
           value = as.POSIXct("2021-11-10", tz = "UTC")
+        ),
+        list(
+          id = "3b18e790-fc73-4289-a5cc-9034b7902aaa",
+          var = "evldat12",
+          value = as.POSIXct("2022-10-29", tz = "UTC")
+        ),
+        list(
+          id = "3b18e790-fc73-4289-a5cc-9034b7902aaa",
+          var = "fuendat",
+          value = as.POSIXct("2022-10-30", tz = "UTC")
         )
       )
     )
