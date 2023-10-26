@@ -1,6 +1,20 @@
 create_table_labels <- function() {
   mv_fail <- list(
     age_grp ~ "Age group (yrs)",
+    cav ~ "X-ray cavities",
+    bmi_group ~ "Body Mass Index (kg/m^2)",
+    hiv ~ "HIV status",
+    empl_3grp ~ "Employment status",
+    smear ~ "Baseline smear microscopy status",
+    alcohol ~ "Excess alcohol use",
+    smok ~ "Smoking history",
+    hb_bin ~ "Baseline anaemia",
+    ast_alt_bin ~ "Baseline elevated AST/ALT",
+    creat_bin ~ "Baseline renal dysfunction"
+  )
+
+  desc <- list(
+    age_grp ~ "Age group (yrs)",
     sex ~ "Sex",
     cav ~ "X-ray cavities",
     bmi_group ~ "Body Mass Index (kg/m^2)",
@@ -13,21 +27,44 @@ create_table_labels <- function() {
     homeless ~ "Homeless",
     smok ~ "Smoking history",
     idu ~ "History of injecting drug use",
-    hbgrd ~ "Baseline anaemia"
-  )
-
-  labels <- c(mv_fail, list(
-    cntry ~ "Country",
-    empl ~ "Employment status",
+    empl_3grp ~ "Employment status",
     sm_fact ~ "Smoking intensity",
     diab ~ "Diabetes",
     covid ~ "Baseline SARS-CoV2 status",
     regimen ~ "Treatment regimen",
+    cntry ~ "Country",
+    hbgrd ~ "Baseline anaemia",
     prfneugrd ~ "Baseline peripheral neuropathy",
     creatgrd ~ "Baseline renal dysfunction",
     visgrd ~ "Baseline visual loss",
     ast_alt_grd ~ "Baseline elevated AST/ALT"
-  ))
+  )
+
+  univariable <- list(
+    age_grp ~ "Age group (yrs)",
+    sex ~ "Sex",
+    cav ~ "X-ray cavities",
+    bmi_group ~ "Body Mass Index (kg/m^2)",
+    hiv ~ "HIV status",
+    hcvab ~ "HCV Ab status",
+    smear ~ "Baseline smear microscopy status",
+    prison ~ "History of incarceration",
+    alcohol ~ "Excess alcohol use",
+    prevtb ~ "Previous TB episode",
+    homeless ~ "Homeless",
+    smok ~ "Smoking history",
+    idu ~ "History of injecting drug use",
+    empl_3grp ~ "Employment status",
+    sm_fact ~ "Smoking intensity",
+    diab ~ "Diabetes",
+    covid ~ "Baseline SARS-CoV2 status",
+    regimen ~ "Treatment regimen",
+    prfneu_bin ~ "Baseline peripheral neuropathy",
+    creat_bin ~ "Baseline renal dysfunction",
+    vis_bin ~ "Baseline visual loss",
+    ast_alt_bin ~ "Baseline elevated AST/ALT",
+    hb_bin ~ "Baseline anaemia"
+  )
 
   hiv_labels <- list(
     art ~ "Baseline ART status",
@@ -39,7 +76,8 @@ create_table_labels <- function() {
 
   list(
     mv = mv_fail,
-    tx_desc = labels,
-    hiv = hiv_labels
+    tx_desc = desc,
+    hiv = hiv_labels,
+    uni = univariable
   )
 }

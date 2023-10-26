@@ -2,7 +2,9 @@
 title: "Analysis development"
 author: "Jay Achar"
 date: "`r Sys.time()`"
-output: html_document
+output: 
+  - html_document
+  - officedown::rdocx_document
 params:
   tables: "Error" 
   plots: "Error" 
@@ -19,6 +21,9 @@ h2 {
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(flextable)
+library(officedown)
+library(officer)
 
 if (knitr::is_html_output()) {
   knitr::knit_hooks$set(
@@ -35,7 +40,7 @@ if (knitr::is_html_output()) {
 ## Methods
 
 Baseline clinical and demographic characteristics, and treatment and study
-outcomes were desdribed for the treatment cohort. Treatment and study outcomes
+outcomes were described for the treatment cohort. Treatment and study outcomes
 were also described by baseline HIV status. The crude effects of baseline CD4
 count and HIV treatment regimen were described in participants living with HIV.
 
@@ -49,22 +54,25 @@ p-values. Unsuccessful treatment outcomes and death or recurrence during
 follow-up were defined as unsuccessful study outcomes. Participants who were
 lost to post-treatment follow-up where censored. We then fitted a multivariable
 Cox proportional hazard model with a random intercept to account for clustering
-by study country. Characteristics with a p<0.1 were included. Since very few
-missing values were present in the data set, we used a complete case approach to
-handling missingness. The effects of imputing missing values on model estimates
-were explored through sensitivity analyses.
+by study country. Characteristics with a p<0.1 were evaluated for inclusion.
+Eligible characteristics were included in the multivariable model using a
+forward stepwise appraoch. Since very few missing values were present in the 
+data set, we used a complete case approach to handling missingness. The effects 
+of imputing missing values on model estimates were explored through sensitivity 
+analyses.
 
 All statistical analyses were performed with R software (version 4.3.0).
 
+\newpage
 
 ```{r wrap="Treatment cohort description", echo = FALSE}
 htmltools::h2(
   "Baseline demographic and clinical characteristics of participants"
 )
 htmltools::hr()
-params$tables$tx_description
+autofit(params$tables$tx_description)
 ```
-
+\newpage
 
 ```{r wrap="Treatment cohort outcomes", echo = FALSE}
 htmltools::h2(
@@ -80,13 +88,16 @@ params$plots$p1
 params$plots$p2
 ```
 
+<!---BLOCK_LANDSCAPE_START--->
+
 ```{r wrap="Predictors of unsuccessful outcome", echo = FALSE}
 htmltools::h2(
   "Crude and adjusted analysis of independent predictors of unsuccessful study outcome"
 )
 htmltools::hr()
-params$tables$tx_mv_failure
+autofit(params$tables$tx_mv_failure)
 ```
+<!---BLOCK_LANDSCAPE_STOP--->
 
 ```{r wrap="Treatment outcomes by HIV status", echo = FALSE}
 htmltools::h2(
@@ -97,6 +108,8 @@ params$tables$tx_outcomes_by_hiv
 
 params$plots$p3
 ```
+
+\newpage
 
 ```{r wrap="Baseline HIV treatment and CD4 count description", echo = FALSE}
 htmltools::h2(
@@ -109,6 +122,7 @@ params$plots$p4
 
 params$plots$p5
 ```
+<!---BLOCK_LANDSCAPE_START--->
 
 ```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
 htmltools::h2(
@@ -117,6 +131,8 @@ htmltools::h2(
 htmltools::hr()
 params$tables$hiv_failure_death
 ```
+
+<!---BLOCK_LANDSCAPE_STOP--->
 
 ```{r wrap="Culture conversion risk", echo = FALSE}
 htmltools::h2(
@@ -127,6 +143,8 @@ params$tables$cc_risk
 
 params$plots$conversion
 ```
+
+\newpage
 
 ```{r wrap="Reasons for discontinuation", echo = FALSE}
 htmltools::h2(
@@ -145,6 +163,7 @@ variable.
 htmltools::hr()
 params$tables$failure_reasons
 ```
+\newpage
 
 ```{r wrap="Outcomes after 12 months follow-up", echo = FALSE}
 htmltools::h2(
@@ -153,6 +172,7 @@ htmltools::h2(
 htmltools::hr()
 params$tables$full_fu
 ```
+\newpage
 
 ```{r wrap="Probability of study success during follow-up", echo = FALSE}
 htmltools::h2(

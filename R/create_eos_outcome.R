@@ -81,25 +81,6 @@ create_eos_outcome <- function(df, max_follow_up) {
   merged$event_fail <- merged$eos_outcome %in% internal$definitions$eos_failure
   merged$event_death <- merged$eos_outcome == "Died"
 
-  # if a participant died after the end of study follow-up, they won't be
-  # included in the time to event analysis
-  # merged$event_death[
-  #   merged$death_days > max_follow_up
-  # ] <- FALSE
-  #
-  # merged$death_days[which(
-  #   merged$death_days > max_follow_up
-  # )] <- max_follow_up
-  #
-  #
-  # merged$event_fail[
-  #   merged$fail_days > max_follow_up
-  # ] <- FALSE
-  #
-  # merged$fail_days[which(
-  #   merged$fail_days > max_follow_up
-  # )] <- max_follow_up
-
   alert_info("`eos_outocome` variable calculated as first
                           unsuccessful outcome.")
 

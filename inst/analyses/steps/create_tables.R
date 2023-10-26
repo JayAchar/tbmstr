@@ -12,7 +12,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     "idu",
     "homeless",
-    "empl",
+    "empl_3grp",
     "prison",
     "smok",
     "alcohol",
@@ -32,8 +32,16 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     "prfneugrd",
     "hbgrd",
     "creatgrd",
-    "visgrd"
+    "visgrd",
+
+    "ast_alt_bin",
+    "prfneu_bin",
+    "hb_bin",
+    "creat_bin",
+    "vis_bin"
   )
+
+
 
 
     types <- list(
@@ -49,9 +57,14 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
                   covid ~ "categorical"
     )
 
+  pd <- pd[, c("eos_date", "eos_outcome",
+               "outcome", "eos_days", "event_fail",
+               "stat12", "tx_outcome",
+                covariates)]
+
     tables$tx_description <- gtsummary::tbl_summary(
       data = pd,
-      include = dplyr::all_of(covariates),
+      include = dplyr::all_of(covariates) & !dplyr::ends_with("_bin"),
       label = labels$tx_desc,
       type = types,
       missing_text = missing_text,
@@ -70,7 +83,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     ## outcomes stratified by HIV status
     tables$tx_outcomes_by_hiv <- gtsummary::tbl_summary(
-      data = pd,
+      data = pd[which(!is.na(pd$hiv)), ],
       by = "hiv",
       include = c("outcome", "eos_outcome"),
       label = list(
@@ -126,14 +139,17 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     # output table 2
     t3 <- gtsummary::tbl_uvregression(
       data = pd,
-      label = labels$tx_desc,
+      label = labels$uni,
       method = survival::coxph,
       y = survival::Surv(eos_days, event_fail),
       exponentiate = TRUE,
-      include = dplyr::all_of(covariates[!covariates == "cntry"])
+      include = dplyr::all_of(covariates) &
+        !dplyr::ends_with("grd") &
+        !dplyr::matches("cntry")
     ) |>
       gtsummary::add_n(location = "label") |>
-      gtsummary::add_nevent(location = "level")
+      gtsummary::add_nevent(location = "level") |>
+      gtsummary::add_global_p(keep = TRUE)
 
 
     t4 <- surv_objects$mv_fail |>

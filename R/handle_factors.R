@@ -45,6 +45,17 @@ handle_factors <- function(baseline_df) {
 
   ae_levels <- c("None", "I", "II", "III", "IV")
 
+  baseline_df$smear <- droplevels(baseline_df$smear)
+
+  # group employment levels
+  baseline_df$empl_3grp <- baseline_df$empl
+
+  baseline_df$empl_3grp[which(
+    baseline_df$empl_3grp %in% c("Student", "Retired")
+  )] <- "Other"
+
+  baseline_df$empl_3grp <- droplevels(baseline_df$empl_3grp)
+
   # create grouped baseline CD4 variable
   baseline_df$cd4_grp <- cut(
     baseline_df$cd4,
@@ -118,5 +129,36 @@ handle_factors <- function(baseline_df) {
     labels = c("None", "<20 pack-years", "\u226520 pack-years")
   )
 
+  # combine levels of baseline AE variable
+  baseline_df <- combine_ae_grades(baseline_df, "ast_alt_grd", "ast_alt_bin") |>
+    combine_ae_grades("prfneugrd", "prfneu_bin") |>
+    combine_ae_grades("hbgrd", "hb_bin") |>
+    combine_ae_grades("creatgrd", "creat_bin") |>
+    combine_ae_grades("visgrd", "vis_bin")
+
   return(baseline_df)
+}
+
+
+#' Combine AE grades
+#'
+#' A custom function to combine AE variables with multiple grades into
+#' a binary varaible
+#'
+#' @param df data frame of baseline characteristics
+#' @param target string representing the variable being targetted
+#' @param result string name of the resulting variable
+#'
+combine_ae_grades <- function(df, target, result) {
+  # df <- combine_ae_grades(clean, "hbgrd", "hb_bin")
+  df[[result]] <- as.character(df[[target]])
+
+  df[[result]][df[[result]] != "None"] <- "Yes"
+  df[[result]][df[[result]] == "None"] <- "No"
+
+  df[[result]] <- factor(
+    df[[result]],
+    c("No", "Yes")
+  )
+  return(df)
 }
