@@ -69,4 +69,10 @@ lut <- lookup$vars |>
   filter(!stringr::str_detect(
     name,
     "^aeoutcome[2-5]{1}$"
-  ))
+  )) |>
+  # fix spelling errors
+  mutate(
+    description = if_else(description == "Reoccurance",
+      "Recurrence", description
+    )
+  )
