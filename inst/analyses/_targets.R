@@ -27,6 +27,8 @@ output_dir <- here::here("inst", "analyses", "output")
 quality_file <- here::here(output_dir, "quality.html")
 adjustments_path <- here::here("inst", "analyses", "adjustments", "data")
 dev_templte <- here::here("inst", "analyses", "dev.Rmd")
+short_success_template <- here::here("inst", "analyses", "short_success.Rmd")
+withdrawls_templte <- here::here("inst", "analyses", "withdrawn.Rmd")
 
 # Replace the target list below with your own:
 list(
@@ -46,6 +48,14 @@ list(
   )),
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(include_outcomes, create_outcomes(labelled)),
+  tar_target(withdrawn_template,
+    command = withdrawls_templte,
+    format = "file"
+  ),
+  tar_target(withdrawn, render_withdrawls(labelled,
+    list(output_dir = output_dir),
+    template = withdrawn_template
+  )),
   tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),
@@ -59,6 +69,17 @@ list(
     format = "file"
   ),
   tar_target(censored, apply_censoring(clean)),
+  tar_target(success_template,
+    command = short_success_template,
+    format = "file"
+  ),
+  tar_target(short_success, render_short_success(
+    censored,
+    list(
+      output_dir = output_dir
+    ),
+    template = success_template
+  ), format = "file"),
   tar_target(conversion_cohort, create_conversion_cohort(censored)),
   tar_target(hiv_cohort, create_hiv_cohort(censored)),
   tar_target(failure_cohort, create_failure_cohort(censored)),
