@@ -75,4 +75,10 @@ lut <- lookup$vars |>
     description = if_else(description == "Reoccurance",
       "Recurrence", description
     )
+  ) |>
+  mutate(
+    description = if_else(
+      description == "Determined ineligible after enrollemnt",
+      "Determined ineligible after enrollment", description
+    )
   )

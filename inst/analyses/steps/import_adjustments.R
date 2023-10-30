@@ -67,7 +67,8 @@ import_adjustments <- function(path) {
 
       if (nrow(m_df) != sum(has_changed)) {
         cli::cli_alert_warning(
-          "{var}: Only {nrow(m_df)}/{sum(has_changed)} adjustments have been applied")
+          "{var}: Only {nrow(m_df)}/{sum(has_changed)}",
+          " adjustments have been applied")
       }
 
       m_df$row_n <- NULL
@@ -76,13 +77,6 @@ import_adjustments <- function(path) {
   )
 
   names(changed_dfs) <- check_vars
-
-  # remove rows where outomes have not changed
-  # mod_adj <- mod_id[which(mod_id$outcome != mod_id$revised), ]
-  #
-  #
-  # final_mods <- mod_adj[which(mod_adj$revised %in% valid_outcomes), ]
-
 
   mv_adjust <- lapply(
     check_vars,
@@ -213,7 +207,38 @@ import_adjustments <- function(path) {
           id = "3b18e790-fc73-4289-a5cc-9034b7902aaa",
           var = "fuendat",
           value = as.POSIXct("2022-10-30", tz = "UTC")
-        )
+        ),
+           # changed from withdrawn to failed
+           # failed to complete treatment on time
+        list(
+          id = "772b9359-aa0e-4fd2-ba34-492cca8565ef",
+          var = "outcome",
+          value = 3
+        ),
+           # changed from withdrawn to cured
+           # originally marked as failed to complete treatment in time,
+           # howwever, 253 doses was sufficient
+           # No AEs, multiple negative cultures, acceptable
+           # baseline DST
+        list(
+          id = "1626fdda-f2d9-427b-813c-21e9e06492f1",
+          var = "outcome",
+          value = 1
+        ),
+           # missing outcome
+           # prtclviol comment states Determined ineligible after starting 
+        list(
+          id = "02d5267e-48e7-4955-8bfe-8bd38a4d91c8",
+          var = "outcome",
+          value = 7
+        ),
+          # Lost contact with pt after 5m and 173 doses
+           # originally classified as Not evaluated
+        list(
+          id = "d830f560-a4ed-4717-8dad-4b1598f6ed1d",
+          var = "outcome",
+          value = 5
+        ),
       )
     )
   ))
