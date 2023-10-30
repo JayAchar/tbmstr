@@ -73,6 +73,24 @@ create_eos_outcome <- function(df, max_follow_up) {
     by = "globalrecordid"
   )
 
+  if (any(merged$outcome == "Withdrawn")) {
+    cli::cli_alert_warning("Withdrawn subjects detected - suggest removing")
+  }
+
+  missing_death_date <- merged[
+    which(merged$deathfu == TRUE & is.na(
+      merged$deathdat
+    )),
+  ]
+
+  if (nrow(missing_death_date) > 0) {
+    cli::cli_alert_info(
+      "{nrow(missing_death_date)} have deathfu == TRUE, ",
+      "but no deathdat - have been defined according to ",
+      "their follow-up evaluations"
+    )
+  }
+
   merged$eos_days <- diff_days(
     merged$trtstdat,
     merged$eos_date
