@@ -1,4 +1,10 @@
 create_surv_objects <- function(df, hiv_cohort, cc_cohort, fu_cohort) {
+  # check for duplicate participants
+  has_duplicates <- any(duplicated(df$globalrecordid))
+  if (has_duplicates) {
+    cli::cli_abort("Duplicate rows have been detected")
+  }
+
   so <- list()
 
   so$fail <- ggsurvfit::survfit2(
