@@ -61,7 +61,7 @@ calculate_multivariable_model <- function(df) {
   mv <- survival::coxph(
     so ~ age_grp + hiv + alcohol + cav + hb_bin +
       ast_alt_bin + empl_3grp + smok +
-      bmi_group + creat_bin + smear +
+      bmi_group + smear +
       survival::frailty(cntry, distribution = "gaussian"),
     data = mod_data
   )

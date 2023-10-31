@@ -9,8 +9,7 @@ create_table_labels <- function() {
     alcohol ~ "Excess alcohol use",
     smok ~ "Smoking history",
     hb_bin ~ "Baseline anaemia",
-    ast_alt_bin ~ "Baseline elevated AST/ALT",
-    creat_bin ~ "Baseline renal dysfunction"
+    ast_alt_bin ~ "Baseline elevated AST/ALT"
   )
 
   desc <- list(
