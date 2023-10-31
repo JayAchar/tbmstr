@@ -226,7 +226,7 @@ import_adjustments <- function(path) {
           value = 1
         ),
            # missing outcome
-           # prtclviol comment states Determined ineligible after starting 
+           # prtclviol comment states Determined ineligible after starting
         list(
           id = "02d5267e-48e7-4955-8bfe-8bd38a4d91c8",
           var = "outcome",
@@ -239,6 +239,27 @@ import_adjustments <- function(path) {
           var = "outcome",
           value = 5
         ),
+          # from withdrawn to failed
+           # ceased 2 drugs due to side effects
+        list(
+          id = "fd5fb3c6-3e02-47c2-b37e-6d88072cd1ae",
+          var = "outcome",
+          value = 3
+        ),
+         # culture negative at baseline
+           # change reason for withdrawal
+        list(
+          id = "5e2c4e3d-cbae-4a15-a596-84fee16ae8ed",
+          var = "prtclviol",
+          value = 4
+        ),
+           # missing reason for withdrawal written as treatment comment 
+           # by study team - added here
+        list(
+          id = "b1150192-333c-4998-b78e-4da02dc4b31b",
+          var = "prtclviol",
+          value = 3
+        )
       )
     )
   ))
