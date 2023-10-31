@@ -33,11 +33,19 @@ deaths_file <- file.path(
   adjustments_path,
   "deaths.xlsx"
 )
+failure_reasons_file <- file.path(
+  adjustments_path,
+  "comment-translations.xlsx"
+)
 
 
 # Replace the target list below with your own:
 list(
   tar_target(file, data_path, format = "file"),
+  tar_target(file_failure_reasons,
+    command = failure_reasons_file,
+    format = "file"
+  ),
   tar_target(file_withdrawn_template,
     command = withdrawal_template,
     format = "file"
@@ -80,7 +88,11 @@ list(
   tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),
-  tar_target(clean, relevel_vars(prepared)),
+  tar_target(add_failures, append_failure_reasons(
+    file_failure_reasons,
+    prepared
+  )),
+  tar_target(clean, relevel_vars(add_failures)),
   tar_target(
     high_dose_list,
     create_high_dose_list(

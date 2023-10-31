@@ -146,20 +146,10 @@ params$plots$conversion
 
 \newpage
 
-```{r wrap="Reasons for discontinuation", echo = FALSE}
+```{r wrap="Reasons for treatment failure", echo = FALSE}
 htmltools::h2(
-  "Cumulative incidence of culture conversion by monthly time-points"
+  "Reasons for treatment failure"
 )
-htmltools::hr()
-htmltools::p("
-The reasons for failure may not be correct. They are taken
-from the `prtclviol` variable and are restricted to only
-those participants who were given an outcome of `Failed`.
-
-More information is likely to be availble for those
-with `Other` reasons for ceasing treatment in the `trtcom`
-variable.
-")
 htmltools::hr()
 params$tables$failure_reasons
 ```

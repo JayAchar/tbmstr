@@ -168,9 +168,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
 
     tables$failure_reasons <- gtsummary::tbl_summary(
       data = failed,
-      include = "prtclviol",
+      include = "failure_reasons",
       label = list(
-        prtclviol ~ "Reasons for discontinuation"
+        failure_reasons ~ "Reasons for treatment failure"
       ),
       sort = list(
         everything() ~ "frequency"
