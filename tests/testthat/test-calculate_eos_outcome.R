@@ -32,7 +32,9 @@ test_that("detects first follow-up failure", {
     df = data.frame(
       globalrecordid = "a",
       outcome = custom_eot_outcome("Cured"),
-      trtendat = as.POSIXct("2020-10-15")
+      trtendat = as.POSIXct("2020-10-15"),
+      deathfu = FALSE,
+      deathdat = NA
     ),
     fu = data.frame(
       globalrecordid = "a",
@@ -59,7 +61,9 @@ test_that("handle study success outcome", {
     df = data.frame(
       globalrecordid = "a",
       outcome = custom_eot_outcome("Cured"),
-      trtendat = as.POSIXct("2020-10-15")
+      trtendat = as.POSIXct("2020-10-15"),
+      deathfu = FALSE,
+      deathdat = NA
     ),
     fu = data.frame(
       globalrecordid = "a",
