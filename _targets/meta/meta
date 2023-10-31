@@ -1,8 +1,8 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|3c2cc6e51a98e46e|||||||||||||||
-adjusted|stem|d5f6876ab7d5f448|6c6b542f48028b9c|68d9976c359b5ac7|-1421124365||t19661.3135979599s|23ca0396037bbe37|3131146|rds|local|vector|||0.018||
+.Random.seed|object|ef51677548416069|||||||||||||||
+adjusted|stem|c0c91bc94fd258d1|6c6b542f48028b9c|6d1a4a550794e1c7|-1421124365||t19661.3632316715s|e2a320711a7f65f7|3131199|rds|local|vector|||0.029||
 adjustment_files|stem|9a5385cf80f09ee7|b94ec94d67c8138a|d385c1f8404e6914|-1925945130|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19660.4519590078s|8c237f5c678b0a48|160|file|local|vector|||1.583||
-adjustments|stem|37bad9d3895ea515|72405807525fc108|4ddd0227d82f04d1|-1410765967||t19661.313583614s|6d4247ac45086801|2288|rds|local|vector|||0.12||
+adjustments|stem|f8867a12ed5b70ae|72405807525fc108|bbc4a991aff8ad09|-1410765967||t19661.3632162039s|ce6efc259a093380|2480|rds|local|vector|||0.125||
 adjustments_data|stem|f93d41528aafe9cb|b94ec94d67c8138a|d385c1f8404e6914|-1953774299|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data|t19646.3063302694s|bce99b594ffe2eda|128|file|local|vector|||0||
 adjustments_path|object|0bbf7a405f0484c9|||||||||||||||
 alert_info|function|35312f4444683ee9|||||||||||||||
@@ -18,10 +18,10 @@ calculate_final_follow_up|function|eada4f3ceb81d5e9|||||||||||||||
 calculate_follow_up_days|function|b42e1378d2af8147|||||||||||||||
 calculate_multivariable_model|function|5dfcc4e7f6e2b78d|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
-censored|stem|2413272ccc4e60c6|42a2fb2848888939|031232c8e0b90b60|-1558107665||t19661.3148460284s|a6adc3bb67762178|464067|rds|local|vector|||0.005||
-clean|stem|f833f73e74997f00|c5a732f123a5222a|ede9267abf6c58f2|1640993750||t19661.3148430329s|8a61dc0b7c509f3f|462848|rds|local|vector|||0.002||
+censored|stem|22b073b67cc7e14b|42a2fb2848888939|eb06f05df6f74aaa|-1558107665||t19661.3643803743s|b497c4ce5b546fde|464169|rds|local|vector|||0.008||
+clean|stem|1efb99e9adbd9e56|c5a732f123a5222a|b84c7063fce7c06e|1640993750||t19661.364376404s|3cf860f66e73f187|462950|rds|local|vector|||0.003||
 combine_ae_grades|function|5ee59858b52c532b|||||||||||||||
-conversion_cohort|stem|8b16366a5f0d6800|37ebfcdca66d944c|5055572cb4762a12|104995942||t19661.3148487599s|6cb109ec8ba6b114|383381|rds|local|vector|||0.004||
+conversion_cohort|stem|9f8994edb60f7caf|37ebfcdca66d944c|1c5eeea91cd62433|104995942||t19661.3643839249s|d1a0fcdad9506ba4|383490|rds|local|vector|||0.004||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|f90ff615039acf37|||||||||||||||
 create_conversion_cohort|function|829c22ce9f6282ec|||||||||||||||
@@ -38,10 +38,10 @@ create_plots|function|4180b85d57459a1c|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
 create_surv_objects|function|0e72649041fe2466|||||||||||||||
 create_table_labels|function|ed0a3fe24c007236|||||||||||||||
-create_tables|function|ba89428118d076c3|||||||||||||||
+create_tables|function|fbb3d2dd79c01d79|||||||||||||||
 data_path|object|b392de55e7212544|||||||||||||||
 death_descriptions|stem|463848a7eacc210a|c6a4c63d8e8767d1|b7ddf21606e58ba1|-262743381||t19660.4605043268s|7865985e1b9019af|4162|rds|local|vector|||0.14||
-deaths|stem|c72ad3e1552ce22f|191b78db1970a7aa|697de40adeea14ac|-1048906573||t19661.3148445508s|83e7b4221cab8757|464089|rds|local|vector|||0.016||
+deaths|stem|ff741faa97fb57f0|191b78db1970a7aa|5aa128c6d7407d0f|-1048906573||t19661.3643782563s|ee496112b74082c3|464190|rds|local|vector|||0.02||
 deaths_file|object|eddd3768353b3e7c|||||||||||||||
 dev_template|object|4d026a5edb00f1ba|||||||||||||||
 dev_templte|object|4d026a5edb00f1ba|||||||||||||||
@@ -49,28 +49,28 @@ diff_days|function|f9e0ebc24b0bd91c|||||||||||||||
 docx_output|stem|da7e5646cbdfced7|54ee6a4595127f7c|fd94a3be0da7ebcb|-181196123||t0s||0|file|local|vector|||0.005||invalid description argument
 factor_eos_outcome|function|53d0e1130793d4c7|||||||||||||||
 failreu_cohort|stem|aea187cc127cbd34|58dc0aa77b379573|582ca30f14683158|1008426122||t19643.430730473s|232b52a90fd771f1|38530|rds|local|vector|||0.003||
-failure_cohort|stem|4c0230b23383379b|cec386c9ca9615fb|75c82033b2f44c6b|-53581509||t19661.3148462355s|05dc404b836abc8e|50123|rds|local|vector|||0.002||
+failure_cohort|stem|f2a0bef5292cc02f|cec386c9ca9615fb|17f9d2d56aeec76a|-53581509||t19661.3643805837s|193b25471fbc52fc|50942|rds|local|vector|||0.003||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|68a544a2e219933f|-1301001980|/Users/jayachar/Documents/github_repos/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||1.322||
 file_deaths_description|stem|90d526af669b775d|86649afc032d3cdb|ff50a46a64973250|1318158161|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/adjustments/data/deaths.xlsx|t19660.4400008009s|1a4fa8b06219ab44|183607|file|local|vector|||0||
 file_dev_template|stem|0e56eb05577ed77d|6e44a4603973d6a7|e732626325a8dbcd|-26005027|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/dev.Rmd|t19660.4231039131s|23de2a53529c814b|5116|file|local|vector|||1.554||
 file_success_template|stem|f9c7cf8cc15785cd|f9cb1304d4289aba|e9d3b5e295b7b378|-1024669059|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/short_success.Rmd|t19657.3235727267s|6878a689798d08d2|2299|file|local|vector|||0||
 file_withdrawn_template|stem|9d78b7c600aab4ba|4a84b2a82ef3a973|db2efa443dd675bd|-1148209360|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/withdrawn.Rmd|t19657.4452287771s|bd5d7237884ef5a2|443|file|local|vector|||3.005||
 follow_up|stem|3858ff8b0a26f5b5|24f3df52027d3e7d|97601f37d4713908|-206865066||t19650.42656647s||3182272|rds|local|vector|||0.003||could not find function create_follow_up
-fu_cohort|stem|774214885568b297|b163bf3d35c3ae73|a37d9e560b4bf498|-1783988309||t19661.3148477008s|84cdd5f2b778e219|380520|rds|local|vector|||0.015||
+fu_cohort|stem|769ef655f75f6e5a|b163bf3d35c3ae73|1ef026484d545a4b|-1783988309||t19661.3643827879s|b1f539b69dd1ae34|379818|rds|local|vector|||0.053||
 handle_factors|function|bb665a967c960115|||||||||||||||
 has_positive_baseline_culture|function|e7660ee10784fc98|||||||||||||||
-high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|848c5f9c4b8e3649|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.009||
-hiv_cohort|stem|0ab9c71b294e1a51|ad2916cad97bbd32|4f7f46ee011e7799|831035627||t19661.314846485s|f130cd76cac157f5|59729|rds|local|vector|||0.003||
+high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|41936b921156d1ce|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.015||
+hiv_cohort|stem|f83129bed9f01103|ad2916cad97bbd32|0577d485577ef6bf|831035627||t19661.3643808871s|41ed511e5a01b171|59746|rds|local|vector|||0.004||
 html_output|stem|da7e5646cbdfced7|9c9af7c46ca282a1|8ef57662337173ae|-331027018||t0s|f4066a65ff755f48|0|file|local|vector|||18.102||
 import|function|41bed7fe681f5af1|||||||||||||||
-import_adjustments|function|8a8649d303d0e7a1|||||||||||||||
+import_adjustments|function|58cd625e2a0473ae|||||||||||||||
 import_data|function|fd1c402b43c29b7e|||||||||||||||
 import_death_descriptions|function|166685f514021c10|||||||||||||||
-include_outcomes|stem|58c84e526f0109b1|4f17e4fac67e9d0d|c2b9ec5afbbe4ea2|889393346||t19661.3147683036s|3b52e86dc1ac158c|3169911|rds|local|vector|||20.188||
+include_outcomes|stem|a7704add9ad6e078|4f17e4fac67e9d0d|c4965313f6bd2795|889393346||t19661.3642963432s|8cba7d01478124fa|3169867|rds|local|vector|||16.587||
 internal|object|965a640138248ea8|||||||||||||||
 is_baseline_culture_positive|function|b9889b611d1d5048|||||||||||||||
 is_testing|function|c84c75094f227895|||||||||||||||
-labelled|stem|0122e4416f11a748|69e4d089f9c1ebaf|ae7370f9bd39abfd|-892234559||t19661.3136119388s|ad4bfc0bb20f02f4|3104019|rds|local|vector|||0.356|1m22mapply_labels sae 1 missing value have been introduced. 1m22mapply_labels covid 2 missing values have been introduced. 1m22mapply_labels cause1 39 missing values have been introduced. 1m22mapply_labels cause2 7 missing values have been introduced. 1m22mapply_labels cause3 5 missing values have been introduced. 1m22mapply_labels vislf 1098 missing values have been introduced. 1m22mapply_labels visrt 1097 missing values have been introduced|
+labelled|stem|234778b507fc7266|69e4d089f9c1ebaf|f346a40f3ac3d828|-892234559||t19661.3632464513s|0abb8e221a280438|3104096|rds|local|vector|||0.373|1m22mapply_labels sae 1 missing value have been introduced. 1m22mapply_labels covid 2 missing values have been introduced. 1m22mapply_labels cause1 39 missing values have been introduced. 1m22mapply_labels cause2 7 missing values have been introduced. 1m22mapply_labels cause3 5 missing values have been introduced. 1m22mapply_labels vislf 1098 missing values have been introduced. 1m22mapply_labels visrt 1097 missing values have been introduced|
 lrtest|function|67db2e4b06f40d2d|||||||||||||||
 manual_adjustments|function|989ecd9d8b89f4bb|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
@@ -79,7 +79,7 @@ merge_death_descriptions|function|5a58874a1da07171|||||||||||||||
 merge_deaths_description|function|5a58874a1da07171|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 output_dir|object|ef23ec0c9bdb4226|||||||||||||||
-plots|stem|e85728702913d542|700007547abf162d|2e06ca1e0ae7b811|-252074359||t19661.3156688417s|b661b17a4cec98d2|3235967|rds|local|vector|||0.631||
+plots|stem|02536d0e36a00f9c|700007547abf162d|821118850848877d|-252074359||t19661.3651264587s|dc58f0943e2e7ac6|3236202|rds|local|vector|||0.507||
 prepare_ae_summary_data|function|88532b1adfa09bca|||||||||||||||
 prepare_baseline|function|575219d9a6950d21|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
@@ -88,9 +88,9 @@ prepare_eos_outcomes|function|3a4ebd06541832f7|||||||||||||||
 prepare_high_dose_list|function|e25e2a1b9e6143b6|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem|8b95bb21f1b60bfc|efca67645a24c271|4bfbb701c9cb6687|-2067579251||t19661.3148417252s|af994204d040e01f|3166017|rds|local|vector|||5.395||
+prepared|stem|99b866e774e69bae|efca67645a24c271|57b19bae9b0dcbba|-2067579251||t19661.3643747756s|860c06856bc9478a|3165999|rds|local|vector|||5.727||
 quality_file|object|b47ce84473eda33d|||||||||||||||
-quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|7b55cf6c7bc1210f|-1876087034||t19661.3145118345s|44e327d1ee1978d7|43|rds|local|vector|||77.744||
+quality_report|stem|d36ea1299fa8d732|5df1daace7cc4aee|76a4c70ea593bb89|-1876087034||t19661.3640782936s|44e327d1ee1978d7|43|rds|local|vector|||71.863||
 raw|stem|97e3ec8b6999d020|5230d070e25adf69|be24d0ddec1c00d5|1775868223||t19660.843805002s|133878a86e1bf1c4|3131149|rds|local|vector|||4.934|1m22mimport_data will be deprecated in the next version  use run_analysis instead|
 read_in|function|4d25d811d13da422|||||||||||||||
 ready|function|9d7b499b2827734c|||||||||||||||
@@ -103,22 +103,22 @@ render_docx|function|98f07b61c715298f|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
 render_short_success|function|1389e1f0795abdae|||||||||||||||
 render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
-reports|stem|ab96d5b1c4c99a0a|112f10b5c962972e|d0c7c49c4e7e4bd4|-653841556|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/dev.docx|t19661.3159171969s|9fd348ecbedfa9cf|310598|file|local|vector|||15.045||
+reports|stem|00b2960a80fbe411|112f10b5c962972e|dfe59d3e7baf2581|-653841556|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/dev.docx|t19661.3654111446s|13883c0aa07600a2|310325|file|local|vector|||18.382||
 run_analysis|function|8eef3cf44e740ec1|||||||||||||||
 run_quality_check|function|b4f692dfe5853af7|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|04af72badc351b9c|477d309e7f399201|e18a84b32522a06b|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19661.3157430046s|4522e6e6763b075a|844397|file|local|vector|||6.402|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
+saved_plots|stem|662e2ece7de99f2c|477d309e7f399201|88183c4ce9b38b23|-2072482757|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/p7.png|t19661.3651983284s|f4ade3b190a282f6|843402|file|local|vector|||6.203|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 26 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 26 rows containing missing values geom_point.|
 short_success|stem|e1c4e30afea39315|12c11d14f1ddf2cf|5d9039b552683476|-839061826|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/short_success.docx|t19657.4974798442s|d928dede5c6b23de|12910|file|local|vector|||1.581||
 short_success_template|object|f5f7ed02d1db5e44|||||||||||||||
-success_file|stem|f646f3376f2fd912|dc3a8ddb3a3a5ab5|5deaf7a3a9f44e5e|1104249875|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/short_success.docx|t19661.3148621442s|76302b83e09fcdea|12941|file|local|vector|||1.139||
+success_file|stem|2d467468240333bb|dc3a8ddb3a3a5ab5|a0f7883c637c262f|1104249875|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/short_success.docx|t19661.3643916299s|531fc4922afe516f|12746|file|local|vector|||0.671||
 success_template|object|f5f7ed02d1db5e44|||||||||||||||
-surv_objects|stem|5e801a2797f9be01|d3f1245208e22862|2edaaa3b3dd44d9e|1652951019||t19661.3150009982s|c3911af4f9222a3a|2320274|rds|local|vector|||11.398|Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 3 4 5. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to co|
-tables|stem|f2be53d41b7d9415|1f7554a2e80fedec|b35641c3ff6640cc|397746313||t19661.3156525881s|854267562360ce0d|54714|rds|local|vector|||56.234||
+surv_objects|stem|de015b6c4fc93ff2|d3f1245208e22862|933ce4862aa76b7f|1652951019||t19661.3645033851s|aed2624bbdc7d188|2320022|rds|local|vector|||9.158|Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 3 4 5. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to co|
+tables|stem|8c56bd2021440715|1f7554a2e80fedec|b507907492840b08|397746313||t19661.365112801s|6f3dd0a40eb9b9fd|54647|rds|local|vector|||52.591||
 template_short_success|stem|2b1c4d4696275abf|c8e48267f6ba2893|94708cb37aeec1e6|-1819773458|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/short_success.Rmd|t19657.3086509499s|f6a7f365e7469ae0|1805|file|local|vector|||1.56||
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||
 withdrawal_template|object|8857633c562a909e|||||||||||||||
-withdrawals_file|stem|6cb56c54e2049b0d|487a87a660ace370|d826678c9a2e4890|1767218429||t19661.3145231136s|37c5114db086cc97|136|rds|local|vector|||0.968||
+withdrawals_file|stem|6cb56c54e2049b0d|487a87a660ace370|7d6a748bcebf2ab6|1767218429||t19661.3640907755s|37c5114db086cc97|136|rds|local|vector|||1.072||
 withdrawls_templte|object|8857633c562a909e|||||||||||||||
 withdrawn|stem|6cb56c54e2049b0d|d63e6fc6ee1ae7e0|eed80b3c3c2422a2|-1009359488||t19657.4748451252s|37c5114db086cc97|136|rds|local|vector|||1.38||
 withdrawn_template|stem|9d78b7c600aab4ba|94ad9e5df8e3171a|51c632f87c082ac0|-1085934617|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/withdrawn.Rmd|t19657.4452287771s|bd5d7237884ef5a2|443|file|local|vector|||1.655||

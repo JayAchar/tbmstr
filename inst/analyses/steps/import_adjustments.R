@@ -266,6 +266,54 @@ import_adjustments <- function(path) {
           id = "d6bafb32-9df9-4f1c-9b36-6118e4593b7f",
           var = "outcome",
           value = 1
+        ),
+           # total dosees was too short so outcome chnaged to fail
+           # treatment comment also adjusted
+        list(
+          id = "2ae2d669-4884-4300-80c4-e1380b37e5b3",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "2ae2d669-4884-4300-80c4-e1380b37e5b3",
+          var = "trtcom",
+          value = "Treatment prevented by war" 
+        ),
+           # total dosees was too short so outcome chnaged to fail
+           # treatment comment also adjusted
+        list(
+          id = "a67ea512-fb5e-45b5-8e75-2bdf695b90ff",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "a67ea512-fb5e-45b5-8e75-2bdf695b90ff",
+          var = "trtcom",
+          value = "Treatment prevented by war" 
+        ),
+           # insufficient doses in the permitted time 
+           # outcome changed to failure
+        list(
+          id = "207edd1a-47c9-474c-8bbe-dcf0e71d41b0",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "207edd1a-47c9-474c-8bbe-dcf0e71d41b0",
+          var = "trtcom",
+          value = "Insufficient treatment doses within allowed time" 
+        ),
+           # insufficient doses in the permitted time 
+           # outcome changed to failure
+        list(
+          id = "e5dcccdd-b057-4911-9ad2-81a8455e7b4a",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "e5dcccdd-b057-4911-9ad2-81a8455e7b4a",
+          var = "trtcom",
+          value = "Insufficient treatment doses within allowed time" 
         )
       )
     )

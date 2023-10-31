@@ -142,8 +142,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
           !dplyr::matches("cntry")
       ) |>
         gtsummary::add_n(location = "label") |>
-        gtsummary::add_nevent(location = "level") |>
-        gtsummary::add_global_p(keep = TRUE)
+        gtsummary::add_nevent(location = "level") 
 
 
       t4 <- surv_objects$mv_fail |>
