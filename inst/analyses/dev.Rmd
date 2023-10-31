@@ -182,3 +182,13 @@ htmltools::hr()
 params$plots$fu_survival
 params$tables$fu_survival
 ```
+\newpage
+
+```{r wrap="Description of deaths", echo = FALSE}
+htmltools::h2(
+  "Study team descriptions of cause of death"
+)
+htmltools::hr()
+params$tables$death_description
+```
+

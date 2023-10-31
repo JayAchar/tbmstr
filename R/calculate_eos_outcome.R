@@ -39,7 +39,6 @@ calculate_eos_outcome <- function(df, follow_up_df) {
       eos_outcome <- "Treatment LTFU"
     }
     if (df$outcome == "Withdrawn") {
-      warning("Withdrawn subjects detected - suggest removing")
       eos_outcome <- "Not evaluated"
     }
 
@@ -59,17 +58,23 @@ calculate_eos_outcome <- function(df, follow_up_df) {
   }
 
   ## if treatment success
-  # FIX: some participants have deathfu == TRUE but no FU eval == Died
-  # Suggest including deathfu == TRUE which also have a deathdat
-  # but not if the date is missing and no mention in the FU evals
-  #
+
+  if (df$deathfu == TRUE && !is.na(df$deathdat)) {
+    outcome <- list(value = "Died", dd = df$deathdat)
+  } else {
+    outcome <- list(
+      value = follow_up_df$final_fu_status,
+      dd = follow_up_df$final_fu_date
+    )
+  }
+
   return(
     data.frame(
       globalrecordid = df$globalrecordid,
-      eos_outcome = factor(follow_up_df$final_fu_status,
+      eos_outcome = factor(outcome$value,
         levels = defs$eos_levels
       ),
-      eos_date = follow_up_df$final_fu_date
+      eos_date = outcome$dd
     )
   )
 }

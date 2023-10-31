@@ -26,18 +26,45 @@ data_path <- here::here("data", "regional_prepared")
 output_dir <- here::here("inst", "analyses", "output")
 quality_file <- here::here(output_dir, "quality.html")
 adjustments_path <- here::here("inst", "analyses", "adjustments", "data")
-dev_templte <- here::here("inst", "analyses", "dev.Rmd")
+dev_template <- here::here("inst", "analyses", "dev.Rmd")
+success_template <- here::here("inst", "analyses", "short_success.Rmd")
+withdrawal_template <- here::here("inst", "analyses", "withdrawn.Rmd")
+deaths_file <- file.path(
+  adjustments_path,
+  "deaths.xlsx"
+)
+
 
 # Replace the target list below with your own:
 list(
   tar_target(file, data_path, format = "file"),
-  tar_target(raw, import(file)),
+  tar_target(file_withdrawn_template,
+    command = withdrawal_template,
+    format = "file"
+  ),
+  tar_target(file_success_template,
+    command = success_template,
+    format = "file"
+  ),
   tar_target(adjustment_files,
     command = adjustments_path,
     format = "file"
   ),
+  tar_target(file_dev_template,
+    command = dev_template,
+    format = "file"
+  ),
+  tar_target(file_deaths_description,
+    command = deaths_file,
+    format = "file"
+  ),
+  tar_target(raw, import(file)),
   tar_target(adjustments, import_adjustments(adjustment_files)),
   tar_target(adjusted, apply_adjustments(raw, adjustments)),
+  tar_target(
+    death_descriptions,
+    import_death_descriptions(file_deaths_description)
+  ),
   tar_target(quality_report, create_quality_report(
     adjusted,
     raw,
@@ -46,6 +73,10 @@ list(
   )),
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(include_outcomes, create_outcomes(labelled)),
+  tar_target(withdrawals_file, render_withdrawls(labelled,
+    list(output_dir = output_dir),
+    template = file_withdrawn_template
+  )),
   tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),
@@ -58,7 +89,15 @@ list(
     ),
     format = "file"
   ),
-  tar_target(censored, apply_censoring(clean)),
+  tar_target(deaths, merge_death_descriptions(clean, death_descriptions)),
+  tar_target(censored, apply_censoring(deaths)),
+  tar_target(success_file, render_short_success(
+    censored,
+    list(
+      output_dir = output_dir
+    ),
+    template = file_success_template
+  ), format = "file"),
   tar_target(conversion_cohort, create_conversion_cohort(censored)),
   tar_target(hiv_cohort, create_hiv_cohort(censored)),
   tar_target(failure_cohort, create_failure_cohort(censored)),
@@ -79,17 +118,13 @@ list(
     surv_objects,
     hiv_cohort
   )),
-  tar_target(dev_template,
-    command = dev_templte,
-    format = "file"
-  ),
   tar_target(reports, render(
     tables,
     plots,
     list(
       output_dir = output_dir
     ),
-    template = dev_template
+    template = file_dev_template
   ), format = "file"),
   tar_target(saved_plots, save_plots(
     plots,

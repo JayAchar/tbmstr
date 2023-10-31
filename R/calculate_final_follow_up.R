@@ -53,7 +53,7 @@ calculate_final_follow_up <- function(df,
       filtered <- p[!is_invalid_status, ]
 
       if (nrow(filtered) == 0) {
-        tx_hx <- df[which(p$globalrecordid == df$globalrecordid), c(
+        tx_hx <- df[which(unique(p$globalrecordid) == df$globalrecordid), c(
           "outcome",
           "trtendat"
         )]

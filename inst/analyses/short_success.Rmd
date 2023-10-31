@@ -1,0 +1,72 @@
+---
+title: "Questionable treatment success"
+author: "Jay Achar"
+date:  "`r Sys.time()`"
+output: word_document
+params:
+  df: NULL
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(purrr)
+library(flextable)
+```
+
+# Description
+
+Some patients have been given a successful end of treatment outcome
+but their treatment duration is short of the 273 doses required by the
+protocol. Read the relevant part of the study protocol below:
+
+> The treatment should include 273 doses which should be taken in no longer than 43 weeks. The rationale for the number of doses is that the mSTR should be taken daily for 39 weeks (39 weeks x 7 days = 273 days/doses). Any missed days will be made up by extending the regimen by the number of days missed but not exceed 10% of the planned study regimen duration. Reasons for missing treatment must be recorded. Patients that fail to complete required number of doses within specified time will be referred to the Consilium for treatment decision.
+
+```{r echo = FALSE}
+tdays <- df |> 
+  filter(tx_outcome == "Successful") |> 
+  select(cntry, drnum, trtprtcl, outcome, eos_outcome, prtclfu,
+         eos_days, trtcom) |> 
+  filter(eos_days <= 273) |> 
+  mutate(count = purrr::map_int(eos_days, ~ sum(.x >= eos_days))) |> 
+  group_by(eos_days) |> 
+  slice(1) |> 
+  select(eos_days, count) |> 
+  as.data.frame()
+
+tdt <- flextable::as_flextable(tdays, max_row = 50)
+
+```
+
+
+Below is a breakdown of the number of participants this effects if 
+different treatment day cutoffs are used. 
+
+So, `r min(tdays$count)` participant was given a **successful treatment outcome** and **received less than or equal to** `r min(tdays$eos_days)` days of treatment. `r tdays$count[2]` participants were given a successful treatment outcome and received less than or equal to `r tdays$eos_days[2]` days of treatment, etc.
+
+```{r echo = FALSE}
+tdt
+```
+
+If we use the same logic with the number of doses reported: 
+
+```{r echo = FALSE}
+doses <- df |> 
+  filter(tx_outcome == "Successful") |> 
+  select(totaldose) |> 
+  filter(totaldose <= 273) |> 
+  mutate(count = purrr::map_int(totaldose, ~ sum(.x >= totaldose))) |> 
+  group_by(totaldose) |> 
+  slice(1) |> 
+  select(totaldose, count)
+
+ddt <- flextable::as_flextable(doses, max_row = 50)
+ddt
+```
+
+
+
+
+
+
+

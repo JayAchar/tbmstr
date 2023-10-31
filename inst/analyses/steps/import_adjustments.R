@@ -67,7 +67,8 @@ import_adjustments <- function(path) {
 
       if (nrow(m_df) != sum(has_changed)) {
         cli::cli_alert_warning(
-          "{var}: Only {nrow(m_df)}/{sum(has_changed)} adjustments have been applied")
+          "{var}: Only {nrow(m_df)}/{sum(has_changed)}",
+          " adjustments have been applied")
       }
 
       m_df$row_n <- NULL
@@ -76,13 +77,6 @@ import_adjustments <- function(path) {
   )
 
   names(changed_dfs) <- check_vars
-
-  # remove rows where outomes have not changed
-  # mod_adj <- mod_id[which(mod_id$outcome != mod_id$revised), ]
-  #
-  #
-  # final_mods <- mod_adj[which(mod_adj$revised %in% valid_outcomes), ]
-
 
   mv_adjust <- lapply(
     check_vars,
@@ -213,6 +207,113 @@ import_adjustments <- function(path) {
           id = "3b18e790-fc73-4289-a5cc-9034b7902aaa",
           var = "fuendat",
           value = as.POSIXct("2022-10-30", tz = "UTC")
+        ),
+           # changed from withdrawn to failed
+           # failed to complete treatment on time
+        list(
+          id = "772b9359-aa0e-4fd2-ba34-492cca8565ef",
+          var = "outcome",
+          value = 3
+        ),
+           # changed from withdrawn to cured
+           # originally marked as failed to complete treatment in time,
+           # howwever, 253 doses was sufficient
+           # No AEs, multiple negative cultures, acceptable
+           # baseline DST
+        list(
+          id = "1626fdda-f2d9-427b-813c-21e9e06492f1",
+          var = "outcome",
+          value = 1
+        ),
+           # missing outcome
+           # prtclviol comment states Determined ineligible after starting
+        list(
+          id = "02d5267e-48e7-4955-8bfe-8bd38a4d91c8",
+          var = "outcome",
+          value = 7
+        ),
+          # Lost contact with pt after 5m and 173 doses
+           # originally classified as Not evaluated
+        list(
+          id = "d830f560-a4ed-4717-8dad-4b1598f6ed1d",
+          var = "outcome",
+          value = 5
+        ),
+          # from withdrawn to failed
+           # ceased 2 drugs due to side effects
+        list(
+          id = "fd5fb3c6-3e02-47c2-b37e-6d88072cd1ae",
+          var = "outcome",
+          value = 3
+        ),
+         # culture negative at baseline
+           # change reason for withdrawal
+        list(
+          id = "5e2c4e3d-cbae-4a15-a596-84fee16ae8ed",
+          var = "prtclviol",
+          value = 4
+        ),
+           # missing reason for withdrawal written as treatment comment 
+           # by study team - added here
+        list(
+          id = "b1150192-333c-4998-b78e-4da02dc4b31b",
+          var = "prtclviol",
+          value = 3
+        ),
+           # EOT outcome missing - EOS outcome = No TB
+           # FU time correct, cultures all negative
+        list(
+          id = "d6bafb32-9df9-4f1c-9b36-6118e4593b7f",
+          var = "outcome",
+          value = 1
+        ),
+           # total dosees was too short so outcome chnaged to fail
+           # treatment comment also adjusted
+        list(
+          id = "2ae2d669-4884-4300-80c4-e1380b37e5b3",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "2ae2d669-4884-4300-80c4-e1380b37e5b3",
+          var = "trtcom",
+          value = "Treatment prevented by war" 
+        ),
+           # total dosees was too short so outcome chnaged to fail
+           # treatment comment also adjusted
+        list(
+          id = "a67ea512-fb5e-45b5-8e75-2bdf695b90ff",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "a67ea512-fb5e-45b5-8e75-2bdf695b90ff",
+          var = "trtcom",
+          value = "Treatment prevented by war" 
+        ),
+           # insufficient doses in the permitted time 
+           # outcome changed to failure
+        list(
+          id = "207edd1a-47c9-474c-8bbe-dcf0e71d41b0",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "207edd1a-47c9-474c-8bbe-dcf0e71d41b0",
+          var = "trtcom",
+          value = "Insufficient treatment doses within allowed time" 
+        ),
+           # insufficient doses in the permitted time 
+           # outcome changed to failure
+        list(
+          id = "e5dcccdd-b057-4911-9ad2-81a8455e7b4a",
+          var = "outcome",
+          value = 3
+        ),
+        list(
+          id = "e5dcccdd-b057-4911-9ad2-81a8455e7b4a",
+          var = "trtcom",
+          value = "Insufficient treatment doses within allowed time" 
         )
       )
     )

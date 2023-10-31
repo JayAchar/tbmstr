@@ -1,7 +1,9 @@
 eot_failure <- c("Failed", "Died", "Lost to follow-up")
 
-eos_failure <- c("Reoccurance", "Died", "Treatment failure",
-                 "Treatment LTFU")
+eos_failure <- c(
+  "Recurrence", "Died", "Treatment failure",
+  "Treatment LTFU"
+)
 
 definitions <- list(
   eos_levels = c(
