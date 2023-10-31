@@ -259,6 +259,13 @@ import_adjustments <- function(path) {
           id = "b1150192-333c-4998-b78e-4da02dc4b31b",
           var = "prtclviol",
           value = 3
+        ),
+           # EOT outcome missing - EOS outcome = No TB
+           # FU time correct, cultures all negative
+        list(
+          id = "d6bafb32-9df9-4f1c-9b36-6118e4593b7f",
+          var = "outcome",
+          value = 1
         )
       )
     )
