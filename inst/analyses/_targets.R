@@ -37,6 +37,7 @@ failure_reasons_file <- file.path(
   adjustments_path,
   "comment-translations.xlsx"
 )
+follow_up_summary_template <- here::here("inst", "analyses", "follow_up.Rmd")
 
 
 # Replace the target list below with your own:
@@ -44,10 +45,6 @@ list(
   tar_target(file, data_path, format = "file"),
   tar_target(file_failure_reasons,
     command = failure_reasons_file,
-    format = "file"
-  ),
-  tar_target(file_withdrawn_template,
-    command = withdrawal_template,
     format = "file"
   ),
   tar_target(file_success_template,
@@ -66,6 +63,41 @@ list(
     command = deaths_file,
     format = "file"
   ),
+
+  # Withdrawals tabulated output
+
+  tar_target(file_withdrawn_template,
+    command = withdrawal_template,
+    format = "file"
+  ),
+  tar_target(withdrawals_file, render_withdrawls(labelled,
+    list(output_dir = output_dir),
+    template = file_withdrawn_template
+  )),
+
+  # Follow-up tabulated output
+  tar_target(file_follow_up,
+    command = follow_up_summary_template,
+    format = "file"
+  ),
+  tar_target(follow_up_file, render_follow_up(
+    fu_cohort,
+    list(
+      output_dir = output_dir
+    ),
+    template = file_follow_up
+  ), format = "file"),
+
+
+  # Quality report
+  tar_target(quality_report, create_quality_report(
+    adjusted,
+    raw,
+    "quality.Rmd",
+    output_dir
+  )),
+
+  # import and clean data
   tar_target(raw, import(file)),
   tar_target(adjustments, import_adjustments(adjustment_files)),
   tar_target(adjusted, apply_adjustments(raw, adjustments)),
@@ -73,18 +105,8 @@ list(
     death_descriptions,
     import_death_descriptions(file_deaths_description)
   ),
-  tar_target(quality_report, create_quality_report(
-    adjusted,
-    raw,
-    "quality.Rmd",
-    output_dir
-  )),
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(include_outcomes, create_outcomes(labelled)),
-  tar_target(withdrawals_file, render_withdrawls(labelled,
-    list(output_dir = output_dir),
-    template = file_withdrawn_template
-  )),
   tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),

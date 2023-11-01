@@ -420,6 +420,29 @@ import_adjustments <- function(path) {
           id = "583f23b4-a914-4687-81b1-7ef0e667387b",
           var = "outcome",
           value = 2
+        ),
+        list(
+          id = "f3c0141e-f607-46a8-aafe-e48326b928a4",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "f3c0141e-f607-46a8-aafe-e48326b928a4",
+          var = "prtclviol",
+          value = 2
+        ),
+           ## Participant was included but received no treatment doses
+           ## Classified as screening failure - refused treatment,
+           ## here classified as withdrawal to remove from analysis
+        list(
+          id = "45a4a934-dfbc-46a3-a7e7-f3990434a77e",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "45a4a934-dfbc-46a3-a7e7-f3990434a77e",
+          var = "prtclviol",
+          value = 3
         )
       )
     )

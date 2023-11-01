@@ -44,3 +44,20 @@ render_withdrawls <- function(lst, config, template) {
     "withdrawals.docx"
   ))
 }
+
+render_follow_up <- function(df, config, template) {
+  summary_df <- summarise_follow_up(df)
+
+  rmarkdown::render(
+    input = template,
+    output_dir = config$output_dir,
+    params = list(
+      cohort = summary_df
+    )
+  )
+
+  return(file.path(
+    config$output_dir,
+    "follow_up.docx"
+  ))
+}
