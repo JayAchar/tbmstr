@@ -46,13 +46,16 @@ render_withdrawls <- function(lst, config, template) {
 }
 
 render_follow_up <- function(df, config, template) {
-  summary_df <- summarise_follow_up(df)
+  summary_df <- summarise_follow_up(df,
+    end_date = config$end_date
+  )
 
   rmarkdown::render(
     input = template,
     output_dir = config$output_dir,
     params = list(
-      cohort = summary_df
+      cohort = summary_df,
+      end_date = config$end_date
     )
   )
 

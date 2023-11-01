@@ -83,7 +83,8 @@ list(
   tar_target(follow_up_file, render_follow_up(
     fu_cohort,
     list(
-      output_dir = output_dir
+      output_dir = output_dir,
+      end_date = as.POSIXct("2023-07-01", tz = "UTC")
     ),
     template = file_follow_up
   ), format = "file"),

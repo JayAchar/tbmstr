@@ -1,6 +1,6 @@
 ONE_YEAR <- 60 * 60 * 24 * 365
 
-summarise_country_follow_up <- function(df) {
+summarise_country_follow_up <- function(df, end_date) {
   eligible <- nrow(df)
 
   early_exit <- df$eos_outcome %in% c("Died", "Recurrence")
@@ -12,7 +12,7 @@ summarise_country_follow_up <- function(df) {
 
   future <- nrow(df[which(
     !early_exit & !attended_12m &
-      df$trtendat + ONE_YEAR > as.POSIXct("2023-09-01")
+      df$trtendat + ONE_YEAR > end_date
   ), ])
 
   missed <- eligible - attended - future
@@ -33,14 +33,17 @@ summarise_country_follow_up <- function(df) {
 }
 
 
-summarise_follow_up <- function(df) {
+summarise_follow_up <- function(df, end_date = as.POSIXct("2023-07-01")) {
   country_names <- unique(df$cntry)
 
   countries <- lapply(
     X = country_names,
     FUN = \(n) {
       cntry_cohort <- df[which(df$cntry == n), ]
-      summarise_country_follow_up(cntry_cohort)
+      summarise_country_follow_up(
+        cntry_cohort,
+        end_date
+      )
     }
   )
 
