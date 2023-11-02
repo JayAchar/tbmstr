@@ -75,63 +75,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   ) |> gtsummary::as_flex_table()
 
   ## outcomes stratified by HIV status
-  tables$tx_outcomes_by_hiv <- gtsummary::tbl_summary(
-    data = pd[which(!is.na(pd$hiv)), ],
-    by = "hiv",
-    include = c("outcome", "eos_outcome"),
-    label = list(
-      outcome ~ "End of treatment outcome",
-      eos_outcome ~ "End of study outcome"
-    ),
-    missing_text = missing_text
-  ) |>
-    gtsummary::modify_spanning_header(
-      c("stat_1", "stat_2") ~ "**HIV status**"
-    ) |>
-    gtsummary::as_flex_table()
-
-
-  tables$hiv_outcomes <- gtsummary::tbl_summary(
-    data = hiv_cohort,
-    include = c(
-      "art", "artreg", "cd4",
-      "cd4_4grp",
-      "cpt"
-    ),
-    label = labels$hiv,
-    missing_text = missing_text
-  ) |> gtsummary::as_flex_table()
-
-
-  t10 <- gtsummary::tbl_uvregression(
-    data = hiv_cohort,
-    method = survival::coxph,
-    y = survival::Surv(eos_days, event_fail),
-    exponentiate = TRUE,
-    include = c(
-      "art", "cd4_4grp",
-      "cpt"
-    ),
-    label = labels$hiv
-  ) |>
-    gtsummary::add_n(location = "label") |>
-    gtsummary::add_nevent(location = "level")
-
-  t11 <- gtsummary::tbl_uvregression(
-    data = hiv_cohort,
-    method = survival::coxph,
-    y = survival::Surv(eos_days, event_death),
-    exponentiate = TRUE,
-    include = c("art", "cd4_4grp", "cpt"),
-    label = labels$hiv
-  ) |>
-    gtsummary::add_n(location = "label") |>
-    gtsummary::add_nevent(location = "level")
-
-  tables$hiv_failure_death <- gtsummary::tbl_merge(
-    list(t10, t11),
-    tab_spanner = c("**Study failure**", "**Death**")
-  ) |> gtsummary::as_flex_table()
+tables$hiv <- create_hiv_tables(pd, hiv_cohort,
+who_outcomes,
+labels = labels)
 
   # output table 2
   t3 <- gtsummary::tbl_uvregression(

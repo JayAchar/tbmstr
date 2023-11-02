@@ -109,7 +109,8 @@ htmltools::h2(
   "Description of end of treatment and end of study outcomes for all participants by baseline HIV status"
 )
 htmltools::hr()
-params$tables$tx_outcomes_by_hiv
+params$tables$hiv$outcome_by_status |>
+  gtsummary::as_flex_table()
 
 params$plots$p3
 ```
@@ -121,12 +122,26 @@ htmltools::h2(
   "Description of baseline CD4 count and HIV treatment regimens in participants living with HIV"
 )
 htmltools::hr()
-params$tables$hiv_outcomes
+params$tables$hiv$hiv_outcomes |>
+  gtsummary::as_flex_table()
 
 params$plots$p4
 
 params$plots$p5
 ```
+
+\newpage
+
+
+```{r wrap="Treatment follow-up in PLHIV", echo = FALSE}
+htmltools::h2(
+  "Treatment follow-up in PLHIV"
+)
+htmltools::hr()
+params$tables$hiv$follow_up |>
+  gtsummary::as_flex_table()
+```
+
 <!---BLOCK_LANDSCAPE_START--->
 
 ```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
@@ -134,7 +149,8 @@ htmltools::h2(
   "Crude associations between baseline HIV treatment and CD4 count and time to unsuccessful outcome and time to death"
 )
 htmltools::hr()
-params$tables$hiv_failure_death
+params$tables$hiv$failure_death |>
+  gtsummary::as_flex_table()
 ```
 
 <!---BLOCK_LANDSCAPE_STOP--->
