@@ -70,7 +70,8 @@ htmltools::h2(
   "Baseline demographic and clinical characteristics of participants"
 )
 htmltools::hr()
-autofit(params$tables$tx_description)
+autofit(params$tables$tx_description |>
+  gtsummary::as_flex_table())
 ```
 \newpage
 

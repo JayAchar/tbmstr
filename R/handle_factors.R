@@ -14,7 +14,7 @@ handle_factors <- function(baseline_df) {
   age_grp_labels <- c(
     "<15",
     "15-24",
-    "25-35",
+    "25-34",
     "35-44",
     "45-54",
     "55-64",
