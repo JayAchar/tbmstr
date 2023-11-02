@@ -147,7 +147,8 @@ list(
     censored,
     hiv_cohort,
     failure_cohort,
-    surv_objects
+    surv_objects,
+    include_outcomes$who_outcomes
   )),
   tar_target(plots, create_plots(
     surv_objects,

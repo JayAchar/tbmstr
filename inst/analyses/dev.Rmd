@@ -84,6 +84,10 @@ participants"
 htmltools::hr()
 
 params$tables$tx_outcomes
+
+params$tables$who_fu_outcomes |>
+  gtsummary::as_flex_table()
+
 params$plots$p1
 
 params$plots$p2

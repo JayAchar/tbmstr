@@ -3,7 +3,7 @@
 #' @param df baseline data frame
 #'
 #' @return data frame with withdrawn subject rows removed
-#'
+#' @export
 remove_withdrawn_subjects <- function(df) {
   is_withdrawn <- df$outcome %in% list(7, "Withdrawn")
   if (sum(is_withdrawn) > 0) {
@@ -12,4 +12,3 @@ remove_withdrawn_subjects <- function(df) {
 
   df[which(!is_withdrawn), ]
 }
-

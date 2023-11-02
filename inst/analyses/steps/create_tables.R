@@ -1,4 +1,4 @@
-create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
+create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   tables <- list()
 
   missing_text <- "Missing"
@@ -67,10 +67,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
   # descriptive outcomes table
   tables$tx_outcomes <- gtsummary::tbl_summary(
     data = pd,
-    include = dplyr::all_of(c("outcome", "eos_outcome")),
+    include = "outcome",
     label = list(
-      outcome ~ "End of treatment outcome",
-      eos_outcome ~ "End of study outcome"
+      outcome ~ "End of treatment outcome"
     ),
     missing_text = missing_text
   ) |> gtsummary::as_flex_table()
@@ -196,6 +195,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects) {
     missing_text = missing_text
   ) |>
     gtsummary::as_flex_table()
+
+  tables$who_fu_outcomes <- create_follow_up_table(who_outcomes)
 
   tables$fu_survival <- surv_objects$fu_fail |>
     gtsummary::tbl_survfit(
