@@ -88,6 +88,8 @@ params$tables$tx_outcomes
 params$tables$who_fu_outcomes |>
   gtsummary::as_flex_table()
 
+params$tables$fail_survival
+
 params$plots$p1
 
 params$plots$p2

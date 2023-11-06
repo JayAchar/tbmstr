@@ -75,9 +75,10 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   ) |> gtsummary::as_flex_table()
 
   ## outcomes stratified by HIV status
-tables$hiv <- create_hiv_tables(pd, hiv_cohort,
-who_outcomes,
-labels = labels)
+  tables$hiv <- create_hiv_tables(pd, hiv_cohort,
+    who_outcomes,
+    labels = labels
+  )
 
   # output table 2
   t3 <- gtsummary::tbl_uvregression(
@@ -144,12 +145,15 @@ labels = labels)
 
   tables$who_fu_outcomes <- create_follow_up_table(who_outcomes)
 
+  tables$fail_survival <- surv_objects$fail |>
+    create_survival_table()
+
   tables$fu_survival <- surv_objects$fu_fail |>
     gtsummary::tbl_survfit(
       times = c(90, 180, 270, 360),
       label_header = "**{time} days**"
     ) |>
-  gtsummary::as_flex_table()
+    gtsummary::as_flex_table()
 
 
   tables$death_description <- gtsummary::tbl_summary(

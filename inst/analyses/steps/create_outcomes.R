@@ -2,7 +2,7 @@ calculate_follow_up_timepoint <- function(df, timepoint) {
   df$who_days <- timepoint
 
   df$fu_days <- diff_days(
-    df$trtendat,
+    df$trtstdat,
     df$eos_date
   )
 
@@ -39,7 +39,7 @@ create_outcomes <- function(df_lst) {
   starter$tx_outcome <- tbmstr:::create_binary_tx_outcome(starter$outcome)
 
   who_outcomes_lst <- lapply(
-    X = c(0, 180, 330),
+    X = c(273, 455, 638, max_follow_up),
     FUN = \(x) {
       calculate_follow_up_timepoint(starter, x)
     }
