@@ -19,6 +19,7 @@ calculate_eos_outcome <- function(df, follow_up_df) {
     nrow(follow_up_df) == 1,
     df$globalrecordid == follow_up_df$globalrecordid
   )
+  DAY <- 60 * 60 * 24
 
   # definitions from package data
   defs <- internal$definitions
@@ -27,6 +28,7 @@ calculate_eos_outcome <- function(df, follow_up_df) {
   ## failure result and date
   if (df$outcome %in% c(defs$eot_failure, "Withdrawn")) {
     eos_outcome <- NULL
+    eos_date <- df$trtendat
 
     if (df$outcome == "Died") {
       eos_outcome <- "Died"
@@ -34,6 +36,14 @@ calculate_eos_outcome <- function(df, follow_up_df) {
 
     if (df$outcome == "Failed") {
       eos_outcome <- "Treatment failure"
+      # censor follow-up time for subjects who fail on treatment.
+      # failure should not occur after treatment so end of treatment
+      # date should be restricted to plausible treatment dates
+      eos_date <- min(
+        df$trtendat,
+        df$trtstdat + 300 * DAY,
+        na.rm = TRUE
+      )
     }
     if (df$outcome == "Lost to follow-up") {
       eos_outcome <- "Treatment LTFU"
@@ -52,7 +62,7 @@ calculate_eos_outcome <- function(df, follow_up_df) {
         eos_outcome = factor(eos_outcome,
           levels = defs$eos_levels
         ),
-        eos_date = df$trtendat
+        eos_date = eos_date
       )
     )
   }
