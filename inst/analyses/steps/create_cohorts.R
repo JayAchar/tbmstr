@@ -31,6 +31,7 @@ create_conversion_cohort <- function(dd) {
 }
 
 create_failure_cohort <- function(dd) {
+  dd$failure_reasons <- droplevels(dd$failure_reasons)
   dd[which(dd$outcome == "Failed"), ]
 }
 

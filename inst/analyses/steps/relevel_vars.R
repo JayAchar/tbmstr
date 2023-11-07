@@ -1,6 +1,6 @@
 relevel_vars <- function(dd) {
   relevel_vars <- list(
-    age_grp = "36-45",
+    age_grp = "35-44",
     prison = "No",
     alcohol = "No",
     prevtb = "No",

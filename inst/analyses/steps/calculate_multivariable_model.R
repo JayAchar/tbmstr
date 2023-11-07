@@ -11,7 +11,7 @@ calculate_multivariable_model <- function(df) {
     "hb_bin",
     "ast_alt_bin",
     "empl_3grp",
-    "smok",
+    "sm_fact",
     "bmi_group",
     "creat_bin",
     "homeless",
@@ -46,7 +46,7 @@ calculate_multivariable_model <- function(df) {
 
   # scope for stepper function
   full <- survival::coxph(
-    so ~ age_grp + sex + bmi_group + homeless + idu + smok + empl_3grp +
+    so ~ age_grp + sex + bmi_group + homeless + idu + sm_fact + empl_3grp +
       hiv + prison + alcohol + prevtb + cav + hcvab + smear +
       hb_bin + creat_bin + ast_alt_bin +
       survival::frailty(cntry, distribution = "gaussian"),
@@ -60,8 +60,8 @@ calculate_multivariable_model <- function(df) {
 
   mv <- survival::coxph(
     so ~ age_grp + hiv + alcohol + cav + hb_bin +
-      ast_alt_bin + empl_3grp + smok +
-      bmi_group + creat_bin + smear +
+      ast_alt_bin + empl_3grp + sm_fact +
+      bmi_group + smear +
       survival::frailty(cntry, distribution = "gaussian"),
     data = mod_data
   )

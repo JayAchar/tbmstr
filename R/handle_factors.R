@@ -13,12 +13,12 @@ handle_factors <- function(baseline_df) {
   # aim to have relatively equal groups
   age_grp_labels <- c(
     "<15",
-    "15-25",
-    "26-35",
-    "36-45",
-    "46-55",
-    "56-65",
-    ">65"
+    "15-24",
+    "25-34",
+    "35-44",
+    "45-54",
+    "55-64",
+    ">64"
   )
   baseline_df$age_grp <- cut(
     baseline_df$age,
@@ -31,7 +31,8 @@ handle_factors <- function(baseline_df) {
       65,
       90
     ),
-    labels = age_grp_labels
+    labels = age_grp_labels,
+    right = FALSE
   )
 
 

@@ -277,7 +277,7 @@ import_adjustments <- function(path) {
         list(
           id = "2ae2d669-4884-4300-80c4-e1380b37e5b3",
           var = "trtcom",
-          value = "Treatment prevented by war" 
+          value = "Treatment prevented by war"
         ),
            # total dosees was too short so outcome chnaged to fail
            # treatment comment also adjusted
@@ -289,9 +289,9 @@ import_adjustments <- function(path) {
         list(
           id = "a67ea512-fb5e-45b5-8e75-2bdf695b90ff",
           var = "trtcom",
-          value = "Treatment prevented by war" 
+          value = "Treatment prevented by war"
         ),
-           # insufficient doses in the permitted time 
+           # insufficient doses in the permitted time
            # outcome changed to failure
         list(
           id = "207edd1a-47c9-474c-8bbe-dcf0e71d41b0",
@@ -301,9 +301,9 @@ import_adjustments <- function(path) {
         list(
           id = "207edd1a-47c9-474c-8bbe-dcf0e71d41b0",
           var = "trtcom",
-          value = "Insufficient treatment doses within allowed time" 
+          value = "Insufficient treatment doses within allowed time"
         ),
-           # insufficient doses in the permitted time 
+           # insufficient doses in the permitted time
            # outcome changed to failure
         list(
           id = "e5dcccdd-b057-4911-9ad2-81a8455e7b4a",
@@ -313,7 +313,136 @@ import_adjustments <- function(path) {
         list(
           id = "e5dcccdd-b057-4911-9ad2-81a8455e7b4a",
           var = "trtcom",
-          value = "Insufficient treatment doses within allowed time" 
+          value = "Insufficient treatment doses within allowed time"
+        ),
+           # categorised as failed, but baseline culture showed FQ resistance
+        list(
+          id = "ff1ca183-0d8c-4bf5-aeb4-9dfc303b3eb8",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "ff1ca183-0d8c-4bf5-aeb4-9dfc303b3eb8",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "fd301c7d-689e-4c06-93ec-e1b5039aac0e",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "fd301c7d-689e-4c06-93ec-e1b5039aac0e",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "f8b89837-4845-4115-9235-ad694187722d",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "f8b89837-4845-4115-9235-ad694187722d",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "e6e631ec-4673-4487-b25f-9374920edcb9",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "e6e631ec-4673-4487-b25f-9374920edcb9",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "a96b0d04-cc80-4e2d-be01-d46211762eb6",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "a96b0d04-cc80-4e2d-be01-d46211762eb6",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "271279a6-a11b-4dca-9bd4-57a936fc2cd7",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "271279a6-a11b-4dca-9bd4-57a936fc2cd7",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "71178e5e-faf7-4134-877b-2b8cfa6962ec",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "71178e5e-faf7-4134-877b-2b8cfa6962ec",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "78b774b5-8c50-4c9d-8c92-ca3c349cf638",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "78b774b5-8c50-4c9d-8c92-ca3c349cf638",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "7f77701e-4f1c-4222-afbe-08c2ae9ff791",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "7f77701e-4f1c-4222-afbe-08c2ae9ff791",
+          var = "prtclviol",
+          value = 2
+        ),
+        list(
+          id = "d9b0ad9e-2b56-44ff-80ba-03d4930db922",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "d9b0ad9e-2b56-44ff-80ba-03d4930db922",
+          var = "prtclviol",
+          value = 4
+        ),
+        list(
+          id = "583f23b4-a914-4687-81b1-7ef0e667387b",
+          var = "outcome",
+          value = 2
+        ),
+        list(
+          id = "f3c0141e-f607-46a8-aafe-e48326b928a4",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "f3c0141e-f607-46a8-aafe-e48326b928a4",
+          var = "prtclviol",
+          value = 2
+        ),
+           ## Participant was included but received no treatment doses
+           ## Classified as screening failure - refused treatment,
+           ## here classified as withdrawal to remove from analysis
+        list(
+          id = "45a4a934-dfbc-46a3-a7e7-f3990434a77e",
+          var = "outcome",
+          value = 7
+        ),
+        list(
+          id = "45a4a934-dfbc-46a3-a7e7-f3990434a77e",
+          var = "prtclviol",
+          value = 3
         )
       )
     )
