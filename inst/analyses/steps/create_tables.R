@@ -72,7 +72,11 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
       outcome ~ "End of treatment outcome"
     ),
     missing_text = missing_text
-  ) |> gtsummary::as_flex_table()
+  ) |>
+    gtsummary::modify_table_body(
+      ~ .x |>
+        dplyr::filter(!(variable %in% "outcome" & row_type %in% "label"))
+    )
 
   ## outcomes stratified by HIV status
   tables$hiv <- create_hiv_tables(pd, hiv_cohort,
@@ -127,7 +131,12 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     )
   ) |>
     gtsummary::modify_header(label = "") |>
-    gtsummary::as_flex_table()
+    gtsummary::modify_table_body(
+      ~ .x |>
+        dplyr::filter(
+          !(variable %in% "failure_reasons" & row_type %in% "label")
+        )
+    )
 
   full_fu <- pd[which((!is.na(pd$stat12)) | pd$tx_outcome == "Unsuccessful" |
     pd$eos_outcome != "No TB"), ]
@@ -152,8 +161,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     gtsummary::tbl_survfit(
       times = c(90, 180, 270, 360),
       label_header = "**{time} days**"
-    ) |>
-    gtsummary::as_flex_table()
+    )
 
 
   tables$death_description <- gtsummary::tbl_summary(

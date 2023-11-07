@@ -25,6 +25,10 @@ library(flextable)
 library(officedown)
 library(officer)
 
+# set gtsummary theme options
+list("style_number-arg:big.mark" = "") %>%
+  set_gtsummary_theme()
+
 if (knitr::is_html_output()) {
   knitr::knit_hooks$set(
     wrap = function(before, options, envir) {
@@ -35,6 +39,18 @@ if (knitr::is_html_output()) {
       }
     }
   )
+}
+
+create_sum_text <- function(
+    tab, var, levels, digits = 2,
+    pattern = "{total} ({perc}%)") {
+  meta <- tab[["meta_data"]]
+  df <- meta$df_stats[which(meta$variable == var)][[1]]
+  target_rows <- which(as.character(df$variable_levels) %in% levels)
+  total <- sum(df$n[target_rows])
+  denom <- unique(df$N)
+  perc <- format(total / denom * 100, digits = digits)
+  glue::glue(pattern)
 }
 ```
 ## Methods
@@ -66,6 +82,20 @@ All statistical analyses were performed with R software (version 4.3.0).
 \newpage
 
 ```{r wrap="Treatment cohort description", echo = FALSE}
+create_text <- function(tab, pattern = "{n} ({p}%)") {
+  function(var, level) {
+    gtsummary::inline_text(
+      tab,
+      variable = dplyr::any_of(var),
+      level = dplyr::any_of(level),
+      pattern = pattern
+    )
+  }
+}
+
+text <- create_text(params$tables$tx_description)
+inline <- create_text(params$tables$tx_description, "({n}, {p}%)")
+
 htmltools::h2(
   "Baseline demographic and clinical characteristics of participants"
 )
@@ -73,27 +103,117 @@ htmltools::hr()
 autofit(params$tables$tx_description |>
   gtsummary::as_flex_table())
 ```
+## Notes 
+
+This section is complete. When copying the table into another document, ensure
+to address the following style issues: 
+
+* adjust the age-categories into a logical order, 
+* the BMI label needs to have a superscript `2`,
+* the country order should be alphabetical,
+* need to add an explanation of abbreviations in the footnote,
+
+**Need to add baseline MGIT culture status to table.**
+
+## Manuscript text
+
+After exclusion of (NUMBER) screening failures (Figure 1), 2636
+participants from 13 countries were included in the treatment 
+cohort. More than half of the participants were from Belarus `r inline("cntry", "Belarus")` or Ukraine
+ `r inline("cntry", "Ukraine")`.
+
+Baseline demographic and clinical characteriticss are described in Table XX.
+The median age was XX years (IQR: ) with only `r text("age_grp", "<15")` 
+participants under 15 years old and `r create_sum_text(params$tables$tx_description, "age_grp", c("<15", "15-24"))` under 24 years old. The large 
+majority of participants were male `r text("sex", "Male")`. Small proportions of participants 
+reported a history of injecting drug use `r text("idu", "Yes")`, 
+homelessness `r text("homeless", "Yes")`, and 
+excess alcohol use `r text("alcohol", "Yes")`. Approximately half reported a history of smoking 
+`r inline("smok", "Yes")`. Evidence of HIV `r inline("hiv", "Yes")`, HCV 
+ `r inline("hcvab", "Seropositive")` and SARS-CoV2 `r inline("covid", "Yes")` 
+infection were present in a minority of participants. Baseline positive smear
+microscopy `r inline("smear", "Positive")` and cavitatory changes on x-ray 
+ `r create_sum_text(params$tables$tx_description, "cav", c("One-sided",
+"Two-sided"), pattern = "({total}, {perc}%)")` were 
+detected in over half of participants, while a majority (2136, 81%) had a 
+positive baseline MGIT culture result.
+
 \newpage
 
 ```{r wrap="Treatment cohort outcomes", echo = FALSE}
+eot_text <- create_text(params$tables$tx_outcomes)
+eot_inline <- create_text(params$tables$tx_outcomes, "({n}, {p}%)")
+
+fail_text <- create_text(params$tables$failure_reasons)
+fail_inline <- create_text(params$tables$failure_reasons, "({n}, {p}%)")
+
 htmltools::h2(
-  "Description of end of treatment and end of study outcomes for all
-participants"
+  "End of treatment outcomes in treatment cohort"
 )
+
+params$tables$tx_outcomes |>
+  gtsummary::as_flex_table()
 
 htmltools::hr()
 
-params$tables$tx_outcomes
+htmltools::h2(
+  "Cumulative probability of TB-free status at specified timepoints",
+  "after treatment initiation"
+)
+
+params$tables$fail_survival
+
+htmltools::hr()
+
+htmltools::h2(
+  "Reasons for treatment failure"
+)
+
+params$tables$failure_reasons |>
+  gtsummary::as_flex_table()
+
+
+htmltools::hr()
 
 params$tables$who_fu_outcomes |>
   gtsummary::as_flex_table()
-
-params$tables$fail_survival
 
 params$plots$p1
 
 params$plots$p2
 ```
+
+## Notes 
+
+This section is can be improved. The end of treatment descriptive table is final. 
+However, the description of follow-up requires some review. The outstanding
+questions are below:
+
+*  Which time points to choose? At this stage I've chosen 301 days to give an 
+   accurate description of the end of treatment outcomes. Around 45 participants
+   who extended their treatment were given failure outcomes well after 9 months 
+   of treatment. They have had their follow-up time manually censored at 300
+   days - resulting in the step that's visible in the time to failure graph. 
+
+* Notice how the cumulative probability of TB-free status remains much higher 
+  than the `naive` estimate provided in the final table in this section. 
+
+**Remove unused levels from the `Reasons for failure` table**
+
+## Manuscript text
+
+At the end of treatment, `r create_sum_text(params$tables$tx_outcomes, "outcome",
+c("Cured", "Completed"))` participants were successfully treated and `r eot_text("outcome", "Died")`
+died. Amongst  `r eot_text("outcome", "Failed")` failed treatment 
+episodes, the most frequently reported reasons were adverse events requiring a
+treatment change 
+`r fail_inline("failure_reasons", "Adverse drug reaction resulting in treatment change")` 
+and clinician-driven treatment extensions 
+`r fail_inline("failure_reasons", "Treatment extended by clinician")`,  
+not receiving sufficient treatment during the treatment duration 
+`r fail_inline("failure_reasons", "Insufficient treatment received in accepted time")`
+(Supplementery table xx)
+
 
 <!---BLOCK_LANDSCAPE_START--->
 
@@ -167,15 +287,6 @@ params$tables$cc_risk
 params$plots$conversion
 ```
 
-\newpage
-
-```{r wrap="Reasons for treatment failure", echo = FALSE}
-htmltools::h2(
-  "Reasons for treatment failure"
-)
-htmltools::hr()
-params$tables$failure_reasons
-```
 \newpage
 
 ```{r wrap="Outcomes after 12 months follow-up", echo = FALSE}
