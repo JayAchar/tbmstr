@@ -73,6 +73,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     ),
     missing_text = missing_text
   ) |>
+    gtsummary::modify_header(label = "") |>
     gtsummary::modify_table_body(
       ~ .x |>
         dplyr::filter(!(variable %in% "outcome" & row_type %in% "label"))
@@ -85,7 +86,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   )
 
   # output table 2
-  t3 <- gtsummary::tbl_uvregression(
+  tables$mv <- list()
+  tables$mv$crude <- gtsummary::tbl_uvregression(
     data = pd,
     label = labels$uni,
     method = survival::coxph,
@@ -99,14 +101,17 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     gtsummary::add_nevent(location = "level")
 
 
-  t4 <- surv_objects$mv_fail |>
+  tables$mv$adjusted <- surv_objects$mv_fail |>
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = labels$mv,
     )
 
-  tables$tx_mv_failure <- gtsummary::tbl_merge(
-    list(t3, t4),
+  tables$mv$full <- gtsummary::tbl_merge(
+    list(
+      tables$mv$crude,
+      tables$mv$adjusted
+    ),
     tab_spanner = c("**Crude**", "**Adjusted**")
   ) |> gtsummary::as_flex_table()
 

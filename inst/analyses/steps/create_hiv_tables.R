@@ -16,6 +16,13 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
   ) |>
     gtsummary::modify_spanning_header(
       c("stat_1", "stat_2") ~ "**HIV status**"
+    ) |>
+    gtsummary::modify_header(label = "") |>
+    gtsummary::modify_table_body(
+      ~ .x |>
+        dplyr::filter(
+          !(variable %in% "outcome" & row_type %in% "label")
+        )
     )
 
   hiv_outcomes <- gtsummary::tbl_summary(

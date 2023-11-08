@@ -42,10 +42,13 @@ if (knitr::is_html_output()) {
 }
 
 create_sum_text <- function(
-    tab, var, levels, digits = 2,
+    tab, var, levels, by = NULL, digits = 2,
     pattern = "{total} ({perc}%)") {
   meta <- tab[["meta_data"]]
   df <- meta$df_stats[which(meta$variable == var)][[1]]
+  if (!is.null(by)) {
+    df <- df[which(df$by %in% by), ]
+  }
   target_rows <- which(as.character(df$variable_levels) %in% levels)
   total <- sum(df$n[target_rows])
   denom <- unique(df$N)
@@ -64,7 +67,7 @@ Time to culture conversion was described for participants in whom baseline
 sputum MGIT culture was positive. The cumulative incidence of culture conversion
 was reported by 30 day increments until 120 days.
 
-We described univariable assocations between baseline characteristics and
+We described univariable associations between baseline characteristics and
 unfavourable study outcomes as crude hazard ratios, 95% confidence intervals and
 p-values. Unsuccessful treatment outcomes and death or recurrence during
 follow-up were defined as unsuccessful study outcomes. Participants who were
@@ -72,7 +75,7 @@ lost to post-treatment follow-up where censored. We then fitted a multivariable
 Cox proportional hazard model with a random intercept to account for clustering
 by study country. Characteristics with a p<0.1 were evaluated for inclusion.
 Eligible characteristics were included in the multivariable model using a
-forward stepwise appraoch. Since very few missing values were present in the 
+forward stepwise approach. Since very few missing values were present in the 
 data set, we used a complete case approach to handling missingness. The effects 
 of imputing missing values on model estimates were explored through sensitivity 
 analyses.
@@ -115,6 +118,8 @@ to address the following style issues:
 
 **Need to add baseline MGIT culture status to table.**
 
+**Need to describe participant follow-up time**
+
 ## Manuscript text
 
 After exclusion of (NUMBER) screening failures (Figure 1), 2636
@@ -122,7 +127,7 @@ participants from 13 countries were included in the treatment
 cohort. More than half of the participants were from Belarus `r inline("cntry", "Belarus")` or Ukraine
  `r inline("cntry", "Ukraine")`.
 
-Baseline demographic and clinical characteriticss are described in Table XX.
+Baseline demographic and clinical characteristics are described in Table XX.
 The median age was XX years (IQR: ) with only `r text("age_grp", "<15")` 
 participants under 15 years old and `r create_sum_text(params$tables$tx_description, "age_grp", c("<15", "15-24"))` under 24 years old. The large 
 majority of participants were male `r text("sex", "Male")`. Small proportions of participants 
@@ -164,7 +169,12 @@ htmltools::h2(
 params$tables$fail_survival
 
 htmltools::hr()
+params$plots$p1
 
+htmltools::hr()
+params$plots$p2
+
+htmltools::hr()
 htmltools::h2(
   "Reasons for treatment failure"
 )
@@ -172,15 +182,15 @@ htmltools::h2(
 params$tables$failure_reasons |>
   gtsummary::as_flex_table()
 
+htmltools::hr()
+
+
 
 htmltools::hr()
 
+
 params$tables$who_fu_outcomes |>
   gtsummary::as_flex_table()
-
-params$plots$p1
-
-params$plots$p2
 ```
 
 ## Notes 
@@ -202,58 +212,147 @@ questions are below:
 
 ## Manuscript text
 
+```{r, echo = FALSE}
+non_missing <- unique(tables$failure_reasons$meta_data$df_stats[[1]]$N)
+reason_count_text <- glue::glue(
+  "{non_missing} ",
+  "({format(non_missing/unique(tables$failure_reasons$meta_data$df_stats[[1]]$N_obs) * 100, digits = 2)}%)"
+)
+```
 At the end of treatment, `r create_sum_text(params$tables$tx_outcomes, "outcome",
 c("Cured", "Completed"))` participants were successfully treated and `r eot_text("outcome", "Died")`
-died. Amongst  `r eot_text("outcome", "Failed")` failed treatment 
-episodes, the most frequently reported reasons were adverse events requiring a
-treatment change 
+died. Out of  `r eot_text("outcome", "Failed")` failed treatment 
+episodes, reasons for failure were recorded for `r reason_count_text`. The most
+frequently reported reasons were adverse events requiring a treatment change 
 `r fail_inline("failure_reasons", "Adverse drug reaction resulting in treatment change")` 
 and clinician-driven treatment extensions 
-`r fail_inline("failure_reasons", "Treatment extended by clinician")`,  
-not receiving sufficient treatment during the treatment duration 
+`r fail_inline("failure_reasons", "Treatment extended by clinician")`
+and not receiving sufficient treatment during the treatment duration 
 `r fail_inline("failure_reasons", "Insufficient treatment received in accepted time")`
-(Supplementery table xx)
+(Supplementary table xx). 
 
-
-<!---BLOCK_LANDSCAPE_START--->
-
-```{r wrap="Predictors of unsuccessful outcome", echo = FALSE}
-htmltools::h2(
-  "Crude and adjusted analysis of independent predictors of unsuccessful study outcome"
-)
-htmltools::hr()
-autofit(params$tables$tx_mv_failure)
-```
-<!---BLOCK_LANDSCAPE_STOP--->
-
-```{r wrap="Treatment outcomes by HIV status", echo = FALSE}
-htmltools::h2(
-  "Description of end of treatment and end of study outcomes for all participants by baseline HIV status"
-)
-htmltools::hr()
-params$tables$hiv$outcome_by_status |>
-  gtsummary::as_flex_table()
-
-params$plots$p3
-```
+During the post-treatment follow-up period, 25 recurrences and 44 additional 
+deaths were recorded. The cumulative probability of remaining TB-free 9-months, 
+15 months and 21 months after treatment initiation was 82%, 80% and 79%
+respectively (Table xx and Figure xx).
 
 \newpage
 
-```{r wrap="Baseline HIV treatment and CD4 count description", echo = FALSE}
+```{r wrap="Outcomes by HIV status", echo = FALSE}
 htmltools::h2(
-  "Description of baseline CD4 count and HIV treatment regimens in participants living with HIV"
+  "End of treament outcomes by baseline HIV status"
+)
+
+params$tables$hiv$outcome_by_status |>
+  gtsummary::as_flex_table()
+
+htmltools::hr()
+
+htmltools::h2(
+  "Cumulative survival probability",
+  "after treatment initiation by baseline HIV status"
+)
+
+params$plots$p3
+
+htmltools::hr()
+
+htmltools::h2(
+  "Description of baseline CD4 count and HIV treatment regimens in ",
+  "participants living with HIV"
 )
 htmltools::hr()
 params$tables$hiv$hiv_outcomes |>
   gtsummary::as_flex_table()
 
+htmltools::hr()
 params$plots$p4
 
+htmltools::hr()
 params$plots$p5
 ```
+## Notes
+
+Possible improvements:
+
+* Add risk ratios to compare treatment outcomes by HIV status
+
+
+## Manuscript text 
+
+```{r, echo = FALSE}
+df <- params$tables$hiv$outcome_by_status$df_by
+hiv_participants <- df[which(df$by == "Yes"), "n"]
+success <- lapply(
+  X = c("Yes", "No"),
+  FUN = \(x) {
+    create_sum_text(
+      tab = params$tables$hiv$outcome_by_status,
+      var = "outcome",
+      by = x,
+      levels = c("Cured", "Completed")
+    )
+  }
+) |> setNames(c("Yes", "No"))
+```
+End of treatment responses were less favourable in the `r hiv_participants` participants 
+living with HIV. Treatment success was `r success$Yes` compared to `r success$No` in people without HIV.
+Death (xx) and LTFU (xx) were also more frequent (Supplementary table xx, 
+Sepplementary figure xx).  
+
+Amongst `r hiv_participants` participants living with HIV, baseline CD4 count 
+was available for 245 (91%).  Median baseline CD4 count was 172 (IQR 71-350). 
+The majority of participants living with HIV were receiving ART at baseline, with 
+dolutegravir-based regimens most frequently used (211, 78%). Almost all
+participants living with HIV were receiving cotrimoxazole (254, 97%).
+
+<!---BLOCK_LANDSCAPE_START--->
+
+```{r wrap="Predictors of unsuccessful outcome", echo = FALSE}
+htmltools::h2(
+  "Crude and adjusted analysis of independent predictors of unsuccessful ",
+  "study outcome"
+)
+htmltools::hr()
+autofit(params$tables$mv$full)
+```
+<!---BLOCK_LANDSCAPE_STOP--->
+
+## Notes
+
+
+## Manuscript text 
+
+```{r, echo = FALSE}
+mv_text <- function(var, level, pattern = "(HR {estimate}; 95%CI {conf.low}-{conf.high})") {
+  gtsummary::inline_text(tables$mv$adjusted,
+    variable = dplyr::all_of(var),
+    level = dplyr::all_of(level),
+    pattern = pattern
+  )
+}
+```
+
+Crude and adjusted associations between baseline clinical and demographic characteristics 
+and unsuccessful study outcome are presented in Table XX. Following adjustment 
+for strongly associated factors and clustering by study country, increasing
+age, unemployment `r mv_text("empl_3grp", "Unemployed")`, excessive alcohol use
+`r mv_text("alcohol", "Yes")`, history of smoking `r mv_text("sm_fact", "<20 pack-years")` , HIV 
+positive status `r mv_text("hiv", "Yes")`, presence of bilateral pulmonary 
+cavities on x-ray `r mv_text("cav", "Two-sided")`, elevated 
+baseline ALT or AST `r mv_text("ast_alt_bin", "Yes")`, and baseline anaemia
+`r mv_text("hb_bin", "Yes")` were all positively associated with 
+unsuccessful study outcome. Higher BMI `r mv_text("bmi_group", "≥18.5")` 
+was negatively associated with unsuccessful study outcome. The positive
+association between age and unsuccessful study outcome increased in strength 
+with increasing age-group. When compared with participants aged 35-44, those
+between 45-54, 55-64, and >64 were `r mv_text("age_grp", "45-54", "{estimate}
+(95%CI {conf.low}-{conf.high})")`, `r mv_text("age_grp", "55-64", "{estimate}
+(95%CI {conf.low}-{conf.high})")`, and `r mv_text("age_grp", ">64", "{estimate}
+(95%CI {conf.low}-{conf.high})")` times more likely to have an unfavourable
+study outcome.
 
 \newpage
-
 
 ```{r wrap="Treatment follow-up in PLHIV", echo = FALSE}
 htmltools::h2(
@@ -268,7 +367,8 @@ params$tables$hiv$follow_up |>
 
 ```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
 htmltools::h2(
-  "Crude associations between baseline HIV treatment and CD4 count and time to unsuccessful outcome and time to death"
+  "Crude associations between baseline HIV treatment and CD4 count and time",
+  " to unsuccessful outcome and time to death"
 )
 htmltools::hr()
 params$tables$hiv$failure_death |>
