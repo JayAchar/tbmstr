@@ -208,8 +208,6 @@ questions are below:
 * Notice how the cumulative probability of TB-free status remains much higher 
   than the `naive` estimate provided in the final table in this section. 
 
-**Remove unused levels from the `Reasons for failure` table**
-
 ## Manuscript text
 
 ```{r, echo = FALSE}
@@ -325,7 +323,7 @@ autofit(params$tables$mv$full)
 
 ```{r, echo = FALSE}
 mv_text <- function(var, level, pattern = "(HR {estimate}; 95%CI {conf.low}-{conf.high})") {
-  gtsummary::inline_text(tables$mv$adjusted,
+  gtsummary::inline_text(params$tables$mv$adjusted,
     variable = dplyr::all_of(var),
     level = dplyr::all_of(level),
     pattern = pattern
@@ -354,15 +352,6 @@ study outcome.
 
 \newpage
 
-```{r wrap="Treatment follow-up in PLHIV", echo = FALSE}
-htmltools::h2(
-  "Treatment follow-up in PLHIV"
-)
-htmltools::hr()
-params$tables$hiv$follow_up |>
-  gtsummary::as_flex_table()
-```
-
 <!---BLOCK_LANDSCAPE_START--->
 
 ```{r wrap="Failure & Death by HIV-specific factors", echo = FALSE}
@@ -376,6 +365,23 @@ params$tables$hiv$failure_death |>
 ```
 
 <!---BLOCK_LANDSCAPE_STOP--->
+
+## Notes
+
+## Manuscript text 
+
+\newpage
+
+```{r wrap="Treatment follow-up in PLHIV", echo = FALSE}
+htmltools::h2(
+  "Treatment follow-up in PLHIV"
+)
+htmltools::hr()
+params$tables$hiv$follow_up |>
+  gtsummary::as_flex_table()
+```
+
+\newpage
 
 ```{r wrap="Culture conversion risk", echo = FALSE}
 htmltools::h2(
