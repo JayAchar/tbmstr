@@ -13,6 +13,7 @@ create_table_labels <- function() {
   )
 
   desc <- list(
+    age ~ "Age (yrs)",
     age_grp ~ "Age group (yrs)",
     sex ~ "Sex",
     cav ~ "X-ray cavities",

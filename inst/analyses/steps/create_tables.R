@@ -5,6 +5,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   labels <- create_table_labels()
 
   covariates <- c(
+    "age",
     "age_grp",
     "sex",
     "bmi_group",
@@ -37,6 +38,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   )
 
   types <- list(
+    age ~ "continuous",
     age_grp ~ "categorical",
     hiv ~ "categorical",
     idu ~ "categorical",
@@ -95,7 +97,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     exponentiate = TRUE,
     include = dplyr::all_of(covariates) &
       !dplyr::ends_with("grd") &
-      !dplyr::matches("cntry")
+      !dplyr::matches("cntry") &
+      !dplyr::matches("age")
   ) |>
     gtsummary::add_n(location = "label") |>
     gtsummary::add_nevent(location = "level")

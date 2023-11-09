@@ -17,6 +17,10 @@ summary { font-size: 2rem; font-weight: bold; }
 h2 {
   font-size: 2rem;
 }
+
+.notes {
+  color: #00000030;
+}
 ```
 
 ```{r setup, include=FALSE}
@@ -56,6 +60,13 @@ create_sum_text <- function(
   glue::glue(pattern)
 }
 ```
+
+# Manuscript
+
+The tables, figures and text in this section are most likely to be relevant 
+for the manuscript. The manuscript text and notes are included under each 
+section so simplify discussion and adjustment. 
+
 ## Methods
 
 Baseline clinical and demographic characteristics, and treatment and study
@@ -106,19 +117,23 @@ htmltools::hr()
 autofit(params$tables$tx_description |>
   gtsummary::as_flex_table())
 ```
-## Notes 
+
+<div class="notes">
+
+## Notes
 
 This section is complete. When copying the table into another document, ensure
 to address the following style issues: 
 
 * adjust the age-categories into a logical order, 
 * the BMI label needs to have a superscript `2`,
-* the country order should be alphabetical,
 * need to add an explanation of abbreviations in the footnote,
 
 **Need to add baseline MGIT culture status to table.**
 
 **Need to describe participant follow-up time**
+
+</div>
 
 ## Manuscript text
 
@@ -128,7 +143,7 @@ cohort. More than half of the participants were from Belarus `r inline("cntry", 
  `r inline("cntry", "Ukraine")`.
 
 Baseline demographic and clinical characteristics are described in Table XX.
-The median age was XX years (IQR: ) with only `r text("age_grp", "<15")` 
+The median age was  `r gtsummary::inline_text(params$tables$tx_description, variable = "age", pattern = "{median} (IQR {p25}-{p75})")` with only `r text("age_grp", "<15")` 
 participants under 15 years old and `r create_sum_text(params$tables$tx_description, "age_grp", c("<15", "15-24"))` under 24 years old. The large 
 majority of participants were male `r text("sex", "Male")`. Small proportions of participants 
 reported a history of injecting drug use `r text("idu", "Yes")`, 
@@ -193,6 +208,8 @@ params$tables$who_fu_outcomes |>
   gtsummary::as_flex_table()
 ```
 
+<div class="notes">
+
 ## Notes 
 
 This section is can be improved. The end of treatment descriptive table is final. 
@@ -207,6 +224,8 @@ questions are below:
 
 * Notice how the cumulative probability of TB-free status remains much higher 
   than the `naive` estimate provided in the final table in this section. 
+
+</div>
 
 ## Manuscript text
 
@@ -269,12 +288,15 @@ params$plots$p4
 htmltools::hr()
 params$plots$p5
 ```
+<div class="notes">
+
 ## Notes
 
 Possible improvements:
 
 * Add risk ratios to compare treatment outcomes by HIV status
 
+</div>
 
 ## Manuscript text 
 
@@ -316,8 +338,11 @@ autofit(params$tables$mv$full)
 ```
 <!---BLOCK_LANDSCAPE_STOP--->
 
+<div class="notes">
+
 ## Notes
 
+</div>
 
 ## Manuscript text 
 
@@ -363,23 +388,42 @@ htmltools::hr()
 params$tables$hiv$failure_death |>
   gtsummary::as_flex_table()
 ```
+```{r, echo = FALSE}
+create_hiv_text <- function(
+    tab,
+    pp = "(HR {estimate}; 95%CI {conf.low}-{conf.high})") {
+  return(function(var, level,
+                  pattern = pp) {
+    gtsummary::inline_text(tab,
+      variable = dplyr::all_of(var),
+      level = dplyr::all_of(level),
+      pattern = pattern
+    )
+  })
+}
+failure <- create_hiv_text(params$tables$hiv$failure)
+death <- create_hiv_text(params$tables$hiv$death)
+```
 
 <!---BLOCK_LANDSCAPE_STOP--->
 
+<div class="notes">
+
 ## Notes
+
+</div>
 
 ## Manuscript text 
 
-\newpage
-
-```{r wrap="Treatment follow-up in PLHIV", echo = FALSE}
-htmltools::h2(
-  "Treatment follow-up in PLHIV"
-)
-htmltools::hr()
-params$tables$hiv$follow_up |>
-  gtsummary::as_flex_table()
-```
+Amongst participants living with HIV `r inline("hiv", "Yes")`, there was
+moderate evidence of a positive crude association between not receiving
+co-trimoxazole and unsuccessful study outcome `r failure("cpt", "No")` 
+and death `r death("cpt", "No")` (Table xxx). Increasing baseline CD4 count appeared to reduce the risk of unsuccessful study
+outcome and death. There was moderate evidence of a protective effect in those with 
+a CD4 count >500 compared with those with CD4 <=100 on both unsuccessful 
+study outcome `r failure("cd4_4grp", "500+")` and death 
+`r death("cd4_4grp", "500+")`. Receipt of anti-retroviral therapy at baseline 
+was crudely associated with lower risk of death `r death("art", "Yes")`.
 
 \newpage
 
@@ -391,6 +435,39 @@ htmltools::hr()
 params$tables$cc_risk
 
 params$plots$conversion
+```
+
+<div class="notes">
+
+## Notes
+
+This section still requires some analysis to be concluded. Currently, 
+baseline culture status is defined by all MGIT cultures before or up to 
+7 days after treatment initiation. Culture conversion is derived only from 
+MGIT cultures. 
+
+This strict approach needs to be loosened to include an option with LJ culture
+alone or in combination with MGIT culture. 
+
+</div>
+
+## Manuscript text 
+
+\newpage
+
+# Report 
+
+The tables, figures and any text in this section are likely to be relevant 
+for the project report. 
+
+
+```{r wrap="Treatment follow-up in PLHIV", echo = FALSE}
+htmltools::h2(
+  "Treatment follow-up in PLHIV"
+)
+htmltools::hr()
+params$tables$hiv$follow_up |>
+  gtsummary::as_flex_table()
 ```
 
 \newpage

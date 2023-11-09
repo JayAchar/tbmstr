@@ -36,7 +36,7 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
     missing_text = missing_text
   )
 
-  t1 <- gtsummary::tbl_uvregression(
+  failure <- gtsummary::tbl_uvregression(
     data = hiv_cohort,
     method = survival::coxph,
     y = survival::Surv(eos_days, event_fail),
@@ -50,7 +50,7 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
     gtsummary::add_n(location = "label") |>
     gtsummary::add_nevent(location = "level")
 
-  t2 <- gtsummary::tbl_uvregression(
+  death <- gtsummary::tbl_uvregression(
     data = hiv_cohort,
     method = survival::coxph,
     y = survival::Surv(eos_days, event_death),
@@ -62,7 +62,7 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
     gtsummary::add_nevent(location = "level")
 
   failure_death <- gtsummary::tbl_merge(
-    list(t1, t2),
+    list(failure, death),
     tab_spanner = c("**Study failure**", "**Death**")
   )
 
@@ -72,6 +72,8 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
     outcome_by_status = outcome_by_status,
     hiv_outcomes = hiv_outcomes,
     failure_death = failure_death,
+    failure = failure,
+    death = death,
     follow_up = follow_up
   ))
 }
