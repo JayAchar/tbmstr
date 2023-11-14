@@ -10,7 +10,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     "sex",
     "bmi_group",
     "cntry",
-    "cohort",
+    "cohort_bilevel",
     "idu",
     "homeless",
     "empl_3grp",
@@ -43,7 +43,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     age_grp ~ "categorical",
     hiv ~ "categorical",
     idu ~ "categorical",
-    cohort ~ "categorical",
+    cohort_bilevel ~ "categorical",
     homeless ~ "categorical",
     smok ~ "categorical",
     prison ~ "categorical",
@@ -100,7 +100,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     include = dplyr::all_of(covariates) &
       !dplyr::ends_with("grd") &
       !dplyr::matches("cntry") &
-      !dplyr::matches("age")
+      !dplyr::matches("^age$") &
+      !dplyr::matches("^cohort_bilevel$")
   ) |>
     gtsummary::add_n(location = "label") |>
     gtsummary::add_nevent(location = "level")

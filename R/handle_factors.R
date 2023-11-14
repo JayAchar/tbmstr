@@ -144,6 +144,19 @@ handle_factors <- function(baseline_df) {
     levels = levels(baseline_df$cntry)[order(levels(baseline_df$cntry))]
   )
 
+  # merge cohort levels for regional analysis
+  baseline_df$cohort_bilevel <- as.character(baseline_df$cohort)
+  baseline_df$cohort_bilevel[which(
+    baseline_df$cohort_bilevel
+    == "national"
+  )] <- "regional"
+
+  baseline_df$cohort_bilevel <- factor(
+    baseline_df$cohort_bilevel,
+    levels = c("historic", "regional"),
+    labels = c("Historical", "Prospective")
+  )
+
   return(baseline_df)
 }
 
