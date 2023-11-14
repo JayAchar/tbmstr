@@ -3,7 +3,7 @@ create_table_labels <- function() {
     age_grp ~ "Age group (yrs)",
     cav ~ "X-ray cavities",
     bmi_group ~ "Body Mass Index (kg/m^2)",
-    hiv ~ "HIV status",
+    hiv ~ "HIV positive status",
     empl_3grp ~ "Employment status",
     smear ~ "Baseline smear microscopy status",
     alcohol ~ "Excess alcohol use",
@@ -13,11 +13,13 @@ create_table_labels <- function() {
   )
 
   desc <- list(
+    age ~ "Age (yrs)",
     age_grp ~ "Age group (yrs)",
     sex ~ "Sex",
     cav ~ "X-ray cavities",
+    cohort_bilevel ~ "Inclusion cohort",
     bmi_group ~ "Body Mass Index (kg/m^2)",
-    hiv ~ "HIV status",
+    hiv ~ "HIV positive status",
     hcvab ~ "HCV Ab status",
     smear ~ "Baseline smear microscopy status",
     prison ~ "History of incarceration",
@@ -44,7 +46,8 @@ create_table_labels <- function() {
     sex ~ "Sex",
     cav ~ "X-ray cavities",
     bmi_group ~ "Body Mass Index (kg/m^2)",
-    hiv ~ "HIV status",
+    cohort_bilevel ~ "Inclusion cohort",
+    hiv ~ "HIV positive status",
     hcvab ~ "HCV Ab status",
     smear ~ "Baseline smear microscopy status",
     prison ~ "History of incarceration",

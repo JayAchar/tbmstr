@@ -5,10 +5,12 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   labels <- create_table_labels()
 
   covariates <- c(
+    "age",
     "age_grp",
     "sex",
     "bmi_group",
     "cntry",
+    "cohort_bilevel",
     "idu",
     "homeless",
     "empl_3grp",
@@ -37,9 +39,11 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   )
 
   types <- list(
+    age ~ "continuous",
     age_grp ~ "categorical",
     hiv ~ "categorical",
     idu ~ "categorical",
+    cohort_bilevel ~ "categorical",
     homeless ~ "categorical",
     smok ~ "categorical",
     prison ~ "categorical",
@@ -72,7 +76,12 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
       outcome ~ "End of treatment outcome"
     ),
     missing_text = missing_text
-  ) |> gtsummary::as_flex_table()
+  ) |>
+    gtsummary::modify_header(label = "") |>
+    gtsummary::modify_table_body(
+      ~ .x |>
+        dplyr::filter(!(variable %in% "outcome" & row_type %in% "label"))
+    )
 
   ## outcomes stratified by HIV status
   tables$hiv <- create_hiv_tables(pd, hiv_cohort,
@@ -81,7 +90,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   )
 
   # output table 2
-  t3 <- gtsummary::tbl_uvregression(
+  tables$mv <- list()
+  tables$mv$crude <- gtsummary::tbl_uvregression(
     data = pd,
     label = labels$uni,
     method = survival::coxph,
@@ -89,20 +99,25 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     exponentiate = TRUE,
     include = dplyr::all_of(covariates) &
       !dplyr::ends_with("grd") &
-      !dplyr::matches("cntry")
+      !dplyr::matches("cntry") &
+      !dplyr::matches("^age$") &
+      !dplyr::matches("^cohort_bilevel$")
   ) |>
     gtsummary::add_n(location = "label") |>
     gtsummary::add_nevent(location = "level")
 
 
-  t4 <- surv_objects$mv_fail |>
+  tables$mv$adjusted <- surv_objects$mv_fail |>
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = labels$mv,
     )
 
-  tables$tx_mv_failure <- gtsummary::tbl_merge(
-    list(t3, t4),
+  tables$mv$full <- gtsummary::tbl_merge(
+    list(
+      tables$mv$crude,
+      tables$mv$adjusted
+    ),
     tab_spanner = c("**Crude**", "**Adjusted**")
   ) |> gtsummary::as_flex_table()
 
@@ -127,7 +142,12 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     )
   ) |>
     gtsummary::modify_header(label = "") |>
-    gtsummary::as_flex_table()
+    gtsummary::modify_table_body(
+      ~ .x |>
+        dplyr::filter(
+          !(variable %in% "failure_reasons" & row_type %in% "label")
+        )
+    )
 
   full_fu <- pd[which((!is.na(pd$stat12)) | pd$tx_outcome == "Unsuccessful" |
     pd$eos_outcome != "No TB"), ]
@@ -152,8 +172,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     gtsummary::tbl_survfit(
       times = c(90, 180, 270, 360),
       label_header = "**{time} days**"
-    ) |>
-    gtsummary::as_flex_table()
+    )
 
 
   tables$death_description <- gtsummary::tbl_summary(

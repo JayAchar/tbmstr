@@ -137,6 +137,26 @@ handle_factors <- function(baseline_df) {
     combine_ae_grades("creatgrd", "creat_bin") |>
     combine_ae_grades("visgrd", "vis_bin")
 
+
+  # update cntry variable to alphabetical order
+  baseline_df$cntry <- factor(
+    baseline_df$cntry,
+    levels = levels(baseline_df$cntry)[order(levels(baseline_df$cntry))]
+  )
+
+  # merge cohort levels for regional analysis
+  baseline_df$cohort_bilevel <- as.character(baseline_df$cohort)
+  baseline_df$cohort_bilevel[which(
+    baseline_df$cohort_bilevel
+    == "national"
+  )] <- "regional"
+
+  baseline_df$cohort_bilevel <- factor(
+    baseline_df$cohort_bilevel,
+    levels = c("historic", "regional"),
+    labels = c("Historical", "Prospective")
+  )
+
   return(baseline_df)
 }
 
