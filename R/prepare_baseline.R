@@ -13,6 +13,7 @@ prepare_baseline <- function(df_list,
                                "treatment",
                                "adverse"
                              )) {
+  print(Sys.getenv())
   cohort <- match.arg(cohort)
 
   prepare_baseline_checks(df_list)
@@ -31,10 +32,10 @@ prepare_baseline <- function(df_list,
     df_list$baseline
   )
 
-  df_list$baseline <- create_conversion_variables(
-    baseline = df_list$baseline,
-    myco = df_list$myco
-  )
+  # df_list$baseline <- create_conversion_variables(
+  #   baseline = df_list$baseline,
+  #   myco = df_list$myco
+  # )
 
   alert_info("`cc_days` variable calculated from \\
                       `trtstdat` and `convdat`.")

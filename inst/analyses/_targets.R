@@ -111,6 +111,10 @@ list(
   tar_target(prepared, prepare_baseline(include_outcomes,
     cohort = "treatment"
   )),
+  tar_target(conversion, create_conversion_variables(
+    baseline = include_outcomes$baseline,
+    myco = include_outcomes$myco
+  )),
   tar_target(add_failures, append_failure_reasons(
     file_failure_reasons,
     prepared
@@ -133,7 +137,7 @@ list(
     ),
     template = file_success_template
   ), format = "file"),
-  tar_target(conversion_cohort, create_conversion_cohort(censored)),
+  tar_target(conversion_cohort, create_conversion_cohort(conversion)),
   tar_target(hiv_cohort, create_hiv_cohort(censored)),
   tar_target(failure_cohort, create_failure_cohort(censored)),
   tar_target(fu_cohort, create_fu_cohort(censored)),

@@ -5,6 +5,7 @@
 #'
 #' @param baseline  data frame of baseline participant characteristics
 #' @param myco data frame of participant mycobacteriology results
+#' @export
 #'
 #' @return data frame with globalrecordid, cc_days and
 #'   cc_event variables
