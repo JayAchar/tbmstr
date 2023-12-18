@@ -1,11 +1,13 @@
 #' Has positive baseline culture
 #' @inheritParams create_conversion_variables
-#'
+#' @param var_suffix string suffix for returned variable
 
-has_positive_baseline_culture <- function(baseline, myco) {
+has_positive_baseline_culture <- function(baseline, myco,
+                                          culture_type = "culq",
+                                          var_suffix = NULL) {
   # filter myco
   cultures <- myco[which(
-    myco$test_type == "culq"
+    myco$test_type %in% culture_type
   ), ]
 
   df <- merge(
@@ -35,6 +37,14 @@ has_positive_baseline_culture <- function(baseline, myco) {
     x = results,
     f = rbind
   )
+
+  stopifnot("is_baseline_culture_positive" %in% names(output))
+
+  if (!is.null(var_suffix)) {
+    names(output)[names(output) == "is_baseline_culture_positive"] <- paste0(
+      "is_baseline_culture_positive_", var_suffix
+    )
+  }
 
   # return data frame with globalcordid and is_baseline_culture_positive
   return(output)

@@ -9,27 +9,62 @@
 #' @return data frame with globalrecordid, cc_days and
 #'   cc_event variables
 
-create_conversion_variables <- function(baseline, myco) {
-  # confirm baseline culture result
-  culture_positive_df <- has_positive_baseline_culture(baseline, myco)
-
-  # add is_baseline_culture_positive variable
-  baseline_positive <- merge(
-    baseline,
-    culture_positive_df,
-    by = "globalrecordid",
-    all.x = TRUE
-  )
-
+create_conversion_variables <- function(baseline,
+                                        myco) {
   risk_end_date <- as.POSIXct(ifelse(
     is.na(baseline$convdat),
     baseline$trtendat,
     baseline$convdat
   ), tz = "UTC")
 
+  valid_specimens <- list(
+    liquid = list(
+      type = "culq",
+      label = "lq"
+    ),
+    solid = list(
+      type = "culsld",
+      label = "sld"
+    ),
+    joint = list(
+      type = c("culq", "culsld"),
+      label = "all"
+    )
+  )
+
+  baseline_culture_status <- lapply(
+    FUN = function(spec) {
+      has_positive_baseline_culture(
+        baseline = baseline,
+        myco = myco,
+        culture_type = spec$type,
+        var_suffix = spec$label
+      )
+    },
+    X = valid_specimens
+  )
+
+  baseline_status_df <- Reduce(
+    x = baseline_culture_status,
+    f = function(acc, df) {
+      merge(acc, df,
+        by = "globalrecordid"
+      )
+    }
+  )
+
+  # add is_baseline_culture_positive variable
+  baseline_positive <- merge(
+    baseline,
+    baseline_status_df,
+    by = "globalrecordid",
+    all.x = TRUE
+  )
+
+
+  # TODO: if is.na(lab_cc_days) does that mean there was no culture conversion??
+
   baseline_lab_cc <- create_cc_days(
-    trtstdat = NULL,
-    convdat = NULL,
     baseline = baseline_positive,
     myco = myco,
     lab = TRUE
@@ -39,6 +74,10 @@ create_conversion_variables <- function(baseline, myco) {
   #   is.na(calculated_cc_days),
   #   FALSE, TRUE
   # )
+
+  # FIXME: convdat variable should not be used to define culture conversion
+  # it might be used to share information with authors, but should
+  # not be included in the final analysis
 
   cc_days <- create_cc_days(
     trtstdat = baseline$trtstdat,
