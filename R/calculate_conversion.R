@@ -81,7 +81,7 @@ calculate_conversion <- function(subject_df,
   return(
     data.frame(
       id = unique(subject_df$id),
-      date = conversion_date
+      date = as.POSIXct(conversion_date)
     )
   )
 }

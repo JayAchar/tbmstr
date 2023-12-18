@@ -1,5 +1,6 @@
 #' Has positive baseline culture
 #' @inheritParams create_conversion_variables
+#' @param culture_type string defining eligible culture methods to use
 #' @param var_suffix string suffix for returned variable
 
 has_positive_baseline_culture <- function(baseline, myco,

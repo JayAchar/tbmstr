@@ -4,14 +4,12 @@
 \alias{create_conversion_variables}
 \title{Create conversion variables}
 \usage{
-create_conversion_variables(baseline, myco, culture_type = "culq")
+create_conversion_variables(baseline, myco)
 }
 \arguments{
 \item{baseline}{data frame of baseline participant characteristics}
 
 \item{myco}{data frame of participant mycobacteriology results}
-
-\item{culture_type}{string vector to define valid culture types}
 }
 \value{
 data frame with globalrecordid, cc_days and

@@ -16,7 +16,7 @@ has_positive_baseline_culture(
 
 \item{myco}{data frame of participant mycobacteriology results}
 
-\item{culture_type}{string vector to define valid culture types}
+\item{culture_type}{string defining eligible culture methods to use}
 
 \item{var_suffix}{string suffix for returned variable}
 }
