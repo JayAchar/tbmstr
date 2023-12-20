@@ -124,13 +124,25 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   tables$cc_risk <- lapply(
     X = surv_objects$cc,
     FUN = function(spec) {
-      gtsummary::tbl_survfit(
+      time_tab <- gtsummary::tbl_survfit(
         spec,
         times = c(30, 60, 90, 120),
         reverse = TRUE,
         label_header = "**{time} days**"
-      ) |>
-        gtsummary::as_flex_table()
+      )
+
+      median_tab <- gtsummary::tbl_survfit(
+        spec,
+        prob = 0.5,
+        label_header = "**Median, days**"
+      )
+      gtsummary::tbl_merge(
+        list(
+          median_tab,
+          time_tab
+        ),
+        tab_spanner = FALSE
+      )
     }
   ) |>
     setNames(names(surv_objects$cc))

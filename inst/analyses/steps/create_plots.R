@@ -62,15 +62,22 @@ create_plots <- function(surv_objects, hiv_cohort) {
       x = "Time from treatment start (days)"
     )
 
-  plots$conversion <- surv_objects$cc |>
-    ggsurvfit::ggsurvfit(type = "risk") +
-    ggsurvfit::add_confidence_interval() +
-    ggsurvfit::add_risktable() +
-    ggplot2::coord_cartesian(ylim = c(0, 1)) +
-    ggplot2::labs(
-      title = "Kaplan Meier estimates for time to sputum culture conversion",
-      x = "Time from treatment start (days)"
-    )
+  plots$conversion <- lapply(
+    X = surv_objects$cc,
+    FUN = function(spec) {
+      spec |>
+        ggsurvfit::ggsurvfit(type = "risk") +
+        ggsurvfit::add_confidence_interval() +
+        ggsurvfit::add_risktable() +
+        ggplot2::coord_cartesian(ylim = c(0, 1)) +
+        ggplot2::labs(
+          title =
+            "Kaplan Meier estimates for time to sputum culture conversion",
+          x = "Time from treatment start (days)"
+        )
+    }
+  ) |>
+    setNames(names(surv_objects$cc))
 
   plots$fu_survival <- surv_objects$fu_fail |>
     ggsurvfit::ggsurvfit() +
