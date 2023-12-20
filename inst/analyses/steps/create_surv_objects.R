@@ -1,4 +1,4 @@
-create_surv_objects <- function(df, hiv_cohort, cc_cohort, fu_cohort) {
+create_surv_objects <- function(df, hiv_cohort, cc_cohorts, fu_cohort) {
   # check for duplicate participants
   has_duplicates <- any(duplicated(df$globalrecordid))
   if (has_duplicates) {
@@ -38,10 +38,25 @@ create_surv_objects <- function(df, hiv_cohort, cc_cohort, fu_cohort) {
     data = hiv_cohort
   )
 
-  so$cc <- ggsurvfit::survfit2(
-    survival::Surv(cc_days, cc_event) ~ 1,
-    data = cc_cohort
-  )
+  so$cc <- lapply(
+    X = cc_cohorts,
+    FUN = function(cohort) {
+      days_var <- names(cohort)[grep(
+        "_days_",
+        names(cohort)
+      )]
+      event_var <- names(cohort)[grep(
+        "_event_",
+        names(cohort)
+      )]
+      ggsurvfit::survfit2(
+        survival::Surv(
+          time = cohort[[days_var]],
+          event = cohort[[event_var]]
+        ) ~ 1
+      )
+    }
+  ) |> setNames(names(cc_cohorts))
 
 
   so$mv_fail <- calculate_multivariable_model(df)

@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|85ad4e829ba60227|||||||||||||||
+.Random.seed|object|109493f09db68a91|||||||||||||||
 add_failures|stem|a8ee80dea30d81ef|a4587bbfa4ac2a9c|e7f11bdffbd9e3f3|-607455969||t19709.5512042043s|afa475370a2779ec|3428345|rds|local|vector|||0.116||
 adjusted|stem|9440d1afe2064276|6c6b542f48028b9c|b56e18bcbba60ec5|-1421124365||t19709.5503886249s|939fdeb9f1c6afd3|3131205|rds|local|vector|||0.108||
 adjustment_files|stem|1432986db0324764|b94ec94d67c8138a|8358e7bd5a68eb8f|-1925945130|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data|t19680.8537634386s|f0ef80e5f0ea82e1|224|file|local|vector|||0.71||
@@ -27,9 +27,10 @@ clean|stem|55d9b0825762ff4c|4d545af930078934|d56960742c7ee1c8|1640993750||t19709
 combine_ae_grades|function|5ee59858b52c532b|||||||||||||||
 conversion|stem|7aa682643c865fbe|13b8324df29206a8|58eb2bedab14cfa3|1136772767||t19709.5442012272s|4ae95c332fecbef4|234991|rds|local|vector|||6.413||
 conversion_cohort|stem|bfe60274de576506|bcd04c211ffc395a|2e3ec6ee35aac8e6|104995942||t19709.5511925195s|9935591c0ed1d478|103|rds|local|vector|||0.006||
+conversion_cohorts|stem|9dc3781ec0c924ff|bcd04c211ffc395a|611b9b86a38758c7|-1165493417||t19709.8477416204s|c3b56309db5816e7|203354|rds|local|vector|||0.006||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|90c510860985a156|||||||||||||||
-create_conversion_cohort|function|b61e81acfd7a23bb|||||||||||||||
+create_conversion_cohort|function|39394f7659690679|||||||||||||||
 create_conversion_variables|function|b2ac12cb2720cac7|||||||||||||||
 create_eos_outcome|function|e81412c4ee96b4f3|||||||||||||||
 create_failure_cohort|function|e497e0ee2ba92eb4|||||||||||||||
@@ -41,12 +42,12 @@ create_high_dose_list|function|c0cae3f78ce30dca|||||||||||||||
 create_hiv_cohort|function|55c8296ab74660ac|||||||||||||||
 create_hiv_tables|function|232b0de3fbebbf2e|||||||||||||||
 create_outcomes|function|171fca75b2892bec|||||||||||||||
-create_plots|function|4180b85d57459a1c|||||||||||||||
+create_plots|function|7a9ff6e913a0752b|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
-create_surv_objects|function|c1d9805fac6bfff4|||||||||||||||
+create_surv_objects|function|8dd451383d566f5b|||||||||||||||
 create_survival_table|function|cb1203051dc2149f|||||||||||||||
 create_table_labels|function|138366a2cb82929d|||||||||||||||
-create_tables|function|02b8dad9d7e20819|||||||||||||||
+create_tables|function|5f41734bd03f7901|||||||||||||||
 data_path|object|f4d3958dc0c57c98|||||||||||||||
 death_descriptions|stem|463848a7eacc210a|c6a4c63d8e8767d1|b7ddf21606e58ba1|-262743381||t19660.4605043268s|7865985e1b9019af|4162|rds|local|vector|||0.14||
 deaths|stem|40a3c6068e458420|191b78db1970a7aa|74a9a308fca43eed|-1048906573||t19709.551206201s|746dd0d64a7ed9a2|453909|rds|local|vector|||0.016||
@@ -61,7 +62,7 @@ failure_cohort|stem|4100969845418411|cec386c9ca9615fb|7907686ba9e6618e|-53581509
 failure_reasons_file|object|67925b91e666fbf6|||||||||||||||
 file|stem|ee1f7db138a06c64|b5c7ee2f10882312|2ee19ee11e4dbcef|-1301001980|/Users/jayachar/Documents/dev/packages/tbmstr/data/regional_prepared|t19606.4526017626s|710c613aa5de3636|608|file|local|vector|||0||
 file_deaths_description|stem|90d526af669b775d|86649afc032d3cdb|24db84cfe350ee7a|1318158161|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data/deaths.xlsx|t19660.4400008009s|1a4fa8b06219ab44|183607|file|local|vector|||0||
-file_dev_template|stem|f0b9b4e7d7b1f541|6e44a4603973d6a7|d4926658a8b750c3|-26005027|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/dev.Rmd|t19675.7152024596s|f440dce45cbf2380|15686|file|local|vector|||0.655||
+file_dev_template|stem|555873ba8f6def07|6e44a4603973d6a7|d4926658a8b750c3|-26005027|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/dev.Rmd|t19711.3305951538s|237d65a13612b54e|16330|file|local|vector|||0.643||
 file_failure_reasons|stem|2ca963a2431b1a66|3ca09cdee6a10936|1226e8bd3624d0b8|-1845173297|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data/comment-translations.xlsx|t19667.7999989891s|359b0db638e91671|46851|file|local|vector|||0||
 file_follow_up|stem|67c7442b7536249e|ca1a558d9d8879f0|dd7b98b1e3bf8a13|-1600069261|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/follow_up.Rmd|t19668.2571503917s|24e075d0352ab5d9|394|file|local|vector|||0.731||
 file_success_template|stem|f9c7cf8cc15785cd|f9cb1304d4289aba|0d2c5346b7ff1ec6|-1024669059|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/short_success.Rmd|t19661.3779420246s|6878a689798d08d2|2299|file|local|vector|||0||
@@ -93,7 +94,7 @@ merge_deaths_description|function|5a58874a1da07171|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
 ONE_YEAR|object|e16336eae9868750|||||||||||||||
 output_dir|object|22f83a44ef43e640|||||||||||||||
-plots|stem|f014cca93e75bee1|700007547abf162d|bc098ac0fd004ba1|-252074359||t19675.6486901463s|ae4c4a34c5ab7be2|3206796|rds|local|vector|||0.253||
+plots|stem|415bc3e5485b4487|700007547abf162d|d92f4e810747d515|-252074359||t19709.9209096271s|8a8958dbae4203ee|3235291|rds|local|vector|||0.345||
 prepare_ae_summary_data|function|88532b1adfa09bca|||||||||||||||
 prepare_baseline|function|aa590048e8200de2|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
@@ -118,20 +119,20 @@ render_follow_up|function|705ef2f81c3170a6|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
 render_short_success|function|1389e1f0795abdae|||||||||||||||
 render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
-reports|stem|e76ef7fa979afbed|112f10b5c962972e|46526c488a951ca2|-653841556|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19675.6497171604s|9c81d62d8f415910|317917|file|local|vector|||37.208||
+reports|stem|0bb3271eb1165461|112f10b5c962972e|20f3ca08568093d0|-653841556|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19711.334269099s|2dcb64a4c0513226|317865|file|local|vector|||38.836||
 run_analysis|function|cbc55cb9aaf04103|||||||||||||||
 run_quality_check|function|b4f692dfe5853af7|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|a475aa90ad38afad|||||||||||||||
-saved_plots|stem|f7bd3af778444a7c|477d309e7f399201|de2dd6198f3f83b4|-2072482757|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p7.png|t19675.6492864863s|4770e66aee853c1b|840979|file|local|vector|||3.346|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 25 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 25 rows containing missing values geom_point.|
+saved_plots|stem|e94110e4c1d49ad5|477d309e7f399201|42eb9e8ef5f11420|-2072482757|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p7.png|t19709.9215078539s|f45efe3cb98b88cb|839196|file|local|vector|||3.313|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 25 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 25 rows containing missing values geom_point.|
 short_success|stem|e1c4e30afea39315|12c11d14f1ddf2cf|5d9039b552683476|-839061826|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/short_success.docx|t19657.4974798442s|d928dede5c6b23de|12910|file|local|vector|||1.581||
 short_success_template|object|f5f7ed02d1db5e44|||||||||||||||
 success_file|stem|6e46de4cd3c4abda|dc3a8ddb3a3a5ab5|1572ffb7ba8b0348|1104249875|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/short_success.docx|t19709.5512184918s|576d7c3e13e80572|12851|file|local|vector|||0.913||
 success_template|object|bceec5a4dec20e3a|||||||||||||||
 summarise_country_follow_up|function|087bef84523b0f6e|||||||||||||||
 summarise_follow_up|function|9291e4ea9fced4c6|||||||||||||||
-surv_objects|stem|692599458aaf58e5|d3f1245208e22862|d3fd1cc9d3edb750|1652951019||t19675.6486813879s||2316507|rds|local|vector|||0.023||object cc_days not found
-tables|stem|bd82611f2c7f48b5|c04d8dee0f67f298|3c0e121a86b6ba47|397746313||t19675.6492470268s|6ecd532b61f09f6b|105749092|rds|local|vector|||16.436||
+surv_objects|stem|eca48939d9074e68|0e0b1448794aa4d5|f1e22ddfd83d56a3|1652951019||t19709.8478018472s|5fb13d50b1ec7225|2332438|rds|local|vector|||4.802|Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 2 3. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to cove|
+tables|stem|438176070ab076fc|c04d8dee0f67f298|234c5825518e3d58|397746313||t19711.3338175355s|ffc7da9e27c6f761|105500047|rds|local|vector|||16.697||
 template_short_success|stem|2b1c4d4696275abf|c8e48267f6ba2893|94708cb37aeec1e6|-1819773458|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/short_success.Rmd|t19657.3086509499s|f6a7f365e7469ae0|1805|file|local|vector|||1.56||
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||
 withdrawal_template|object|f7eb040e3d1e6ef6|||||||||||||||

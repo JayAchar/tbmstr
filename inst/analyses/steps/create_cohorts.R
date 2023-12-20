@@ -40,8 +40,9 @@ create_conversion_cohort <- function(dd) {
       cohort <- spec[which(spec[[bool_var]]), ]
       cohort[[event_var]][which(cohort[[days_var]] > 4 * 31)] <- FALSE
       cohort[[days_var]][which(cohort[[days_var]] > 4 * 31)] <- 4 * 31
+      return(cohort)
     }
-  )
+  ) |> setNames(names(dd))
 }
 
 create_failure_cohort <- function(dd) {

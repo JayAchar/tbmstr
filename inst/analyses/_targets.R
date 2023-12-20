@@ -137,14 +137,14 @@ list(
     ),
     template = file_success_template
   ), format = "file"),
-  tar_target(conversion_cohort, create_conversion_cohort(conversion)),
+  tar_target(conversion_cohorts, create_conversion_cohort(conversion)),
   tar_target(hiv_cohort, create_hiv_cohort(censored)),
   tar_target(failure_cohort, create_failure_cohort(censored)),
   tar_target(fu_cohort, create_fu_cohort(censored)),
   tar_target(surv_objects, create_surv_objects(
     censored,
     hiv_cohort,
-    conversion_cohort,
+    conversion_cohorts,
     fu_cohort
   )),
   tar_target(tables, create_tables(

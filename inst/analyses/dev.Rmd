@@ -436,35 +436,6 @@ was crudely associated with lower risk of death `r death("art", "Yes")`.
 
 \newpage
 
-## Culture conversion risk
-
-```{r wrap="Tables & figures", echo = FALSE}
-htmltools::h3(
-  "Cumulative incidence of culture conversion by monthly time-points"
-)
-htmltools::hr()
-params$tables$cc_risk
-
-params$plots$conversion
-```
-
-<div class="notes">
-
-### Notes
-
-This section still requires some analysis to be concluded. Currently, 
-baseline culture status is defined by all MGIT cultures before or up to 
-7 days after treatment initiation. Culture conversion is derived only from 
-MGIT cultures. 
-
-This strict approach needs to be loosened to include an option with LJ culture
-alone or in combination with MGIT culture. 
-
-</div>
-
-### Manuscript text 
-
-\newpage
 
 # Report 
 
@@ -517,3 +488,65 @@ htmltools::hr()
 params$tables$death_description
 ```
 
+# Culture conversion risk
+
+<div class="notes">
+
+### Notes
+
+This section still requires some analysis to be concluded. Currently, 
+baseline culture status is defined by all MGIT cultures before or up to 
+7 days after treatment initiation. Culture conversion is derived only from 
+MGIT cultures. 
+
+This strict approach needs to be loosened to include an option with LJ culture
+alone or in combination with MGIT culture. 
+
+</div>
+
+## Liquid cultures
+
+```{r wrap="Tables & figures", echo = FALSE}
+htmltools::h3(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
+params$tables$cc_risk$liquid
+
+params$plots$conversion
+```
+
+### Manuscript text 
+
+<code>Placeholder for dynamic text</code>
+
+## Solid cultures 
+
+```{r wrap="Tables & figures", echo = FALSE}
+htmltools::h3(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
+params$tables$cc_risk$solid
+
+params$plots$conversion
+```
+### Manuscript text
+
+<code>Placeholder for dynamic text</code>
+
+## All cultures 
+
+```{r wrap="Tables & figures", echo = FALSE}
+htmltools::h3(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
+params$tables$cc_risk$joint
+
+params$plots$conversion
+```
+### Manuscript text
+
+<code>Placeholder for dynamic text</code>
+\newpage
