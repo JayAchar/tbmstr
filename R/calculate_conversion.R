@@ -70,7 +70,7 @@ calculate_conversion <- function(subject_df,
 
   gt_tolerance <- which(cum_diffs >= tolerance)
 
-  conversion_date <- as.Date(NA)
+  conversion_date <- as.POSIXct(NA, tz = "UTC")
 
   if (length(gt_tolerance) > 0) {
     all_zeros <- which(cum_diffs == 0)

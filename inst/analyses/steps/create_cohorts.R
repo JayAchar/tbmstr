@@ -20,14 +20,29 @@ create_hiv_cohort <- function(dd) {
 }
 
 create_conversion_cohort <- function(dd) {
-  cohort <- dd[which(dd$is_baseline_culture_positive), ]
-  # Failing to culture convert after 4 months of treatment is a
-  # failure definition
-  # TODO: this censoring should be moved to the function
-  # where the variables are calculated if possible
-  cohort$cc_event[which(cohort$cc_days > 4 * 31)] <- FALSE
-  cohort$cc_days[which(cohort$cc_days > 4 * 31)] <- 4 * 31
-  return(cohort)
+  lapply(
+    X = dd,
+    FUN = function(spec) {
+      # find boolean variable
+      bool_var <- names(spec)[grep(
+        "^is_baseline_culture_positive",
+        names(spec)
+      )]
+      event_var <- names(spec)[grep(
+        "_event_",
+        names(spec)
+      )]
+      days_var <- names(spec)[grep(
+        "_days_",
+        names(spec)
+      )]
+
+      cohort <- spec[which(spec[[bool_var]]), ]
+      cohort[[event_var]][which(cohort[[days_var]] > 4 * 31)] <- FALSE
+      cohort[[days_var]][which(cohort[[days_var]] > 4 * 31)] <- 4 * 31
+      return(cohort)
+    }
+  ) |> setNames(names(dd))
 }
 
 create_failure_cohort <- function(dd) {

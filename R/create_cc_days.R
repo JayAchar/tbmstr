@@ -13,16 +13,20 @@
 #' @param myco data frame of participant mycobacteriology results
 #' @param lab boolean to signifiy whether lab results should be used to
 #' calculate culture conversion dates
+#' @param culture_type string vector to define valid culture types
+#' @param var_suffix string suffix for returned variable
 #'
 #' @return numeric vector representing the number of days to culture conversion
 #'
 
 create_cc_days <- function(
-    trtstdat,
-    convdat,
+    trtstdat = NULL,
+    convdat = NULL,
     baseline,
     myco,
-    lab = FALSE) {
+    lab = FALSE,
+    culture_type = "culq",
+    var_suffix = "lq") {
   if (lab) {
     # rename variables (id, result, date) - filter
     # to only keep cultures with positive or negative results - record
@@ -31,7 +35,7 @@ create_cc_days <- function(
     cultures <- merge(
       baseline[, c("globalrecordid", "trtstdat", "trtendat")],
       myco[
-        which(myco$test_type == "culq"),
+        which(myco$test_type %in% culture_type),
         c("fkey", "datespecimen", "specimen", "result")
       ],
       by.x = "globalrecordid",
@@ -68,22 +72,26 @@ create_cc_days <- function(
       f = rbind
     )
 
-    names(cc_dates) <- c("globalrecordid", "lab_cc_date")
+    cc_var_name <- paste0("lab_cc_date_", var_suffix)
+
+    names(cc_dates) <- c("globalrecordid", cc_var_name)
 
     cc_dates_trt <- merge(
       cc_dates,
-      baseline,
+      baseline[, c("globalrecordid", "trtstdat")],
       by = "globalrecordid",
       all.y = TRUE
     )
 
     # calculate culture conversion days
-    cc_dates_trt$lab_cc_days <- diff_days(
+    cc_days_var <- paste0("lab_cc_days_", var_suffix)
+
+    cc_dates_trt[cc_days_var] <- diff_days(
       cc_dates_trt$trtstdat,
-      cc_dates_trt$lab_cc_date
+      cc_dates_trt[[cc_var_name]]
     )
 
-    cc_dates_trt$lab_cc_date <- NULL
+    cc_dates_trt$trtstdat <- NULL
 
     return(cc_dates_trt)
   }

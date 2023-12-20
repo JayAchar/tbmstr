@@ -1,5 +1,10 @@
 save_plots <- function(plots, config) {
-  index <- seq_len(length(plots))
+  # flatten list of plots to one level
+  conversion <- unlist(plots["conversion"], recursive = FALSE)
+  plots[["conversion"]] <- NULL
+  plot_vector <- c(plots, conversion)
+
+  index <- seq_len(length(plot_vector))
   file_paths <- lapply(
     X = index,
     FUN = \(i) {
@@ -9,7 +14,7 @@ save_plots <- function(plots, config) {
       ggplot2::ggsave(
         filename = file_name,
         path = config$output_dir,
-        plot = plots[[i]],
+        plot = plot_vector[[i]],
         device = "png",
         width = 10,
         height = 7

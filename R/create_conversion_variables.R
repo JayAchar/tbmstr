@@ -5,59 +5,101 @@
 #'
 #' @param baseline  data frame of baseline participant characteristics
 #' @param myco data frame of participant mycobacteriology results
+#' @export
 #'
 #' @return data frame with globalrecordid, cc_days and
 #'   cc_event variables
 
-create_conversion_variables <- function(baseline, myco) {
-  # confirm baseline culture result
-  culture_positive_df <- has_positive_baseline_culture(baseline, myco)
-
-  # add is_baseline_culture_positive variable
-  baseline_positive <- merge(
-    baseline,
-    culture_positive_df,
-    by = "globalrecordid",
-    all.x = TRUE
-  )
-
-  risk_end_date <- as.POSIXct(ifelse(
-    is.na(baseline$convdat),
-    baseline$trtendat,
-    baseline$convdat
-  ), tz = "UTC")
-
-  baseline_lab_cc <- create_cc_days(
-    trtstdat = NULL,
-    convdat = NULL,
-    baseline = baseline_positive,
-    myco = myco,
-    lab = TRUE
-  )
-
-  # lab_cc_event <- ifelse(
-  #   is.na(calculated_cc_days),
-  #   FALSE, TRUE
-  # )
-
-  cc_days <- create_cc_days(
-    trtstdat = baseline$trtstdat,
-    convdat = risk_end_date
-  )
-
-  cc_event <- ifelse(
-    is.na(baseline$convdat),
-    FALSE, TRUE
-  )
-
-  merge(
-    baseline_lab_cc,
-    data.frame(
-      globalrecordid = baseline$globalrecordid,
-      cc_days = cc_days,
-      cc_event = cc_event
+create_conversion_variables <- function(baseline,
+                                        myco) {
+  valid_specimens <- list(
+    liquid = list(
+      type = "culq",
+      label = "lq"
     ),
-    by = "globalrecordid",
-    all.x = TRUE
+    solid = list(
+      type = "culsld",
+      label = "sld"
+    ),
+    joint = list(
+      type = c("culq", "culsld"),
+      label = "all"
+    )
   )
+
+  baseline_culture_status_lst <- lapply(
+    FUN = function(spec) {
+      has_positive_baseline_culture(
+        baseline = baseline,
+        myco = myco,
+        culture_type = spec$type,
+        var_suffix = spec$label
+      )
+    },
+    X = valid_specimens
+  )
+
+  conversion_lst <- lapply(
+    X = valid_specimens,
+    FUN = function(spec) {
+      time_df <- create_cc_days(
+        baseline = baseline,
+        myco = myco,
+        lab = TRUE,
+        culture_type = spec$type,
+        var_suffix = spec$label
+      )
+
+      event_var <- paste0("lab_cc_event_", spec$label)
+      date_var <- paste0("lab_cc_date_", spec$label)
+      days_var <- paste0("lab_cc_days_", spec$label)
+
+      time_df[[event_var]] <- ifelse(
+        is.na(time_df[[paste0("lab_cc_date_", spec$label)]]),
+        FALSE, TRUE
+      )
+      augmented <- merge(
+        time_df,
+        baseline[, c(
+          "globalrecordid",
+          "trtstdat",
+          "trtendat"
+        )]
+      )
+
+      # impute end of treatment date if no culture conversion detected
+      # defines end of risk time
+      augmented[[date_var]] <- as.POSIXct(ifelse(is.na(augmented[[date_var]]),
+        augmented$trtendat,
+        augmented[[date_var]]
+      ))
+
+      augmented[[days_var]] <- ifelse(is.na(augmented[[days_var]]),
+        diff_days(
+          augmented$trtstdat,
+          augmented$trtendat
+        ), augmented[[days_var]]
+      )
+
+      augmented$trtendat <- NULL
+      augmented$trtstdat <- NULL
+
+      return(augmented)
+    }
+  )
+
+  lab_conversion <- lapply(
+    X = names(valid_specimens),
+    FUN = function(spec_name) {
+      merge(
+        baseline_culture_status_lst[[spec_name]],
+        conversion_lst[[spec_name]],
+        by = "globalrecordid",
+        all = TRUE
+      )
+    }
+  ) |> setNames(names(valid_specimens))
+
+
+  return(lab_conversion)
 }

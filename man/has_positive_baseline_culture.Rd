@@ -4,12 +4,21 @@
 \alias{has_positive_baseline_culture}
 \title{Has positive baseline culture}
 \usage{
-has_positive_baseline_culture(baseline, myco)
+has_positive_baseline_culture(
+  baseline,
+  myco,
+  culture_type = "culq",
+  var_suffix = NULL
+)
 }
 \arguments{
 \item{baseline}{data frame of baseline participant characteristics}
 
 \item{myco}{data frame of participant mycobacteriology results}
+
+\item{culture_type}{string defining eligible culture methods to use}
+
+\item{var_suffix}{string suffix for returned variable}
 }
 \description{
 Has positive baseline culture

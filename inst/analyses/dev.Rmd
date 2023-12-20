@@ -436,35 +436,6 @@ was crudely associated with lower risk of death `r death("art", "Yes")`.
 
 \newpage
 
-## Culture conversion risk
-
-```{r wrap="Tables & figures", echo = FALSE}
-htmltools::h3(
-  "Cumulative incidence of culture conversion by monthly time-points"
-)
-htmltools::hr()
-params$tables$cc_risk
-
-params$plots$conversion
-```
-
-<div class="notes">
-
-### Notes
-
-This section still requires some analysis to be concluded. Currently, 
-baseline culture status is defined by all MGIT cultures before or up to 
-7 days after treatment initiation. Culture conversion is derived only from 
-MGIT cultures. 
-
-This strict approach needs to be loosened to include an option with LJ culture
-alone or in combination with MGIT culture. 
-
-</div>
-
-### Manuscript text 
-
-\newpage
 
 # Report 
 
@@ -517,3 +488,112 @@ htmltools::hr()
 params$tables$death_description
 ```
 
+# Culture conversion risk
+
+<div class="notes">
+
+### Notes
+
+Participants who were defined as culture positive at baseline were included. 
+The definition of baseline culture status includes any eligible culture 
+results prior to or up to 7 days after starting treatment. Any positive 
+eligible culture during this time period would permit participant inclusion 
+in these analyses. 
+
+Three definitions of eligible culture have been used to generate the three 
+analyses included below:
+
+1. Liquid culture - only cultures using the MGIT960 system are valid,
+2. Solid culture - only cultures performed on LJ media are valid,
+3. Joint - all cultures, regardless of culture media used, are valid
+
+The validity of cultures, based on the definitions described, have been 
+used in each analysis to define the baseline culture status and the culture
+conversion event itself. 
+
+For this reason, a participant's inclusion might vary between analysis, as 
+well as their culture-conversion status at any given time point.
+
+</div>
+
+## Liquid cultures
+
+```{r wrap="Tables & figures", echo = FALSE}
+htmltools::h3(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
+params$tables$cc_risk$liquid |>
+  gtsummary::as_flex_table()
+
+params$plots$conversion$liquid
+```
+```{r liquid-stats, echo = FALSE}
+lq_n <- params$plots$conversion$liquid$data$n.risk[[1]]
+lq_cc_n <- max(params$plots$conversion$liquid$data$cum.event)
+lq_median_cc <- gtsummary::inline_text(params$tables$cc_risk$liquid,
+  variable = ..overall..,
+  column = stat_1_1
+)
+```
+
+### Manuscript text 
+
+From `r lq_n` participants who were culture-positive at baseline, `r lq_cc_n` 
+culture converted during the first 4 months of treatment. The median days (IQR) 
+to culture conversion was `r lq_median_cc`.
+
+## Solid cultures 
+
+```{r wrap="Tables & figures", echo = FALSE}
+htmltools::h3(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
+params$tables$cc_risk$solid |>
+  gtsummary::as_flex_table()
+
+params$plots$conversion$solid
+```
+```{r solid-stats, echo = FALSE}
+solid_n <- params$plots$conversion$solid$data$n.risk[[1]]
+solid_cc_n <- max(params$plots$conversion$solid$data$cum.event)
+solid_median_cc <- gtsummary::inline_text(params$tables$cc_risk$solid,
+  variable = ..overall..,
+  column = stat_1_1
+)
+```
+
+### Manuscript text
+
+From `r solid_n` participants who were culture-positive at baseline, 
+`r solid_cc_n` culture converted during the first 4 months of treatment. The 
+median days (IQR) to culture conversion was `r solid_median_cc`.
+
+## All cultures 
+
+```{r wrap="Tables & figures", echo = FALSE}
+htmltools::h3(
+  "Cumulative incidence of culture conversion by monthly time-points"
+)
+htmltools::hr()
+params$tables$cc_risk$joint |>
+  gtsummary::as_flex_table()
+
+params$plots$conversion$joint
+```
+```{r joint-stats, echo = FALSE}
+joint_n <- params$plots$conversion$joint$data$n.risk[[1]]
+joint_cc_n <- max(params$plots$conversion$joint$data$cum.event)
+joint_median_cc <- gtsummary::inline_text(params$tables$cc_risk$joint,
+  variable = ..overall..,
+  column = stat_1_1
+)
+```
+### Manuscript text
+
+From `r joint_n` participants who were culture-positive at baseline, 
+`r joint_cc_n` culture converted during the first 4 months of treatment. The 
+median days (IQR) to culture conversion was `r joint_median_cc`.
+
+\newpage
