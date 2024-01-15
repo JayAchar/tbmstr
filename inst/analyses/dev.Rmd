@@ -138,10 +138,10 @@ to address the following style issues:
 
 ### Manuscript text
 
-After exclusion of (NUMBER) screening failures (Figure 1), 2636
-participants from 13 countries were included in the treatment 
-cohort. More than half of the participants were from Belarus `r inline("cntry", "Belarus")` or Ukraine
- `r inline("cntry", "Ukraine")`.
+After exclusion of (NUMBER) screening failures (Figure 1), 
+`r params$tables$tx_description$N` participants from 13 countries were included
+in the treatment cohort. More than half of the participants were from Belarus 
+`r inline("cntry", "Belarus")` or Ukraine  `r inline("cntry", "Ukraine")`.
 
 Baseline demographic and clinical characteristics are described in Table XX.
 The median age was  `r gtsummary::inline_text(params$tables$tx_description, variable = "age", pattern = "{median} (IQR {p25}-{p75})")` with only `r text("age_grp", "<15")` 
@@ -530,18 +530,30 @@ params$plots$conversion$liquid
 ```
 ```{r liquid-stats, echo = FALSE}
 lq_n <- params$plots$conversion$liquid$data$n.risk[[1]]
-lq_cc_n <- max(params$plots$conversion$liquid$data$cum.event)
+total_participants <- params$tables$tx_description$N
 lq_median_cc <- gtsummary::inline_text(params$tables$cc_risk$liquid,
   variable = ..overall..,
   column = stat_1_1
+)
+culture_positive <- paste0(
+  lq_n, " (",
+  round(lq_n / total_participants * 100, 1), "%)"
+)
+risk_cc <- lapply(1:4,
+  FUN = function(col) {
+    statistic <- paste0("stat_", col, "_2")
+    params$tables$cc_risk$liquid$table_body[[statistic]]
+  }
 )
 ```
 
 ### Manuscript text 
 
-From `r lq_n` participants who were culture-positive at baseline, `r lq_cc_n` 
-culture converted during the first 4 months of treatment. The median days (IQR) 
-to culture conversion was `r lq_median_cc`.
+At treatment initiation, `r culture_positive` participants were sputum culture positive.
+The cumulative risk of culture conversion (IQR) was `r risk_cc[[1]]`, 
+`r risk_cc[[2]]`, `r risk_cc[[3]]`, `r risk_cc[[4]]` after 30, 60, 90 and 120
+days of treatment respectively. The median days (IQR) to sputum culture conversion 
+was `r lq_median_cc`.
 
 ## Solid cultures 
 
@@ -557,18 +569,31 @@ params$plots$conversion$solid
 ```
 ```{r solid-stats, echo = FALSE}
 solid_n <- params$plots$conversion$solid$data$n.risk[[1]]
-solid_cc_n <- max(params$plots$conversion$solid$data$cum.event)
+total_participants <- params$tables$tx_description$N
 solid_median_cc <- gtsummary::inline_text(params$tables$cc_risk$solid,
   variable = ..overall..,
   column = stat_1_1
+)
+
+culture_positive <- paste0(
+  solid_n, " (",
+  round(solid_n / total_participants * 100, 1), "%)"
+)
+risk_cc <- lapply(1:4,
+  FUN = function(col) {
+    statistic <- paste0("stat_", col, "_2")
+    params$tables$cc_risk$solid$table_body[[statistic]]
+  }
 )
 ```
 
 ### Manuscript text
 
-From `r solid_n` participants who were culture-positive at baseline, 
-`r solid_cc_n` culture converted during the first 4 months of treatment. The 
-median days (IQR) to culture conversion was `r solid_median_cc`.
+At treatment initiation, `r culture_positive` participants were sputum culture positive.
+The cumulative risk of culture conversion (IQR) was `r risk_cc[[1]]`, 
+`r risk_cc[[2]]`, `r risk_cc[[3]]`, `r risk_cc[[4]]` after 30, 60, 90 and 120
+days of treatment respectively. The median days (IQR) to sputum culture conversion 
+was `r solid_median_cc`.
 
 ## All cultures 
 
@@ -584,16 +609,29 @@ params$plots$conversion$joint
 ```
 ```{r joint-stats, echo = FALSE}
 joint_n <- params$plots$conversion$joint$data$n.risk[[1]]
-joint_cc_n <- max(params$plots$conversion$joint$data$cum.event)
+total_participants <- params$tables$tx_description$N
 joint_median_cc <- gtsummary::inline_text(params$tables$cc_risk$joint,
   variable = ..overall..,
   column = stat_1_1
 )
+
+culture_positive <- paste0(
+  joint_n, " (",
+  round(joint_n / total_participants * 100, 1), "%)"
+)
+risk_cc <- lapply(1:4,
+  FUN = function(col) {
+    statistic <- paste0("stat_", col, "_2")
+    params$tables$cc_risk$joint$table_body[[statistic]]
+  }
+)
 ```
 ### Manuscript text
 
-From `r joint_n` participants who were culture-positive at baseline, 
-`r joint_cc_n` culture converted during the first 4 months of treatment. The 
-median days (IQR) to culture conversion was `r joint_median_cc`.
+At treatment initiation, `r culture_positive` participants were sputum culture positive.
+The cumulative risk of culture conversion (IQR) was `r risk_cc[[1]]`, 
+`r risk_cc[[2]]`, `r risk_cc[[3]]`, `r risk_cc[[4]]` after 30, 60, 90 and 120
+days of treatment respectively. The median days (IQR) to sputum culture conversion 
+was `r joint_median_cc`.
 
 \newpage
