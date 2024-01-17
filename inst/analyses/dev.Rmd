@@ -96,6 +96,8 @@ All statistical analyses were performed with R software (version 4.3.0).
 
 \newpage
 
+<!---BLOCK_LANDSCAPE_START--->
+
 ## Treatment cohort description
 
 ```{r wrap="Tables & figures", echo = FALSE}
@@ -119,7 +121,18 @@ htmltools::h3(
 htmltools::hr()
 autofit(params$tables$tx_description |>
   gtsummary::as_flex_table())
+
+htmltools::hr()
+
+htmltools::h3(
+  "Baseline demographic and clinical characteristics of participants by regimen"
+)
+
+autofit(params$tables$tx_description_by_regimen |>
+  gtsummary::as_flex_table())
 ```
+
+<!---BLOCK_LANDSCAPE_STOP--->
 
 <div class="notes">
 

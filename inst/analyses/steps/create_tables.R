@@ -68,6 +68,16 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     missing_text = missing_text,
   )
 
+  tables$tx_description_by_regimen <- gtsummary::tbl_summary(
+    data = pd,
+    include = dplyr::all_of(covariates) & !dplyr::ends_with("_bin") &
+      !dplyr::matches("regimen"),
+    label = labels$tx_desc,
+    type = types,
+    by = "regimen",
+    missing_text = missing_text,
+  )
+
   # descriptive outcomes table
   tables$tx_outcomes <- gtsummary::tbl_summary(
     data = pd,
