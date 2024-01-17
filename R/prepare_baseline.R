@@ -13,7 +13,6 @@ prepare_baseline <- function(df_list,
                                "treatment",
                                "adverse"
                              )) {
-  print(Sys.getenv())
   cohort <- match.arg(cohort)
 
   prepare_baseline_checks(df_list)

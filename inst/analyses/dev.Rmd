@@ -154,8 +154,8 @@ excess alcohol use `r text("alcohol", "Yes")`. Approximately half reported a his
  `r inline("hcvab", "Seropositive")` and SARS-CoV2 `r inline("covid", "Yes")` 
 infection were present in a minority of participants. Baseline positive smear
 microscopy `r inline("smear", "Positive")` and cavitatory changes on x-ray 
- `r create_sum_text(params$tables$tx_description, "cav", c("One-sided",
-"Two-sided"), pattern = "({total}, {perc}%)")` were 
+ `r create_sum_text(params$tables$tx_description, "cav", c("Unilateral",
+"Bilateral"), pattern = "({total}, {perc}%)")` were 
 detected in over half of participants, while a majority (2136, 81%) had a 
 positive baseline MGIT culture result.
 
@@ -369,7 +369,7 @@ for strongly associated factors and clustering by study country, increasing
 age, unemployment `r mv_text("empl_3grp", "Unemployed")`, excessive alcohol use
 `r mv_text("alcohol", "Yes")`, history of smoking `r mv_text("sm_fact", "<20 pack-years")` , HIV 
 positive status `r mv_text("hiv", "Yes")`, presence of bilateral pulmonary 
-cavities on x-ray `r mv_text("cav", "Two-sided")`, elevated 
+cavities on x-ray `r mv_text("cav", "Bilateral")`, elevated 
 baseline ALT or AST `r mv_text("ast_alt_bin", "Yes")`, and baseline anaemia
 `r mv_text("hb_bin", "Yes")` were all positively associated with 
 unsuccessful study outcome. Higher BMI `r mv_text("bmi_group", "≥18.5")` 

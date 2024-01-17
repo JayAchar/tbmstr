@@ -8,7 +8,8 @@ create_plots <- function(surv_objects, hiv_cohort) {
     ggplot2::coord_cartesian(ylim = c(0, 1)) +
     ggplot2::labs(
       title = "Kaplan Meier estimates for time to unsuccessful study outcome",
-      x = "Time from treatment start (days)"
+      x = "Days from treatment start",
+      y = "Disease-free survival probability"
     )
 
   plots$p2 <- surv_objects$death |>

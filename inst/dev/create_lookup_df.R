@@ -81,4 +81,16 @@ lut <- lookup$vars |>
       description == "Determined ineligible after enrollemnt",
       "Determined ineligible after enrollment", description
     )
+  ) |>
+  mutate(
+    description = if_else(
+      description == "One-sided", "Unilateral",
+      description
+    )
+  ) |>
+  mutate(
+    description = if_else(
+      description == "Two-sided", "Bilateral",
+      description
+    )
   )
