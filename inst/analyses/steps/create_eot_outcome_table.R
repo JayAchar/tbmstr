@@ -1,12 +1,14 @@
-create_eot_outcome_table <- function(df, missing_text) {
+create_eot_outcome_table <- function(df, missing_text, by = NULL) {
   stopifnot(
     is.data.frame(df),
-    all(c("outcome", "tx_outcome") %in% names(df))
+    all(c("outcome", "tx_outcome") %in% names(df)),
+    any(is.null(by), length(by) == 1)
   )
 
   outcome <- gtsummary::tbl_summary(
     data = df,
     include = "outcome",
+    by = dplyr::all_of(by),
     label = list(
       outcome ~ "End of treatment outcome"
     ),
@@ -27,6 +29,7 @@ create_eot_outcome_table <- function(df, missing_text) {
   summary <- gtsummary::tbl_summary(
     data = df,
     include = "tx_outcome",
+    by = dplyr::all_of(by),
     label = list(
       tx_outcome ~ "Binary treatment outcome"
     ),

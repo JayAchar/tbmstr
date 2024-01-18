@@ -80,6 +80,10 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
 
   tables$tx_outcomes <- create_eot_outcome_table(pd, missing_text)
 
+  tables$tx_outcomes_by_regimen <- create_eot_outcome_table(pd, missing_text,
+    by = "regimen"
+  )
+
   ## outcomes stratified by HIV status
   tables$hiv <- create_hiv_tables(pd, hiv_cohort,
     who_outcomes,

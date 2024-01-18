@@ -192,6 +192,15 @@ params$tables$tx_outcomes |>
 htmltools::hr()
 
 htmltools::h3(
+  "End of treatment outcomes in treatment cohort by regimen"
+)
+
+params$tables$tx_outcomes_by_regimen |>
+  gtsummary::as_flex_table()
+
+htmltools::hr()
+
+htmltools::h3(
   "Cumulative probability of TB-free status at specified timepoints",
   "after treatment initiation"
 )
