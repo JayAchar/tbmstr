@@ -211,6 +211,9 @@ htmltools::hr()
 params$plots$p1
 
 htmltools::hr()
+params$plots$fail_by_regimen
+
+htmltools::hr()
 params$plots$p2
 
 htmltools::hr()
