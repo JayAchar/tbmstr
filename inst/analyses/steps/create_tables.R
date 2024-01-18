@@ -78,20 +78,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     missing_text = missing_text,
   )
 
-  # descriptive outcomes table
-  tables$tx_outcomes <- gtsummary::tbl_summary(
-    data = pd,
-    include = "outcome",
-    label = list(
-      outcome ~ "End of treatment outcome"
-    ),
-    missing_text = missing_text
-  ) |>
-    gtsummary::modify_header(label = "") |>
-    gtsummary::modify_table_body(
-      ~ .x |>
-        dplyr::filter(!(variable %in% "outcome" & row_type %in% "label"))
-    )
+  tables$tx_outcomes <- create_eot_outcome_table(pd, missing_text)
 
   ## outcomes stratified by HIV status
   tables$hiv <- create_hiv_tables(pd, hiv_cohort,

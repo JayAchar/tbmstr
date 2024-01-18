@@ -177,9 +177,8 @@ positive baseline MGIT culture result.
 ## Treatment cohort outcomes
 
 ```{r wrap="Tables & figures", echo = FALSE}
-eot_text <- create_text(params$tables$tx_outcomes)
-eot_inline <- create_text(params$tables$tx_outcomes, "({n}, {p}%)")
-
+eot_text <- create_text(params$tables$tx_outcomes$tbls[[1]])
+eot_inline <- create_text(params$tables$tx_outcomes$tbls[[1]], "({n}, {p}%)")
 fail_text <- create_text(params$tables$failure_reasons)
 fail_inline <- create_text(params$tables$failure_reasons, "({n}, {p}%)")
 
@@ -252,7 +251,7 @@ reason_count_text <- glue::glue(
   "({format(non_missing/unique(tables$failure_reasons$meta_data$df_stats[[1]]$N_obs) * 100, digits = 2)}%)"
 )
 ```
-At the end of treatment, `r create_sum_text(params$tables$tx_outcomes, "outcome",
+At the end of treatment, `r create_sum_text(params$tables$tx_outcomes$tbls[[1]], "outcome",
 c("Cured", "Completed"))` participants were successfully treated and `r eot_text("outcome", "Died")`
 died. Out of  `r eot_text("outcome", "Failed")` failed treatment 
 episodes, reasons for failure were recorded for `r reason_count_text`. The most
