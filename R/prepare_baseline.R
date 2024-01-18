@@ -31,11 +31,6 @@ prepare_baseline <- function(df_list,
     df_list$baseline
   )
 
-  # df_list$baseline <- create_conversion_variables(
-  #   baseline = df_list$baseline,
-  #   myco = df_list$myco
-  # )
-
   alert_info("`cc_days` variable calculated from \\
                       `trtstdat` and `convdat`.")
 
@@ -68,11 +63,11 @@ prepare_baseline <- function(df_list,
       if (!is.factor(col)) {
         return(col)
       }
-      unknowns <- which(col == "Unknown")
+      unknowns <- which(col %in% c("Unknown", "Not done"))
       if (length(unknowns) == 0) {
         return(col)
       }
-      col[which(col == "Unknown")] <- NA
+      col[unknowns] <- NA
       col <- droplevels(col)
       col
     }

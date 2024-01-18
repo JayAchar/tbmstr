@@ -91,6 +91,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   )
 
   # output table 2
+  # FIXME: there are two MV models tabulated here - the full version and
+  # a restricted version based on AIC. Must choose which one to keep for the
+  # final analysis
   tables$mv <- list()
   tables$mv$crude <- gtsummary::tbl_uvregression(
     data = pd,
@@ -108,7 +111,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     gtsummary::add_nevent(location = "level")
 
 
-  tables$mv$adjusted <- surv_objects$mv_fail |>
+  tables$mv$adjusted <- surv_objects$mv_fail$mv |>
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = labels$mv,
@@ -120,6 +123,20 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
       tables$mv$adjusted
     ),
     tab_spanner = c("**Crude**", "**Adjusted**")
+  ) |> gtsummary::as_flex_table()
+
+  tables$mv$all_vars <- surv_objects$mv_fail$full |>
+    gtsummary::tbl_regression(
+      exponentiate = TRUE,
+      label = labels$mv_all,
+    )
+
+  tables$mv$compare <- gtsummary::tbl_merge(
+    list(
+      tables$mv$crude,
+      tables$mv$all_vars
+    ),
+    tab_spanner = c("**Stepwise**", "**All**")
   ) |> gtsummary::as_flex_table()
 
   tables$cc_risk <- lapply(

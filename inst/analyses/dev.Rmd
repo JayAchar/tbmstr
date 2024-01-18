@@ -366,6 +366,9 @@ htmltools::h3(
 )
 htmltools::hr()
 autofit(params$tables$mv$full)
+
+htmltools::hr()
+autofit(params$tables$mv$compare)
 ```
 <!---BLOCK_LANDSCAPE_STOP--->
 

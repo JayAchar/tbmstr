@@ -23,6 +23,7 @@ calculate_multivariable_model <- function(df) {
     "hb_bin",
     "ast_alt_bin",
     "eos_days",
+    "prfneu_bin",
     "event_fail"
   )
 
@@ -48,7 +49,7 @@ calculate_multivariable_model <- function(df) {
   full <- survival::coxph(
     so ~ age_grp + sex + bmi_group + homeless + idu + sm_fact + empl_3grp +
       hiv + prison + alcohol + prevtb + cav + hcvab + smear +
-      hb_bin + creat_bin + ast_alt_bin +
+      hb_bin + creat_bin + ast_alt_bin + prfneu_bin +
       survival::frailty(cntry, distribution = "gaussian"),
     data = mod_data
   )
@@ -75,8 +76,9 @@ calculate_multivariable_model <- function(df) {
   }
 
   print(
-    survival::cox.zph(mv)
+    survival::cox.zph(full)
   )
 
-  return(mv)
+  # FIXME: this function should probably only output one model
+  list(full = full, mv = mv)
 }
