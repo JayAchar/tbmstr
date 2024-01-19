@@ -28,6 +28,22 @@ who:
 params$data$characteristics_by_fu
 ```
 
+# Exclude Ukraine
+
+Since the war has affected the care provided in Ukraine, it's worth excluding
+their results to see the effect on the overall study results:
+
+## End of Treatment Outcome
+
+```{r}
+params$data$exclude_ukr$eot_outcome
+```
+
+## End of Study Outcome
+
+```{r}
+params$data$exclude_ukr$eos_outcome
+```
 
 
 # Debug
