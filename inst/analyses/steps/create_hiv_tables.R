@@ -5,7 +5,7 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
     who_fu$globalrecordid %in% hiv_cohort$globalrecordid
   ), ]
 
-  outcome_by_status <- gtsummary::tbl_summary(
+  outcome <- gtsummary::tbl_summary(
     data = full[which(!is.na(full$hiv)), ],
     by = "hiv",
     include = "outcome",
@@ -14,15 +14,47 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
     ),
     missing_text = missing_text
   ) |>
-    gtsummary::modify_spanning_header(
-      c("stat_1", "stat_2") ~ "**HIV status**"
-    ) |>
     gtsummary::modify_header(label = "") |>
     gtsummary::modify_table_body(
       ~ .x |>
         dplyr::filter(
           !(variable %in% "outcome" & row_type %in% "label")
         )
+    )
+
+  original_levels <- levels(full$tx_outcome)
+  index <- which(original_levels == "Successful")
+  original_levels[index] <- "Treatment success"
+  levels(full$tx_outcome) <- original_levels
+
+  summary <- gtsummary::tbl_summary(
+    data = full[which(!is.na(full$hiv)), ],
+    include = "tx_outcome",
+    by = dplyr::all_of("hiv"),
+    label = list(
+      tx_outcome ~ "Binary treatment outcome"
+    ),
+    missing_text = missing_text
+  ) |>
+    gtsummary::modify_header(label = "") |>
+    gtsummary::modify_table_body(
+      ~ .x |>
+        dplyr::filter(!(variable %in% "tx_outcome" & row_type %in% "label"))
+    ) |>
+    gtsummary::modify_table_body(
+      ~ .x |>
+        dplyr::filter(variable %in% "tx_outcome" & label == "Treatment success")
+    )
+
+  outcome_by_status <- gtsummary::tbl_stack(
+    list(
+      outcome,
+      summary
+    ),
+    quiet = TRUE
+  ) |>
+    gtsummary::modify_spanning_header(
+      c("stat_1", "stat_2") ~ "**HIV status**"
     )
 
   hiv_outcomes <- gtsummary::tbl_summary(
@@ -35,6 +67,7 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
     label = labels$hiv,
     missing_text = missing_text
   )
+
 
   failure <- gtsummary::tbl_uvregression(
     data = hiv_cohort,
