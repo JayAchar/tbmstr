@@ -1,11 +1,12 @@
-render <- function(tables, plots, config, template) {
+render <- function(tables, plots, git, config, template) {
   rmarkdown::render(
     input = template,
     output_dir = config$output_dir,
     output_format = "all",
     params = list(
       tables = tables,
-      plots = plots
+      plots = plots,
+      git = git
     )
   )
 
@@ -62,5 +63,20 @@ render_follow_up <- function(df, config, template) {
   return(file.path(
     config$output_dir,
     "follow_up.docx"
+  ))
+}
+
+render_sensitivity_analyses <- function(config, template) {
+  rmarkdown::render(
+    input = template,
+    output_dir = config$output_dir,
+    params = list(
+      git = config$git
+    )
+  )
+
+  return(file.path(
+    config$output_dir,
+    "sensivity.html"
   ))
 }

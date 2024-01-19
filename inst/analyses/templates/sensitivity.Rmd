@@ -1,0 +1,28 @@
+---
+title: "Sensitivity analyses"
+author: "Jay Achar"
+date: "`r Sys.time()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+params:
+  git: "Error"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(flextable)
+```
+# Sensivity analyses
+
+
+
+
+# Debug
+
+Git branch: `r params$git$branch`  
+Git commit: `r params$git$hash`  
+Link: [Github](`r paste0("https://github.com/JayAchar/tbmstr/commit/", params$git$hash)`)
+
