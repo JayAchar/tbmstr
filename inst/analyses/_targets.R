@@ -172,6 +172,12 @@ list(
     surv_objects,
     include_outcomes$who_outcomes
   )),
+  tar_target(
+    sensivity_analyses,
+    create_sensitivity_analyses(
+      censored
+    )
+  ),
   tar_target(plots, create_plots(
     surv_objects,
     hiv_cohort
@@ -186,8 +192,9 @@ list(
     template = file_dev_template
   ), format = "file"),
   tar_target(
-    sensivity_analyses,
+    sensitivity_analysis_report,
     render_sensitivity_analyses(
+      sensivity_analyses,
       config = list(
         output_dir = output_dir,
         git = git

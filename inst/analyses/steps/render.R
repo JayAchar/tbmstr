@@ -66,12 +66,13 @@ render_follow_up <- function(df, config, template) {
   ))
 }
 
-render_sensitivity_analyses <- function(config, template) {
+render_sensitivity_analyses <- function(lst, config, template) {
   rmarkdown::render(
     input = template,
     output_dir = config$output_dir,
     params = list(
-      git = config$git
+      git = config$git,
+      data = lst
     )
   )
 

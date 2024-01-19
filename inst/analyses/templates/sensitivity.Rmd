@@ -9,14 +9,24 @@ output:
     toc_float: true
 params:
   git: "Error"
+  data: "Error"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(flextable)
 ```
-# Sensivity analyses
+# Characteristics by Follow-up status
 
+Below is a table which compares the baseline characteristics of participants
+who:
+
+* Successfully completed treatment and,
+* Either completed or did not complete 600 days in the study
+
+```{r}
+params$data$characteristics_by_fu
+```
 
 
 

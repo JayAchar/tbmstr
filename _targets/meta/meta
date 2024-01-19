@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|b54fb2e23560f7f2|||||||||||||||
+.Random.seed|object|dd8fea05877230d1|||||||||||||||
 add_failures|stem|61848e9c055b6c7d|a4587bbfa4ac2a9c|d5f8a9305c0862fe|-607455969||t19740.4592498099s|8ae701a85c6f0053|3428351|rds|local|vector|||0.017||
 adjusted|stem|9440d1afe2064276|6c6b542f48028b9c|84f6600ebd870927|-1421124365||t19739.5847160048s|939fdeb9f1c6afd3|3131205|rds|local|vector|||0.006||
 adjustment_files|stem|1432986db0324764|90e66d70e3f0d3b1|1427f37446bc32c9|-1925945130|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data|t19680.8537634386s|f0ef80e5f0ea82e1|224|file|local|vector|||0||
@@ -32,6 +32,7 @@ conversion_cohort|stem|bfe60274de576506|bcd04c211ffc395a|2e3ec6ee35aac8e6|104995
 conversion_cohorts|stem|9dc3781ec0c924ff|bcd04c211ffc395a|611b9b86a38758c7|-1165493417||t19709.8477416204s|c3b56309db5816e7|203354|rds|local|vector|||0.006||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|592a3fce2c8e709a|||||||||||||||
+create_characteristics_by_follow_up|function|f376db99a7bad84d|||||||||||||||
 create_conversion_cohort|function|39394f7659690679|||||||||||||||
 create_conversion_variables|function|b00d8e7fa9933b55|||||||||||||||
 create_eos_outcome|function|2c7411df2c56ab40|||||||||||||||
@@ -47,6 +48,7 @@ create_hiv_tables|function|4088d512cf99585d|||||||||||||||
 create_outcomes|function|c55958d537048131|||||||||||||||
 create_plots|function|0e1586940c100491|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
+create_sensitivity_analyses|function|488e713312980b4f|||||||||||||||
 create_surv_objects|function|06111e873af68f88|||||||||||||||
 create_survival_table|function|7818473763059fbb|||||||||||||||
 create_table_labels|function|151033a472e0e259|||||||||||||||
@@ -75,9 +77,9 @@ follow_up|stem|3858ff8b0a26f5b5|24f3df52027d3e7d|97601f37d4713908|-206865066||t1
 follow_up_file|stem|9cb9db454100e9ed|dc0ea0fb2bb775c7|2c437b0a9f7f9ed1|-1571048836|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/follow_up.docx|t19740.4592660277s|1b10b70c55944bdf|11724|file|local|vector|||0.231||
 follow_up_summary_template|object|072d1dc1458268e9|||||||||||||||
 fu_cohort|stem|322c10e458e2e35e|b163bf3d35c3ae73|74ff2d903ec48398|-1783988309||t19740.4592536955s|e92d8fa7d769893f|373071|rds|local|vector|||0.006||
-git|object|f940157b46544369|||||||||||||||
+git|object|cf514cc6d866503c|||||||||||||||
 git_branch|object|6f5da97f74846101|||||||||||||||
-git_hash|object|84dabf3ae47f3302|||||||||||||||
+git_hash|object|5861e1c27bc41887|||||||||||||||
 handle_factors|function|9942e46c1c9d2fe9|||||||||||||||
 has_positive_baseline_culture|function|fba120b35ccb4cb5|||||||||||||||
 high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|0426a872343c8eac|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.012||
@@ -124,19 +126,20 @@ render|function|f00d7df54ae6de25|||||||||||||||
 render_docx|function|98f07b61c715298f|||||||||||||||
 render_follow_up|function|705ef2f81c3170a6|||||||||||||||
 render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
-render_sensitivity_analyses|function|59bb1af4042c1cfa|||||||||||||||
+render_sensitivity_analyses|function|9c2c9d713f6359f6|||||||||||||||
 render_sensivity_analyses|function|45778001c105368b|||||||||||||||
 render_short_success|function|1389e1f0795abdae|||||||||||||||
 render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
-reports|stem|f8562749fe4ac3c9|331b6962639e4966|4714f632a409bc7d|-653841556|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19741.4862521048s|6c2064c322cd6cc3|443077|file|local|vector|||56.669||
+reports|stem|6172b32523f2d761|331b6962639e4966|450a922edb044221|-653841556|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19741.5073651011s|998d0503a6db0604|443073|file|local|vector|||56.989||
 run_analysis|function|ecc9d0a9bd870a81|||||||||||||||
 run_quality_check|function|85d9ff66e3060541|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|b63fbc442570725d|||||||||||||||
 saved_plots|stem|7553d3218be13a8c|477d309e7f399201|62a8099dbea02185|-2072482757|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p7.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p8.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p9.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p10.png|t19740.4826716267s|aa830a41c24dc4cf|1209458|file|local|vector|||5.143|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 25 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 25 rows containing missing values geom_point.|
-sensitivity_file|stem|1be866d3faf906bc|e1aea88ad2b1dd8d|60204b477dde7c27|905037976|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/sensitivity.Rmd|t19741.4962325088s|f7f8608a8895099d|463|file|local|vector|||0.701||
+sensitivity_analysis_report|stem|bbf6069e7bcf5b49|ed28a6924d5a0a2f|fd96c8db97aa2114|1456660286||t19741.5312737357s|e92536e5890953e5|126|rds|local|vector|||0.817||
+sensitivity_file|stem|db876d4b2f4b1a39|e1aea88ad2b1dd8d|60204b477dde7c27|905037976|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/sensitivity.Rmd|t19741.5240048427s|d0b9d98c9fb8d82e|727|file|local|vector|||0.716||
 sensitivity_template|object|219d40329f4c6eda|||||||||||||||
-sensivity_analyses|stem|bbf6069e7bcf5b49|527fce82a6689fed|86066cc5f545fc36|-1895809710||t19741.497417129s|e92536e5890953e5|126|rds|local|vector|||0.607||
+sensivity_analyses|stem|e9ceccb1e317f6f6|3fa95233b0f7088c|c43a7d8fc9e4dc91|-1895809710||t19741.5312641959s|c6c994fb4bfcb3ba|419465|rds|local|vector|||1.66||
 short_success|stem|e1c4e30afea39315|12c11d14f1ddf2cf|5d9039b552683476|-839061826|/Users/jayachar/Documents/github_repos/packages/tbmstr/inst/analyses/output/short_success.docx|t19657.4974798442s|d928dede5c6b23de|12910|file|local|vector|||1.581||
 short_success_template|object|f5f7ed02d1db5e44|||||||||||||||
 success_file|stem|c6027797382854d0|dc3a8ddb3a3a5ab5|7f1eee0711645da5|1104249875|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/short_success.docx|t19740.4592629731s|f6b2c9bd08de03d1|12771|file|local|vector|||0.804||
