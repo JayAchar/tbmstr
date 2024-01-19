@@ -208,6 +208,15 @@ htmltools::h3(
 params$tables$fail_survival
 
 htmltools::hr()
+
+htmltools::h3(
+  "Cumulative probability of TB-free status at specified timepoints",
+  "after treatment initiation by regimen"
+)
+
+params$tables$fail_survival_by_regimen
+
+htmltools::hr()
 params$plots$p1
 
 htmltools::hr()

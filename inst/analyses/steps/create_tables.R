@@ -204,6 +204,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   tables$fail_survival <- surv_objects$fail |>
     create_survival_table()
 
+  tables$fail_survival_by_regimen <- surv_objects$fail_by_regimen |>
+    create_survival_table()
+
   tables$fu_survival <- surv_objects$fu_fail |>
     gtsummary::tbl_survfit(
       times = c(90, 180, 270, 360),

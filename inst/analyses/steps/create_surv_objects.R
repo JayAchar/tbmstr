@@ -17,6 +17,11 @@ create_surv_objects <- function(df, hiv_cohort, cc_cohorts, fu_cohort) {
     data = df
   )
 
+  so$fail_by_regimen <- ggsurvfit::survfit2(
+    survival::Surv(eos_days, event_fail) ~ regimen,
+    data = df
+  )
+
   so$fu_fail <- ggsurvfit::survfit2(
     survival::Surv(fu_days, event_fail) ~ 1,
     data = fu_cohort
