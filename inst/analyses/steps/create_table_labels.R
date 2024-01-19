@@ -1,4 +1,6 @@
 create_table_labels <- function() {
+  # TODO: could these labels be consolidated?
+  #
   mv_fail <- list(
     age_grp ~ "Age group (yrs)",
     cav ~ "X-ray cavities",
@@ -10,6 +12,27 @@ create_table_labels <- function() {
     hb_bin ~ "Baseline anaemia",
     ast_alt_bin ~ "Baseline elevated AST/ALT",
     sm_fact ~ "Smoking intensity"
+  )
+
+  mv_all <- list(
+    age_grp ~ "Age group (yrs)",
+    cav ~ "X-ray cavities",
+    bmi_group ~ "Body Mass Index (kg/m^2)",
+    hiv ~ "HIV positive status",
+    empl_3grp ~ "Employment status",
+    smear ~ "Baseline smear microscopy status",
+    alcohol ~ "Excess alcohol use",
+    hb_bin ~ "Baseline anaemia",
+    ast_alt_bin ~ "Baseline elevated AST/ALT",
+    sm_fact ~ "Smoking intensity",
+    sex ~ "Sex",
+    hcvab ~ "HCV Ab status",
+    creat_bin ~ "Baseline renal dysfunction",
+    prevtb ~ "Previous TB episode",
+    idu ~ "History of injecting drug use",
+    homeless ~ "Homeless",
+    prison ~ "History of incarceration",
+    prfneu_bin ~ "Baseline peripheral neuropathy"
   )
 
   desc <- list(
@@ -78,6 +101,7 @@ create_table_labels <- function() {
 
   list(
     mv = mv_fail,
+    mv_all = mv_all,
     tx_desc = desc,
     hiv = hiv_labels,
     uni = univariable

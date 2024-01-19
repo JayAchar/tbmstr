@@ -96,6 +96,8 @@ All statistical analyses were performed with R software (version 4.3.0).
 
 \newpage
 
+<!---BLOCK_LANDSCAPE_START--->
+
 ## Treatment cohort description
 
 ```{r wrap="Tables & figures", echo = FALSE}
@@ -119,7 +121,18 @@ htmltools::h3(
 htmltools::hr()
 autofit(params$tables$tx_description |>
   gtsummary::as_flex_table())
+
+htmltools::hr()
+
+htmltools::h3(
+  "Baseline demographic and clinical characteristics of participants by regimen"
+)
+
+autofit(params$tables$tx_description_by_regimen |>
+  gtsummary::as_flex_table())
 ```
+
+<!---BLOCK_LANDSCAPE_STOP--->
 
 <div class="notes">
 
@@ -138,10 +151,10 @@ to address the following style issues:
 
 ### Manuscript text
 
-After exclusion of (NUMBER) screening failures (Figure 1), 2636
-participants from 13 countries were included in the treatment 
-cohort. More than half of the participants were from Belarus `r inline("cntry", "Belarus")` or Ukraine
- `r inline("cntry", "Ukraine")`.
+After exclusion of (NUMBER) screening failures (Figure 1), 
+`r params$tables$tx_description$N` participants from 13 countries were included
+in the treatment cohort. More than half of the participants were from Belarus 
+`r inline("cntry", "Belarus")` or Ukraine  `r inline("cntry", "Ukraine")`.
 
 Baseline demographic and clinical characteristics are described in Table XX.
 The median age was  `r gtsummary::inline_text(params$tables$tx_description, variable = "age", pattern = "{median} (IQR {p25}-{p75})")` with only `r text("age_grp", "<15")` 
@@ -154,8 +167,8 @@ excess alcohol use `r text("alcohol", "Yes")`. Approximately half reported a his
  `r inline("hcvab", "Seropositive")` and SARS-CoV2 `r inline("covid", "Yes")` 
 infection were present in a minority of participants. Baseline positive smear
 microscopy `r inline("smear", "Positive")` and cavitatory changes on x-ray 
- `r create_sum_text(params$tables$tx_description, "cav", c("One-sided",
-"Two-sided"), pattern = "({total}, {perc}%)")` were 
+ `r create_sum_text(params$tables$tx_description, "cav", c("Unilateral",
+"Bilateral"), pattern = "({total}, {perc}%)")` were 
 detected in over half of participants, while a majority (2136, 81%) had a 
 positive baseline MGIT culture result.
 
@@ -164,9 +177,8 @@ positive baseline MGIT culture result.
 ## Treatment cohort outcomes
 
 ```{r wrap="Tables & figures", echo = FALSE}
-eot_text <- create_text(params$tables$tx_outcomes)
-eot_inline <- create_text(params$tables$tx_outcomes, "({n}, {p}%)")
-
+eot_text <- create_text(params$tables$tx_outcomes$tbls[[1]])
+eot_inline <- create_text(params$tables$tx_outcomes$tbls[[1]], "({n}, {p}%)")
 fail_text <- create_text(params$tables$failure_reasons)
 fail_inline <- create_text(params$tables$failure_reasons, "({n}, {p}%)")
 
@@ -180,6 +192,15 @@ params$tables$tx_outcomes |>
 htmltools::hr()
 
 htmltools::h3(
+  "End of treatment outcomes in treatment cohort by regimen"
+)
+
+params$tables$tx_outcomes_by_regimen |>
+  gtsummary::as_flex_table()
+
+htmltools::hr()
+
+htmltools::h3(
   "Cumulative probability of TB-free status at specified timepoints",
   "after treatment initiation"
 )
@@ -187,7 +208,19 @@ htmltools::h3(
 params$tables$fail_survival
 
 htmltools::hr()
+
+htmltools::h3(
+  "Cumulative probability of TB-free status at specified timepoints",
+  "after treatment initiation by regimen"
+)
+
+params$tables$fail_survival_by_regimen
+
+htmltools::hr()
 params$plots$p1
+
+htmltools::hr()
+params$plots$fail_by_regimen
 
 htmltools::hr()
 params$plots$p2
@@ -239,7 +272,7 @@ reason_count_text <- glue::glue(
   "({format(non_missing/unique(tables$failure_reasons$meta_data$df_stats[[1]]$N_obs) * 100, digits = 2)}%)"
 )
 ```
-At the end of treatment, `r create_sum_text(params$tables$tx_outcomes, "outcome",
+At the end of treatment, `r create_sum_text(params$tables$tx_outcomes$tbls[[1]], "outcome",
 c("Cured", "Completed"))` participants were successfully treated and `r eot_text("outcome", "Died")`
 died. Out of  `r eot_text("outcome", "Failed")` failed treatment 
 episodes, reasons for failure were recorded for `r reason_count_text`. The most
@@ -342,6 +375,9 @@ htmltools::h3(
 )
 htmltools::hr()
 autofit(params$tables$mv$full)
+
+htmltools::hr()
+autofit(params$tables$mv$compare)
 ```
 <!---BLOCK_LANDSCAPE_STOP--->
 
@@ -369,7 +405,7 @@ for strongly associated factors and clustering by study country, increasing
 age, unemployment `r mv_text("empl_3grp", "Unemployed")`, excessive alcohol use
 `r mv_text("alcohol", "Yes")`, history of smoking `r mv_text("sm_fact", "<20 pack-years")` , HIV 
 positive status `r mv_text("hiv", "Yes")`, presence of bilateral pulmonary 
-cavities on x-ray `r mv_text("cav", "Two-sided")`, elevated 
+cavities on x-ray `r mv_text("cav", "Bilateral")`, elevated 
 baseline ALT or AST `r mv_text("ast_alt_bin", "Yes")`, and baseline anaemia
 `r mv_text("hb_bin", "Yes")` were all positively associated with 
 unsuccessful study outcome. Higher BMI `r mv_text("bmi_group", "≥18.5")` 
@@ -530,18 +566,30 @@ params$plots$conversion$liquid
 ```
 ```{r liquid-stats, echo = FALSE}
 lq_n <- params$plots$conversion$liquid$data$n.risk[[1]]
-lq_cc_n <- max(params$plots$conversion$liquid$data$cum.event)
+total_participants <- params$tables$tx_description$N
 lq_median_cc <- gtsummary::inline_text(params$tables$cc_risk$liquid,
   variable = ..overall..,
   column = stat_1_1
+)
+culture_positive <- paste0(
+  lq_n, " (",
+  round(lq_n / total_participants * 100, 1), "%)"
+)
+risk_cc <- lapply(1:4,
+  FUN = function(col) {
+    statistic <- paste0("stat_", col, "_2")
+    params$tables$cc_risk$liquid$table_body[[statistic]]
+  }
 )
 ```
 
 ### Manuscript text 
 
-From `r lq_n` participants who were culture-positive at baseline, `r lq_cc_n` 
-culture converted during the first 4 months of treatment. The median days (IQR) 
-to culture conversion was `r lq_median_cc`.
+At treatment initiation, `r culture_positive` participants were sputum culture positive.
+The cumulative risk of culture conversion (IQR) was `r risk_cc[[1]]`, 
+`r risk_cc[[2]]`, `r risk_cc[[3]]`, `r risk_cc[[4]]` after 30, 60, 90 and 120
+days of treatment respectively. The median days (IQR) to sputum culture conversion 
+was `r lq_median_cc`.
 
 ## Solid cultures 
 
@@ -557,18 +605,31 @@ params$plots$conversion$solid
 ```
 ```{r solid-stats, echo = FALSE}
 solid_n <- params$plots$conversion$solid$data$n.risk[[1]]
-solid_cc_n <- max(params$plots$conversion$solid$data$cum.event)
+total_participants <- params$tables$tx_description$N
 solid_median_cc <- gtsummary::inline_text(params$tables$cc_risk$solid,
   variable = ..overall..,
   column = stat_1_1
+)
+
+culture_positive <- paste0(
+  solid_n, " (",
+  round(solid_n / total_participants * 100, 1), "%)"
+)
+risk_cc <- lapply(1:4,
+  FUN = function(col) {
+    statistic <- paste0("stat_", col, "_2")
+    params$tables$cc_risk$solid$table_body[[statistic]]
+  }
 )
 ```
 
 ### Manuscript text
 
-From `r solid_n` participants who were culture-positive at baseline, 
-`r solid_cc_n` culture converted during the first 4 months of treatment. The 
-median days (IQR) to culture conversion was `r solid_median_cc`.
+At treatment initiation, `r culture_positive` participants were sputum culture positive.
+The cumulative risk of culture conversion (IQR) was `r risk_cc[[1]]`, 
+`r risk_cc[[2]]`, `r risk_cc[[3]]`, `r risk_cc[[4]]` after 30, 60, 90 and 120
+days of treatment respectively. The median days (IQR) to sputum culture conversion 
+was `r solid_median_cc`.
 
 ## All cultures 
 
@@ -584,16 +645,29 @@ params$plots$conversion$joint
 ```
 ```{r joint-stats, echo = FALSE}
 joint_n <- params$plots$conversion$joint$data$n.risk[[1]]
-joint_cc_n <- max(params$plots$conversion$joint$data$cum.event)
+total_participants <- params$tables$tx_description$N
 joint_median_cc <- gtsummary::inline_text(params$tables$cc_risk$joint,
   variable = ..overall..,
   column = stat_1_1
 )
+
+culture_positive <- paste0(
+  joint_n, " (",
+  round(joint_n / total_participants * 100, 1), "%)"
+)
+risk_cc <- lapply(1:4,
+  FUN = function(col) {
+    statistic <- paste0("stat_", col, "_2")
+    params$tables$cc_risk$joint$table_body[[statistic]]
+  }
+)
 ```
 ### Manuscript text
 
-From `r joint_n` participants who were culture-positive at baseline, 
-`r joint_cc_n` culture converted during the first 4 months of treatment. The 
-median days (IQR) to culture conversion was `r joint_median_cc`.
+At treatment initiation, `r culture_positive` participants were sputum culture positive.
+The cumulative risk of culture conversion (IQR) was `r risk_cc[[1]]`, 
+`r risk_cc[[2]]`, `r risk_cc[[3]]`, `r risk_cc[[4]]` after 30, 60, 90 and 120
+days of treatment respectively. The median days (IQR) to sputum culture conversion 
+was `r joint_median_cc`.
 
 \newpage

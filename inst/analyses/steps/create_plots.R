@@ -8,7 +8,19 @@ create_plots <- function(surv_objects, hiv_cohort) {
     ggplot2::coord_cartesian(ylim = c(0, 1)) +
     ggplot2::labs(
       title = "Kaplan Meier estimates for time to unsuccessful study outcome",
-      x = "Time from treatment start (days)"
+      x = "Days from treatment start",
+      y = "Disease-free survival probability"
+    )
+
+  plots$fail_by_regimen <- surv_objects$fail_by_regimen |>
+    ggsurvfit::ggsurvfit() +
+    ggsurvfit::add_confidence_interval() +
+    ggsurvfit::add_risktable() +
+    ggplot2::coord_cartesian(ylim = c(0, 1)) +
+    ggplot2::labs(
+      title = "Kaplan Meier estimates for time to unsuccessful study outcome by regimen",
+      x = "Days from treatment start",
+      y = "Disease-free survival probability"
     )
 
   plots$p2 <- surv_objects$death |>

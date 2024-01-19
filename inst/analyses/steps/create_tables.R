@@ -68,20 +68,21 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     missing_text = missing_text,
   )
 
-  # descriptive outcomes table
-  tables$tx_outcomes <- gtsummary::tbl_summary(
+  tables$tx_description_by_regimen <- gtsummary::tbl_summary(
     data = pd,
-    include = "outcome",
-    label = list(
-      outcome ~ "End of treatment outcome"
-    ),
-    missing_text = missing_text
-  ) |>
-    gtsummary::modify_header(label = "") |>
-    gtsummary::modify_table_body(
-      ~ .x |>
-        dplyr::filter(!(variable %in% "outcome" & row_type %in% "label"))
-    )
+    include = dplyr::all_of(covariates) & !dplyr::ends_with("_bin") &
+      !dplyr::matches("regimen"),
+    label = labels$tx_desc,
+    type = types,
+    by = "regimen",
+    missing_text = missing_text,
+  )
+
+  tables$tx_outcomes <- create_eot_outcome_table(pd, missing_text)
+
+  tables$tx_outcomes_by_regimen <- create_eot_outcome_table(pd, missing_text,
+    by = "regimen"
+  )
 
   ## outcomes stratified by HIV status
   tables$hiv <- create_hiv_tables(pd, hiv_cohort,
@@ -90,6 +91,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   )
 
   # output table 2
+  # FIXME: there are two MV models tabulated here - the full version and
+  # a restricted version based on AIC. Must choose which one to keep for the
+  # final analysis
   tables$mv <- list()
   tables$mv$crude <- gtsummary::tbl_uvregression(
     data = pd,
@@ -107,7 +111,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     gtsummary::add_nevent(location = "level")
 
 
-  tables$mv$adjusted <- surv_objects$mv_fail |>
+  tables$mv$adjusted <- surv_objects$mv_fail$mv |>
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = labels$mv,
@@ -119,6 +123,20 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
       tables$mv$adjusted
     ),
     tab_spanner = c("**Crude**", "**Adjusted**")
+  ) |> gtsummary::as_flex_table()
+
+  tables$mv$all_vars <- surv_objects$mv_fail$full |>
+    gtsummary::tbl_regression(
+      exponentiate = TRUE,
+      label = labels$mv_all,
+    )
+
+  tables$mv$compare <- gtsummary::tbl_merge(
+    list(
+      tables$mv$crude,
+      tables$mv$all_vars
+    ),
+    tab_spanner = c("**Stepwise**", "**All**")
   ) |> gtsummary::as_flex_table()
 
   tables$cc_risk <- lapply(
@@ -184,6 +202,9 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   tables$who_fu_outcomes <- create_follow_up_table(who_outcomes)
 
   tables$fail_survival <- surv_objects$fail |>
+    create_survival_table()
+
+  tables$fail_survival_by_regimen <- surv_objects$fail_by_regimen |>
     create_survival_table()
 
   tables$fu_survival <- surv_objects$fu_fail |>

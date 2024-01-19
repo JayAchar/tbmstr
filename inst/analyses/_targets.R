@@ -22,7 +22,7 @@ options(clustermq.scheduler = "multicore")
 lapply(list.files("inst/analyses/steps", full.names = TRUE), source)
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
-data_path <- here::here("data", "regional_prepared")
+data_path <- here::here("data", "regional_prepared", "analysis_2023")
 output_dir <- here::here("inst", "analyses", "output")
 quality_file <- here::here(output_dir, "quality.html")
 adjustments_path <- here::here("inst", "analyses", "adjustments", "data")
