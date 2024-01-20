@@ -25,7 +25,7 @@ who:
 * Either completed or did not complete 600 days in the study
 
 ```{r}
-params$data$characteristics_by_fu
+params$data$calculated$characteristics_by_fu
 ```
 
 # Exclude Ukraine
@@ -36,14 +36,36 @@ their results to see the effect on the overall study results:
 ## End of Treatment Outcome
 
 ```{r}
-params$data$exclude_ukr$eot_outcome
+params$data$calculated$exclude_ukr$eot_outcome
 ```
 
 ## End of Study Outcome
 
 ```{r}
-params$data$exclude_ukr$eos_outcome
+params$data$calculated$exclude_ukr$eos_outcome
 ```
+
+# Cox regression diagnostics
+
+The following multivariable model has been selected: 
+
+```{r}
+params$data$mv_surv$full$formula
+```
+
+We can test the proportional hazards assumption using a statistical test -
+below. We must take into account the risk of carrying out multiple tests, so 
+we can take some reassurance from the `Global` value.
+
+```{r}
+ph_test <- survival::cox.zph(params$data$mv_surv$full)
+ph_test
+```
+```{r}
+plot(ph_test)
+```
+
+
 
 
 # Debug

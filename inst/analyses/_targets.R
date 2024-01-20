@@ -194,7 +194,10 @@ list(
   tar_target(
     sensitivity_analysis_report,
     render_sensitivity_analyses(
-      sensivity_analyses,
+      list(
+        calculated = sensivity_analyses,
+        mv_surv = surv_objects$mv_fail
+      ),
       config = list(
         output_dir = output_dir,
         git = git
