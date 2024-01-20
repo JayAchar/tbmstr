@@ -22,27 +22,41 @@ options(clustermq.scheduler = "multicore")
 lapply(list.files("inst/analyses/steps", full.names = TRUE), source)
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
-data_path <- here::here("data", "regional_prepared", "analysis_2023")
-output_dir <- here::here("inst", "analyses", "output")
-quality_file <- here::here(output_dir, "quality.html")
-adjustments_path <- here::here("inst", "analyses", "adjustments", "data")
-dev_template <- here::here("inst", "analyses", "dev.Rmd")
-success_template <- here::here("inst", "analyses", "short_success.Rmd")
-withdrawal_template <- here::here("inst", "analyses", "withdrawn.Rmd")
+data_dir <- here::here("data", "regional_prepared", "analysis_2023")
+base_dir <- here::here("inst", "analyses")
+templates_dir <- file.path(base_dir, "templates")
+output_dir <- file.path(base_dir, "output")
+adjustments_dir <- file.path(base_dir, "adjustments", "data")
+
+dev_template <- file.path(templates_dir, "dev.Rmd")
+success_template <- file.path(templates_dir, "short_success.Rmd")
+withdrawal_template <- file.path(templates_dir, "withdrawn.Rmd")
+follow_up_summary_template <- file.path(templates_dir, "follow_up.Rmd")
+sensitivity_template <- file.path(templates_dir, "sensitivity.Rmd")
+
 deaths_file <- file.path(
-  adjustments_path,
+  adjustments_dir,
   "deaths.xlsx"
 )
 failure_reasons_file <- file.path(
-  adjustments_path,
+  adjustments_dir,
   "comment-translations.xlsx"
 )
-follow_up_summary_template <- here::here("inst", "analyses", "follow_up.Rmd")
+quality_file <- file.path(output_dir, "quality.html")
+
+## Tagging
+git_branch <- system("git rev-parse --abbrev-ref HEAD", intern = TRUE)
+git_hash <- system("git rev-parse HEAD", intern = TRUE)
+
+git <- list(
+  branch = git_branch,
+  hash = git_hash
+)
 
 
-# Replace the target list below with your own:
+## TEMPLATES
 list(
-  tar_target(file, data_path, format = "file"),
+  tar_target(file, data_dir, format = "file"),
   tar_target(file_failure_reasons,
     command = failure_reasons_file,
     format = "file"
@@ -52,7 +66,7 @@ list(
     format = "file"
   ),
   tar_target(adjustment_files,
-    command = adjustments_path,
+    command = adjustments_dir,
     format = "file"
   ),
   tar_target(file_dev_template,
@@ -61,6 +75,10 @@ list(
   ),
   tar_target(file_deaths_description,
     command = deaths_file,
+    format = "file"
+  ),
+  tar_target(sensitivity_file,
+    command = sensitivity_template,
     format = "file"
   ),
 
@@ -154,6 +172,12 @@ list(
     surv_objects,
     include_outcomes$who_outcomes
   )),
+  tar_target(
+    sensivity_analyses,
+    create_sensitivity_analyses(
+      censored
+    )
+  ),
   tar_target(plots, create_plots(
     surv_objects,
     hiv_cohort
@@ -161,11 +185,25 @@ list(
   tar_target(reports, render(
     tables,
     plots,
+    git,
     list(
       output_dir = output_dir
     ),
     template = file_dev_template
   ), format = "file"),
+  tar_target(
+    sensitivity_analysis_report,
+    render_sensitivity_analyses(
+      list(
+        calculated = sensivity_analyses,
+        mv_surv = surv_objects$mv_fail
+      ),
+      config = list(
+        output_dir = output_dir,
+        git = git
+      ), template = sensitivity_file
+    )
+  ),
   tar_target(saved_plots, save_plots(
     plots,
     list(output_dir = output_dir)

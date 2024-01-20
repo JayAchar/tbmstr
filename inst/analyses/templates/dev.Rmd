@@ -13,6 +13,7 @@ output:
 params:
   tables: "Error" 
   plots: "Error" 
+  git: "Error"
 --- 
 
 ```{css css, echo=FALSE} 
@@ -375,9 +376,6 @@ htmltools::h3(
 )
 htmltools::hr()
 autofit(params$tables$mv$full)
-
-htmltools::hr()
-autofit(params$tables$mv$compare)
 ```
 <!---BLOCK_LANDSCAPE_STOP--->
 
@@ -671,3 +669,10 @@ days of treatment respectively. The median days (IQR) to sputum culture conversi
 was `r joint_median_cc`.
 
 \newpage
+
+# Debug
+
+Git branch: `r params$git$branch`  
+Git commit: `r params$git$hash`  
+Link: [Github](`r paste0("https://github.com/JayAchar/tbmstr/commit/", params$git$hash)`)
+
