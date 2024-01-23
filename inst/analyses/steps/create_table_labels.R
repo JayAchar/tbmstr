@@ -10,8 +10,7 @@ create_table_labels <- function() {
     smear ~ "Baseline smear microscopy status",
     alcohol ~ "Excess alcohol use",
     hb_bin ~ "Baseline anaemia",
-    ast_alt_bin ~ "Baseline elevated AST/ALT",
-    sm_fact ~ "Smoking intensity"
+    ast_alt_bin ~ "Baseline elevated AST/ALT"
   )
 
   mv_all <- list(
@@ -24,7 +23,7 @@ create_table_labels <- function() {
     alcohol ~ "Excess alcohol use",
     hb_bin ~ "Baseline anaemia",
     ast_alt_bin ~ "Baseline elevated AST/ALT",
-    sm_fact ~ "Smoking intensity",
+    smok ~ "Smoking history",
     sex ~ "Sex",
     hcvab ~ "HCV Ab status",
     creat_bin ~ "Baseline renal dysfunction",
@@ -52,7 +51,6 @@ create_table_labels <- function() {
     smok ~ "Smoking history",
     idu ~ "History of injecting drug use",
     empl_3grp ~ "Employment status",
-    sm_fact ~ "Smoking intensity",
     diab ~ "Diabetes",
     covid ~ "Baseline SARS-CoV2 status",
     regimen ~ "Treatment regimen",
@@ -80,7 +78,6 @@ create_table_labels <- function() {
     smok ~ "Smoking history",
     idu ~ "History of injecting drug use",
     empl_3grp ~ "Employment status",
-    sm_fact ~ "Smoking intensity",
     diab ~ "Diabetes",
     covid ~ "Baseline SARS-CoV2 status",
     regimen ~ "Treatment regimen",
