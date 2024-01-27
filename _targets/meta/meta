@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|8a21f74e210d7d67|||||||||||||||
+.Random.seed|object|631f39d2c082597e|||||||||||||||
 add_failures|stem|61848e9c055b6c7d|a4587bbfa4ac2a9c|d5f8a9305c0862fe|-607455969||t19740.4592498099s|8ae701a85c6f0053|3428351|rds|local|vector|||0.017||
 adjusted|stem|9440d1afe2064276|6c6b542f48028b9c|84f6600ebd870927|-1421124365||t19739.5847160048s|939fdeb9f1c6afd3|3131205|rds|local|vector|||0.006||
 adjustment_files|stem|1432986db0324764|90e66d70e3f0d3b1|1427f37446bc32c9|-1925945130|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data|t19741.5743725923s|f0ef80e5f0ea82e1|224|file|local|vector|||0||
@@ -70,7 +70,7 @@ failure_cohort|stem|a8b10b61cb456ecd|cec386c9ca9615fb|fb5610dee0262b91|-53581509
 failure_reasons_file|object|67925b91e666fbf6|||||||||||||||
 file|stem|45edf26398e23024|9c3cbb91deef4bf5|c750ecce02f8f037|-1301001980|/Users/jayachar/Documents/dev/packages/tbmstr/data/regional_prepared/analysis_2023|t19739.4645617631s|710c613aa5de3636|608|file|local|vector|||0||
 file_deaths_description|stem|90d526af669b775d|86649afc032d3cdb|24db84cfe350ee7a|1318158161|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data/deaths.xlsx|t19660.4400008009s|1a4fa8b06219ab44|183607|file|local|vector|||0||
-file_dev_template|stem|bad19fc331759511|6e44a4603973d6a7|018844e24dbe59c5|-26005027|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/dev.Rmd|t19745.5298638581s|b27642db476fe457|20393|file|local|vector|||0.811||
+file_dev_template|stem|4cbd9d4c3d140b7b|6e44a4603973d6a7|018844e24dbe59c5|-26005027|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/dev.Rmd|t19749.8287518199s|70ba712bf7f8a420|21031|file|local|vector|||0.772||
 file_failure_reasons|stem|2ca963a2431b1a66|3ca09cdee6a10936|1226e8bd3624d0b8|-1845173297|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data/comment-translations.xlsx|t19667.7999989891s|359b0db638e91671|46851|file|local|vector|||0||
 file_follow_up|stem|67c7442b7536249e|ca1a558d9d8879f0|e1be9c9316e5ece8|-1600069261|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/follow_up.Rmd|t19742.9270441327s|24e075d0352ab5d9|394|file|local|vector|||0||
 file_success_template|stem|f9c7cf8cc15785cd|f9cb1304d4289aba|9a6ed2a06cdc2335|-1024669059|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/short_success.Rmd|t19742.9270441455s|6878a689798d08d2|2299|file|local|vector|||0||
@@ -79,9 +79,9 @@ follow_up|stem|3858ff8b0a26f5b5|24f3df52027d3e7d|97601f37d4713908|-206865066||t1
 follow_up_file|stem|9cb9db454100e9ed|dc0ea0fb2bb775c7|2c437b0a9f7f9ed1|-1571048836|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/follow_up.docx|t19740.4592660277s|1b10b70c55944bdf|11724|file|local|vector|||0.231||
 follow_up_summary_template|object|072d1dc1458268e9|||||||||||||||
 fu_cohort|stem|322c10e458e2e35e|b163bf3d35c3ae73|74ff2d903ec48398|-1783988309||t19740.4592536955s|e92d8fa7d769893f|373071|rds|local|vector|||0.006||
-git|object|04be46922cf6d318|||||||||||||||
-git_branch|object|102a6837de10ee06|||||||||||||||
-git_hash|object|fe8eec739868e3d4|||||||||||||||
+git|object|e2cc89a16f6540df|||||||||||||||
+git_branch|object|1ee75766930b8055|||||||||||||||
+git_hash|object|6f5df653ccf6a514|||||||||||||||
 handle_factors|function|9942e46c1c9d2fe9|||||||||||||||
 has_positive_baseline_culture|function|fba120b35ccb4cb5|||||||||||||||
 high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|0426a872343c8eac|1408248839||t0s|f4066a65ff755f48|0|file|local|vector|||0.012||
@@ -132,13 +132,13 @@ render_sensitivity_analyses|function|9c2c9d713f6359f6|||||||||||||||
 render_sensivity_analyses|function|45778001c105368b|||||||||||||||
 render_short_success|function|1389e1f0795abdae|||||||||||||||
 render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
-reports|stem|62464a05c94e1078|331b6962639e4966|5abdef30d392a071|-653841556|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19745.5432998502s|c53745be43853277|433948|file|local|vector|||45.257||
+reports|stem|c27d2492b0cb62ce|331b6962639e4966|4964982faabefe31|-653841556|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19749.8295676888s|727bf3ed17c0e86b|434116|file|local|vector|||51.3||
 run_analysis|function|ecc9d0a9bd870a81|||||||||||||||
 run_quality_check|function|85d9ff66e3060541|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_plots|function|b63fbc442570725d|||||||||||||||
 saved_plots|stem|7553d3218be13a8c|477d309e7f399201|04fbd3c42a55ea19|-2072482757|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p7.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p8.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p9.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p10.png|t19745.5367944188s|aa830a41c24dc4cf|1209458|file|local|vector|||7.959|1m22mUsing alpha for a discrete variable is not advised.. 1m22mRemoved 25 rows containing nonfinite values stat_boxplot.. 1m22mRemoved 25 rows containing missing values geom_point.|
-sensitivity_analysis_report|stem|bbf6069e7bcf5b49|10a566ae3972b4d1|d5c1439d859b483d|1456660286||t19745.5361458961s|e92536e5890953e5|126|rds|local|vector|||5.42||
+sensitivity_analysis_report|stem|bbf6069e7bcf5b49|10a566ae3972b4d1|087b8c90e57ed0d2|1456660286||t19749.8162524364s|e92536e5890953e5|126|rds|local|vector|||2.403||
 sensitivity_file|stem|26d6b253af7c8833|e1aea88ad2b1dd8d|60204b477dde7c27|905037976|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/sensitivity.Rmd|t19742.9270441358s|c8fd4c36ccc1b8d2|1509|file|local|vector|||0.976||
 sensitivity_template|object|219d40329f4c6eda|||||||||||||||
 sensivity_analyses|stem|384571a559da6a2b|3fa95233b0f7088c|c99a3140c095cfc3|-1895809710||t19741.5894661703s|d513c9c4a1c86170|3229744|rds|local|vector|||1.67||

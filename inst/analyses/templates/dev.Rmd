@@ -283,7 +283,15 @@ and clinician-driven treatment extensions
 `r fail_inline("failure_reasons", "Treatment extended by clinician")`
 and not receiving sufficient treatment during the treatment duration 
 `r fail_inline("failure_reasons", "Insufficient treatment received in accepted time")`
-(Supplementary table xx). 
+(Supplementary table xx). The proportions of participants who were successfully
+treated with Regimen 1 (Cs-based regimen) and Regimen 2 (Dlm-based regmein)
+were similar (`r create_sum_text(params$tables$tx_outcomes_by_regimen$tbls[[2]], 
+"tx_outcome", "Treatment success", "Lfx + Bdq + Lzd + Cfz + Cs")` and `r 
+create_sum_text(params$tables$tx_outcomes_by_regimen$tbls[[2]], 
+"tx_outcome", "Treatment success", "Lfx + Bdq + Lzd + Cfz + Dlm")`). Treatment
+success was more frequent in participants receiving Regimen 3 (without BDq) (`r 
+create_sum_text(params$tables$tx_outcomes_by_regimen$tbls[[2]], 
+"tx_outcome", "Treatment success", "Lfx + Dlm + Lzd + Cfz")`).
 
 During the post-treatment follow-up period, 25 recurrences and 44 additional 
 deaths were recorded. The cumulative probability of remaining TB-free 9-months, 
