@@ -1,7 +1,7 @@
 create_survival_table <- function(surv,
                                   times = c(301, 484, 667)) {
-  # TODO: the number of events and at-risk participants have now been
-  # commented out - is this ok?
+  # FIXME: change labels to months and add spanning header and change "Overall"
+  # to "Cumulative probability"
 
   # df <- summary(surv, times = times)
 

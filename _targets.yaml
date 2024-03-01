@@ -1,0 +1,6 @@
+manuscript:
+  store: inst/analyses/_manuscript
+  script: inst/analyses/_manuscript.R
+sharing:
+  store: inst/data-sharing/_sharing
+  script: inst/data-sharing/_sharing.R

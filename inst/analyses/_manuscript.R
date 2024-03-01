@@ -19,7 +19,7 @@ tar_option_set(
 options(clustermq.scheduler = "multicore")
 
 # Load the R scripts with your custom functions:
-lapply(list.files("inst/analyses/steps", full.names = TRUE), source)
+lapply(list.files("inst/global-steps", full.names = TRUE), source)
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
 data_dir <- here::here("data", "regional_prepared", "analysis_2023")
