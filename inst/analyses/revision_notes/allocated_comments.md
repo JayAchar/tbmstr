@@ -13,7 +13,7 @@
       that is now how the outcome is reported in the results and statistical analysis
       section. Please be consistent with the planned analysis.
 
-- [ ] "20": Please provide numbers at risk for Kaplan-Meier plots and ensure that
+- [x] "20": Please provide numbers at risk for Kaplan-Meier plots and ensure that
       plots include a measure of effect (e.g, log-rank p); estimates should be
       reported with 95% CIs.
 
@@ -47,4 +47,4 @@
       the results presented, so please alter the text in the Outcome definitions
       section to reflect this. The outcome definition section should also include
       descriptions of the secondary outcomes.
-- [ ] Count the number of pregnant women that were included.
+- [x] Count the number of pregnant women that were included.

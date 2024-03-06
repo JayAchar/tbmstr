@@ -14,6 +14,7 @@ params:
   tables: "Error" 
   plots: "Error" 
   git: "Error"
+  text: "Error"
 --- 
 
 ```{css css, echo=FALSE} 
@@ -160,8 +161,8 @@ in the treatment cohort. More than half of the participants were from Belarus
 Baseline demographic and clinical characteristics are described in Table XX.
 The median age was  `r gtsummary::inline_text(params$tables$tx_description, variable = "age", pattern = "{median} (IQR {p25}-{p75})")` with only `r text("age_grp", "<15")` 
 participants under 15 years old and `r create_sum_text(params$tables$tx_description, "age_grp", c("<15", "15-24"))` under 24 years old. The large 
-majority of participants were male `r text("sex", "Male")`. Small proportions of participants 
-reported a history of injecting drug use `r text("idu", "Yes")`, 
+majority of participants were male `r text("sex", "Male")`. `r params$text$pregnancy`
+Small proportions of participants  reported a history of injecting drug use `r text("idu", "Yes")`, 
 homelessness `r text("homeless", "Yes")`, and 
 excess alcohol use `r text("alcohol", "Yes")`. Approximately half reported a history of smoking 
 `r inline("smok", "Yes")`. Evidence of HIV `r inline("hiv", "Yes")`, HCV 
@@ -171,7 +172,7 @@ microscopy `r inline("smear", "Positive")` and cavitatory changes on x-ray
  `r create_sum_text(params$tables$tx_description, "cav", c("Unilateral",
 "Bilateral"), pattern = "({total}, {perc}%)")` were 
 detected in over half of participants, while a majority (2136, 81%) had a 
-positive baseline MGIT culture result.
+positive baseline MGIT culture result. 
 
 \newpage
 

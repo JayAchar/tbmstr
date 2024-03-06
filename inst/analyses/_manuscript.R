@@ -165,6 +165,11 @@ list(
     conversion_cohorts,
     fu_cohort
   )),
+  tar_target(
+    text_objects, create_text_objects(
+      censored
+    )
+  ),
   tar_target(tables, create_tables(
     censored,
     hiv_cohort,
@@ -185,6 +190,7 @@ list(
   tar_target(reports, render(
     tables,
     plots,
+    text = text_objects,
     git,
     list(
       output_dir = output_dir

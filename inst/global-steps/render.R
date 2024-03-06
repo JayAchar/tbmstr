@@ -1,4 +1,4 @@
-render <- function(tables, plots, git, config, template) {
+render <- function(tables, plots, text, git, config, template) {
   rmarkdown::render(
     input = template,
     output_dir = config$output_dir,
@@ -6,6 +6,7 @@ render <- function(tables, plots, git, config, template) {
     params = list(
       tables = tables,
       plots = plots,
+      text = text,
       git = git
     )
   )
