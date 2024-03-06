@@ -4,27 +4,36 @@ save_plots <- function(plots, config) {
   plots[["conversion"]] <- NULL
   plot_vector <- c(plots, conversion)
 
-  index <- seq_len(length(plot_vector))
-  file_paths <- lapply(
-    X = index,
-    FUN = \(i) {
-      file_name <- paste0(
-        "p", i, ".png"
-      )
-      ggplot2::ggsave(
-        filename = file_name,
-        path = config$output_dir,
-        plot = plot_vector[[i]],
-        device = "png",
-        width = 10,
-        height = 7
-      )
+  all_files <- lapply(
+    X = c("png", "pdf"),
+    FUN = function(plot_type) {
+      index <- seq_len(length(plot_vector))
+      lapply(
+        X = index,
+        FUN = \(i) {
+          file_name <- paste0(
+            "p", i, ".", plot_type
+          )
+          ggplot2::ggsave(
+            filename = file_name,
+            path = file.path(
+              config$output_dir,
+              plot_type
+            ),
+            plot = plot_vector[[i]],
+            device = plot_type,
+            width = 10,
+            height = 7
+          )
 
-      file.path(
-        config$output_dir,
-        file_name
+          file.path(
+            config$output_dir,
+            plot_type,
+            file_name
+          )
+        }
       )
     }
   )
-  unlist(file_paths)
+  unlist(all_files)
 }

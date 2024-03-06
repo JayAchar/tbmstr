@@ -206,6 +206,6 @@ list(
   ),
   tar_target(saved_plots, save_plots(
     plots,
-    list(output_dir = output_dir)
+    list(output_dir = file.path(output_dir, "plots"))
   ), format = "file")
 )

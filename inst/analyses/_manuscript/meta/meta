@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|3553fa1d04753363|||||||||||||||
+.Random.seed|object|c74743078a89a99c|||||||||||||||
 add_failures|stem|61848e9c055b6c7d|a4587bbfa4ac2a9c|d5f8a9305c0862fe|1444336175||t19783.5583083006s|8ae701a85c6f0053|3428351|rds|local|vector|||0.013||
 adjusted|stem|9440d1afe2064276|6c6b542f48028b9c|84f6600ebd870927|620771776||t19783.5573877881s|939fdeb9f1c6afd3|3131205|rds|local|vector|||0.006||
 adjustment_files|stem|1432986db0324764|90e66d70e3f0d3b1|1427f37446bc32c9|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/adjustments/data|t19741.5743725923s|f0ef80e5f0ea82e1|224|file|local|vector|||1.114||
@@ -67,9 +67,9 @@ file_withdrawn_template|stem|9d78b7c600aab4ba|4a84b2a82ef3a973|1795e038c7af9bb1|
 follow_up_file|stem|b8ca35be4b86ab6b|dc0ea0fb2bb775c7|2c437b0a9f7f9ed1|-974163176|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/follow_up.docx|t19783.5583525248s|739e5dedf299f2d7|14736|file|local|vector|||0.248||
 follow_up_summary_template|object|072d1dc1458268e9|||||||||||||||
 fu_cohort|stem|322c10e458e2e35e|b163bf3d35c3ae73|74ff2d903ec48398|-1927411841||t19783.5583125093s|e92d8fa7d769893f|373071|rds|local|vector|||0.006||
-git|object|8556bb996cabcb03|||||||||||||||
-git_branch|object|bf2aaaa24cf04d46|||||||||||||||
-git_hash|object|9f2020a08b361994|||||||||||||||
+git|object|c53e61ae1d6396c8|||||||||||||||
+git_branch|object|450dcd63efeb3c5b|||||||||||||||
+git_hash|object|db2bacef653fd5cb|||||||||||||||
 handle_factors|function|9942e46c1c9d2fe9|||||||||||||||
 has_positive_baseline_culture|function|fba120b35ccb4cb5|||||||||||||||
 high_dose_list|stem|da7e5646cbdfced7|e04e3644dfb215b1|0426a872343c8eac|898428887||t0s|f4066a65ff755f48|0|file|local|vector|||0.026||
@@ -112,13 +112,13 @@ render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
 render_sensitivity_analyses|function|9c2c9d713f6359f6|||||||||||||||
 render_short_success|function|1389e1f0795abdae|||||||||||||||
 render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
-reports|stem|a75ae7d6d7c650b4|331b6962639e4966|b36c50867af20ac1|536393307|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19788.2767606111s|a0eb499265501041|434835|file|local|vector|||60.675||
+reports|stem|7df800ef67efb395|331b6962639e4966|50c9407608a6c913|536393307|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19788.2961391726s|a5061715b3311932|434814|file|local|vector|||56.939||
 run_analysis|function|ecc9d0a9bd870a81|||||||||||||||
 run_quality_check|function|85d9ff66e3060541|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
-save_plots|function|b63fbc442570725d|||||||||||||||
-saved_plots|stem|64d389a74ee7dd97|477d309e7f399201|7aaeaf84ce04ed43|835264336|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p7.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p8.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p9.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/p10.png|t19783.559791568s|caa3ea3eeb5b78b4|1210662|file|local|vector|||5.15|Using alpha for a discrete variable is not advised.. Removed 25 rows containing nonfinite values stat_boxplot.. Removed 25 rows containing missing values geom_point.|
-sensitivity_analysis_report|stem|bbf6069e7bcf5b49|10a566ae3972b4d1|fa998b12c6b6feb6|-1506843802||t19788.2759417394s|e92536e5890953e5|126|rds|local|vector|||4.142||
+save_plots|function|82c0bb5322050d94|||||||||||||||
+saved_plots|stem|bc450beffb850d4c|036b00dd6ae81cae|a117807af4d99d56|835264336|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p7.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p8.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p9.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p10.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p1.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p2.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p3.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p4.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p5.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p6.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p7.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p8.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p9.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p10.pdf|t19788.3091755527s|af65dec8605f2599|1327428|file|local|vector|||7.361|Using alpha for a discrete variable is not advised.. Removed 25 rows containing nonfinite values stat_boxplot.. Removed 25 rows containing missing values geom_point.. Using alpha for a discrete variable is not advised.. Removed 25 rows containing nonfinite values stat_boxplot.. Removed 25 rows containing missing values geom_point.|
+sensitivity_analysis_report|stem|bbf6069e7bcf5b49|10a566ae3972b4d1|6f9b758d3a67713d|-1506843802||t19788.295397635s|e92536e5890953e5|126|rds|local|vector|||2.276||
 sensitivity_file|stem|26d6b253af7c8833|e1aea88ad2b1dd8d|60204b477dde7c27|927958053|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/sensitivity.Rmd|t19742.9270441358s|c8fd4c36ccc1b8d2|1509|file|local|vector|||0||
 sensitivity_template|object|219d40329f4c6eda|||||||||||||||
 sensivity_analyses|stem|384571a559da6a2b|3fa95233b0f7088c|c99a3140c095cfc3|-992599042||t19783.5583408807s|d513c9c4a1c86170|3229744|rds|local|vector|||1.876||
