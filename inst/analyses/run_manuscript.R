@@ -1,4 +1,4 @@
 devtools::install(quick = TRUE, build = TRUE, upgrade = "never")
-library(targets)
+Sys.setenv(TAR_PROJECT = "manuscript")
 setwd(here::here())
-tar_make(script = here::here("inst", "analyses", "_targets.R"))
+targets::tar_make()
