@@ -349,26 +349,52 @@ Possible improvements:
 ### Manuscript text 
 
 ```{r, echo = FALSE}
-df <- params$tables$hiv$outcome_by_status$df_by
-hiv_participants <- df[which(df$by == "Yes"), "n"]
+df <- params$tables$hiv$outcome_by_status$tbls[[1]]$df_by
+hiv_cohort <- df[which(df$by == "Yes"), c("n", "p")]
+hiv_participants_text <- glue::glue("{hiv_cohort$n} ({round(hiv_cohort$p * 100, 1)}%)")
 success <- lapply(
   X = c("Yes", "No"),
   FUN = \(x) {
     create_sum_text(
-      tab = params$tables$hiv$outcome_by_status,
+      tab = params$tables$hiv$outcome_by_status$tbls[[1]],
       var = "outcome",
       by = x,
       levels = c("Cured", "Completed")
     )
   }
 ) |> setNames(c("Yes", "No"))
-```
-End of treatment responses were less favourable in the `r hiv_participants` participants 
-living with HIV. Treatment success was `r success$Yes` compared to `r success$No` in people without HIV.
-Death (xx) and LTFU (xx) were also more frequent (Supplementary table xx, 
-Supplementary figure xx).  
 
-Amongst `r hiv_participants` participants living with HIV, baseline CD4 count 
+death <- lapply(
+  X = c("Yes", "No"),
+  FUN = \(x) {
+    create_sum_text(
+      tab = params$tables$hiv$outcome_by_status$tbls[[1]],
+      var = "outcome",
+      by = x,
+      levels = "Died"
+    )
+  }
+) |> setNames(c("Yes", "No"))
+
+ltfu <- lapply(
+  X = c("Yes", "No"),
+  FUN = \(x) {
+    create_sum_text(
+      tab = params$tables$hiv$outcome_by_status$tbls[[1]],
+      var = "outcome",
+      by = x,
+      levels = "Lost to follow-up"
+    )
+  }
+) |> setNames(c("Yes", "No"))
+```
+End-of-treatment responses were less favourable amongst `r hiv_participants_text` 
+participants living with HIV, in whom success was recorded for `r success$Yes` 
+compared to `r success$No` people without HIV. Death (`r death$Yes` vs 
+`r death$No`) and LTFU (`r ltfu$Yes` vs `r ltfu$No`) were also more frequent 
+in participants living with HIV compared to those without HIV (Supplementary Table 9).
+
+Amongst `r hiv_participants_text` participants living with HIV, baseline CD4 count 
 was available for 245 (91%).  Median baseline CD4 count was 172 (IQR 71-350). 
 The majority of participants living with HIV were receiving ART at baseline, with 
 dolutegravir-based regimens most frequently used (211, 78%). Almost all

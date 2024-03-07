@@ -36,9 +36,12 @@
 - [ ] Limitations: "high post-treatment loss to follow-up amongst those that were
       successfully treated" I missed these findings on post-treatment loss to
       follow-up in the results section
-- [ ] In table 4, please include likelihood ratio test p-values for the global
+- [x] In table 4, please include likelihood ratio test p-values for the global
       effect of each characteristic with multiple levels. Wald p-values as displayed
       currently, can be over interpreted when there is no evidence of a global association
+
+      The global LRT p-values have been added in Table 4.
+
 - [ ] The outcome definitions section is short and incomplete. The primary
       effectiveness outcome is described as the 'time to an unsuccessful outcome',
       yet in the statistical analysis section this is described as 'the cumulative
