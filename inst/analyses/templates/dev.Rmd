@@ -228,6 +228,15 @@ htmltools::hr()
 params$plots$p2
 
 htmltools::hr()
+
+htmltools::h3(
+  "Cumulative probability of remaining in follow-up after successful treatment
+outcome"
+)
+
+params$plots$fu_attrition
+
+htmltools::hr()
 htmltools::h3(
   "Reasons for treatment failure"
 )
@@ -300,15 +309,12 @@ The cumulative probability of remaining TB-free 9-months,
 15 months and 21 months after treatment initiation was 82%, 80% and 79%
 respectively (Table xx and Figure xx).
 
-```{r}
+```{r draft-fup-text-fun, echo = FALSE}
 dft <- function(timepoint) {
   df <- params$text$fu_ltfu$stats[[paste0("d", timepoint)]]
   glue::glue("{df$pct}% (95%CI {df$ci$l}-{df$ci$u})")
 }
 ```
-
-
-
 From `r params$text$fu_ltfu$total_at_risk` participants who successfully completed treatment, 
  `r params$text$fu_ltfu$stats$d0$events` did not complete any post-treatment 
 follow-up. After 6, 11 and 12 months of follow-up, the probability of not having
