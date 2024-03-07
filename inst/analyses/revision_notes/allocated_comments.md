@@ -31,7 +31,7 @@
       follow-up after a successful end-of-treatment outcome. How many of those
       treated successfully had complete post-treatment follow-up? How many had
       recurrence?
-- [ ] Results: "Following adjustment for strongly-associated factors" means what?
+- [x] Results: "Following adjustment for strongly-associated factors" means what?
       Is this term specified in the methods?
 - [ ] Limitations: "high post-treatment loss to follow-up amongst those that were
       successfully treated" I missed these findings on post-treatment loss to
@@ -39,9 +39,6 @@
 - [x] In table 4, please include likelihood ratio test p-values for the global
       effect of each characteristic with multiple levels. Wald p-values as displayed
       currently, can be over interpreted when there is no evidence of a global association
-
-      The global LRT p-values have been added in Table 4.
-
 - [ ] The outcome definitions section is short and incomplete. The primary
       effectiveness outcome is described as the 'time to an unsuccessful outcome',
       yet in the statistical analysis section this is described as 'the cumulative

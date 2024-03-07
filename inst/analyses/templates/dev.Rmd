@@ -423,7 +423,7 @@ autofit(params$tables$mv$full)
 ### Manuscript text 
 
 ```{r, echo = FALSE}
-mv_text <- function(var, level, pattern = "(HR {estimate}; 95%CI {conf.low}-{conf.high})") {
+mv_text <- function(var, level, pattern = "(aHR {estimate}; 95%CI {conf.low}-{conf.high})") {
   gtsummary::inline_text(params$tables$mv$adjusted,
     variable = dplyr::all_of(var),
     level = dplyr::all_of(level),
@@ -433,9 +433,8 @@ mv_text <- function(var, level, pattern = "(HR {estimate}; 95%CI {conf.low}-{con
 ```
 
 Crude and adjusted associations between baseline clinical and demographic characteristics 
-and unsuccessful study outcome are presented in Table XX. Following adjustment 
-for strongly associated factors and clustering by study country, increasing
-age, unemployment `r mv_text("empl_3grp", "Unemployed")`, excessive alcohol use
+and unsuccessful study outcome are presented in Table XX. In the adjusted
+analysis, increasing age, unemployment `r mv_text("empl_3grp", "Unemployed")`, excessive alcohol use
 `r mv_text("alcohol", "Yes")`, history of smoking `r mv_text("smok", "Yes")` , HIV 
 positive status `r mv_text("hiv", "Yes")`, presence of bilateral pulmonary 
 cavities on x-ray `r mv_text("cav", "Bilateral")`, elevated 
