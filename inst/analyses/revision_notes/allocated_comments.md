@@ -25,7 +25,7 @@
       a patient to be cured relapse-free and censor at the end of post-treatment
       follow-up? What if a patient was retained in care during post-treatment
       follow-up but recurrence was not bacteriologically assessed?
-- [ ] Sometimes you use 703 days, sometimes before 21 months. I suggest to be
+- [x] Sometimes you use 703 days, sometimes before 21 months. I suggest to be
       coherent, or to make the link explicitly.
 - [ ] It would be good to show the audience descriptive data about post-treatment
       follow-up after a successful end-of-treatment outcome. How many of those
