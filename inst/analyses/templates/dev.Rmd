@@ -294,8 +294,9 @@ success was more frequent in participants receiving Regimen 3 (without BDq) (`r
 create_sum_text(params$tables$tx_outcomes_by_regimen$tbls[[2]], 
 "tx_outcome", "Treatment success", "Lfx + Dlm + Lzd + Cfz")`).
 
-During the post-treatment follow-up period, 25 recurrences and 44 additional 
-deaths were recorded. The cumulative probability of remaining TB-free 9-months, 
+During the post-treatment follow-up period, `r params$text$follow_up$recurrence` 
+recurrences and `r params$text$follow_up$death` additional deaths were recorded. 
+The cumulative probability of remaining TB-free 9-months, 
 15 months and 21 months after treatment initiation was 82%, 80% and 79%
 respectively (Table xx and Figure xx).
 

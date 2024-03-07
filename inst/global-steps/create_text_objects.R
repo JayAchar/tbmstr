@@ -1,8 +1,10 @@
-create_text_objects <- function(pd) {
+create_text_objects <- function(pd, fu) {
   pregnancy <- create_pregnancy_text(df = pd)
+  follow_up <- create_follow_up_events_text(df = fu)
   return(
     list(
-      pregnancy = pregnancy
+      pregnancy = pregnancy,
+      follow_up = follow_up
     )
   )
 }
@@ -35,5 +37,20 @@ create_pregnancy_text <- function(df, dp = 1) {
     "Of {length(prg_results)} women aged between 15-49, ",
     "{valid_prg_results} ({valid_pct}%) had a baseline pregnancy test recorded ",
     "of which {pos_prg_results} ({pct}%) were positive."
+  )
+}
+
+create_follow_up_events_text <- function(df) {
+  recurrence <- nrow(df[which(df$eos_outcome == "Recurrence" &
+    df$event_fail == TRUE), ])
+
+  death <- nrow(df[which(df$eos_outcome == "Died" &
+    df$event_fail == TRUE), ])
+
+  return(
+    list(
+      recurrence = recurrence,
+      death = death
+    )
   )
 }

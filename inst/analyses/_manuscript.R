@@ -167,7 +167,8 @@ list(
   )),
   tar_target(
     text_objects, create_text_objects(
-      censored
+      pd = censored,
+      fu = fu_cohort
     )
   ),
   tar_target(tables, create_tables(

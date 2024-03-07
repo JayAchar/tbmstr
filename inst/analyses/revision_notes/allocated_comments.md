@@ -19,7 +19,7 @@
 
 ## Reviewer comments
 
-- [ ] Methods: "Participants were censored at the earlier date of LTFU after
+- [x] Methods: "Participants were censored at the earlier date of LTFU after
       successful treatment or 703 days following treatment initiation": is unclear
       to me. Please explain with more detail. Was any lab test needed to consider
       a patient to be cured relapse-free and censor at the end of post-treatment
