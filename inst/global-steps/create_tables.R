@@ -107,7 +107,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
       !dplyr::matches("^cohort_bilevel$")
   ) |>
     gtsummary::add_n(location = "label") |>
-    gtsummary::add_nevent(location = "level")
+    gtsummary::add_nevent(location = "level") |>
+    gtsummary::add_global_p(keep = TRUE)
 
 
 
@@ -115,7 +116,8 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = labels$mv_all,
-    )
+    ) |>
+    gtsummary::add_global_p(keep = TRUE)
 
   tables$mv$full <- gtsummary::tbl_merge(
     list(
