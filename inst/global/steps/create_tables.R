@@ -17,7 +17,6 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     "prison",
     "smok",
     "alcohol",
-    "sm_fact",
     "hiv",
     "hcvab",
     "diab",
@@ -108,28 +107,17 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
       !dplyr::matches("^cohort_bilevel$")
   ) |>
     gtsummary::add_n(location = "label") |>
-    gtsummary::add_nevent(location = "level")
+    gtsummary::add_nevent(location = "level") |>
+    gtsummary::add_global_p(keep = TRUE)
 
 
-  # tables$mv$adjusted <- surv_objects$mv_fail$mv |>
-  #   gtsummary::tbl_regression(
-  #     exponentiate = TRUE,
-  #     label = labels$mv,
-  #   )
-  #
-  # tables$mv$full <- gtsummary::tbl_merge(
-  #   list(
-  #     tables$mv$crude,
-  #     tables$mv$adjusted
-  #   ),
-  #   tab_spanner = c("**Crude**", "**Adjusted**")
-  # ) |> gtsummary::as_flex_table()
 
   tables$mv$adjusted <- surv_objects$mv_fail$full |>
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = labels$mv_all,
-    )
+    ) |>
+    gtsummary::add_global_p(keep = TRUE)
 
   tables$mv$full <- gtsummary::tbl_merge(
     list(

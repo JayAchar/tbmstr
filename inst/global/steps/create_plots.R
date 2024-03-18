@@ -100,6 +100,14 @@ create_plots <- function(surv_objects, hiv_cohort) {
     ggsurvfit::add_risktable() +
     ggplot2::coord_cartesian(ylim = c(0, 1))
 
+  plots$fu_attrition <- surv_objects$fu_ltfu |>
+    ggsurvfit::ggsurvfit() +
+    ggplot2::labs(
+      x = "Days after successful treatment outcome",
+      y = "Cumulative probability of study retention"
+    ) + ggsurvfit::add_confidence_interval() +
+    ggsurvfit::add_risktable() +
+    ggplot2::coord_cartesian(ylim = c(0, 1))
 
   plots
 }

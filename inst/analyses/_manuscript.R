@@ -18,15 +18,13 @@ tar_option_set(
 # Configure the backend of tar_make_clustermq() (recommended):
 options(clustermq.scheduler = "multicore")
 
-# Load the R scripts with your custom functions:
-lapply(list.files("inst/global-steps", full.names = TRUE), source)
-# source("other_functions.R") # Source other scripts as needed. # nolint
-
+global_dir <- here::here("inst", "global")
 data_dir <- here::here("data", "regional_prepared", "analysis_2023")
 base_dir <- here::here("inst", "analyses")
+
 templates_dir <- file.path(base_dir, "templates")
 output_dir <- file.path(base_dir, "output")
-adjustments_dir <- file.path(base_dir, "adjustments", "data")
+adjustments_dir <- file.path(global_dir, "adjustments")
 
 dev_template <- file.path(templates_dir, "dev.Rmd")
 success_template <- file.path(templates_dir, "short_success.Rmd")
@@ -53,6 +51,11 @@ git <- list(
   hash = git_hash
 )
 
+# Load the R scripts with your custom functions:
+lapply(list.files(file.path(
+  global_dir,
+  "steps"
+), full.names = TRUE), source)
 
 ## TEMPLATES
 list(
@@ -165,6 +168,13 @@ list(
     conversion_cohorts,
     fu_cohort
   )),
+  tar_target(
+    text_objects, create_text_objects(
+      pd = censored,
+      fu = fu_cohort,
+      surv = surv_objects
+    )
+  ),
   tar_target(tables, create_tables(
     censored,
     hiv_cohort,
@@ -185,6 +195,7 @@ list(
   tar_target(reports, render(
     tables,
     plots,
+    text = text_objects,
     git,
     list(
       output_dir = output_dir
@@ -206,6 +217,6 @@ list(
   ),
   tar_target(saved_plots, save_plots(
     plots,
-    list(output_dir = output_dir)
+    list(output_dir = file.path(output_dir, "plots"))
   ), format = "file")
 )

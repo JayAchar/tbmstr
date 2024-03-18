@@ -14,6 +14,7 @@ params:
   tables: "Error" 
   plots: "Error" 
   git: "Error"
+  text: "Error"
 --- 
 
 ```{css css, echo=FALSE} 
@@ -160,8 +161,8 @@ in the treatment cohort. More than half of the participants were from Belarus
 Baseline demographic and clinical characteristics are described in Table XX.
 The median age was  `r gtsummary::inline_text(params$tables$tx_description, variable = "age", pattern = "{median} (IQR {p25}-{p75})")` with only `r text("age_grp", "<15")` 
 participants under 15 years old and `r create_sum_text(params$tables$tx_description, "age_grp", c("<15", "15-24"))` under 24 years old. The large 
-majority of participants were male `r text("sex", "Male")`. Small proportions of participants 
-reported a history of injecting drug use `r text("idu", "Yes")`, 
+majority of participants were male `r text("sex", "Male")`. `r params$text$pregnancy`
+Small proportions of participants  reported a history of injecting drug use `r text("idu", "Yes")`, 
 homelessness `r text("homeless", "Yes")`, and 
 excess alcohol use `r text("alcohol", "Yes")`. Approximately half reported a history of smoking 
 `r inline("smok", "Yes")`. Evidence of HIV `r inline("hiv", "Yes")`, HCV 
@@ -171,7 +172,7 @@ microscopy `r inline("smear", "Positive")` and cavitatory changes on x-ray
  `r create_sum_text(params$tables$tx_description, "cav", c("Unilateral",
 "Bilateral"), pattern = "({total}, {perc}%)")` were 
 detected in over half of participants, while a majority (2136, 81%) had a 
-positive baseline MGIT culture result.
+positive baseline MGIT culture result. 
 
 \newpage
 
@@ -225,6 +226,15 @@ params$plots$fail_by_regimen
 
 htmltools::hr()
 params$plots$p2
+
+htmltools::hr()
+
+htmltools::h3(
+  "Cumulative probability of study retention after successful treatment
+outcome"
+)
+
+params$plots$fu_attrition
 
 htmltools::hr()
 htmltools::h3(
@@ -283,12 +293,33 @@ and clinician-driven treatment extensions
 `r fail_inline("failure_reasons", "Treatment extended by clinician")`
 and not receiving sufficient treatment during the treatment duration 
 `r fail_inline("failure_reasons", "Insufficient treatment received in accepted time")`
-(Supplementary table xx). 
+(Supplementary table xx). The proportions of participants who were successfully
+treated with Regimen 1 (Cs-based regimen) and Regimen 2 (Dlm-based regmein)
+were similar (`r create_sum_text(params$tables$tx_outcomes_by_regimen$tbls[[2]], 
+"tx_outcome", "Treatment success", "Lfx + Bdq + Lzd + Cfz + Cs")` and `r 
+create_sum_text(params$tables$tx_outcomes_by_regimen$tbls[[2]], 
+"tx_outcome", "Treatment success", "Lfx + Bdq + Lzd + Cfz + Dlm")`). Treatment
+success was more frequent in participants receiving Regimen 3 (without BDq) (`r 
+create_sum_text(params$tables$tx_outcomes_by_regimen$tbls[[2]], 
+"tx_outcome", "Treatment success", "Lfx + Dlm + Lzd + Cfz")`).
 
-During the post-treatment follow-up period, 25 recurrences and 44 additional 
-deaths were recorded. The cumulative probability of remaining TB-free 9-months, 
+During the post-treatment follow-up period, `r params$text$follow_up$recurrence` 
+recurrences and `r params$text$follow_up$death` additional deaths were recorded. 
+The cumulative probability of remaining TB-free 9-months, 
 15 months and 21 months after treatment initiation was 82%, 80% and 79%
 respectively (Table xx and Figure xx).
+
+```{r draft-fup-text-fun, echo = FALSE}
+dft <- function(timepoint) {
+  df <- params$text$fu_ltfu$stats[[paste0("d", timepoint)]]
+  glue::glue("{df$pct}% (95%CI {df$ci$l}-{df$ci$u})")
+}
+```
+From `r params$text$fu_ltfu$total_at_risk` participants who successfully completed treatment, 
+ `r params$text$fu_ltfu$stats$d0$events` did not complete any post-treatment 
+follow-up. After 6, 11 and 12 months of follow-up, the probability of not having
+a negative study outcome and remaining in follow-up was `r dft(180)`, `r dft(330)` and `r dft(365)`
+respectively (Appendix Figure). 
 
 \newpage
 
@@ -340,26 +371,52 @@ Possible improvements:
 ### Manuscript text 
 
 ```{r, echo = FALSE}
-df <- params$tables$hiv$outcome_by_status$df_by
-hiv_participants <- df[which(df$by == "Yes"), "n"]
+df <- params$tables$hiv$outcome_by_status$tbls[[1]]$df_by
+hiv_cohort <- df[which(df$by == "Yes"), c("n", "p")]
+hiv_participants_text <- glue::glue("{hiv_cohort$n} ({round(hiv_cohort$p * 100, 1)}%)")
 success <- lapply(
   X = c("Yes", "No"),
   FUN = \(x) {
     create_sum_text(
-      tab = params$tables$hiv$outcome_by_status,
+      tab = params$tables$hiv$outcome_by_status$tbls[[1]],
       var = "outcome",
       by = x,
       levels = c("Cured", "Completed")
     )
   }
 ) |> setNames(c("Yes", "No"))
-```
-End of treatment responses were less favourable in the `r hiv_participants` participants 
-living with HIV. Treatment success was `r success$Yes` compared to `r success$No` in people without HIV.
-Death (xx) and LTFU (xx) were also more frequent (Supplementary table xx, 
-Supplementary figure xx).  
 
-Amongst `r hiv_participants` participants living with HIV, baseline CD4 count 
+death <- lapply(
+  X = c("Yes", "No"),
+  FUN = \(x) {
+    create_sum_text(
+      tab = params$tables$hiv$outcome_by_status$tbls[[1]],
+      var = "outcome",
+      by = x,
+      levels = "Died"
+    )
+  }
+) |> setNames(c("Yes", "No"))
+
+ltfu <- lapply(
+  X = c("Yes", "No"),
+  FUN = \(x) {
+    create_sum_text(
+      tab = params$tables$hiv$outcome_by_status$tbls[[1]],
+      var = "outcome",
+      by = x,
+      levels = "Lost to follow-up"
+    )
+  }
+) |> setNames(c("Yes", "No"))
+```
+End-of-treatment responses were less favourable amongst `r hiv_participants_text` 
+participants living with HIV, in whom success was recorded for `r success$Yes` 
+compared to `r success$No` people without HIV. Death (`r death$Yes` vs 
+`r death$No`) and LTFU (`r ltfu$Yes` vs `r ltfu$No`) were also more frequent 
+in participants living with HIV compared to those without HIV (Supplementary Table 9).
+
+Amongst `r hiv_participants_text` participants living with HIV, baseline CD4 count 
 was available for 245 (91%).  Median baseline CD4 count was 172 (IQR 71-350). 
 The majority of participants living with HIV were receiving ART at baseline, with 
 dolutegravir-based regimens most frequently used (211, 78%). Almost all
@@ -388,7 +445,7 @@ autofit(params$tables$mv$full)
 ### Manuscript text 
 
 ```{r, echo = FALSE}
-mv_text <- function(var, level, pattern = "(HR {estimate}; 95%CI {conf.low}-{conf.high})") {
+mv_text <- function(var, level, pattern = "(aHR {estimate}; 95%CI {conf.low}-{conf.high})") {
   gtsummary::inline_text(params$tables$mv$adjusted,
     variable = dplyr::all_of(var),
     level = dplyr::all_of(level),
@@ -398,10 +455,9 @@ mv_text <- function(var, level, pattern = "(HR {estimate}; 95%CI {conf.low}-{con
 ```
 
 Crude and adjusted associations between baseline clinical and demographic characteristics 
-and unsuccessful study outcome are presented in Table XX. Following adjustment 
-for strongly associated factors and clustering by study country, increasing
-age, unemployment `r mv_text("empl_3grp", "Unemployed")`, excessive alcohol use
-`r mv_text("alcohol", "Yes")`, history of smoking `r mv_text("sm_fact", "<20 pack-years")` , HIV 
+and unsuccessful study outcome are presented in Table XX. In the adjusted
+analysis, increasing age, unemployment `r mv_text("empl_3grp", "Unemployed")`, excessive alcohol use
+`r mv_text("alcohol", "Yes")`, history of smoking `r mv_text("smok", "Yes")` , HIV 
 positive status `r mv_text("hiv", "Yes")`, presence of bilateral pulmonary 
 cavities on x-ray `r mv_text("cav", "Bilateral")`, elevated 
 baseline ALT or AST `r mv_text("ast_alt_bin", "Yes")`, and baseline anaemia

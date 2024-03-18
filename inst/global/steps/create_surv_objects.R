@@ -27,6 +27,15 @@ create_surv_objects <- function(df, hiv_cohort, cc_cohorts, fu_cohort) {
     data = fu_cohort
   )
 
+  fu_tmp <- fu_cohort
+  fu_tmp$end_fu <- fu_tmp$eos_outcome == "No TB"
+
+  so$fu_ltfu <- ggsurvfit::survfit2(
+    survival::Surv(fu_days, end_fu) ~ 1,
+    data = fu_tmp
+  )
+
+
   so$death <- ggsurvfit::survfit2(
     survival::Surv(
       eos_days, event_death
