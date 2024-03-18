@@ -26,8 +26,17 @@ adjustments_dir <- file.path(global_dir, "adjustments")
 lapply(list.files(file.path(global_dir, "steps"), full.names = TRUE), source)
 
 list(
+  tar_target(adjustment_files,
+    command = adjustments_dir,
+    format = "file"
+  ),
   tar_target(files, data_dir, format = "file"),
   # FIXME: the import file needs to be extended to all CSV files - MSTR-33
   tar_target(raw, import(files)),
   tar_target(adjustments, import_adjustments(adjustment_files)),
+  tar_target(adjusted, apply_adjustments(raw, adjustments)),
+  tar_target(labelled, apply_all_labels(adjusted)),
+  tar_target(prepared, prepare_baseline(labelled,
+    cohort = "treatment"
+  ))
 )
