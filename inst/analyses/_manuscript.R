@@ -18,15 +18,13 @@ tar_option_set(
 # Configure the backend of tar_make_clustermq() (recommended):
 options(clustermq.scheduler = "multicore")
 
-# Load the R scripts with your custom functions:
-lapply(list.files("inst/global-steps", full.names = TRUE), source)
-# source("other_functions.R") # Source other scripts as needed. # nolint
-
+global_dir <- here::here("inst", "global")
 data_dir <- here::here("data", "regional_prepared", "analysis_2023")
 base_dir <- here::here("inst", "analyses")
+
 templates_dir <- file.path(base_dir, "templates")
 output_dir <- file.path(base_dir, "output")
-adjustments_dir <- file.path(base_dir, "adjustments", "data")
+adjustments_dir <- file.path(global_dir, "adjustments")
 
 dev_template <- file.path(templates_dir, "dev.Rmd")
 success_template <- file.path(templates_dir, "short_success.Rmd")
@@ -53,6 +51,11 @@ git <- list(
   hash = git_hash
 )
 
+# Load the R scripts with your custom functions:
+lapply(list.files(file.path(
+  global_dir,
+  "steps"
+), full.names = TRUE), source)
 
 ## TEMPLATES
 list(

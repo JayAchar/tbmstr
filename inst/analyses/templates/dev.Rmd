@@ -230,7 +230,7 @@ params$plots$p2
 htmltools::hr()
 
 htmltools::h3(
-  "Cumulative probability of remaining in follow-up after successful treatment
+  "Cumulative probability of study retention after successful treatment
 outcome"
 )
 
