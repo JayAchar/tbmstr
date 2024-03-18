@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|0f7d4c2f83a20758|||||||||||||||
-adjusted|stem|ece4829dd511f4a4|6c6b542f48028b9c|0ac3b567905a328f|620771776||t19800.3657223241s|17c9077e05499712|3153231|rds|local|vector|||0.007||
+.Random.seed|object|a060914d6e75aec8|||||||||||||||
+adjusted|stem|de443f5fb8a9bdbe|6c6b542f48028b9c|41ac3bb7b882f8b4|620771776||t19800.5481672382s|2e1b00943da4d99e|3143773|rds|local|vector|||0.008||
 adjustment_files|stem|f32573bcb1b8c857|90e66d70e3f0d3b1|aa416ef21c349cc7|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/adjustments|t19800.3506461859s|dd56a5971d025bfa|192|file|local|vector|||0.004||
 adjustments|stem|aa879c8ce681b642|72405807525fc108|a383cc10f63d9927|-391056118||t19800.3656888446s|3d1d6dbba0121fcb|2869|rds|local|vector|||0.054||
 adjustments_dir|object|4ee758fd3a364d52|||||||||||||||
@@ -25,6 +25,8 @@ create_cc_days|function|592a3fce2c8e709a|||||||||||||||
 create_characteristics_by_follow_up|function|f376db99a7bad84d|||||||||||||||
 create_conversion_cohort|function|39394f7659690679|||||||||||||||
 create_conversion_variables|function|b00d8e7fa9933b55|||||||||||||||
+create_df_dictionary|function|b54a4c0f79a4c4e5|||||||||||||||
+create_dictionary|function|741eb16f0c817d69|||||||||||||||
 create_eos_outcome|function|2c7411df2c56ab40|||||||||||||||
 create_eot_outcome_table|function|735eb7f49c5ebb62|||||||||||||||
 create_failure_cohort|function|e497e0ee2ba92eb4|||||||||||||||
@@ -48,9 +50,10 @@ create_table_labels|function|4701f1ad629beeb0|||||||||||||||
 create_tables|function|27ed1589fe2f4f30|||||||||||||||
 create_text_objects|function|4dfe1ad0da1c893e|||||||||||||||
 data_dir|object|939549693f952caf|||||||||||||||
+dictionary|stem|03c51fc665d6bcd5|4f4704ade9ba3ad4|77880218ea62c8a7|386357845||t19800.58661454s|0aae1eb7fd93288d|3553|rds|local|vector|||0.418||
 diff_days|function|f9e0ebc24b0bd91c|||||||||||||||
 factor_eos_outcome|function|b5805fe3cc5a3315|||||||||||||||
-files|stem|a8c9d2ff2e9f5fa8|9c3cbb91deef4bf5|f784cc3743f84e62|-229912786|/Users/jayachar/Documents/dev/packages/tbmstr/data/regional_prepared/final_2023|t19783.384447927s|17fd65357607abf9|576|file|local|vector|||0||
+files|stem|dd34f5944545d3d3|9c3cbb91deef4bf5|f784cc3743f84e62|-229912786|/Users/jayachar/Documents/dev/packages/tbmstr/data/regional_prepared/final_2023|t19783.384447927s|17fd65357607abf9|576|file|local|vector|||0.005||
 foo|stem|aeaec0e086ac5758|1930b024780260f5|ef46db3751d8e999|-156294383||t19783.5638928028s|3b53694aeea32e24|1225|rds|local|vector|||0.004||
 global_dir|object|1fabca55a89525e7|||||||||||||||
 handle_factors|function|9942e46c1c9d2fe9|||||||||||||||
@@ -63,7 +66,7 @@ include_outcomes|stem||4f17e4fac67e9d0d|7959a2c425373062|33393089||t19800.365769
 internal|object|04b2f7858a01e1de|||||||||||||||
 is_baseline_culture_positive|function|b9889b611d1d5048|||||||||||||||
 is_testing|function|c84c75094f227895|||||||||||||||
-labelled|stem|fd29507932667632|69e4d089f9c1ebaf|f540ef3270e4d807|1882703673||t19800.36573074s|3c7719361360e503|3145037|rds|local|vector|||0.072|apply_labels sae 1 missing value have been introduced. apply_labels covid 2 missing values have been introduced. apply_labels cause1 40 missing values have been introduced. apply_labels cause2 8 missing values have been introduced. apply_labels cause3 6 missing values have been introduced. apply_labels vislf 1166 missing values have been introduced. apply_labels visrt 1165 missing values have been introduced|
+labelled|stem|cfcadd0633f9f42e|69e4d089f9c1ebaf|e77241a92b59f432|1882703673||t19800.5481796484s|83beadf24d80feed|3115223|rds|local|vector|||0.079|apply_labels sae 1 missing value have been introduced. apply_labels covid 2 missing values have been introduced. apply_labels cause1 39 missing values have been introduced. apply_labels cause2 7 missing values have been introduced. apply_labels cause3 5 missing values have been introduced. apply_labels vislf 1097 missing values have been introduced. apply_labels visrt 1096 missing values have been introduced|
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_death_descriptions|function|5a58874a1da07171|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
@@ -76,8 +79,8 @@ prepare_dst|function|c96b8676efdeb5ef|||||||||||||||
 prepare_high_dose_list|function|e25e2a1b9e6143b6|||||||||||||||
 prepare_myco|function|7477098610f7c083|||||||||||||||
 prepare_quality_data|function|b42a5cbf7dde5aca|||||||||||||||
-prepared|stem||98bd9b56a1a4ba5b|d5edd04719af1a9e|-501310414||t19800.3663919992s||0|rds|local|vector|||2.969||nrowdf  1 is not TRUE
-raw|stem|feb2dd613c615f22|a995c4a5a4f046e6|0d025f7134e046d9|727646308||t19800.3657145118s|6e652d9d1e9147cc|3153188|rds|local|vector|||1.548|import_data will be deprecated in the next version  use run_analysis instead. One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
+prepared|stem|1516615a6a567a7b|98bd9b56a1a4ba5b|5f85744c4b329f92|-501310414||t19800.5483137204s|0d2076749d498b39|3172020|rds|local|vector|||10.103||
+raw|stem|035e019e7f008bba|a995c4a5a4f046e6|10651ace5ccb77c8|727646308||t19800.5481553061s|9f901fe8cda913b9|3143716|rds|local|vector|||2.199|import_data will be deprecated in the next version  use run_analysis instead. One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
 read_in|function|4d25d811d13da422|||||||||||||||
 ready|function|9d7b499b2827734c|||||||||||||||
 relevel_variables|function|38d774da4ff1eb17|||||||||||||||
@@ -93,7 +96,9 @@ render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
 run_analysis|function|ecc9d0a9bd870a81|||||||||||||||
 run_quality_check|function|85d9ff66e3060541|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
+save_dictionary|function|8bc63850256e71c1|||||||||||||||
 save_plots|function|82c0bb5322050d94|||||||||||||||
+saved|stem|cc37473f3d7f648a|a000d521386ef45e|87696d17c5b49b6b|1295446722||t19800.5866146408s|a1c456b03adbfbf8|44|rds|local|vector|||0.003||
 summarise_country_follow_up|function|087bef84523b0f6e|||||||||||||||
 summarise_follow_up|function|9291e4ea9fced4c6|||||||||||||||
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||

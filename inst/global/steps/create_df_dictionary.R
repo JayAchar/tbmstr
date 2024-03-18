@@ -1,9 +1,8 @@
 create_df_dictionary <- function(df, df_name) {
-
   types <- list(
-                character = "string",
-                numeric = "number",
-                POSIXct = "date"
+    character = "string",
+    numeric = "number",
+    POSIXct = "date"
   )
 
   var_meta <- lapply(
@@ -15,31 +14,34 @@ create_df_dictionary <- function(df, df_name) {
       }
 
       if (length(unique(df[[var]])) <= 10 || "factor" %in% var_type) {
+        values <- unique(df[[var]])
+        if (length(values) > 1) {
+          values <- values[which(!is.na(values))]
+        }
         return(
-          list(
-            name = var,
+          data.frame(
+            table_name = df_name,
+            variable = var,
             type = "categorical",
-            description = "Some random variable description",
-            values = unique(df[[var]])
+            description = "",
+            values = values
           )
         )
       }
 
       return(
-        list(
-          name = var,
+        data.frame(
+          table_name = df_name,
+          variable = var,
           type = types[[var_type]],
-          description = "Some other random variable description"
+          description = "",
+          values = ""
         )
       )
     }
   )
-
-  return(
-    list(
-      df_name = df_name,
-      var_meta = var_meta
-    )
+  Reduce(
+    x = var_meta,
+    f = rbind
   )
 }
-

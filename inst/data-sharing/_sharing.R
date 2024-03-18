@@ -38,5 +38,10 @@ list(
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(prepared, prepare_baseline(labelled,
     cohort = "treatment"
+  )),
+  tar_target(dictionary, create_dictionary(prepared)),
+  tar_target(saved, save_dictionary(
+    dictionary,
+    file.path(output_dir, "dictionary.csv")
   ))
 )
