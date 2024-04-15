@@ -8,7 +8,9 @@ import <- function(path) {
       baseline = "baseline",
       myco = "myco",
       dst = "dst",
-      adherence = "adherence"
+      adherence = "adherence",
+      change = "change",
+      monitor = "monitor"
     )
   )
 

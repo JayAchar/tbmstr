@@ -5,6 +5,7 @@
 #' @param df data frame
 #' @param variable character string representing the name of the target
 #'   variable in `df`
+#' @param lut lookup table
 #' @param convert_to_factor boolean to flat whether to conver the returned
 #'   variable to an unordered factor - defaults to TRUE
 #'
@@ -13,12 +14,11 @@
 #' @importFrom cli cli_abort cli_warn
 #'
 
-apply_labels <- function(df, variable, convert_to_factor = TRUE) {
+apply_labels <- function(df, variable, lut = internal$lut,
+                         convert_to_factor = TRUE) {
   if (!is.data.frame(df)) {
     cli::cli_abort("`df` must be a data frame")
   }
-
-  lut <- internal$lut
 
   if (!is.character(variable)) {
     cli::cli_abort("`variable` must be a single length string vector")

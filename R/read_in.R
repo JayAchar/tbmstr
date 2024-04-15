@@ -26,7 +26,10 @@ read_in <- function(parent_dir,
   if (dir.exists(parent_dir) == FALSE) {
     cli::cli_abort("Parent directory does not exist - try again")
   }
-  allowed_files <- c("baseline", "myco", "adverse", "dst", "adherence")
+  allowed_files <- c(
+    "baseline", "myco", "adverse", "dst", "adherence",
+    "monitor", "change"
+  )
 
   if (!is.list(file_names)) {
     cli::cli_abort("File names must be specified in a named list")
