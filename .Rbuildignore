@@ -15,4 +15,6 @@
 ^docker$
 ^scripts$
 ^translation-en\.json$
-^_targets$
+^_targets\.yaml$
+^inst/global$
+^inst/data-sharing$
