@@ -1,7 +1,5 @@
 attach_var_descriptions <- function(df, var_df) {
-  df$description <- NULL
-
-  keep_vars <- c("name", "original_name", "prompt", "data_type")
+  keep_vars <- c("name", "original_name", "prompt")
   vars <- var_df[!duplicated(var_df$name), keep_vars]
 
   merged <- merge(
@@ -12,7 +10,16 @@ attach_var_descriptions <- function(df, var_df) {
     all.x = TRUE
   )
 
-  names(merged)[which(names(merged) == "prompt")] <- "description"
+  merged$updated_description <- ifelse(
+    is.na(merged$description) | merged$description == "",
+    merged$prompt,
+    merged$description
+  )
+
+  merged$prompt <- NULL
+  merged$description <- NULL
+
+  names(merged)[which(names(merged) == "updated_description")] <- "description"
 
   merged$description <- gsub(
     "^[A-Z][0-9]\\. ",

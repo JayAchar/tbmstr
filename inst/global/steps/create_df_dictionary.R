@@ -13,6 +13,13 @@ create_df_dictionary <- function(df, df_name) {
         var_type <- var_type[[1]]
       }
 
+      description <- ""
+
+      if (sum(duplicated(df[[var]])) == 0) {
+        description <- "Primary Key"
+      }
+
+
       if (length(unique(df[[var]])) <= 10 || "factor" %in% var_type) {
         values <- unique(df[[var]])
         if (length(values) > 1) {
@@ -23,18 +30,19 @@ create_df_dictionary <- function(df, df_name) {
             table_name = df_name,
             variable = var,
             type = "categorical",
-            description = "",
+            description = description,
             values = values
           )
         )
       }
+
 
       return(
         data.frame(
           table_name = df_name,
           variable = var,
           type = types[[var_type]],
-          description = "",
+          description = description,
           values = ""
         )
       )
