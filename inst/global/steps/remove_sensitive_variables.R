@@ -25,7 +25,7 @@ remove_sensitive_variables <- function(lst) {
     X = names(lst),
     FUN = function(df_name) {
       if (!df_name %in% names(rm_vars)) {
-        return(NULL)
+        return(lst[[df_name]])
       }
       vars <- rm_vars[[df_name]]
       lst[[df_name]][vars] <- NULL
