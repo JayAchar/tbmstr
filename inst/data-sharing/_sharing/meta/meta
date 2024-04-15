@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|60df63b63e18b62e|||||||||||||||
+.Random.seed|object|49bff73b1d1101a8|||||||||||||||
 adjusted|stem|95d5a58d07f0eb27|6c6b542f48028b9c|3a26d26f6c7fe5d7|620771776||t19800.6165252777s|c1ddf19a056e65c8|5104328|rds|local|vector|||0.011||
 adjustment_files|stem|f32573bcb1b8c857|90e66d70e3f0d3b1|aa416ef21c349cc7|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/adjustments|t19800.3506461859s|dd56a5971d025bfa|192|file|local|vector|||0.004||
 adjustments|stem|aa879c8ce681b642|72405807525fc108|a383cc10f63d9927|-391056118||t19800.3656888446s|3d1d6dbba0121fcb|2869|rds|local|vector|||0.054||
@@ -11,6 +11,7 @@ apply_all_labels|function|fa67106cbde281a3|||||||||||||||
 apply_censoring|function|b208f3aecdc5cfc1|||||||||||||||
 apply_labels|function|88cf87ee76498597|||||||||||||||
 apply_manual_adjustments|function|6f8846607d4c4a0f|||||||||||||||
+attach_var_descriptions|function|2e2a2046d723a739|||||||||||||||
 base_dir|object|8c6689f10950484e|||||||||||||||
 calculate_baseline_smear|function|9ec9d85015838ad2|||||||||||||||
 calculate_conversion|function|285a61cca4cfcf32|||||||||||||||
@@ -26,7 +27,7 @@ create_characteristics_by_follow_up|function|f376db99a7bad84d|||||||||||||||
 create_conversion_cohort|function|39394f7659690679|||||||||||||||
 create_conversion_variables|function|b00d8e7fa9933b55|||||||||||||||
 create_df_dictionary|function|b54a4c0f79a4c4e5|||||||||||||||
-create_dictionary|function|741eb16f0c817d69|||||||||||||||
+create_dictionary|function|ba60839cfd30b5b0|||||||||||||||
 create_eos_outcome|function|2c7411df2c56ab40|||||||||||||||
 create_eot_outcome_table|function|735eb7f49c5ebb62|||||||||||||||
 create_failure_cohort|function|e497e0ee2ba92eb4|||||||||||||||
@@ -50,10 +51,11 @@ create_table_labels|function|4701f1ad629beeb0|||||||||||||||
 create_tables|function|27ed1589fe2f4f30|||||||||||||||
 create_text_objects|function|4dfe1ad0da1c893e|||||||||||||||
 data_dir|object|939549693f952caf|||||||||||||||
-dictionary|stem|bc1765376cd1b21e|4f4704ade9ba3ad4|ded50226c89cab53|386357845||t19800.6167188618s|3f1b84e9ec41a56b|3782|rds|local|vector|||0.236||
+dictionary|stem|86b7f39dc3bc3541|edbf3f5bc39c4631|ad73484fa49a0fac|386357845||t19828.3826473116s|fde14dbcdf08a431|5661|rds|local|vector|||0.131||
 diff_days|function|f9e0ebc24b0bd91c|||||||||||||||
 factor_eos_outcome|function|b5805fe3cc5a3315|||||||||||||||
 files|stem|dd34f5944545d3d3|9c3cbb91deef4bf5|f784cc3743f84e62|-229912786|/Users/jayachar/Documents/dev/packages/tbmstr/data/regional_prepared/final_2023|t19783.384447927s|17fd65357607abf9|576|file|local|vector|||0.005||
+filtered|stem|796ff81caea6f8d4|acb62e65d90becbd|98f9b06d97ca5eff|-292250703||t19800.9268438379s|a8af30994644ea38|1757461|rds|local|vector|||0.005||
 foo|stem|aeaec0e086ac5758|1930b024780260f5|ef46db3751d8e999|-156294383||t19783.5638928028s|3b53694aeea32e24|1225|rds|local|vector|||0.004||
 global_dir|object|1fabca55a89525e7|||||||||||||||
 handle_factors|function|9942e46c1c9d2fe9|||||||||||||||
@@ -67,6 +69,7 @@ internal|object|04b2f7858a01e1de|||||||||||||||
 is_baseline_culture_positive|function|b9889b611d1d5048|||||||||||||||
 is_testing|function|c84c75094f227895|||||||||||||||
 labelled|stem|c9c8537c0e6a3da0|69e4d089f9c1ebaf|5b87ee685a4a8008|1882703673||t19800.6165482369s|cee92011f672e10f|5070921|rds|local|vector|||0.155|apply_labels sae 1 missing value have been introduced. apply_labels covid 2 missing values have been introduced. apply_labels cause1 39 missing values have been introduced. apply_labels cause2 7 missing values have been introduced. apply_labels cause3 5 missing values have been introduced. apply_labels vislf 1097 missing values have been introduced. apply_labels visrt 1096 missing values have been introduced|
+lookup_dir|object|aaeccb7a15c86a19|||||||||||||||
 merge_and_filter_by_start_date|function|d9a5f39f53644632|||||||||||||||
 merge_death_descriptions|function|5a58874a1da07171|||||||||||||||
 merge_imported|function|c441961e0323be1c|||||||||||||||
@@ -86,6 +89,7 @@ ready|function|9d7b499b2827734c|||||||||||||||
 relevel_variables|function|38d774da4ff1eb17|||||||||||||||
 relevel_vars|function|b576c67f9f1b7cc6|||||||||||||||
 remove_invalid_records|function|9e60d13657e08d61|||||||||||||||
+remove_sensitive_variables|function|1306c46e81b806b4|||||||||||||||
 remove_withdrawn_subjects|function|28ea3dd368809803|||||||||||||||
 render|function|90d9d0786bc3077b|||||||||||||||
 render_follow_up|function|705ef2f81c3170a6|||||||||||||||
@@ -96,9 +100,12 @@ render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
 run_analysis|function|ca043ba3714840f7|||||||||||||||
 run_quality_check|function|f4b4ad6509eaaa2d|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
-save_dictionary|function|8bc63850256e71c1|||||||||||||||
+save_dictionary|function|3c87d04f6811e90d|||||||||||||||
 save_plots|function|82c0bb5322050d94|||||||||||||||
-saved|stem|cc37473f3d7f648a|a000d521386ef45e|74d343eeaa5764b2|1295446722||t19800.6167189333s|a1c456b03adbfbf8|44|rds|local|vector|||0.003||
+saved|stem|cc37473f3d7f648a|a000d521386ef45e|7ea83f2fe364338c|1295446722||t19828.3826473832s|a1c456b03adbfbf8|44|rds|local|vector|||0.002||
+steps_dir|object|3e744d2129b3619d|||||||||||||||
 summarise_country_follow_up|function|087bef84523b0f6e|||||||||||||||
 summarise_follow_up|function|9291e4ea9fced4c6|||||||||||||||
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||
+var_df|stem|d933df3c605b65c9|12f9c5c72153d61a|b1ce923c6b901b39|910564370||t19828.357261926s|dad93f2c39b4a381|26946|rds|local|vector|||0.003||
+var_df_file|stem|a5d61ff1a175bdfc|7b6ebf996d8934bf|9720c93d5530bb9d|-908304646|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/lookup/vars.csv|t19513.4074776476s|9988bba626cc3785|90782|file|local|vector|||0.004||

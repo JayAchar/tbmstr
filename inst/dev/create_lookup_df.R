@@ -5,14 +5,16 @@ suppressMessages(library(dplyr))
 suppressMessages(library(purrr))
 suppressMessages(library(readr))
 
+lookup_dir <- here::here("inst/global/lookup/")
+
 file_names <- list.files(
-  here::here("inst/resources/lookup/")
+  lookup_dir
 ) |>
   stringr::str_remove(".csv$")
 
 lookup <- purrr::map(
   list.files(
-    here::here("inst/resources/lookup/"),
+    lookup_dir,
     full.names = TRUE
   ),
   ~ readr::read_csv(.x)
@@ -20,7 +22,7 @@ lookup <- purrr::map(
 
 lut <- lookup$vars |>
   filter(language == "EN") |>
-  select(name, source_table) |>
+  select(name, source_table, prompt) |>
   filter(!is.na(source_table)) |>
   left_join(
     lookup$codes |>
