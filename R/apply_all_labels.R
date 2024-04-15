@@ -71,6 +71,29 @@ apply_all_labels <- function(lst) {
         )
       }
 
+      # custom labels for change data
+      if (all(c("aedrug", "aestop") %in% names(df))) {
+        print("change found")
+        lut <- internal$lut
+        lut <- lut[which(
+          grepl(".*[0-9]$", lut$name)
+        ), ]
+        lut$name <- gsub("[0-9]*$", "", lut$name)
+        lut <- lut[!duplicated(lut), ]
+        included_vars <- names(df)[names(df) %in% lut$name]
+        df[included_vars] <- lapply(
+          included_vars,
+          \(var_name) {
+            labelled <- apply_labels(df,
+              var_name,
+              lut = lut,
+              convert_to_factor = TRUE
+            )
+            return(labelled)
+          }
+        )
+      }
+
       return(df)
     }
   )

@@ -15,10 +15,10 @@ remove_sensitive_variables <- function(lst) {
       "creat_bin", "vis_bin",
       "cohort_bilevel"
     ),
-    myco = c("recstatus", "uniquerowid", "uniquekey"),
-    adherence = c("recstatus", "uniquerowid", "uniquekey"),
-    change = c("recstatus", "uniquerowid", "uniquekey"),
-    dst = c("recstatus", "uniquerowid", "uniquekey")
+    myco = c("recstatus", "uniquekey"),
+    adherence = c("recstatus", "uniquekey"),
+    change = c("recstatus", "uniquekey"),
+    dst = c("recstatus", "uniquekey")
   )
 
   lapply(
