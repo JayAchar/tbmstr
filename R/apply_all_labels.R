@@ -51,7 +51,27 @@ apply_all_labels <- function(lst) {
           return(labelled)
         }
       )
-      df
+      # custom labels for myco results aggregated variable
+      if (all(c("test_type", "result") %in% names(df))) {
+        df$test_type[which(df$test_type == "culq")] <- "culqd"
+
+        df$result <- vapply(
+          seq_along(df$result),
+          FUN.VALUE = character(1),
+          FUN = \(cnt) {
+            if (is.na(df$result[cnt])) {
+              return("Not done")
+            }
+            result <- internal$lut$description[which(
+              internal$lut$name == df$test_type[cnt] &
+                internal$lut$value == df$result[cnt]
+            )]
+            return(result)
+          }
+        )
+      }
+
+      return(df)
     }
   )
 }
