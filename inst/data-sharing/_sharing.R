@@ -47,9 +47,15 @@ list(
     cohort = "treatment"
   )),
   tar_target(filtered, remove_sensitive_variables(prepared)),
+  tar_target(save_data, save_as_csv(filtered, output_dir),
+    format = "file"
+  ),
   tar_target(dictionary, create_dictionary(filtered, var_df)),
   tar_target(saved, save_dictionary(
     dictionary,
     file.path(output_dir, "dictionary.csv")
-  ))
+  ),
+  format = "file"
+  ),
+  tar_target(archive, create_archive(base_dir), format = "file")
 )

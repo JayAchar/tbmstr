@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|b56a05dab14ea608|||||||||||||||
+.Random.seed|object|f867c4f037765931|||||||||||||||
 adjusted|stem|95d5a58d07f0eb27|6c6b542f48028b9c|3a26d26f6c7fe5d7|620771776||t19800.6165252777s|c1ddf19a056e65c8|5104328|rds|local|vector|||0.011||
 adjustment_files|stem|f32573bcb1b8c857|90e66d70e3f0d3b1|aa416ef21c349cc7|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/adjustments|t19800.3506461859s|dd56a5971d025bfa|192|file|local|vector|||0.004||
 adjustments|stem|aa879c8ce681b642|72405807525fc108|a383cc10f63d9927|-391056118||t19800.3656888446s|3d1d6dbba0121fcb|2869|rds|local|vector|||0.054||
@@ -11,6 +11,7 @@ apply_all_labels|function|254d4ec8d581041b|||||||||||||||
 apply_censoring|function|b208f3aecdc5cfc1|||||||||||||||
 apply_labels|function|3f38626e30012f94|||||||||||||||
 apply_manual_adjustments|function|6f8846607d4c4a0f|||||||||||||||
+archive|stem|357a6286ac66c844|7be4caa3b8cae97c|e5fbc448e2eb0ad5|-1503279279|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/mstr-data-sharing.zip|t19830.537034851s|b36824b69dbb8465|112234|file|local|vector|||0.018||
 attach_var_descriptions|function|28b21783ec50a22b|||||||||||||||
 base_dir|object|8c6689f10950484e|||||||||||||||
 calculate_baseline_smear|function|61e3e4f4c758bc24|||||||||||||||
@@ -21,6 +22,7 @@ calculate_follow_up_timepoint|function|d0ac5d032e02f9c7|||||||||||||||
 calculate_multivariable_model|function|bfea68458136a924|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
 combine_ae_grades|function|5ee59858b52c532b|||||||||||||||
+create_archive|function|ef0244912d549751|||||||||||||||
 create_binary_tx_outcome|function|b4597588af46e180|||||||||||||||
 create_cc_days|function|592a3fce2c8e709a|||||||||||||||
 create_characteristics_by_follow_up|function|f376db99a7bad84d|||||||||||||||
@@ -100,9 +102,11 @@ render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
 run_analysis|function|f695ee6f816a95bf|||||||||||||||
 run_quality_check|function|6ccf5b88cdc04a84|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
-save_dictionary|function|3c87d04f6811e90d|||||||||||||||
+save_as_csv|function|2a36e51147a53e15|||||||||||||||
+save_data|stem|8d5c29be444647c8|a2d1f385be6d8379|630b215799a3ca98|-934457909|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19830.5370675234s|58be5b4945871885|56634073|file|local|vector|||2.481|coercing argument of type list to logical|
+save_dictionary|function|c1ec350023193897|||||||||||||||
 save_plots|function|82c0bb5322050d94|||||||||||||||
-saved|stem|cc37473f3d7f648a|a000d521386ef45e|ed7ca54a8b7c3a17|1295446722||t19828.6174347884s|a1c456b03adbfbf8|44|rds|local|vector|||0.002||
+saved|stem|dd58f61fdf4a933e|a000d521386ef45e|2287fd55185a33ea|1295446722|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/dictionary.csv|t19830.5370677829s|c3263565563b7c1b|28369|file|local|vector|||0||
 steps_dir|object|3e744d2129b3619d|||||||||||||||
 summarise_country_follow_up|function|087bef84523b0f6e|||||||||||||||
 summarise_follow_up|function|9291e4ea9fced4c6|||||||||||||||
