@@ -6,7 +6,7 @@ library(targets)
 tar_option_set(
   # packages that your targets need to run
   packages = c(
-    "tbmstr"
+    "tbmstr", "cli"
   ),
   imports = c("tbmstr"),
   format = "rds" # default storage format
@@ -44,18 +44,24 @@ list(
   tar_target(adjusted, apply_adjustments(raw, adjustments)),
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(prepared, prepare_baseline(labelled,
-    cohort = "treatment"
+    cohort = "adverse"
   )),
   tar_target(filtered, remove_sensitive_variables(prepared)),
-  tar_target(save_data, save_as_csv(filtered, output_dir),
+  tar_target(checked, check_ae_grading(filtered)),
+  tar_target(save_data, save_as_csv(checked, output_dir),
     format = "file"
   ),
-  tar_target(dictionary, create_dictionary(filtered, var_df)),
+  tar_target(dictionary, create_dictionary(checked, var_df)),
   tar_target(saved, save_dictionary(
     dictionary,
     file.path(output_dir, "dictionary.csv")
   ),
   format = "file"
   ),
-  tar_target(archive, create_archive(base_dir), format = "file")
+  tar_target(archive, create_archive(
+    save_data,
+    file.path(base_dir, "static")
+  ),
+  format = "file"
+  )
 )

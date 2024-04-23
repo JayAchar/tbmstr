@@ -17,3 +17,4 @@ inst/analyses/output/*.zip
 inst/analyses/output/*.csv
 inst/analyses/output/*.xlsx
 inst/analyses/external/*.csv
+inst/*.xlsx
