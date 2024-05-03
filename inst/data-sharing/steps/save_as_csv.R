@@ -24,3 +24,18 @@ save_as_csv <- function(lst, output_dir) {
 
   return(output_dir)
 }
+
+save_countries_to_csv <- function(country_lst, output_dir) {
+  country_names <- names(country_lst)
+  lapply(
+    X = country_names,
+    FUN = \(cname) {
+      # create folder in output director
+      dir.create(file.path(output_dir, cname))
+
+      # run save_as_csv
+      save_as_csv(country_lst[[cname]], file.path(output_dir, cname))
+    }
+  )
+  return(output_dir)
+}

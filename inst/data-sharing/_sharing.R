@@ -48,6 +48,10 @@ list(
   )),
   tar_target(filtered, remove_sensitive_variables(prepared)),
   tar_target(checked, check_ae_grading(filtered)),
+  tar_target(country_data, split_by_country(checked)),
+  tar_target(country_csvs, save_countries_to_csv(country_data, output_dir),
+    format = "file"
+  ),
   tar_target(save_data, save_as_csv(checked, output_dir),
     format = "file"
   ),
@@ -63,5 +67,9 @@ list(
     file.path(base_dir, "static")
   ),
   format = "file"
+  ),
+  tar_target(
+    country_archives,
+    create_country_archives(save_data, file.path(base_dir, "static"))
   )
 )
