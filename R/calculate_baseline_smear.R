@@ -74,7 +74,7 @@ calculate_baseline_smear <- function(baseline,
     min_lst,
   )
 
-  if (class(df$result) == "numeric") {
+  if (inherits(df$result, "numeric")) {
     names(df)[which(names(df) == "result")] <- "afb1"
     df$smear <- apply_labels(df, "afb1")
   } else {

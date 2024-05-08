@@ -139,3 +139,46 @@ factor_eos_outcome <- function(outcome_str) {
     levels = defs$eos_levels
   )
 }
+
+
+#' @noRd
+#' @importFrom scales label_number
+
+p_value_formatter <- function(number, digits) {
+  round_to <- digits - ceiling(log10(abs(number)))
+
+  value <- round(number, round_to)
+
+  accuracy_arg <- 1 / 10^round_to
+
+  ## Construct a labeller within the function run
+  labeller <- scales::label_number(accuracy = accuracy_arg)
+
+  label <- labeller(value)
+
+  return(label)
+}
+
+#' @noRd
+
+format_p_values <- function(x) {
+  vapply(x,
+    FUN.VALUE = character(1),
+    FUN = \(val) {
+      if (is.na(val)) {
+        return("")
+      }
+      if (val < 0.001 && val >= 0.0001) {
+        return(
+          p_value_formatter(val, 1)
+        )
+      }
+      if (val > 0.0001) {
+        return(
+          p_value_formatter(val, 2)
+        )
+      }
+      return("<0.0001")
+    }
+  )
+}
