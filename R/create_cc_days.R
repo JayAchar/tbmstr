@@ -47,7 +47,7 @@ create_cc_days <- function(
       cultures$specimen == "Sputum" &
         cultures$datespecimen > cultures$trtstdat &
         cultures$datespecimen < cultures$trtendat &
-        cultures$result %in% c(1, 3)
+        (cultures$result %in% list(1, 3, "MTB complex", "No growh"))
     ), ]
 
     fdf <- filtered[, c("globalrecordid", "datespecimen", "result")]

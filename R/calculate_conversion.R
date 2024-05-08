@@ -12,7 +12,7 @@ calculate_conversion <- function(subject_df,
     is.data.frame(subject_df),
     all(c("id", "date", "result") %in% names(subject_df)),
     length(unique(subject_df$id)) == 1L,
-    all(subject_df$result %in% c(0, 1)),
+    all(subject_df$result %in% list(0, 1, "No growh", "MTB complex")),
     all(!is.na(subject_df$date))
   )
 

@@ -14,7 +14,7 @@ create_conversion_variables <- function(baseline,
                                         myco) {
   valid_specimens <- list(
     liquid = list(
-      type = "culq",
+      type = "culqd",
       label = "lq"
     ),
     solid = list(
@@ -22,7 +22,7 @@ create_conversion_variables <- function(baseline,
       label = "sld"
     ),
     joint = list(
-      type = c("culq", "culsld"),
+      type = c("culqd", "culsld"),
       label = "all"
     )
   )
