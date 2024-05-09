@@ -29,7 +29,8 @@ calculate_lr_statistic <- function(model, df) {
       simple <- survival::coxph(mod_form, data = df)
       lt <- lmtest::lrtest(simple, model)
       p_vals <- lt$`Pr(>Chisq)`
-      p_vals[which(!is.na(p_vals))]
+      p <- p_vals[which(!is.na(p_vals))]
+      format_p_values(p)
     }
   ) |> setNames(predictors)
 }
