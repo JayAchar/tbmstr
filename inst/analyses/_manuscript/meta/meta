@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|cc9c541768de93b8|||||||||||||||
+.Random.seed|object|f15e62ca310d7cc3|||||||||||||||
 add_failures|stem|ffbe369afe134be5|a4587bbfa4ac2a9c|639b146db3007840|1444336175||t19851.8701831443s|35ac2040482dc03a|5361700|rds|local|vector|||0.038||
 adjusted|stem|e2e0032973c32791|6c6b542f48028b9c|e811835fd22c9cb9|620771776||t19851.4294111662s|0de43300ec70e25f|5064658|rds|local|vector|||0.011||
 adjustment_files|stem|f32573bcb1b8c857|90e66d70e3f0d3b1|aa416ef21c349cc7|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/adjustments|t19800.3506461859s|dd56a5971d025bfa|192|file|local|vector|||0||
@@ -18,7 +18,8 @@ calculate_conversion|function|bb6461f2f095842f|||||||||||||||
 calculate_eos_outcome|function|59e8d549deda9be0|||||||||||||||
 calculate_final_follow_up|function|8cf7b7f83153aff0|||||||||||||||
 calculate_follow_up_timepoint|function|d0ac5d032e02f9c7|||||||||||||||
-calculate_multivariable_model|function|bfea68458136a924|||||||||||||||
+calculate_lr_statistic|function|a8bd8e260cc3e093|||||||||||||||
+calculate_multivariable_model|function|b1deaa4f1febbd53|||||||||||||||
 calculate_variables|function|bef95e913f4082fb|||||||||||||||
 censored|stem|c165f60d5d620ece|42a2fb2848888939|82c2f62744d07a16|2134907783||t19851.505798914s|1d95bfdf14c1a8dc|453700|rds|local|vector|||0.004||
 clean|stem|989d7291ae717fff|4d545af930078934|d9ef73ddbdecc2f1|-82818548||t19851.8701841735s|c9e157f85dd7d88e|452685|rds|local|vector|||0.002||
@@ -49,7 +50,7 @@ create_plots|function|a9824c2bbdfbf34d|||||||||||||||
 create_pregnancy_text|function|5d57e9e296ec9182|||||||||||||||
 create_quality_report|function|ed4a2d8622689a8d|||||||||||||||
 create_sensitivity_analyses|function|f877a9f70b4bf165|||||||||||||||
-create_surv_objects|function|57ec9a9302fe65af|||||||||||||||
+create_surv_objects|function|46ef7a664cc838ec|||||||||||||||
 create_survival_table|function|001861355140b83d|||||||||||||||
 create_table_labels|function|4701f1ad629beeb0|||||||||||||||
 create_tables|function|05af2b76490bb16d|||||||||||||||
@@ -74,9 +75,9 @@ follow_up_file|stem|8ffcb460c72889e6|dc0ea0fb2bb775c7|a165bc3d3087978c|-97416317
 follow_up_summary_template|object|072d1dc1458268e9|||||||||||||||
 format_p_values|function|c15bbc96d5b2efaf|||||||||||||||
 fu_cohort|stem|31d747f646e32793|b163bf3d35c3ae73|c60984f7330ae04c|-1927411841||t19851.505810612s|02b73595adac3d23|372848|rds|local|vector|||0.008||
-git|object|cefc5c776c79db58|||||||||||||||
+git|object|5a71704e08d42811|||||||||||||||
 git_branch|object|584c8788fa64abae|||||||||||||||
-git_hash|object|91be04b13b8c38f8|||||||||||||||
+git_hash|object|7ef41e5517764dc6|||||||||||||||
 global_dir|object|1fabca55a89525e7|||||||||||||||
 handle_factors|function|9942e46c1c9d2fe9|||||||||||||||
 has_positive_baseline_culture|function|9c389ae50c46436d|||||||||||||||
@@ -97,7 +98,7 @@ merge_imported|function|c441961e0323be1c|||||||||||||||
 ONE_YEAR|object|e16336eae9868750|||||||||||||||
 output_dir|object|22f83a44ef43e640|||||||||||||||
 p_value_formatter|function|496e369b73ae8a0c|||||||||||||||
-plots|stem|5e2fa151f0a2f5d9|700007547abf162d|ccccb0c6ac1c61d9|765790996||t19852.3178319469s|3cc7102dcffd3f03|4129568|rds|local|vector|||0.566||
+plots|stem|5592a3eb40edd77c|700007547abf162d|8412d531c39ee417|765790996||t19852.420372326s|1f9652acfb35a582|4130196|rds|local|vector|||0.513||
 prepare_ae_summary_data|function|88532b1adfa09bca|||||||||||||||
 prepare_baseline|function|140fac78bb1d844d|||||||||||||||
 prepare_baseline_checks|function|0a4b2c028b567975|||||||||||||||
@@ -122,14 +123,14 @@ render_internal_rmd|function|2d6b4bc3d7b93fc5|||||||||||||||
 render_sensitivity_analyses|function|9c2c9d713f6359f6|||||||||||||||
 render_short_success|function|1389e1f0795abdae|||||||||||||||
 render_withdrawls|function|b10d7c2c3e34683e|||||||||||||||
-reports|stem|874484cddb46e2b2|c2a316904eacbda6|eb5bb2cf7d6e2adc|536393307|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19852.321490571s|4c0411fb77e170f6|462566|file|local|vector|||53.065||
+reports|stem|76ec5c639f5744f7|c2a316904eacbda6|98be0118869ac704|536393307|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/dev.docx|t19852.4216506625s|771b47dd7a9cde5d|462567|file|local|vector|||46.506||
 run_analysis|function|ce1d546f453c8947|||||||||||||||
 run_quality_check|function|6ccf5b88cdc04a84|||||||||||||||
 run_tutorial|function|22336d735d656438|||||||||||||||
 save_dictionary|function|3c87d04f6811e90d|||||||||||||||
 save_plots|function|82c0bb5322050d94|||||||||||||||
-saved_plots|stem|9bc6f3233a95be78|036b00dd6ae81cae|ace4129ee83ddcbe|835264336|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p7.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p8.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p9.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p10.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p11.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p1.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p2.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p3.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p4.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p5.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p6.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p7.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p8.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p9.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p10.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p11.pdf|t19852.3208763588s|62016ebe58b0d826|1442565|file|local|vector|||7.437|Using alpha for a discrete variable is not advised.. Removed 25 rows containing nonfinite values stat_boxplot.. Removed 25 rows containing missing values geom_point.. Using alpha for a discrete variable is not advised.. Removed 25 rows containing nonfinite values stat_boxplot.. Removed 25 rows containing missing values geom_point.|
-sensitivity_analysis_report|stem|a3b97d99726b8bb9|10a566ae3972b4d1|ed7c2683211dfc84|-1506843802||t19852.3207884965s|e92536e5890953e5|126|rds|local|vector|||2.221||
+saved_plots|stem|f10862d2132a8602|036b00dd6ae81cae|c1bc2c8c721893bd|835264336|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p1.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p2.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p3.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p4.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p5.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p6.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p7.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p8.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p9.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p10.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/png/p11.png*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p1.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p2.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p3.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p4.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p5.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p6.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p7.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p8.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p9.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p10.pdf*/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/output/plots/pdf/p11.pdf|t19852.4211123306s|62016ebe58b0d826|1442565|file|local|vector|||7.249|Using alpha for a discrete variable is not advised.. Removed 25 rows containing nonfinite values stat_boxplot.. Removed 25 rows containing missing values geom_point.. Using alpha for a discrete variable is not advised.. Removed 25 rows containing nonfinite values stat_boxplot.. Removed 25 rows containing missing values geom_point.|
+sensitivity_analysis_report|stem|a3b97d99726b8bb9|10a566ae3972b4d1|58a1bcf13e417f78|-1506843802||t19852.4210283907s|e92536e5890953e5|126|rds|local|vector|||2.264||
 sensitivity_file|stem|26d6b253af7c8833|e1aea88ad2b1dd8d|60204b477dde7c27|927958053|/Users/jayachar/Documents/dev/packages/tbmstr/inst/analyses/templates/sensitivity.Rmd|t19742.9270441358s|c8fd4c36ccc1b8d2|1509|file|local|vector|||0||
 sensitivity_template|object|219d40329f4c6eda|||||||||||||||
 sensivity_analyses|stem|3a717fadf7847748|3fa95233b0f7088c|caeadb13057b487f|-992599042||t19851.5058375755s|2d33b83393cf96e3|3224111|rds|local|vector|||1.793||
@@ -137,10 +138,10 @@ success_file|stem|875ec8a74314ae1c|dc3a8ddb3a3a5ab5|9673f83d8b238ac3|1563025131|
 success_template|object|8e4a78ce7e9a007d|||||||||||||||
 summarise_country_follow_up|function|087bef84523b0f6e|||||||||||||||
 summarise_follow_up|function|9291e4ea9fced4c6|||||||||||||||
-surv_objects|stem|5f06b68c903c389e|0e0b1448794aa4d5|cc7517e171ab5aaf|2099782511||t19852.3177808625s|169f6d4fc7aafdc6|2877308|rds|local|vector|||5.269|Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 3 4 5. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to co|
-tables|stem|28689fd34c46d781|c04d8dee0f67f298|ea91caadd767b25e|629895215||t19852.3207599739s|4389961ff863e351|102674118|rds|local|vector|||23.699||
+surv_objects|stem|58d97879bf171d4f|0e0b1448794aa4d5|6d13cb79c9a9842c|2099782511||t19852.4203588757s|fe526ceb6b1fc6cf|2878090|rds|local|vector|||7.755|Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 3 4 5. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to coverge for iterations 1. Inner loop failed to co|
+tables|stem|128c9f8da9b30061|c04d8dee0f67f298|25d580f1a7cae35d|629895215||t19852.4210001055s|7822ab986b12d5f9|102676566|rds|local|vector|||22.106||
 templates_dir|object|b5417a76b2507fda|||||||||||||||
-text_objects|stem|17f776e1c30d93f1|9819316c5c8c6227|f1cf092d18e71d1e|-96551173||t19852.3207616656s|8585b45427938c14|481|rds|local|vector|||0.019||
+text_objects|stem|17f776e1c30d93f1|9819316c5c8c6227|6f805eceaad4bf83|-96551173||t19852.4210011057s|8585b45427938c14|481|rds|local|vector|||0.021||
 transform_to_date|function|e03e68b8ceff3e0f|||||||||||||||
 withdrawal_template|object|ea44c5f1fbc0c77b|||||||||||||||
 withdrawals_file|stem|1d10c4489c6d2509|487a87a660ace370|42997525ff556763|1527923463||t19851.4302208937s|bce99b594ffe2eda|128|rds|local|vector|||0.756||

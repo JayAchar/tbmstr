@@ -29,10 +29,12 @@ Config/testthat/edition: 3
 Imports: 
     cli (>= 3.4.0),
     learnr (>= 0.11.0),
+    lmtest (>= 0.9.40),
     pointblank (>= 0.11.4),
     readr (>= 2.1.0),
     rmarkdown,
-    scales
+    scales,
+    survival (>= 3.5.8)
 URL: https://jayachar.github.io/tbmstr/
 VignetteBuilder: knitr
 Depends: 

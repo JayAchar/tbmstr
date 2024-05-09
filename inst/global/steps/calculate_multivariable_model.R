@@ -75,10 +75,11 @@ calculate_multivariable_model <- function(df) {
     cli::cli_abort("The optimal MV model has not been selected")
   }
 
-  print(
-    survival::cox.zph(full)
-  )
+  mv_lr_pvals <- calculate_lr_statistic(full, mod_data)
 
   # FIXME: this function should probably only output one model
-  list(full = full, mv = mv)
+  list(
+    full = full, mv = mv,
+    mv_lr_pvals = mv_lr_pvals
+  )
 }
