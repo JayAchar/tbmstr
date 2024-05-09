@@ -11,6 +11,11 @@ has_positive_baseline_culture <- function(baseline, myco,
     myco$test_type %in% culture_type
   ), ]
 
+  # only keep relevant culture results
+  cultures <- cultures[which(
+    cultures$result %in% list(1, 3, "MTB complex", "No growh")
+  ), ]
+
   df <- merge(
     cultures,
     baseline[, c("globalrecordid", "trtstdat")],
@@ -55,6 +60,10 @@ has_positive_baseline_culture <- function(baseline, myco,
 #' @noRd
 
 is_baseline_culture_positive <- function(df) {
+  stopifnot(
+    all(unique(df$result) %in% list(1, 3, "MTB complex", "No growh"))
+  )
+
   # find diff time for each result from treatment start date
   diff_days <- diff_days(
     df$trtstdat,
@@ -68,7 +77,7 @@ is_baseline_culture_positive <- function(df) {
 
   # check if any of the results are positive
   result <- any(
-    filtered$result %in% c(1)
+    filtered$result %in% c(1, "MTB complex")
   )
 
   # return result

@@ -159,7 +159,13 @@ p_value_formatter <- function(number, digits) {
   return(label)
 }
 
-#' @noRd
+#' Format p-values for result tables
+#'
+#' @description The format has been aligned with the request from the Lancet
+#'   ID editors.
+#'
+#' @param x vector of numeric p-values
+#' @export
 
 format_p_values <- function(x) {
   vapply(x,
