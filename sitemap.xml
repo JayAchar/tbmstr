@@ -46,6 +46,9 @@
     <loc>https://jayachar.github.io/tbmstr/reference/calculate_final_follow_up.html</loc>
   </url>
   <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/calculate_lr_statistic.html</loc>
+  </url>
+  <url>
     <loc>https://jayachar.github.io/tbmstr/reference/calculate_variables.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/diff_days.html</loc>
+  </url>
+  <url>
+    <loc>https://jayachar.github.io/tbmstr/reference/format_p_values.html</loc>
   </url>
   <url>
     <loc>https://jayachar.github.io/tbmstr/reference/handle_factors.html</loc>
