@@ -1,5 +1,7 @@
 check_ae_grading <- function(lst) {
   # check qtcf grading in baseline dataframe
+  # TODO: refactor checking the Belarus QT data and unit test
+  #
   # filter baseline
   baseline <- lst$baseline[
     lst$baseline$cntry == "Belarus",
@@ -85,6 +87,10 @@ check_ae_grading <- function(lst) {
   }
 
   lst$adverse$temp_id <- NULL
+
+
+  # check baseline AE grading
+  lst$baseline <- check_baseline_ae_grades(lst$baseline)
 
   lst
 }
