@@ -18,3 +18,4 @@
 ^_targets\.yaml$
 ^inst/global$
 ^inst/data-sharing$
+^inst/.*\.xlsx$

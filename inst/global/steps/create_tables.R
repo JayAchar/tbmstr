@@ -97,6 +97,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
   tables$mv$crude <- gtsummary::tbl_uvregression(
     data = pd,
     label = labels$uni,
+    pvalue_fun = format_p_values,
     method = survival::coxph,
     y = survival::Surv(eos_days, event_fail),
     exponentiate = TRUE,
@@ -116,6 +117,7 @@ create_tables <- function(pd, hiv_cohort, failed, surv_objects, who_outcomes) {
     gtsummary::tbl_regression(
       exponentiate = TRUE,
       label = labels$mv_all,
+      pvalue_fun = format_p_values,
     ) |>
     gtsummary::add_global_p(keep = TRUE)
 

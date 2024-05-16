@@ -19,7 +19,9 @@ calculate_baseline_smear <- function(baseline,
   # 3. Filter myco by test_type == "afb1"
   smear_df <- mdf[which(mdf$test_type == "afb1"), ]
   # 4. Filter myco by result %in% c(1, 2)
-  valid_results <- smear_df[which(smear_df$result %in% c(1, 2)), ]
+  valid_results <- smear_df[which(
+    smear_df$result %in% c(1, 2, "Positive", "Negative")
+  ), ]
   # 5. Merge myco with baseline
   merged <- merge(bdf,
     valid_results,
@@ -30,9 +32,13 @@ calculate_baseline_smear <- function(baseline,
 
   merged$test_type <- NULL
   # 6. Remove specimens > 7d after treatment initiation
-  ff <- merged[which(as.numeric(merged$datespecimen - merged$trtstdat) <= 7), ]
+  ff <- merged[which(
+    difftime(merged$datespecimen, merged$trtstdat, units = "days") <= 7
+  ), ]
   # 7. Subtract specimen date from treatment start date - take absolute value
-  ff$days <- abs(as.numeric(ff$trtstdat - ff$datespecimen))
+  ff$days <- as.numeric(abs(
+    difftime(ff$datespecimen, ff$trtstdat, units = "days")
+  ))
   ff$datespecimen <- NULL
   # 8. Keep specimen closest to treatment initiation
   sp <- split(ff, ff$globalrecordid)
@@ -67,8 +73,15 @@ calculate_baseline_smear <- function(baseline,
     rbind,
     min_lst,
   )
-  names(df)[names(df) == "result"] <- "afb1"
-  df$smear <- apply_labels(df, "afb1")
+
+  if (inherits(df$result, "numeric")) {
+    names(df)[which(names(df) == "result")] <- "afb1"
+    df$smear <- apply_labels(df, "afb1")
+  } else {
+    df$smear <- factor(df$result,
+      levels = c("Positive", "Negative", "No result")
+    )
+  }
   # 10. Merge baseline_smear with original baseline df
   output <- merge(
     baseline,
