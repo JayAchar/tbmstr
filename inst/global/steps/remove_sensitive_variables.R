@@ -3,7 +3,7 @@ remove_sensitive_variables <- function(lst) {
     baseline = c(
       "recstatus", "uniquekey", "firstsavelogonname",
       "firstsavetime", "lastsavelogonname", "lastsavetime",
-      "inl", "drnum", "icfdat",
+      "inl", "drnum", "icfdat", "dob", "subjid",
       "bmi_group", "eos_outcome",
       "eos_date", "eos_days",
       "event_fail", "event_death",

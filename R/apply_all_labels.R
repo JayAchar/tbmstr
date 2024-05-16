@@ -73,7 +73,6 @@ apply_all_labels <- function(lst) {
 
       # custom labels for change data
       if (all(c("aedrug", "aestop") %in% names(df))) {
-        print("change found")
         lut <- internal$lut
         lut <- lut[which(
           grepl(".*[0-9]$", lut$name)
