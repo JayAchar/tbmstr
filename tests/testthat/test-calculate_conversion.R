@@ -39,7 +39,7 @@ test_that("conversion check works", {
   input <- data.frame(
     id = c(1, 1),
     date = as.POSIXct(c(1, 50) * DAY, origin = "1970-01-01", tz = "UTC"),
-    result = c(0, 0)
+    result = c(3, 3)
   )
 
   expected <- data.frame(
@@ -55,11 +55,33 @@ test_that("conversion check works", {
   expect_equal(observed, expected)
 })
 
+test_that("conversion check works with result labels", {
+  input <- data.frame(
+    id = c(1, 1),
+    date = as.POSIXct(c(1, 50) * DAY, origin = "1970-01-01", tz = "UTC"),
+    result = c("No growh", "No growh")
+  )
+  
+  expected <- data.frame(
+    id = 1,
+    date = as.POSIXct(1 * DAY, origin = "1970-01-01", tz = "UTC")
+  )
+  
+  observed <- calculate_conversion(
+    subject_df = input,
+    tolerance = 30
+  )
+  
+  expect_equal(observed, expected)
+})
+
+
+
 test_that("adjusting tolerance works", {
   input <- data.frame(
     id = c(1, 1, 1),
     date = as.POSIXct(c(1, 29, 50) * DAY, origin = "1970-01-01", tz = "UTC"),
-    result = c(0, 0, 0)
+    result = c(3, 3, 3)
   )
 
   expected <- data.frame(
@@ -89,7 +111,7 @@ test_that("handles positive results", {
   input <- data.frame(
     id = c(1, 1, 1),
     date = as.POSIXct(c(1, 10, 50) * DAY, origin = "1970-01-01", tz = "UTC"),
-    result = c(1, 0, 0)
+    result = c(1, 3, 3)
   )
 
   expected <- data.frame(
@@ -105,13 +127,33 @@ test_that("handles positive results", {
   expect_equal(observed, expected)
 })
 
+test_that("handles positive results with labels", {
+  input <- data.frame(
+    id = c(1, 1, 1),
+    date = as.POSIXct(c(1, 10, 50) * DAY, origin = "1970-01-01", tz = "UTC"),
+    result = c("MTB complex", "No growh", "No growh")
+  )
+  
+  expected <- data.frame(
+    id = 1,
+    date = as.POSIXct(10 * DAY, origin = "1970-01-01", tz = "UTC")
+  )
+  
+  observed <- calculate_conversion(
+    subject_df = input,
+    tolerance = 30
+  )
+  
+  expect_equal(observed, expected)
+})
+
 test_that("handles 2 initial positive results", {
   input <- data.frame(
     id = c(1, 1, 1, 1),
     date = as.POSIXct(c(1, 10, 50, 90) * DAY,
       origin = "1970-01-01", tz = "UTC"
     ),
-    result = c(1, 1, 0, 0)
+    result = c(1, 1, 3, 3)
   )
 
   expected <- data.frame(
@@ -132,7 +174,7 @@ test_that("handles terminal positive results", {
   input <- data.frame(
     id = c(1, 1, 1),
     date = as.POSIXct(c(1, 10, 50) * DAY, origin = "1970-01-01", tz = "UTC"),
-    result = c(0, 1, 0)
+    result = c(3, 1, 3)
   )
 
   expected <- data.frame(
@@ -155,7 +197,7 @@ test_that("return earliest conversion", {
       origin = "1970-01-01",
       tz = "UTC"
     ),
-    result = c(0, 0, 1, 0, 0)
+    result = c(3, 3, 1, 3, 3)
   )
 
   expected <- data.frame(
@@ -195,7 +237,7 @@ test_that("handles unordered results", {
   input <- data.frame(
     id = c(1, 1, 1),
     date = as.POSIXct(c(35, 1, 40) * DAY, origin = "1970-01-01", tz = "UTC"),
-    result = c(0, 0, 0)
+    result = c(3, 3, 3)
   )
 
   expected <- data.frame(

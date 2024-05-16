@@ -12,7 +12,7 @@ calculate_conversion <- function(subject_df,
     is.data.frame(subject_df),
     all(c("id", "date", "result") %in% names(subject_df)),
     length(unique(subject_df$id)) == 1L,
-    all(subject_df$result %in% c(0, 1)),
+    all(subject_df$result %in% list(3, 1, "No growh", "MTB complex")),
     all(!is.na(subject_df$date))
   )
 
@@ -28,7 +28,7 @@ calculate_conversion <- function(subject_df,
     FUN = function(row) {
       row_result <- subject_df[row, "result"]
 
-      if (row_result == 1) {
+      if (row_result %in% c("MTB complex", 1)) {
         return(NA)
       }
 
@@ -38,7 +38,7 @@ calculate_conversion <- function(subject_df,
 
       previous_row_result <- subject_df[row - 1, "result"]
 
-      if (previous_row_result == 0) {
+      if (previous_row_result %in% list(3, "No growh")) {
         diff_lag <-
           diff_days(
             subject_df[row - 1, "date"],
