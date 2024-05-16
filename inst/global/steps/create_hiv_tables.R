@@ -72,6 +72,7 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
   failure <- gtsummary::tbl_uvregression(
     data = hiv_cohort,
     method = survival::coxph,
+    pvalue_fun = format_p_values,
     y = survival::Surv(eos_days, event_fail),
     exponentiate = TRUE,
     include = c(
@@ -86,6 +87,7 @@ create_hiv_tables <- function(full, hiv_cohort, who_fu, labels) {
   death <- gtsummary::tbl_uvregression(
     data = hiv_cohort,
     method = survival::coxph,
+    pvalue_fun = format_p_values,
     y = survival::Surv(eos_days, event_death),
     exponentiate = TRUE,
     include = c("art", "cd4_4grp", "cpt"),
