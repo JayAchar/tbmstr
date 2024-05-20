@@ -9,7 +9,12 @@ ae_vars <- list(
   ),
   hbgrd = list(
     grade = "hbgrd",
-    value = "hbval"
+    value = "hbval",
+    levels = c(105, 94, 79, 0),
+    cleaner = function(df) {
+      df$hbval[which(df$hbval <= 30)] <- df$hbval[which(df$hbval <= 30)] * 10
+      df
+    }
   ),
   platgrd = list(
     grade = "platgrd",

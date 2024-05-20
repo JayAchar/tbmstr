@@ -21,6 +21,9 @@ check_baseline_ae_grades <- function(df) {
     ae_vars,
     FUN = function(ae_var) {
       temp_df <- df[, c("globalrecordid", ae_var$grade, ae_var$value)]
+      if (!is.null(ae_var$cleaner)) {
+        temp_df <- ae_var$cleaner(temp_df)
+      }
       # if no grade levels have been defined, return the original data
       if (is.null(ae_var$levels)) {
         temp_df[ae_var$value] <- NULL
@@ -29,23 +32,17 @@ check_baseline_ae_grades <- function(df) {
       # create temp grade variable
       temp_grd_name <- paste0(ae_var$grade, "_tmp")
 
-      grds <- findInterval(
+      temp_df[[temp_grd_name]] <- match_ae_grade(
         temp_df[[ae_var$value]],
-        ae_var$levels,
-        rightmost.closed = TRUE
+        ae_var$levels
       )
-
-      temp_df[[temp_grd_name]] <- vapply(grds, \(val) {
-        if (is.na(val) || val == 0) {
-          return(NA_character_)
-        }
-        paste0(rep("I", val), collapse = "")
-      }, character(1))
 
       temp_df[[ae_var$grade]] <- temp_df[[temp_grd_name]]
       temp_df[[temp_grd_name]] <- NULL
-      temp_df[[ae_var$value]] <- NULL
-
+      if(is.null(ae_var$cleaner)) {
+        temp_df[[ae_var$value]] <- NULL  
+      }
+      
       return(temp_df)
     }
   ) |> setNames(names(ae_vars))
@@ -56,6 +53,9 @@ check_baseline_ae_grades <- function(df) {
     x = ae_vars,
     f = function(init, ae_var) {
       init[[ae_var$grade]] <- NULL
+      if (!is.null(ae_var$cleaner)) {
+        init[[ae_var$value]] <- NULL
+      }
       merge(
         init,
         checked_grades[[ae_var$grade]],
