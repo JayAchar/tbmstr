@@ -20,7 +20,8 @@ check_baseline_ae_grades <- function(df) {
   checked_grades <- lapply(
     ae_vars,
     FUN = function(ae_var) {
-      temp_df <- df[, c("globalrecordid", ae_var$grade, ae_var$value)]
+      keep_vars <- c("globalrecordid", ae_var$grade, ae_var$value)
+      temp_df <- df[, keep_vars]
       if (!is.null(ae_var$cleaner)) {
         temp_df <- ae_var$cleaner(temp_df)
       }
@@ -39,10 +40,10 @@ check_baseline_ae_grades <- function(df) {
 
       temp_df[[ae_var$grade]] <- temp_df[[temp_grd_name]]
       temp_df[[temp_grd_name]] <- NULL
-      if(is.null(ae_var$cleaner)) {
-        temp_df[[ae_var$value]] <- NULL  
+      if (is.null(ae_var$cleaner)) {
+        temp_df[[ae_var$value]] <- NULL
       }
-      
+
       return(temp_df)
     }
   ) |> setNames(names(ae_vars))

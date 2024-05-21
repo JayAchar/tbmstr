@@ -17,9 +17,9 @@ test_that("NA values are not graded", {
 })
 
 test_that("Handle decreasing grades", {
-  values <- c(94, 65, 130)
-  grades <- c(105, 94, 79, 0)
-  expected <- c("II", "III", NA_character_)
+  values <- c(94, 65, 130, 64)
+  grades <- c(105, 94, 79, 65)
+  expected <- c("II", "III", NA_character_, "IV")
   observed <- match_ae_grade(values, grades)
 
   expect_equal(observed, expected)

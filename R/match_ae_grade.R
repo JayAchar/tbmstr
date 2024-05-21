@@ -31,6 +31,9 @@ match_ae_grade <- function(values, grades) {
     if (is.na(val) || val == 0) {
       return(NA_character_)
     }
+    if (val == 4) {
+      return("IV")
+    }
     paste0(rep("I", val), collapse = "")
   }, character(1))
 }
