@@ -2,6 +2,7 @@
 ^LICENSE\.md$
 ^\.github$
 ^.here$
+^Makefile$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data$

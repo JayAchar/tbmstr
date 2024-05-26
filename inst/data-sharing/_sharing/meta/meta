@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|a2a8965c3d597c2c|||||||||||||||
+.Random.seed|object|166bc8ac750ec1c4|||||||||||||||
 adjusted|stem|6a4996db5f00dbba|f174c54aac3b10e7|3c7e95f141b9295a|620771776||t19859.4525059296s|ef3bfb92d4df62bf|5104328|rds|local|vector|||0.005||
 adjustment_files|stem|1cef197d3197d06e|4cc1390126a59289|db92ba807e9fc328|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/adjustments|t19800.3506461859s|0ce3c220c282aef6|192|file|local|vector|||0||
 adjustments|stem|98f0e37861335706|6dd83ab7feb96010|a351e864c9900330|-391056118||t19859.4524608894s|74e9c122ac07e444|2867|rds|local|vector|||0.094||
@@ -12,7 +12,7 @@ apply_all_labels|function|390f18f16db4f7b8|||||||||||||||
 apply_censoring|function|c4ed17ff32069e27|||||||||||||||
 apply_labels|function|957e834b0aceebdb|||||||||||||||
 apply_manual_adjustments|function|6acc2e860d9979c9|||||||||||||||
-archive|stem|530a01239cca7ac5|1aa3f31f27a26198|be2d7346241b4273|-1503279279|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/mstr-regional-data.zip|t19864.5035392432s|228e5e29aa67d419|15891963|file|local|vector|||1.708||
+archive|stem|7ed549dba733007e|1aa3f31f27a26198|a5bd89c730d6f016|-1503279279|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/mstr-regional-data.zip|t19869.3122425875s|46a58b4328b7c7e5|15891959|file|local|vector|||1.426||
 attach_var_descriptions|function|e8069ed9034c6614|||||||||||||||
 base_dir|object|23c523ec787c5502|||||||||||||||
 calculate_baseline_smear|function|ae25870e6cb365a9|||||||||||||||
@@ -23,12 +23,12 @@ calculate_follow_up_timepoint|function|fd8973b24be19a41|||||||||||||||
 calculate_lr_statistic|function|b11bd91567915cab|||||||||||||||
 calculate_multivariable_model|function|208d45aefefeae8c|||||||||||||||
 calculate_variables|function|893817a7eb6b9aa7|||||||||||||||
-check_ae_grading|function|e10f9376d018ca3b|||||||||||||||
+check_ae_grading|function|9c4a9ea7c023848f|||||||||||||||
 check_baseline_ae_grades|function|2b11c4ad3e09ca40|||||||||||||||
-checked|stem|5fb66a497998007f|750dce667e2366c7|898569c4f9ff93f8|-2074099955||t19864.5034037746s|ee5c14056a148625|4910278|rds|local|vector|||0.301|317 missing grades detected|
+checked|stem|5fb66a497998007f|750dce667e2366c7|500188ee3162d61b|-2074099955||t19869.3121486881s|ee5c14056a148625|4910278|rds|local|vector|||0.27|317 missing grades detected|
 combine_ae_grades|function|e8659ab24679b3ac|||||||||||||||
-country_archives|stem|f6ccaa32cd260239|ae04a6c1103f5af0|4af9ffdae28bc3e8|1021143927||t19864.5035195014s|98a5f1f3760c49be|118|rds|local|vector|||1.636||
-country_csvs|stem|988b2f5eeea9c3ea|e545935779c83669|53b406b14711f2d4|193513160|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19864.5034989297s|1cc23fcaf28f1a6e|137716411|file|local|vector|||3.787|coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical|
+country_archives|stem|f6ccaa32cd260239|ae04a6c1103f5af0|6a715ecd03598828|1021143927||t19869.3122261006s|98a5f1f3760c49be|118|rds|local|vector|||1.343||
+country_csvs|stem|8a014148104d1475|e545935779c83669|53b406b14711f2d4|193513160|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19869.3122097483s|fbf4fdf6b5671ec0|137712589|file|local|vector|||2.478|coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical|
 country_data|stem|f031e8778dd7b97a|324c63626554685d|af36ad045e3602df|1190291426||t19864.5034229196s|99b00f49e3541d9a|5180877|rds|local|vector|||0.488||
 create_archive|function|7edac75b9fd84040|||||||||||||||
 create_binary_tx_outcome|function|930a9bba4bc8adbe|||||||||||||||
@@ -117,10 +117,10 @@ run_quality_check|function|e8a37194545604f1|||||||||||||||
 run_tutorial|function|3bac2e1d487c1fff|||||||||||||||
 save_as_csv|function|3961ca11d93af688|||||||||||||||
 save_countries_to_csv|function|c8f36da2d11eb034|||||||||||||||
-save_data|stem|c0658b859d8b6d48|42b7ac9be8960944|5c1ee66cc94f7487|-934457909|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19864.5034535755s|9ffda9f1184bb01b|81295723|file|local|vector|||2.644|coercing argument of type list to logical|
+save_data|stem|688bcaac05b12137|42b7ac9be8960944|5c1ee66cc94f7487|-934457909|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19869.3121765746s|54c6614dcf769dd5|81291901|file|local|vector|||2.376|coercing argument of type list to logical|
 save_dictionary|function|52931cf0c6570fb2|||||||||||||||
 save_plots|function|3a2a1aa840aeeba5|||||||||||||||
-saved|stem|84e66fc848d5df86|835de81ac63564fc|b62aafb53d64e8e6|1295446722|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/dictionary.csv|t19864.5034550439s|9651158582537593|28212|file|local|vector|||0.043||
+saved|stem|84e66fc848d5df86|835de81ac63564fc|b62aafb53d64e8e6|1295446722|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/dictionary.csv|t19869.3121770829s|9651158582537593|28212|file|local|vector|||0||
 split_by_country|function|c9df02c2b77c340c|||||||||||||||
 steps_dir|object|5c81cd34c1edb945|||||||||||||||
 summarise_country_follow_up|function|917df7aaceb0b6d7|||||||||||||||
