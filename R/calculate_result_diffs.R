@@ -25,6 +25,12 @@ calculate_result_diffs <- function(results,
     is.character(result_var)
   )
 
+  date_diffs <- diff(results[[date_var]])
+
+  if (!(all(date_diffs >= 0) || all(date_diffs <= 0))) {
+    stop("Data frame is unordered by the date variable")
+  }
+
   row_n <- seq_len(nrow(results))
 
   vapply(

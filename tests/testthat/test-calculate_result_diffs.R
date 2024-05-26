@@ -45,3 +45,17 @@ test_that("accounts for positive result", {
     ), expected
   )
 })
+
+test_that("handle unordered results", {
+  df <- data.frame(
+    specimendate = c(days(5), days(1), days(3)),
+    result = c("No growh", "No growh", "No growh")
+  )
+
+  expect_error(
+    calculate_result_diffs(
+      df,
+      date_var = "specimendate"
+    )
+  )
+})
