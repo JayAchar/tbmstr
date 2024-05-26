@@ -1,18 +1,12 @@
 check_ae_grading <- function(lst) {
   # check qtcf grading in baseline dataframe
+  # TODO: refactor checking the Belarus QT data and unit test
+  #
   # filter baseline
   baseline <- lst$baseline[
     lst$baseline$cntry == "Belarus",
     c("globalrecordid", "qt", "qtgrd")
   ]
-
-  if (setequal(baseline$qtgrd, match_grade(baseline$qt)) == FALSE) {
-    cli::cli_alert_danger("Baseline QTcF AEs incorrect for Belaurs")
-    stop()
-  }
-
-  cli::cli_alert_success("Baseline QTcF AEs checked for Belarus")
-
 
   # recalculate AE severity
   blr_ids <- baseline$globalrecordid
@@ -85,6 +79,10 @@ check_ae_grading <- function(lst) {
   }
 
   lst$adverse$temp_id <- NULL
+
+
+  # check baseline AE grading
+  lst$baseline <- check_baseline_ae_grades(lst$baseline)
 
   lst
 }
