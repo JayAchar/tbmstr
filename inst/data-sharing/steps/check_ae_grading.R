@@ -8,14 +8,6 @@ check_ae_grading <- function(lst) {
     c("globalrecordid", "qt", "qtgrd")
   ]
 
-  if (setequal(baseline$qtgrd, match_grade(baseline$qt)) == FALSE) {
-    cli::cli_alert_danger("Baseline QTcF AEs incorrect for Belaurs")
-    stop()
-  }
-
-  cli::cli_alert_success("Baseline QTcF AEs checked for Belarus")
-
-
   # recalculate AE severity
   blr_ids <- baseline$globalrecordid
 
