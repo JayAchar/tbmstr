@@ -38,7 +38,7 @@ check_terminal_negative_cultures <- function(baseline, myco) {
   )
 
   data.frame(
-    fkey = names(has_cultures_lst),
+    globalrecordid = names(has_cultures_lst),
     has_cultures = unlist(has_cultures_lst)
   )
 }

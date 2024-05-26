@@ -46,7 +46,8 @@ list(
   tar_target(prepared, prepare_baseline(labelled,
     cohort = "adverse"
   )),
-  tar_target(filtered, remove_sensitive_variables(prepared)),
+  tar_target(checked_outcomes, check_outcomes(prepared)),
+  tar_target(filtered, remove_sensitive_variables(checked_outcomes)),
   tar_target(checked, check_ae_grading(filtered)),
   tar_target(country_data, split_by_country(checked)),
   tar_target(country_csvs, save_countries_to_csv(country_data, output_dir),
