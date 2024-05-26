@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|166bc8ac750ec1c4|||||||||||||||
+.Random.seed|object|9edd9fb580e44060|||||||||||||||
 adjusted|stem|6a4996db5f00dbba|f174c54aac3b10e7|3c7e95f141b9295a|620771776||t19859.4525059296s|ef3bfb92d4df62bf|5104328|rds|local|vector|||0.005||
 adjustment_files|stem|1cef197d3197d06e|4cc1390126a59289|db92ba807e9fc328|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/adjustments|t19800.3506461859s|0ce3c220c282aef6|192|file|local|vector|||0||
 adjustments|stem|98f0e37861335706|6dd83ab7feb96010|a351e864c9900330|-391056118||t19859.4524608894s|74e9c122ac07e444|2867|rds|local|vector|||0.094||
@@ -8,11 +8,11 @@ ae_vars|object|cb75a8ffc89135eb|||||||||||||||
 alert_info|function|b4080fc6ded03fe4|||||||||||||||
 append_failure_reasons|function|2d3711d738770047|||||||||||||||
 apply_adjustments|function|6464a837dd42e2d4|||||||||||||||
-apply_all_labels|function|390f18f16db4f7b8|||||||||||||||
+apply_all_labels|function|e88a9af66a70df46|||||||||||||||
 apply_censoring|function|c4ed17ff32069e27|||||||||||||||
 apply_labels|function|957e834b0aceebdb|||||||||||||||
 apply_manual_adjustments|function|6acc2e860d9979c9|||||||||||||||
-archive|stem|7ed549dba733007e|1aa3f31f27a26198|a5bd89c730d6f016|-1503279279|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/mstr-regional-data.zip|t19869.3122425875s|46a58b4328b7c7e5|15891959|file|local|vector|||1.426||
+archive|stem|a739c2045b59a081|1aa3f31f27a26198|4a2c21c260d07af3|-1503279279|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/mstr-regional-data.zip|t19869.3297364748s|f8a46d1b0379aff8|15895068|file|local|vector|||1.555||
 attach_var_descriptions|function|e8069ed9034c6614|||||||||||||||
 base_dir|object|23c523ec787c5502|||||||||||||||
 calculate_baseline_smear|function|ae25870e6cb365a9|||||||||||||||
@@ -25,11 +25,11 @@ calculate_multivariable_model|function|208d45aefefeae8c|||||||||||||||
 calculate_variables|function|893817a7eb6b9aa7|||||||||||||||
 check_ae_grading|function|9c4a9ea7c023848f|||||||||||||||
 check_baseline_ae_grades|function|2b11c4ad3e09ca40|||||||||||||||
-checked|stem|5fb66a497998007f|750dce667e2366c7|500188ee3162d61b|-2074099955||t19869.3121486881s|ee5c14056a148625|4910278|rds|local|vector|||0.27|317 missing grades detected|
+checked|stem|3220653fdaff5342|750dce667e2366c7|7dc12e00e98f4611|-2074099955||t19869.3296295416s|49f1b1f0a7b29b97|4911325|rds|local|vector|||0.152|317 missing grades detected|
 combine_ae_grades|function|e8659ab24679b3ac|||||||||||||||
-country_archives|stem|f6ccaa32cd260239|ae04a6c1103f5af0|6a715ecd03598828|1021143927||t19869.3122261006s|98a5f1f3760c49be|118|rds|local|vector|||1.343||
-country_csvs|stem|8a014148104d1475|e545935779c83669|53b406b14711f2d4|193513160|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19869.3122097483s|fbf4fdf6b5671ec0|137712589|file|local|vector|||2.478|coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical|
-country_data|stem|f031e8778dd7b97a|324c63626554685d|af36ad045e3602df|1190291426||t19864.5034229196s|99b00f49e3541d9a|5180877|rds|local|vector|||0.488||
+country_archives|stem|f6ccaa32cd260239|ae04a6c1103f5af0|d7d0f179b990309f|1021143927||t19869.3297185224s|98a5f1f3760c49be|118|rds|local|vector|||1.403||
+country_csvs|stem|863d491b70f4d672|e545935779c83669|3bc15ed0cb344a2a|193513160|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19869.3297011964s|9f42c2e0c4027078|137667699|file|local|vector|||2.274|coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical. coercing argument of type list to logical|
+country_data|stem|7f7a81e5bf3f6847|324c63626554685d|f87bdacd525c525c|1190291426||t19869.3296478159s|e8d0d93085e1decb|5182217|rds|local|vector|||0.556||
 create_archive|function|7edac75b9fd84040|||||||||||||||
 create_binary_tx_outcome|function|930a9bba4bc8adbe|||||||||||||||
 create_cc_days|function|be1dc669cbee002b|||||||||||||||
@@ -62,25 +62,25 @@ create_table_labels|function|abcf204019923562|||||||||||||||
 create_tables|function|09a83794cd888cde|||||||||||||||
 create_text_objects|function|cf75005d00f0cb5d|||||||||||||||
 data_dir|object|054668198f65b7f4|||||||||||||||
-dictionary|stem|ced593fae2617241|3212a7336052358e|26a37d4885922289|386357845||t19864.5034065718s|66a9f3c4b9155372|6297|rds|local|vector|||0.232||
+dictionary|stem|5d851605434c4cbc|3212a7336052358e|7287b5eebdd995d9|386357845||t19869.3296311959s|c152019baa077298|6271|rds|local|vector|||0.131||
 diff_days|function|cb736ecdc316833f|||||||||||||||
 factor_eos_outcome|function|848168a93d09dbae|||||||||||||||
 files|stem|84e435e7caec172e|af167f271a655c4c|304cc885a1dce4e9|-229912786|/Users/jayachar/Documents/dev/packages/tbmstr/data/regional_prepared/final_2023|t19783.384447927s|7c99faa47fac9def|576|file|local|vector|||0||
-filtered|stem|c8868038bdd7a2c3|57a35b0f149a9c63|d1922611ce71db06|-292250703||t19859.4526333041s|11a4900cac25dacd|4911425|rds|local|vector|||0.004||
+filtered|stem|b5d78c8a430346c5|57a35b0f149a9c63|8966eaa0df5a29f5|-292250703||t19869.3296177013s|6a8e8ee507e6556e|4915087|rds|local|vector|||0.004||
 foo|stem|aeaec0e086ac5758|1930b024780260f5|ef46db3751d8e999|-156294383||t19783.5638928028s|3b53694aeea32e24|1225|rds|local|vector|||0.004||
 format_p_values|function|f6d97de54a4039b0|||||||||||||||
 global_dir|object|19edab36b9ae6c20|||||||||||||||
 handle_factors|function|8f05b2f1f7b54875|||||||||||||||
 has_positive_baseline_culture|function|9c64e07185b47eda|||||||||||||||
-import|function|970cf053e0c5bb31|||||||||||||||
+import|function|7c820cfcbe364908|||||||||||||||
 import_adjustments|function|edf917874214bcdc|||||||||||||||
-import_data|function|80e52a4c7e1840c1|||||||||||||||
+import_data|function|7e5549e1a30e0c79|||||||||||||||
 import_death_descriptions|function|82dccb8218b0964b|||||||||||||||
 include_outcomes|stem||4f17e4fac67e9d0d|7959a2c425373062|33393089||t19800.3657691636s||0|rds|local|vector|||3.31||nrowdf  1 is not TRUE
 internal|object|9ad0c85f9a7585ca|||||||||||||||
 is_baseline_culture_positive|function|0286d036abeea2e1|||||||||||||||
 is_testing|function|823ece6b7b1f32b8|||||||||||||||
-labelled|stem|d46086a06ca44ea9|b754899a27c06fa9|97bb1a01da266fde|1882703673||t19859.5203312236s|00333d6876ec8d65|5074003|rds|local|vector|||1.664|apply_labels sae 1 missing value have been introduced. apply_labels covid 2 missing values have been introduced. apply_labels cause1 39 missing values have been introduced. apply_labels cause2 7 missing values have been introduced. apply_labels cause3 5 missing values have been introduced. apply_labels vislf 1097 missing values have been introduced. apply_labels visrt 1096 missing values have been introduced|
+labelled|stem|8fbf08fe7ab22bc4|b754899a27c06fa9|2ec75091df8a41f0|1882703673||t19869.3295197909s|ccc7417b60146ae0|5076746|rds|local|vector|||1.615|apply_labels sae 1 missing value have been introduced. apply_labels covid 2 missing values have been introduced. apply_labels cause1 39 missing values have been introduced. apply_labels cause2 7 missing values have been introduced. apply_labels cause3 5 missing values have been introduced|
 lookup_dir|object|02a68fd9e08a6271|||||||||||||||
 match_ae_grade|function|470c53eca3d067a2|||||||||||||||
 match_grade|function|4d58785c1159588d|||||||||||||||
@@ -97,8 +97,8 @@ prepare_dst|function|5083f1202decd9b2|||||||||||||||
 prepare_high_dose_list|function|f3f2259b59395ab7|||||||||||||||
 prepare_myco|function|0189bc9a041f3a50|||||||||||||||
 prepare_quality_data|function|c7316711b2e52314|||||||||||||||
-prepared|stem|4c43a30269c6ca11|93ccdfa150118dc6|0bbc915fece542b1|-501310414||t19859.4526233111s|778cf799ed5bf6fd|5157300|rds|local|vector|||6.726||
-raw|stem|ea4bd767e2689fb4|bd1859eb78cbc5f2|7463246fbe80af6e|727646308||t19859.5202980339s|19f3f3582064116d|5104228|rds|local|vector|||1.978|import_data will be deprecated in the next version  use run_analysis instead. One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
+prepared|stem|4f11e7cf938a1bce|93ccdfa150118dc6|3b1282c35b233333|-501310414||t19869.3296074962s|c3f8a0d5c9a1be0b|5159285|rds|local|vector|||6.635||
+raw|stem|ea4bd767e2689fb4|bd1859eb78cbc5f2|5f122f2120f6af48|727646308||t19869.3294868802s|19f3f3582064116d|5104228|rds|local|vector|||1.937|import_data will be deprecated in the next version  use run_analysis instead. One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
 read_in|function|9e575f333bf6babe|||||||||||||||
 ready|function|8561ebc579590f86|||||||||||||||
 relevel_variables|function|9fff9803f90656f6|||||||||||||||
@@ -112,15 +112,15 @@ render_internal_rmd|function|aee18f9feb6397b9|||||||||||||||
 render_sensitivity_analyses|function|a36fbd00b38bd29c|||||||||||||||
 render_short_success|function|b0ea86b258588865|||||||||||||||
 render_withdrawls|function|969ae8d0897f9892|||||||||||||||
-run_analysis|function|a03b5ed7a663d17e|||||||||||||||
-run_quality_check|function|e8a37194545604f1|||||||||||||||
+run_analysis|function|e1f6d60f2d350a55|||||||||||||||
+run_quality_check|function|90dd51b3e4ec6fe4|||||||||||||||
 run_tutorial|function|3bac2e1d487c1fff|||||||||||||||
 save_as_csv|function|3961ca11d93af688|||||||||||||||
 save_countries_to_csv|function|c8f36da2d11eb034|||||||||||||||
-save_data|stem|688bcaac05b12137|42b7ac9be8960944|5c1ee66cc94f7487|-934457909|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19869.3121765746s|54c6614dcf769dd5|81291901|file|local|vector|||2.376|coercing argument of type list to logical|
+save_data|stem|0dfda8f4e0fd824f|42b7ac9be8960944|0b84e61e67a8ce3a|-934457909|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19869.3296740867s|02c430a3eb1cc410|81269510|file|local|vector|||2.265|coercing argument of type list to logical|
 save_dictionary|function|52931cf0c6570fb2|||||||||||||||
 save_plots|function|3a2a1aa840aeeba5|||||||||||||||
-saved|stem|84e66fc848d5df86|835de81ac63564fc|b62aafb53d64e8e6|1295446722|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/dictionary.csv|t19869.3121770829s|9651158582537593|28212|file|local|vector|||0||
+saved|stem|f1e64e133abce9a9|835de81ac63564fc|26d30657d52c741d|1295446722|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/dictionary.csv|t19869.3296748584s|7c55e406cb01be30|28100|file|local|vector|||0.001||
 split_by_country|function|c9df02c2b77c340c|||||||||||||||
 steps_dir|object|5c81cd34c1edb945|||||||||||||||
 summarise_country_follow_up|function|917df7aaceb0b6d7|||||||||||||||
