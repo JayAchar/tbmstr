@@ -19,36 +19,9 @@ calculate_conversion <- function(subject_df,
   # order by date
   subject_df <- subject_df[order(subject_df$date), ]
 
-  # capture number of results
-  result_sequence <- seq_len(nrow(subject_df))
-
-  # add days_after_previous_negative variable
-  diffs <- vapply(
-    X = result_sequence,
-    FUN = function(row) {
-      row_result <- subject_df[row, "result"]
-
-      if (row_result %in% c("MTB complex", 1)) {
-        return(NA)
-      }
-
-      if (row == 1) {
-        return(0)
-      }
-
-      previous_row_result <- subject_df[row - 1, "result"]
-
-      if (previous_row_result %in% list(3, "No growh")) {
-        diff_lag <-
-          diff_days(
-            subject_df[row - 1, "date"],
-            subject_df[row, "date"]
-          )
-        return(diff_lag)
-      }
-      return(0)
-    },
-    FUN.VALUE = double(1)
+  diffs <- calculate_result_diffs(
+    results = subject_df
+    # use function default values
   )
 
   cum_diffs <- Reduce(

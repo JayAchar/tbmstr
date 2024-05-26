@@ -2,6 +2,7 @@
 
 export(apply_all_labels)
 export(calculate_lr_statistic)
+export(calculate_result_diffs)
 export(create_conversion_variables)
 export(create_eos_outcome)
 export(diff_days)
