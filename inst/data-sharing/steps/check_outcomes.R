@@ -32,14 +32,11 @@ check_outcomes <- function(lst) {
     by = "globalrecordid"
   )
 
-  # FIXME: the outcome variable is changed to a numeric variable here
-  baseline$outcome <- ifelse(!is.na(baseline$is_cured),
-    baseline$is_cured,
-    baseline$outcome
-  )
+  # if a completed outcome has 3 negative terminal cultures and was
+  # lab confirmed at baseline, they should be changed to cured
+  baseline$outcome[which(baseline$is_cured == TRUE)] <- "Cured"
 
   baseline$is_cured <- NULL
-
   lst$baseline <- baseline
 
   return(lst)
