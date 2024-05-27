@@ -38,6 +38,11 @@ apply_all_labels <- function(lst) {
       df[included_vars] <- lapply(
         included_vars,
         \(var_name) {
+          # the labels for vislf and visrt do not match up to the values
+          # recorded in the original raw variables
+          if (var_name %in% c("vislf", "visrt")) {
+            return(df[[var_name]])
+          }
           labelled <- apply_labels(
             df = df,
             variable = var_name,

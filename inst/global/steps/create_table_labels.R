@@ -1,5 +1,4 @@
 create_table_labels <- function() {
-  # TODO: could these labels be consolidated?
   #
   mv_fail <- list(
     age_grp ~ "Age group (yrs)",

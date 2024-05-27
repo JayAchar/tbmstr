@@ -42,13 +42,12 @@ list(
   tar_target(raw, import(files)),
   tar_target(adjustments, import_adjustments(adjustment_files)),
   tar_target(adjusted, apply_adjustments(raw, adjustments)),
-  # FIXME: vislf and visrt raw data is very differnt to the final version -
-  # has it been incorrectly labelled?
   tar_target(labelled, apply_all_labels(adjusted)),
   tar_target(prepared, prepare_baseline(labelled,
     cohort = "adverse"
   )),
-  tar_target(filtered, remove_sensitive_variables(prepared)),
+  tar_target(checked_outcomes, check_outcomes(prepared)),
+  tar_target(filtered, remove_sensitive_variables(checked_outcomes)),
   tar_target(checked, check_ae_grading(filtered)),
   tar_target(country_data, split_by_country(checked)),
   tar_target(country_csvs, save_countries_to_csv(country_data, output_dir),
