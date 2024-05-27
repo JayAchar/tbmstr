@@ -1,9 +1,5 @@
 create_survival_table <- function(surv,
                                   times = c(300, 480, 660)) {
-  # FIXME: change labels to months and add spanning header and change "Overall"
-  # to "Cumulative probability"
-
-
   gtsummary::tbl_survfit(
     surv,
     times = times,
