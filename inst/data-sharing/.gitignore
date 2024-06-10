@@ -1,2 +1,4 @@
 output/*
 !output/.gitkeep
+dist/*
+!dist/.gitkeep

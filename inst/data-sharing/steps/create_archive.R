@@ -1,36 +1,38 @@
-create_archive <- function(output_dir, static_dir,
-                           file_name = "mstr-regional-data.zip") {
-  all_files <- list.files(file.path(
-    output_dir
-  ), full.names = TRUE, all.files = FALSE)
-
-  all_csv <- all_files[grep("*.csv", all_files)]
-
+create_archive <- function(build_dir,
+                           static_dir,
+                           output_dir,
+                           file_name = "mstr-regional.zip") {
   static_files <- list.files(file.path(
     static_dir
   ), full.names = TRUE, all.files = FALSE)
 
+  compiled <- list.files(file.path(
+    build_dir
+  ), full.names = TRUE, all.files = FALSE)
+
   utils::zip(
     zipfile = file.path(output_dir, file_name),
-    files = c(all_files, static_files),
-    extras = "-j"
+    files = c(static_files, compiled),
+    extras = "-jq"
   )
 
   # delete generated csv files
-  lapply(
-    all_csv, unlink
-  )
+  # unlink(build_dir, recursive = TRUE)
 
   return(file.path(output_dir, file_name))
 }
 
 
-create_country_archives <- function(output_dir, static_dir) {
-  all_dirs <- list.dirs(output_dir)
-  dirs <- all_dirs[all_dirs != output_dir]
+create_country_archives <- function(build_dir, output_dir, static_dir) {
+  all_dirs <- list.dirs(build_dir)
+  dirs <- all_dirs[
+    !all_dirs %in% c(build_dir, file.path(build_dir, "regional"))
+  ]
 
-  all_names <- list.dirs(output_dir, full.names = FALSE)
-  country_names <- all_names[all_names != ""]
+  all_names <- list.dirs(build_dir, full.names = FALSE)
+  country_names <- all_names[
+    !all_names %in% c("", "regional")
+  ]
 
   if (length(dirs) != 13) {
     stop("There should be 13 country-specific data directories")
@@ -46,18 +48,14 @@ create_country_archives <- function(output_dir, static_dir) {
       )
 
       create_archive(
-        dirs[dir_index], static_dir,
+        build_dir = dirs[dir_index],
+        output_dir = output_dir,
+        static_dir = static_dir,
         file_name = fn
       )
-
-      # move country archive to the output_dire
-      zip_file <- list.files(dirs[dir_index], full.names = TRUE)
-      file.rename(zip_file, file.path(dirname(dirname(zip_file)), fn))
     }
   )
 
-  # delete country-specific directories
-  lapply(dirs, file.remove)
 
   return(output_dir)
 }
