@@ -20,8 +20,14 @@ create_dictionary <- function(lst, var_df) {
 
   described <- attach_var_descriptions(tbl, var_df)
 
+  # attach custom descriptions
+  described <- update_dict_descriptions(
+    dict = described,
+    desc = updated_descriptions
+  )
+
   output_col_order <- c(
-    "table_name", "variable", "values", "type",
+    "table_name", "variable", "values", "format",
     "description"
   )
 

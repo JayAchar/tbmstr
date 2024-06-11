@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|d4984e3c368b8b7c|||||||||||||||
+.Random.seed|object|167fb77d2ef15dc0|||||||||||||||
 adjusted|stem|6a4996db5f00dbba|f174c54aac3b10e7|3c7e95f141b9295a|620771776||t19859.4525059296s|ef3bfb92d4df62bf|5104328|rds|local|vector|||0.005||
 adjustment_files|stem|1cef197d3197d06e|4cc1390126a59289|db92ba807e9fc328|-1410740080|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/adjustments|t19800.3506461859s|0ce3c220c282aef6|192|file|local|vector|||0||
 adjustments|stem|98f0e37861335706|6dd83ab7feb96010|a351e864c9900330|-391056118||t19859.4524608894s|74e9c122ac07e444|2867|rds|local|vector|||0.094||
@@ -12,7 +12,7 @@ apply_all_labels|function|e88a9af66a70df46|||||||||||||||
 apply_censoring|function|c4ed17ff32069e27|||||||||||||||
 apply_labels|function|957e834b0aceebdb|||||||||||||||
 apply_manual_adjustments|function|6acc2e860d9979c9|||||||||||||||
-archive|stem|c5d08b73e18c25b0|0ccd9ccc18af7224|30fe6426755153fd|-1503279279|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/mstr-regional.zip|t19884.5570878219s|2f6eddebdc0ec5dd|10055000|file|local|vector|||1.332||
+archive|stem|41ef46c4b3efa717|0ccd9ccc18af7224|ec80d83c2bf354bd|-1503279279|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output/mstr-regional.zip|t19885.4995280313s|f71d68a0063c22d1|11606167|file|local|vector|||1.379||
 attach_var_descriptions|function|e8069ed9034c6614|||||||||||||||
 base_dir|object|23c523ec787c5502|||||||||||||||
 build_dir|object|e1d96b62968a69ee|||||||||||||||
@@ -30,12 +30,12 @@ check_baseline_ae_grades|function|2b11c4ad3e09ca40|||||||||||||||
 check_baseline_lab_status|function|23b8d193aa58ddd5|||||||||||||||
 check_outcomes|function|55b29e2fee356f14|||||||||||||||
 check_terminal_negative_cultures|function|12019c96046d7273|||||||||||||||
-checked|stem|df933bc2ffa72192|750dce667e2366c7|aeaedd864b991887|-2074099955||t19870.3252051118s|549131632528258e|4911320|rds|local|vector|||0.288|317 missing grades detected|
+checked|stem|c58fdc37bad53aad|750dce667e2366c7|1151265e90e450b1|-2074099955||t19885.4957644862s|b3f00d798aaa04d9|4831516|rds|local|vector|||0.354|317 missing grades detected|
 checked_outcomes|stem|75dedd6f21bb03f0|1e60f51cb590e014|39750a64ed24ab1f|570197965||t19870.3251812669s|0a1c8b1848463f93|5159054|rds|local|vector|||0.312|no nonmissing arguments to min returning Inf. no nonmissing arguments to min returning Inf. no nonmissing arguments to min returning Inf. no nonmissing arguments to min returning Inf|
 combine_ae_grades|function|e8659ab24679b3ac|||||||||||||||
-country_archives|stem|49d715a720f25c07|21f3ca1ba8a25855|eb09fe487ca4978a|1021143927|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19884.5570711733s|e8ee744de869b984|52696638|file|local|vector|||2.175||
-country_csvs|stem|ca42558b23d8e343|12f795666a3a0cd5|ba3e2c73da09104b|193513160|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/dist|t19884.5570116335s|247b18644d9bffd6|113354354|file|local|vector|||2.415|coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistAzerbaijan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistArmenia already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistUkraine already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistBelarus already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistKyrgyzstan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistMoldova already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistUzbekistan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistLithuania already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistGeorgia already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistTajikistan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistKazakhstan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistTurkmenistan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistLatvia already exists|
-country_data|stem|b6da56727caff4ec|324c63626554685d|1aaba751cf023b04|1190291426||t19870.3252238731s|f3b77cd559cbd24b|5182064|rds|local|vector|||0.541||
+country_archives|stem|957d0e430c8dab95|21f3ca1ba8a25855|8e63b342f808a784|1021143927|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/output|t19885.4995104869s|91b8c18a94940ac3|64204018|file|local|vector|||2.859||
+country_csvs|stem|19e8a2de748a66f0|12f795666a3a0cd5|e97865e0e70ed208|193513160|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/dist|t19885.4994428332s|6dc1225cbb79f09d|112916142|file|local|vector|||2.601|coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistAzerbaijan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistArmenia already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistUkraine already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistBelarus already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistKyrgyzstan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistMoldova already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistUzbekistan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistLithuania already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistGeorgia already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistTajikistan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistKazakhstan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistTurkmenistan already exists. coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistLatvia already exists|
+country_data|stem|8850bbda3dad577a|324c63626554685d|c02d2d77d558be69|1190291426||t19885.4971165857s|9add896800d8a8db|5084272|rds|local|vector|||0.534||
 create_archive|function|27a5775becb7cb78|||||||||||||||
 create_binary_tx_outcome|function|930a9bba4bc8adbe|||||||||||||||
 create_cc_days|function|e2d376bf79945e9c|||||||||||||||
@@ -43,8 +43,8 @@ create_characteristics_by_follow_up|function|449ace9c82342b1d|||||||||||||||
 create_conversion_cohort|function|50f65a199e51349e|||||||||||||||
 create_conversion_variables|function|8a94515b64c64510|||||||||||||||
 create_country_archives|function|8f191c8c30e31d4b|||||||||||||||
-create_df_dictionary|function|834085ad8d9337f6|||||||||||||||
-create_dictionary|function|7b9a4a0462fa35a5|||||||||||||||
+create_df_dictionary|function|b7ee988c75feed14|||||||||||||||
+create_dictionary|function|47d81ddd7c40de3d|||||||||||||||
 create_eos_outcome|function|63a016dbc803a14f|||||||||||||||
 create_eot_outcome_table|function|5effe31d0a958a2d|||||||||||||||
 create_failure_cohort|function|a974bc5e29b5e414|||||||||||||||
@@ -68,11 +68,11 @@ create_table_labels|function|abcf204019923562|||||||||||||||
 create_tables|function|09a83794cd888cde|||||||||||||||
 create_text_objects|function|cf75005d00f0cb5d|||||||||||||||
 data_dir|object|054668198f65b7f4|||||||||||||||
-dictionary|stem|f1c5388994aacbd4|3212a7336052358e|ba7b89e6d3643099|386357845||t19870.3252068885s|69fdb7fecf55b38a|6274|rds|local|vector|||0.145||
+dictionary|stem|267576cb9f385858|3212a7336052358e|c7716980ea8b5f3b|386357845||t19885.4994071951s|89e8585b88f1d520|6972|rds|local|vector|||0.25||
 diff_days|function|cb736ecdc316833f|||||||||||||||
 factor_eos_outcome|function|848168a93d09dbae|||||||||||||||
 files|stem|84e435e7caec172e|af167f271a655c4c|304cc885a1dce4e9|-229912786|/Users/jayachar/Documents/dev/packages/tbmstr/data/regional_prepared/final_2023|t19783.384447927s|7c99faa47fac9def|576|file|local|vector|||0||
-filtered|stem|0c5c31ee3994f90a|b2da7b57c0e65e1c|5d38f3e389b81837|-292250703||t19870.3251914138s|1300af0449453123|4914739|rds|local|vector|||0.004||
+filtered|stem|4c81e7ed9db7a901|b2da7b57c0e65e1c|a86629d817daf76a|-292250703||t19885.4957503542s|365ce02120e545a6|4833685|rds|local|vector|||0.005||
 foo|stem|aeaec0e086ac5758|1930b024780260f5|ef46db3751d8e999|-156294383||t19783.5638928028s|3b53694aeea32e24|1225|rds|local|vector|||0.004||
 format_p_values|function|f6d97de54a4039b0|||||||||||||||
 global_dir|object|19edab36b9ae6c20|||||||||||||||
@@ -111,7 +111,7 @@ ready|function|8561ebc579590f86|||||||||||||||
 relevel_variables|function|9fff9803f90656f6|||||||||||||||
 relevel_vars|function|0083ee356fd63727|||||||||||||||
 remove_invalid_records|function|0502a826a940325c|||||||||||||||
-remove_sensitive_variables|function|ba9f09846ae31762|||||||||||||||
+remove_sensitive_variables|function|bf83979ded01c9b8|||||||||||||||
 remove_withdrawn_subjects|function|a095bc67371ab7a4|||||||||||||||
 render|function|5113acf462b11ff3|||||||||||||||
 render_follow_up|function|f1073fd13f65a7a1|||||||||||||||
@@ -124,14 +124,17 @@ run_quality_check|function|90dd51b3e4ec6fe4|||||||||||||||
 run_tutorial|function|3bac2e1d487c1fff|||||||||||||||
 save_as_csv|function|17c4431472baf1bd|||||||||||||||
 save_countries_to_csv|function|62ea58d88478f96d|||||||||||||||
-save_data|stem|ca42558b23d8e343|831ae0085f009a04|9b4778555b225538|-934457909|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/dist|t19884.5570452064s|247b18644d9bffd6|113354354|file|local|vector|||2.522|coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistregional already exists|
+save_data|stem|19e8a2de748a66f0|831ae0085f009a04|83ddd103dd79be77|-934457909|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/dist|t19885.4994763931s|6dc1225cbb79f09d|112916142|file|local|vector|||2.825|coercing argument of type list to logical. UsersjayacharDocumentsdevpackagestbmstrinstdatasharingdistregional already exists|
 save_dictionary|function|4a0a94365ea50bdc|||||||||||||||
 save_plots|function|3a2a1aa840aeeba5|||||||||||||||
-saved|stem|ca42558b23d8e343|23c9d7906efcb3f4|941fab593768870a|1295446722|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/dist|t19884.5570717293s|247b18644d9bffd6|113354354|file|local|vector|||0.008||
+saved|stem|9238fb36f6afa899|23c9d7906efcb3f4|acbf8ab2a215dabb|1295446722|/Users/jayachar/Documents/dev/packages/tbmstr/inst/data-sharing/dist|t19885.4995112814s|7db3f98f8bfc2974|112916114|file|local|vector|||0.012||
 split_by_country|function|c9df02c2b77c340c|||||||||||||||
 steps_dir|object|5c81cd34c1edb945|||||||||||||||
 summarise_country_follow_up|function|917df7aaceb0b6d7|||||||||||||||
 summarise_follow_up|function|2569dd80d6fa8bcb|||||||||||||||
 transform_to_date|function|2ba067273f1b15f3|||||||||||||||
+update_dict|function|ea92ff95cc426421|||||||||||||||
+update_dict_descriptions|function|6e4eac1b7f87dd71|||||||||||||||
+updated_descriptions|object|14c378a965e4037b|||||||||||||||
 var_df|stem|182f5bd619e236da|d29f62debd4a277e|2433352ca5d89089|910564370||t19859.452459765s|f5763e632ff60e97|26943|rds|local|vector|||0.002||
 var_df_file|stem|9f7a7822ac614c50|e451caa10b56a622|3d4fd656679d4cf4|-908304646|/Users/jayachar/Documents/dev/packages/tbmstr/inst/global/lookup/vars.csv|t19513.4074776476s|b6bc60842b6150e9|90782|file|local|vector|||0.006||

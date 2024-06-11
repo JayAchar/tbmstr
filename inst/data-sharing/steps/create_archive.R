@@ -16,9 +16,6 @@ create_archive <- function(build_dir,
     extras = "-jq"
   )
 
-  # delete generated csv files
-  # unlink(build_dir, recursive = TRUE)
-
   return(file.path(output_dir, file_name))
 }
 
