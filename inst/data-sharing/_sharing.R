@@ -21,6 +21,7 @@ data_dir <- here::here("data", "regional_prepared", "final_2023")
 base_dir <- here::here("inst", "data-sharing")
 steps_dir <- file.path(base_dir, "steps")
 output_dir <- file.path(base_dir, "output")
+build_dir <- file.path(base_dir, "dist")
 adjustments_dir <- file.path(global_dir, "adjustments")
 lookup_dir <- file.path(global_dir, "lookup")
 
@@ -50,27 +51,37 @@ list(
   tar_target(filtered, remove_sensitive_variables(checked_outcomes)),
   tar_target(checked, check_ae_grading(filtered)),
   tar_target(country_data, split_by_country(checked)),
-  tar_target(country_csvs, save_countries_to_csv(country_data, output_dir),
+  tar_target(country_csvs, save_countries_to_csv(country_data, build_dir),
     format = "file"
   ),
-  tar_target(save_data, save_as_csv(checked, output_dir),
-    format = "file"
+  tar_target(save_data, save_as_csv(
+    checked,
+    country_csvs,
+    dir_name = "regional"
+  ),
+  format = "file"
   ),
   tar_target(dictionary, create_dictionary(checked, var_df)),
   tar_target(saved, save_dictionary(
     dictionary,
-    file.path(output_dir, "dictionary.csv")
+    build_dir = save_data
   ),
   format = "file"
   ),
   tar_target(archive, create_archive(
-    save_data,
-    file.path(base_dir, "static")
+    build_dir = file.path(save_data, "regional"),
+    file.path(base_dir, "static"),
+    output_dir = output_dir
   ),
   format = "file"
   ),
   tar_target(
     country_archives,
-    create_country_archives(save_data, file.path(base_dir, "static"))
+    create_country_archives(
+      build_dir = country_csvs,
+      output_dir = output_dir,
+      static_dir = file.path(base_dir, "static")
+    ),
+    format = "file"
   )
 )

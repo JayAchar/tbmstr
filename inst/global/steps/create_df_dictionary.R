@@ -29,7 +29,7 @@ create_df_dictionary <- function(df, df_name) {
           data.frame(
             table_name = df_name,
             variable = var,
-            type = "categorical",
+            format = "categorical",
             description = description,
             values = values
           )
@@ -41,7 +41,7 @@ create_df_dictionary <- function(df, df_name) {
         data.frame(
           table_name = df_name,
           variable = var,
-          type = types[[var_type]],
+          format = types[[var_type]],
           description = description,
           values = ""
         )
